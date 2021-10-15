@@ -43,7 +43,7 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<ProductReviewApiResponse> delete(@PathVariable(name="idx") Long idx) {
+    public Header delete(@PathVariable(name="idx") Long idx) {
         return productReviewService.delete(idx);
     }
 

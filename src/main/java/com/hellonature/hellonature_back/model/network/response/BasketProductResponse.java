@@ -5,18 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BasketApiResponse {
+public class BasketProductResponse {
     private Long idx;
-
-    private Long memIdx;
-    private Long proIdx;
-
-    private Integer proCount;
-    private LocalDateTime regdate;
+    private String name;
+    private Integer netPrice;
+    private Integer salePrice;
+    private Integer price;
+    private String img;
+    private Integer count;
 }

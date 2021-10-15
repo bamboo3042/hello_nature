@@ -5,9 +5,12 @@ import com.hellonature.hellonature_back.model.entity.Basket;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.BasketApiRequest;
 import com.hellonature.hellonature_back.model.network.response.BasketApiResponse;
+import com.hellonature.hellonature_back.model.network.response.BasketResponse;
 import com.hellonature.hellonature_back.service.BasketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/basket")
@@ -38,5 +41,16 @@ public class BasketApiController extends CrudController<BasketApiRequest, Basket
     @DeleteMapping("/delete/{idx}")
     public Header<BasketApiResponse> delete(Long idx) {
         return basketService.delete(idx);
+    }
+
+    @GetMapping("/member/list")
+    public Header<BasketResponse> memberList(@RequestParam(name = "memIdx") Long memIdx,
+                                             @RequestParam(name = "proIdx", required = false) Long proIdx){
+        return basketService.memberList(memIdx, proIdx);
+    }
+
+    @GetMapping("/nonMember/list")
+    public Header<BasketResponse> nonMemberList(@RequestParam(name = "proList")List<Long> proList){
+        return basketService.nonMemberList(proList);
     }
 }

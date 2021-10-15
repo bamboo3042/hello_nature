@@ -1,5 +1,6 @@
 package com.hellonature.hellonature_back.model.network.response;
 
+import com.hellonature.hellonature_back.model.enumclass.Flag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +12,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BasketApiResponse {
+public class BasketAddressResponse {
     private Long idx;
-
-    private Long memIdx;
-    private Long proIdx;
-
-    private Integer proCount;
+    private String addrName;
+    private String zipcode;
+    private String addr1;
+    private String addr2;
+    private Flag dawnFlag;
+    private Flag baseFlag;
+    private Flag greenFlag;
     private LocalDateTime regdate;
 }

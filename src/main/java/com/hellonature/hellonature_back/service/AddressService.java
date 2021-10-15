@@ -198,5 +198,4 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
         }
         return Header.OK(list);
     }
-
 }
