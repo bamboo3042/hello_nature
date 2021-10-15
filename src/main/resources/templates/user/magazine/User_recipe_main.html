@@ -1,0 +1,335 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- head -->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloNature-Magazine-Recipe-Main</title>
+    <link rel="stylesheet" th:href="@{/user/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/user/css/magazine.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+</head>
+<!-- head 끝 -->
+
+<body>
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <div th:replace="/user/fragment/header::header"></div>
+        <!-- header 끝 -->
+
+        <!-- main -->
+        <main>
+            <!-- 세부 카테고리 -->
+            <div id="prod_category_wrap">
+                <div class="prod_category_box">
+                    <div class="prod_cate_tit">매거진</div>
+                    <ul class="prod_cate_list">
+                        <li class="prod_cate">전체</li><!--
+                         --><li class="prod_cate">레시피</li><!--
+                         --><li class="prod_cate">탐험노트</li><!--
+                         --><li class="prod_cate">라이프스타일</li><!--
+                         --><li class="prod_cate">키친가이드</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 세부 카테고리 끝 -->
+
+            <!-- magazine_content -->
+            <section id="magazine_content" class="clearfix">
+                <!-- 레시피 게시판 (2 column layout) -->
+                <div class="board_wrap clearfix width">
+                    <ul class="rec_brd_box board_box">
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">40분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <a th:href="@{'/magazine/recipe_content/'+${idx}}">
+                                        <img src="/user/images/magazine/recipe_main/20201104164455348.jpg" alt="">
+                                    </a>
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20200820151621895.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20200820161429138.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20200909115941278.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20201008121605199.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20201021135100098.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt="" class="heartBtn"></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt="" class="heartBtn"></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20200707170200917.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                        <li class="rec_brd_list board_list">
+                            <label>
+                                <!-- 난이도, 요리시간 아이콘 -->
+                                <div class="rec_mod">
+                                    <p class="rec_time">
+                                        <span class="rec_time_img"><img src="/user/images/magazine/main/time.png" alt=""></span>
+                                        <span class="rec_time_txt">30분</span>
+                                    </p>
+                                    <p class="rec_grade">
+                                        <span class="rec_grade_img"><img src="/user/images/magazine/main/grade.png" alt=""></span>
+                                        <span class="rec_grade_txt">중급</span>
+                                    </p>
+                                </div>
+                                <!-- # 난이도, 요리시간 아이콘 -->
+                                <!-- 레시피 대표 이미지 -->
+                                <div class="rec_image board_image">
+                                    <img src="/user/images/magazine/recipe_main/20201201122330848.jpg" alt="">
+                                </div>
+                                <!-- # 레시피 대표 이미지 -->
+                                <!-- 레시피 정보 -->
+                                <div class="rec_brd_info board_info">
+                                    <div class="rec_brd_name board_name">레시피 제목</div>
+                                    <div class="rec_brd_like board_like">
+                                        <div class="board_like_img"></div>
+                                        <div class="board_like_cnt">0</div>
+                                    </div>
+                                    <div class="rec_brd_txt board_text clearfix">레시피 설명</div>
+                                </div>
+                                <!-- # 레시피 정보 -->
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 레시피 게시판 (2 column layout) 끝 -->
+
+                <!-- pagination -->
+                <div class="pagination">
+                    <div class="page_first"><img src="/user/images/magazine/main/pagination_first.png"></div>
+                    <div class="page_prev"><img src="/user/images/magazine/main/pagination_prev.png"></div>
+                    <div class="page_num">1</div>
+                    <div class="page_num">2</div>
+                    <div class="page_num">3</div>
+                    <div class="page_num">4</div>
+                    <div class="page_num">5</div>
+                    <div class="page_num">6</div>
+                    <div class="page_num">7</div>
+                    <div class="page_next"><img src="/user/images/magazine/main/pagination_next.png"></div>
+                    <div class="page_last"><img src="/user/images/magazine/main/pagination_last.png"></div>
+                </div>
+                <!-- pagination 끝 -->
+            </section>
+            <!-- magazine_content 끝 -->
+        </main>
+        <!-- main 끝 -->
+
+        <!-- footer -->
+        <!--footer thymeleaf-->
+        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+        <div th:replace="/user/fragment/footer::footer"></div>
+        <!-- footer 끝 -->
+
+        <!-- aside -->
+        <!-- aside 끝 -->
+    </div>
+    <!-- container 끝 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/magazine.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>

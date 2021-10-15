@@ -1,0 +1,292 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- head -->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloNature-Magazine-LifeStyle-Content</title>
+    <link rel="stylesheet" th:href="@{/user/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/magazine.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+</head>
+<!-- head 끝 -->
+
+<body>
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <div th:replace="/user/fragment/header::header"></div>
+        <!-- header 끝 -->
+
+        <!-- main -->
+        <main>
+            <!-- magazine_content -->
+            <section id="magazine_content" class="clearfix">
+                <div id="life_title" class="mg_cont_tit width clearfix">라이프스타일</div>
+
+                <!-- html box -->
+                <div id="life_cont_box" class="width">
+                    <!-- HTML 이미지/글 -->
+                    <div class="life_cont_html01 life_cont_html">
+                        <img src="./images/note0.png" alt="">
+                        <p><span>친구 추천으로 함께하는<br><span>더그린 라이프!</span></span><br><br>한 명의 더그리너가 친구에게, 또 다른 친구에게. 더그린 친구 추천으로 친구 모두 더그린 라이프를 누립니다. 쓰고 또 쓰는 더그린박스로 환경에 대한 부담 없이 더 빠르고 편리한 새벽배송 생활을요. 더그리너 네 친구의 캠핑 이야기.<br>
+                            지천이 그린그린 하지만 마냥 만끽할 수 없는 요즘. 직장에서 만나 어느덧 15년 지기가 된 네 친구가 함께 소소한 캠핑을 즐기기로 했습니다. 경기도 용인에 자리한 이정수 님의 집마당에서요. 캠핑 준비는 최대한 간소화하기로 했습니다. 혹시라도 음식이 남으면 그게 또 다 쓰레기가 되니까요. 네 친구 모두 환경에 대한 관심이 남다르다더니 역시는 역시입니다.
+                        </p>
+                    </div>
+                    <!-- 4단 레이아웃 -->
+                    <div class="life_four_column_layout">
+                        <div class="inner_layout_box">
+                            <!-- inner_layout01 -->
+                            <div class="inner_layout01">
+                                <div class="life_cont_html02 life_cont_html">
+                                    <img src="./images/note1.png" alt="">
+                                    <p>다들 일과 육아로 바빠 오늘 마당 캠핑에 필요한 음식은 새벽 더그린배송으로 받았습니다. 캠핑 메뉴도 요리에 딱 필요한 재료와 분량만 담은 밀키트 위주로 구성했고요.
+                                        참고로 네 친구는 모두 헬로네이처의 친환경 더그린배송을 이용하는 ‘더그리너’입니다. 헬로네이처에서 서비스 기획자로 일하는 김주연 님이 입사 전 제일 먼저 더그리너가 되었고, 더그린 친구 추천 이벤트를 통해 나머지 세 명의 친구를 차례차례 더그린 라이프로 끌어들였죠.<br><br>
+                                        다들 일과 육아로 바빠 오늘 마당 캠핑에 필요한 음식은 새벽 더그린배송으로 받았습니다. 캠핑 메뉴도 요리에 딱 필요한 재료와 분량만 담은 밀키트 위주로 구성했고요.
+                                        참고로 네 친구는 모두 헬로네이처의 친환경 더그린배송을 이용하는 ‘더그리너’입니다. 헬로네이처에서 서비스 기획자로 일하는 김주연 님이 입사 전 제일 먼저 더그리너가 되었고, 더그린 친구 추천 이벤트를 통해 나머지 세 명의 친구를 차례차례 더그린 라이프로 끌어들였죠. 다들 일과 육아로 바빠 오늘 마당 캠핑에 필요한 음식은 새벽 더그린배송으로 받았습니다. 캠핑 메뉴도 요리에 딱 필요한 재료와 분량만 담은 밀키트 위주로 구성했고요.
+                                        참고로 네 친구는 모두 헬로네이처의 친환경 더그린배송을 이용하는 ‘더그리너’입니다. 헬로네이처에서 서비스 기획자로 일하는 김주연 님이 입사 전 제일 먼저 더그리너가 되었고, 더그린 친구 추천 이벤트를 통해 나머지 세 명의 친구를 차례차례 더그린 라이프로 끌어들였죠.
+                                    </p>
+                                </div>
+                                <div class="life_cont_html03 life_cont_html">
+                                    <img src="./images/note2.png" alt="">
+                                    <p>다들 일과 육아로 바빠 오늘 마당 캠핑에 필요한 음식은 새벽 더그린배송으로 받았습니다. 캠핑 메뉴도 요리에 딱 필요한 재료와 분량만 담은 밀키트 위주로 구성했고요.
+                                        참고로 네 친구는 모두 헬로네이처의 친환경 더그린배송을 이용하는 ‘더그리너’입니다. 헬로네이처에서 서비스 기획자로 일하는 김주연 님이 입사 전 제일 먼저 더그리너가 되었고, 더그린 친구 추천 이벤트를 통해 나머지 세 명의 친구를 차례차례 더그린 라이프로 끌어들였죠.<br><br>더그린배송을 가장 먼저 시작한 건 김주연 님입니다. 새벽배송은 편리했지만, 쌓여가는 박스에 환경에 대한 죄책감이 생겼거든요. 매끈한 종이박스를 얻으려 멀쩡한 나무가 베어지고, 재활용은 허울 뿐 결국 쓰레기로 버려진다는 사실도 알게 됐고요. 때문에 2019년 당시로선 유일무이하던 재사용 개념의 더그린배송을 선택했고, 열혈 팬이 되어 헬로네이처에 입사까지 했습니다.
+                                        더그린박스는 배송 외에도 요모조모 쓸모가 많다는데요. 쌀포대와 자투리천으로 만들어 튼튼한데다 보냉력도 뛰어나 수납함으로, 오늘처럼 캠핑 아이스박스로 활용합니다. 즐거움만 오조 오억 개, 친구 추천 이벤트를 시작하자마자 더그린배송을 강력 전파하는 이유라죠.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- inner_layout01 끝 -->
+                            <!-- inner_layout02 -->
+                            <div class="inner_layout02">
+                                <div class="life_cont_html04 life_cont_html">
+                                    <img src="./images/note3.png" alt="">
+                                    <p class="life_cont_text">더그린배송을 가장 먼저 시작한 건 김주연 님입니다. 새벽배송은 편리했지만, 쌓여가는 박스에 환경에 대한 죄책감이 생겼거든요. 매끈한 종이박스를 얻으려 멀쩡한 나무가 베어지고, 재활용은 허울 뿐 결국 쓰레기로 버려진다는 사실도 알게 됐고요. 때문에 2019년 당시로선 유일무이하던 재사용 개념의 더그린배송을 선택했고, 열혈 팬이 되어 헬로네이처에 입사까지 했습니다.
+                                        더그린박스는 배송 외에도 요모조모 쓸모가 많다는데요. 쌀포대와 자투리천으로 만들어 튼튼한데다 보냉력도 뛰어나 수납함으로, 오늘처럼 캠핑 아이스박스로 활용합니다. 즐거움만 오조 오억 개, 친구 추천 이벤트를 시작하자마자 더그린배송을 강력 전파하는 이유라죠.</p>
+                                </div>
+                                <div class="life_cont_html05 life_cont_html">
+                                    <img src="./images/note4.png" alt="">
+                                    <p>더그린배송을 가장 먼저 시작한 건 김주연 님입니다. 새벽배송은 편리했지만, 쌓여가는 박스에 환경에 대한 죄책감이 생겼거든요. 매끈한 종이박스를 얻으려 멀쩡한 나무가 베어지고, 재활용은 허울 뿐 결국 쓰레기로 버려진다는 사실도 알게 됐고요. 때문에 2019년 당시로선 유일무이하던 재사용 개념의 더그린배송을 선택했고, 열혈 팬이 되어 헬로네이처에 입사까지 했습니다.
+                                        더그린박스는 배송 외에도 요모조모 쓸모가 많다는데요. 쌀포대와 자투리천으로 만들어 튼튼한데다 보냉력도 뛰어나 수납함으로, 오늘처럼 캠핑 아이스박스로 활용합니다. 즐거움만 오조 오억 개, 친구 추천 이벤트를 시작하자마자 더그린배송을 강력.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- inner_layout02 끝-->
+                        </div>
+                        <!--레이아웃 박스 끝 -->
+                    </div>
+                    <!-- 4단 레이아웃 끝 -->
+                    <!-- 4단 레이아웃 끝 -->
+
+                    <div class="life_cont_html06 life_cont_html">
+                        <img src="./images/note5.png" alt="">
+                        <p>김주연 님이 두 번째로 ‘포섭’한 친구는 프리랜서 작가이자 두 아이의 엄마인 이은주 님입니다. 요리를 즐기지는 않지만 가족의 건강을 위해 식재료만큼은 깐깐하게 고르죠. 어릴 적 전원에서 자라며 맛봤던 자연 재료들이 지금의 기준을 만들었습니다. 평소 나물, 채소 같은 신선식품을 많이 구매하는데요. 다양한 식재료를 구매하다 보니, 아침마다 상온·냉장·냉동 따로따로 배송 박스를 풀어 정리하는 일이 여간 피곤한 게 아니었죠. 지난 달 더그린배송을 이용한 뒤로 아침의 수고를 한결 덜 수 있었습니다. 모든 식재료가 한 박스에 담겨 오고 지퍼만 열면 정리도 바로바로죠. 자연스레 환경에도 도움 된다니 그야말로 일석이조입니다. 추천 고맙다, 주연아!<br><br>
+                            워킹맘 이은아 님은 요리 전공자지만 바쁜 일상 탓에 완조리 식품인 HMR 제품을 즐겨 주문하는데요. 요리에 들이는 시간과 노력을 줄여줘 가족과 더 많은 시간을 보낼 수 있어 만족스럽다고 합니다.
+                            이은아 님 역시 김주연 님의 추천으로 이달에 더그리너로 합류했는데요. 더그린배송의 경우 매달 내야 하는 사용료가 아닌 탈퇴 시 돌려 받을 수 있는 보증금 제도라 부담이 덜했고, 주연 님의 친구 추천으로 보증금 5,000원도 면제 받았습니다. 럭키! 더그린박스는 싱그러운 초록색의 디자인이 마음에 들어, 개인적으로 하나 소장하고 싶은 마음마저 든다고 합니다. 요즘 HMR이 정말 다양하게 잘 나오니 입맛대로 주문해 더그린박스 그대로 캠핑 가면 좋겠다고요.
+                        </p>
+                    </div>
+                    <div class="life_two_column_layout">
+                        <div class="life_cont_html07 life_cont_html">
+                            <img src="./images/note6.png" alt="">
+                            <p><span>함께해요
+                      더그린 라이프!</span><br><br>네 친구의 더그린한 라이프, 잘 보셨나요? 새벽배송의 간편함에 환경에 대한 배려까지 갖춘 더그린배송. 소중한 친구들에게 가뿐하게 추천해보세요! 친구들아, 오늘부터 우리 1일이다. 더그린 라이프 1일!<br><br>
+                                이은아 님 역시 김주연 님의 추천으로 이달에 더그리너로 합류했는데요. 더그린배송의 경우 매달 내야 하는 사용료가 아닌 탈퇴 시 돌려 받을 수 있는 보증금 제도라 부담이 덜했고, 주연 님의 친구 추천으로 보증금 5,000원도 면제 받았습니다. 럭키! 더그린박스는 싱그러운 초록색의 디자인이 마음에 들어, 개인적으로 하나 소장하고 싶은 마음마저 든다고 합니다. 요즘 HMR이 정말 다양하게 잘 나오니 입맛대로 주문해 더그린박스 그대로 캠핑 가면 좋겠다고요.
+                            </p>
+                        </div>
+                        <div class="life_cont_html08 life_cont_html">
+                            <img src="./images/note7.png" alt="">
+                            <p>친구의 더그린한 라이프, 잘 보셨나요? 새벽배송의 간편함에 환경에 대한 배려까지 갖춘 더그린배송. 소중한 친구들에게 가뿐하게 추천해보세요! 친구들아, 오늘부터 우리 1일이다. 더그린 라이프 1일!
+                            </p>
+                        </div>
+                    </div>
+                    <!-- HTML 이미지/글 끝-->
+                </div>
+                <!-- # html box -->
+
+                <!-- 관련상품 (4 column slide) -->
+                <div class="content_item width clearfix">
+                    <p>관련상품</p>
+                    <div class="cont_item_controls">
+                        <div class="cont_item_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                        <div class="cont_item_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                    </div>
+                    <div class="cont_item_wrap">
+                        <ul class="cont_item_box">
+                            <li class="cont_item">
+                                <div class="cont_item_ico">
+                                    <span class="cont_item_dc">10%</span>
+                                </div>
+                                <!-- item -->
+                                <div class="cont_item_item">
+                                    <div class="cont_item_img">
+                                        <a href="/product">
+                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- item_info -->
+                                    <div class="cont_item_info">
+                                        <div class="cont_item_title">
+                                            <a href="/product">
+                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
+                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
+                                            </a>
+                                        </div>
+                                        <div class="cont_item_basket">
+                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
+                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
+                                        </div>
+                                    </div>
+                                    <!-- # item_info -->
+                                </div>
+                                <!-- # item -->
+                            </li>
+                            <li class="cont_item">
+                                <div class="cont_item_ico">
+                                    <span class="cont_item_dc">10%</span>
+                                </div>
+                                <!-- item -->
+                                <div class="cont_item_item">
+                                    <div class="cont_item_img">
+                                        <a href="/product">
+                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- item_info -->
+                                    <div class="cont_item_info">
+                                        <div class="cont_item_title">
+                                            <a href="/product">
+                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
+                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
+                                            </a>
+                                        </div>
+                                        <div class="cont_item_basket">
+                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
+                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
+                                        </div>
+                                    </div>
+                                    <!-- # item_info -->
+                                </div>
+                                <!-- # item -->
+                            </li>
+                            <li class="cont_item">
+                                <div class="cont_item_ico">
+                                    <span class="cont_item_dc">10%</span>
+                                </div>
+                                <!-- item -->
+                                <div class="cont_item_item">
+                                    <div class="cont_item_img">
+                                        <a href="/product">
+                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- item_info -->
+                                    <div class="cont_item_info">
+                                        <div class="cont_item_title">
+                                            <a href="/product">
+                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
+                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
+                                            </a>
+                                        </div>
+                                        <div class="cont_item_basket">
+                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
+                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
+                                        </div>
+                                    </div>
+                                    <!-- # item_info -->
+                                </div>
+                                <!-- # item -->
+                            </li>
+                            <li class="cont_item">
+                                <div class="cont_item_ico">
+                                    <span class="cont_item_dc">10%</span>
+                                </div>
+                                <!-- item -->
+                                <div class="cont_item_item">
+                                    <div class="cont_item_img">
+                                        <a href="/product">
+                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- item_info -->
+                                    <div class="cont_item_info">
+                                        <div class="cont_item_title">
+                                            <a href="/product">
+                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
+                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
+                                            </a>
+                                        </div>
+                                        <div class="cont_item_basket">
+                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
+                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
+                                        </div>
+                                    </div>
+                                    <!-- # item_info -->
+                                </div>
+                                <!-- # item -->
+                            </li>
+                            <li class="cont_item">
+                                <div class="cont_item_ico">
+                                    <span class="cont_item_dc">10%</span>
+                                </div>
+                                <!-- item -->
+                                <div class="cont_item_item">
+                                    <div class="cont_item_img">
+                                        <a href="/product">
+                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- item_info -->
+                                    <div class="cont_item_info">
+                                        <div class="cont_item_title">
+                                            <a href="/product">
+                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
+                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
+                                            </a>
+                                        </div>
+                                        <div class="cont_item_basket">
+                                          <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
+                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
+                                        </div>
+                                    </div>
+                                    <!-- # item_info -->
+                                </div>
+                                <!-- # item -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 관련상품 (4 column slide) 끝 -->
+
+                <!-- 좋아요 -->
+                <div class="cont_like width">
+                    <p class="cont_like_img"></p>
+                    <p class="cont_like_cnt">0</p>
+                    <p>어떠셨나요?</p>
+                    <p>마음에 드셨다면 좋아요로 모아볼 수 있어요!</p>
+                </div>
+                <!-- 좋아요 끝 -->
+
+                <!-- 목록버튼 -->
+                <div class="board_page_btn width">
+                    <input type="button" value="목록" id="backBtn">
+                </div>
+                <!-- 목록버튼 끝 -->
+            </section>
+            <!-- magazine_content 끝 -->
+        </main>
+        <!-- main 끝 -->
+
+        <!--footer thymeleaf-->
+        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+        <div th:replace="/user/fragment/footer::footer"></div>
+
+    </div>
+    <!-- container 끝 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/user/js/common_MJ.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/content.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>

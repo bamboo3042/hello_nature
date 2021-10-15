@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="section">
+<link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/section.css}">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $(function (){
+        let urlidx = $("#section_hidden").val()
+
+        axios.get("/api/member/myPage/" + urlidx, {}).then(function (response){
+            let idx = response.data.data.idx;
+            let name = response.data.data.name;
+            let hellocash = response.data.data.hellocash;
+            let couponCount = response.data.data.couponCount;
+            let hellopayFlag = response.data.data.hellopayFlag;
+            let hellpayFlag = response.data.data.hellopassFlag;
+            if(hellopayFlag != null){
+                $("#hellopay_value").val("이용중")
+            }else{
+                $("#hellopay_value").val("미가입")
+            }
+
+            if(hellpayFlag === "FALSE"){
+                $("#mem_helloPass").val("미가입")
+            }else{
+                $("#mem_helloPass").val("이용중")
+            }
+            $("#mem_name").text(name + "님")
+            $("#mem_hellocash").text(hellocash + " cash")
+            $(".coupon_total").text(couponCount + " 개")
+        })
+    })
+</script>
+    <!-- section 시작 -->
+    <div class="section" id="section_article">
+        <div class="section_mypage">
+            <input type="hidden" th:value="${session['idx']}" id="section_hidden">
+            <div class="section_mypage_div">
+                <div class="section_mypage_hello">
+                    <div class="hello_info">
+                        <p>반가워요.<a href="/user/mypage_orderlist"><span class="name" id="mem_name"></span></a></p>
+                    </div>
+                    <div class="hello_percent">
+                        <p><span>적립 1%</span></p>
+                    </div>
+                </div>
+                <div class="section_mypage_hellocash">
+                    <div class="hellocash">
+                        <a href="/user/mypage_hellocash"><p class="section_name" id="hellocash_val">헬로캐시</p></a>
+                    </div>
+                    <div class="hellocash_total">
+                        <p id="mem_hellocash"></p>
+                    </div>
+                </div>
+                <div class="section_mypage_coupon">
+                    <div class="coupon">
+                        <a href="/user/mypage_coupon"><p class="section_name" id="coupon_val">쿠폰</p></a>
+                    </div>
+                    <div class="coupon_total">
+                        <p></p>
+                    </div>
+                </div>
+                <div class="section_mypage_hellopay">
+                    <div class="hellopay">
+                        <a href="/user/mypage_hellopay"><p class="section_name" id="hellopay_val">헬로페이</p></a>
+                    </div>
+                    <div class="hellopay_button">
+                        <input type="button" name="hellopay" class="section_bar" id="hellopay_value">
+                    </div>
+                </div>
+                <div class="section_mypage_hellopass">
+                    <div class="hellopass">
+                        <a href="/user/mypage_hellopass"><p class="section_name" id="hellopass_val">헬로패스</p></a>
+                    </div>
+                    <div class="hellopass_button">
+                        <input type="button" name="hellopay" id="mem_helloPass" class="section_bar">
+                    </div>
+                </div>
+            </div>
+            <!-- 배너 페이지 시작 -->
+            <div class="section_banner">
+                <a href="#"><img src="/user/images/mypage.img/section_banner.png"></a>
+            </div>
+            <!-- 배너 페이지 끝 -->
+        </div>
+    <!-- section 끝 -->
+    </div>
+</body>
+</html>

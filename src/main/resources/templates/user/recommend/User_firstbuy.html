@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head -->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloNature-Recommend-fresh</title>
+    <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+</head>
+<!-- head 끝 -->
+<body>
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <div th:replace="/user/fragment/header::header"></div>
+        <!-- header 끝 -->
+
+        <!-- main -->
+        <main>
+            <!-- fresh content -->
+            <div id="recommend_wrapper">
+                <div id="recommend_content">
+                    <div class="page_article">
+                        <!-- 첫 구매 타이틀 -->
+                        <div class="benefit_title">
+                            <div class="benefit_img">
+                                <img src="/user/images/recommend/firstbuy/benefit_title_img.webp" alt="">
+                            </div>
+                            <div class="benefit_text">
+                                <strong>헬로!</strong>
+                                <h2>
+                                    처음 만난<br>
+                                    고객님을 위한<br>
+                                    <span>첫 구매 혜택</span>
+                                </h2>
+                                <ul>
+                                    <li>
+                                        5,000원<br>
+                                        할인쿠폰
+                                    </li>
+                                    <li>
+                                        인기상품<br>
+                                        100원부터
+                                    </li>
+                                    <li>
+                                        첫 구매<br>
+                                        무료배송
+                                    </li>
+                                    <li>
+                                        3개월<br>
+                                        무료배송
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 첫 구매 타이틀 끝 -->
+
+                        <!-- 혜택1 -->
+                        <div class="benefit_div benefit1">
+                            <strong>혜택 1</strong>
+                            <h3>5,000원 할인쿠폰</h3>
+                            <p class="benefit_text">
+                                회원가입과 동시에 5,000원 할인쿠폰을 지급해드립니다. 마이페이지>쿠폰에서 확인하세요.
+                            </p>
+                            <div class="benefit_img">
+                                <img src="/user/images/recommend/firstbuy/benefit_no01_img.webp" alt="">
+                            </div>
+                            <p class="benefit_stext">
+                                15,000원 이상 구매 시 사용가능<br>
+                                *일부 상품 적용 제외
+                            </p>
+                            <div class="benefit_btn">
+                                <a href="/mypage_userRegist" class="btn1">가입하고 쿠폰받기</a>
+                            </div>
+                        </div>
+                        <!-- 혜택1 끝 -->
+
+                        <!-- 혜택2 -->
+                        <div class="benefit_div benefit2">
+                            <strong>혜택 2</strong>
+                            <h3>첫 구매 상품 <span>100원</span></h3>
+                            <p class="benefit_text">
+                                가입 후 7일 이내 첫 구매라면, 인기상품을 100원에 살 수 있습니다.
+                            </p>
+                            <!-- 상품 리스트 -->
+                            <div class="benefit_product">
+
+                            </div>
+                            <!-- 유의 사항 -->
+                            <div class="benefit_noti">
+                                <dl>
+                                    <dt>유희사항</dt>
+                                    <dd>본 이벤트는 위 상품을 포함해 주문 금액이 1만원 이상일 때, 구매 가능합니다.</dd>
+                                    <dd>본 이벤트는 회원가입 후 7일 이내 첫 구매 주문 시에만 적용 가능합니다.</dd>
+                                    <dd>본 이벤트 상품은 조기 품절될 수 있으며 품절 시 이벤트에서 제외됩니다.</dd>
+                                    <dd>본 이벤트는 당사 정책에 따라 내용이 변동되거나 조기 종료할 수 있습니다.</dd>
+                                    <dd>본 이벤트는 신규 회원 1인당 1개 상품만 구매 가능합니다.</dd>
+                                    <dd>본 이벤트를 부정한 방법으로 1인당 1회 이상 이용 시, 당사 정책에 따라 첫 구매 혜택이 제한됩니다.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <!-- 혜택2 끝 -->
+
+                        <!-- 혜택3 -->
+                        <div class="benefit_div benefit3">
+                            <strong>혜택 3</strong>
+                            <h3>첫 구매 무료배송</h3>
+                            <p class="benefit_text">
+                                구매 금액과 개수에 상관 없이 무조건 무료배송해드립니다.
+                            </p>
+                            <div class="benefit_btn">
+                                <a href="">배송서비스 자세히 보기</a>
+                            </div>
+                            <div class="benefit_img">
+                                <img src="/user/images/recommend/firstbuy/benefit_no03_img.webp" alt="">
+                            </div>
+                        </div>
+                        <!-- 혜택3 끝 -->
+
+                        <!-- 혜택4 -->
+                        <div class="benefit_div benefit4">
+                            <strong>혜택 4</strong>
+                            <h3>3개월 무료배송</h3>
+                            <p class="benefit_text">
+                                첫 구매 주문을 완료한 고객님에게 무제한 무료배송 서비스 헬로패스 3개월 이용권을 무료로 드립니다.
+                            </p>
+                            <p class="benefit_stext">
+                                첫 구매 주문 결제확인 후 자동 지급되며, 지급안내 물자를 발송해드립니다.
+                            </p>
+                            <div class="benefit_img">
+
+                                <img src="/user/images/recommend/firstbuy/benefit_no04_img.webp" alt="">
+                            </div>
+                            <h4>헬로패스란?</h4>
+                            <p class="benefit_text">
+                                헬로네이처 고객이라면 전국 어디서나 14,800원 이상 주문 시에 월 4,500원으로 무제한 무료배송 받을 수 있는 서비스입니다.
+                            </p>
+                            <div class="benefit_btn">
+                                <a href="" class="btn1">자세히 보기</a> <!-- 성용이가 가지고 있다 -->
+                            </div>
+                        </div>
+                        <!-- 혜택4 끝 -->
+
+                        <!-- 혜택5 -->
+                        <div class="benefit_div benefit5">
+                            <h3><img src="/user/images/recommend/firstbuy/logo.png" alt="">대표 카테고리</h3>
+                            <ul class="benefit5_item_box">
+                                <li class="benefit5_items">
+                                    <a href="">
+                                        <p class="benefit5_item_img"></p>
+                                        <p class="benefit5_item_txt">
+                                            <span>편스토랑</span>
+                                            <span>맛.잘.알 스타들의 편스토랑 메뉴를 우리집에서</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="benefit5_items">
+                                    <a href="/recommend/store">
+                                        <p class="benefit5_item_img"></p>
+                                        <p class="benefit5_item_txt">
+                                            <span>팝업스토어</span>
+                                            <span>핫한 맛집 메뉴를 오늘 주문하고 내일 집에서</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="benefit5_items">
+                                    <a href="/life/baby">
+                                        <p class="benefit5_item_img"></p>
+                                        <p class="benefit5_item_txt">
+                                            <span>베이비</span>
+                                            <span>단계별 맞춤 제안과 간편한 다짐 재료</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="benefit5_items">
+                                    <a href="/life/vegan">
+                                        <p class="benefit5_item_img"></p>
+                                        <p class="benefit5_item_txt">
+                                            <span>비건</span>
+                                            <span>당신의 비건라이프 헬로네이처와 함께</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="benefit5_items">
+                                    <a href="/recommend/fresh">
+                                        <p class="benefit5_item_img"></p>
+                                        <p class="benefit5_item_txt">
+                                            <span>더신선</span>
+                                            <span>시간, 사진, 사람. 신선 그 이상의 신선</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 혜택5 끝 -->
+
+                        <!-- 혜택6 -->
+                        <div class="benefit_div benefit6">
+                            <div class="benefit_div_6_1"></div>
+                            <div class="benefit_div_6_2"></div>
+                            <div class="benefit_div_6_3"></div>
+                            <div class="benefit_div_6_4"></div>
+                            <h3>
+                                헬로네이처의 더 많은 서비스가 궁금하시다면?
+                            </h3>
+                            <div class="benefit_btn">
+                                <a href="/recommend/store" class="btn1">헬로네이처 탐험 시작하기</a>
+                            </div>
+                        </div>
+                        <!-- 혜택6 끝 -->
+                    </div>
+                </div>
+            </div>
+            <!-- fresh content 끝-->
+        </main>
+        <!-- main 끝 -->
+
+        <!-- footer -->
+        <!--footer thymeleaf-->
+        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+        <div th:replace="/user/fragment/footer::footer"></div>
+        <!-- footer 끝 -->
+
+        <!-- aside -->
+        <!-- aside 끝 -->
+    </div>
+    <!-- container 끝 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>

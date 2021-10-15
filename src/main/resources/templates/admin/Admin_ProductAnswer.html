@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 상품 관리 | 상품 후기</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title">
+        <p>전체 상품 관리 <span>상품 후기</span></p>
+    </div>
+    <!--content_title 끝-->
+    <!--Pro_review 시작-->
+    <div class="Pro_review">
+        <!--PA_c1 시작-->
+        <div class="PA_c1">
+            <!--form 시작-->
+            <form name="pro_review">
+                <p id="PA_title1" class="product_title"><label>후기 상세</label></p>
+                <!--table 시작-->
+                <table id="pro_review">
+                    <tr>
+                        <th width="140">작성자</th>
+                        <td width="300">김사과</td>
+                        <th width="140">작성일시</th>
+                        <td width="300">2021-08-01 11:13:45</td>
+                    </tr>
+                    <tr>
+                        <th>구매상품</th>
+                        <td>자숙 손질 문어</td>
+                        <th>상품코드</th>
+                        <td>G1000001</td>
+                    </tr>
+                    <tr>
+                        <th>만족도</th>
+                        <td>최고에요</td>
+                        <th>첨부파일</th>
+                        <td>Phone.png</td>
+                    </tr>
+                    <tr>
+                        <th>구매후기</th>
+                        <td colspan="3">맛있어용</td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <p id="PA_title2" class="product_title"><label>후기 답변하기</label></p>
+                <!--table 시작-->
+                <table id="review_answer">
+                    <tr>
+                        <th width="120">답변 상태</th>
+                        <td>
+                            <span><input type="radio" name="answer" value="답변대기">답변대기</span>
+                            <span><input type="radio" name="answer" value="답변완료">답변완료</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>답변 내용</th>
+                        <td width="1000px">
+                            <textarea name="productText" id="PA_editor" cols="30" rows="10"></textarea>
+                            <!-- CKEditor 시작-->
+                            <script type="text/javascript">
+                                CKEDITOR.replace('PA_editor'
+                                            , {height: 200                                                 
+                                        });
+                            </script>
+                            <!-- CKEditor 끝-->
+                        </td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!--PA_c1_btnBox 시작-->
+                <div id="PA_c1_btnBox" class="bottom_btn">
+                    <input type="reset" name="reset" value="초기화">
+                    <input type="submit" name="submit" value="등록">
+                </div>
+            <!--PA_c1_btnBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>
+        <!--PA_c1 끝-->
+    </div>
+    <!--Pro_review 끝-->
+</body>
+</html>

@@ -1,0 +1,99 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 | 1:1 문의</title>
+    <link rel="stylesheet" href="/admin/css/style.css">
+    <script src="/admin/js/checkbox.js"></script>
+</head>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title"><p>고객센터<span>1:1 문의 내역</span></p></div>
+    <!--content_title 끝-->
+    <!--QList 시작-->
+    <div class="QList">
+        <!--QL_c1 시작-->
+        <div class="QL_c1">
+            <p id="PQ_title1" class="product_title_s"><label>1:1 문의 검색</label></p>
+            <div class="QL_c1_searchBox">
+                <p><span>등록일 기준</span>
+                    <input type="date" format yyyy-mm-dd> - <input type="date">
+                    <span class="datebtn">
+                        <input type="button" value="최근 1주일">
+                        <input type="button" value="최근 1개월">
+                        <input type="button" value="최근 3개월">
+                    </span>
+                </p>
+            </div>
+            <div class="QL_c1_searchBox">
+                <p>
+                    <select class="QL_c1_sel" id="QL_c1_sel_1">
+                        <option>답변상태</option>
+                        <option>답변대기</option>
+                        <option>답변완료</option>
+                    </select>
+                    <select class="QL_c1_sel" id="QL_c1_sel_3">
+                        <option>문의유형</option>
+                        <option>전체</option>
+                        <option>취소/환불</option>
+                        <option>배송전환</option>
+                        <option>상품문의</option>
+                        <option>기타</option>
+                    </select>
+                    <input type="text" placeholder="아이디를 입력하세요">
+                </p>
+            </div>
+            <div class="bottom_btn" id="QL_c1_btnBox">
+                <span><input type="reset" name="reset" value="초기화"></span>
+                <span><input type="submit" name="submit" value="검색"></span>
+            </div>
+        </div>
+        <!--QL_c1 끝-->
+        <!--QL_c2 시작-->
+        <div class="QL_c2">
+            <div id="QL_c2_title" class="green_title_s">
+                <p> 문의 목록 <span style="font-size: 14px;">(<span>현재 등록 후기 : 2개</span> <span>답변대기 : 1개</span> <span>답변완료 : 1개</span>)</span></p>
+            </div>
+            <form name="Question_list">
+                <input type="button" id="Q1_c2_delbtn" name="delete" value="선택삭제">
+                <table border="1" class="QL_c2_listTable" width="100%">
+                    <tr>
+                        <th height="40px"><input type="checkbox" id="QL_check" name="selectall" onclick="QL_selectAll(this)"><label for="QL_check"></th>
+                        <th>아이디 / 연락처 / 이메일</th>
+                        <th>문의유형</th>
+                        <th>문의 / 답변내용</th>
+                        <th>발송수단</th>
+                        <th>등록 / 처리날짜</th>
+                        <th>답변상태</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 5%;"><input type="checkbox" id="QL_check_2" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_2"></td>
+                        <td class="QL_c2_ListUser"><p>예시</p><p>010-예시</p><p>예시@.com</p></td>
+                        <td align="center"><p>배송관련</p></td>
+                        <td align="center"><p>문의내용 확인</p><p>답변내용 확인</a></p></td>
+                        <td align="center"><p>이메일</p></td>
+                        <td align="center"><p>2021-07-27 10:11:10</p></td>
+                        <td align="center"><p><input type="button" onclick="QL_location_1()" value="답변대기">
+                    </tr>
+                </table>
+                <!--QL_c2_ListTable 끝-->
+                <!--QL_c2_pageBox 시작-->
+                <div class="pageBox" id="QL_c2_pageBox">
+                    <ul>
+                        <li id="Maxprev"><a href="#"><<</a></li>
+                        <li><a href="#"><</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">></a></li>
+                        <li id="Maxnext"><a href="#">>></a></li>
+                    </ul>
+                </div>
+                <!--QL_c2_pageBox 끝-->
+            </form>
+        </div>
+        <!--QL_c2 끝-->
+    </div>
+</body>
+</html>

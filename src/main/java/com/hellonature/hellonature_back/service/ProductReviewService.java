@@ -1,0 +1,260 @@
+package com.hellonature.hellonature_back.service;
+
+
+import com.hellonature.hellonature_back.model.entity.Member;
+import com.hellonature.hellonature_back.model.entity.Product;
+import com.hellonature.hellonature_back.model.entity.ProductReview;
+import com.hellonature.hellonature_back.model.enumclass.Flag;
+import com.hellonature.hellonature_back.model.network.Header;
+import com.hellonature.hellonature_back.model.network.Pagination;
+import com.hellonature.hellonature_back.model.network.request.ProductReviewApiRequest;
+import com.hellonature.hellonature_back.model.network.response.MyPageOrderResponse;
+import com.hellonature.hellonature_back.model.network.response.ProductReviewApiResponse;
+import com.hellonature.hellonature_back.model.network.response.ProductReviewListResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberReviewResponse;
+import com.hellonature.hellonature_back.repository.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ProductReviewService  {
+    private final EntityManager em;
+    private final ProductReviewRepository productReviewRepository;
+    private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
+    private final FileService fileService;
+
+
+    public Header<ProductReviewApiResponse> create(ProductReviewApiRequest request, List<MultipartFile> multipartFiles) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
+
+        ProductReview productReview = ProductReview.builder()
+                .member(memberRepository.findById(request.getIdx()).get())
+                .product(productRepository.findById(request.getIdx()).get())
+                .like(request.getLike())
+                .content(request.getContent())
+                .files(pathList.get(0))
+                .build();
+        productReviewRepository.save(productReview);
+        return Header.OK();
+    }
+
+
+    public Header<ProductReviewApiResponse> read(Long id) {
+        return productReviewRepository.findById(id)
+                .map(productReview -> response(productReview))
+                .map(Header::OK)
+                .orElseGet(()-> Header.ERROR("No data"));
+    }
+
+
+    public Header<ProductReviewApiResponse> update(Header<ProductReviewApiRequest> request, List<MultipartFile> multipartFiles) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
+
+        ProductReviewApiRequest productReviewApiRequest = request.getData();
+        Optional<ProductReview> optional = productReviewRepository.findById(productReviewApiRequest.getIdx());
+        return optional.map(productReview -> {
+                    productReview.setMember(memberRepository.findById(productReviewApiRequest.getIdx()).get());
+                    productReview.setProduct(productRepository.findById(productReviewApiRequest.getIdx()).get());
+                    productReview.setLike(productReviewApiRequest.getLike());
+                    productReview.setContent(productReviewApiRequest.getContent());
+                    productReview.setAnsFlag(productReviewApiRequest.getAnsFlag());
+                    productReview.setAnsContent(productReviewApiRequest.getAnsContent());
+                    productReview.setAnsDate(productReviewApiRequest.getAnsDate());
+                    productReview.setFiles(pathList.get(0));
+
+                    return productReview;
+                }).map(productReviewRepository::save)
+                .map(this::response)
+                .map(Header::OK)
+                .orElseGet(()-> Header.ERROR("수정 실패"));
+    }
+
+
+    public Header delete(Long id) {
+        Optional<ProductReview> optional = productReviewRepository.findById(id);
+
+        return optional.map(productReview -> {
+            productReviewRepository.delete(productReview);
+            return Header.OK();
+        }).orElseGet(()-> Header.ERROR("No data"));
+    }
+
+    private ProductReviewApiResponse response(ProductReview productReview){
+        ProductReviewApiResponse productReviewApiResponse = ProductReviewApiResponse.builder()
+                .idx(productReview.getIdx())
+                .memIdx(productReview.getMember().getIdx())
+                .proIdx(productReview.getProduct().getIdx())
+                .like(productReview.getLike())
+                .content(productReview.getContent())
+                .ansFlag(productReview.getAnsFlag())
+                .ansContent(productReview.getAnsContent())
+                .ansDate(productReview.getAnsDate())
+                .files(productReview.getFiles())
+                .build();
+        return productReviewApiResponse;
+    }
+
+    public Header<List<ProductReviewListResponse>> list(Flag ansFlag, Long proIdx, Integer page){
+        String jpql = "select pr from ProductReview pr";
+        boolean check = false;
+
+        if(ansFlag!= null ||proIdx != null){
+            jpql += " where";
+            if(ansFlag != null){
+                jpql += " ans_flag = :ansFlag";
+                check = true;
+            }
+
+            if (proIdx != null){
+                if (check) jpql += " and";
+                jpql += " pro_idx = :proIdx";
+                check = true;
+            }
+
+        }
+
+        jpql += " order by idx desc";
+        TypedQuery<ProductReview> query = em.createQuery(jpql, ProductReview.class);
+
+        if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
+        if (proIdx != null) query = query.setParameter("proIdx", "%"+proIdx+"%");
+
+        List<ProductReview> result = query.getResultList();
+
+        int count = 10;
+
+        Integer start = count * page;
+        Integer end = Math.min(result.size(), start + count);
+
+        List<ProductReviewListResponse> list = new ArrayList<>();
+
+        for (ProductReview productReview: result.subList(start, end)) {
+            list.add(responseList(productReview));
+        }
+
+        Pagination pagination = new Pagination().builder()
+                .totalPages(result.size() / count)
+                .totalElements((long) result.size())
+                .currentPage(page)
+                .build();
+
+        return Header.OK(list, pagination);
+    }
+
+    private ProductReviewListResponse responseList(ProductReview productReview){
+        ProductReviewListResponse productReviewListResponse = ProductReviewListResponse.builder()
+                .idx(productReview.getIdx())
+                .proName(productReview.getProduct().getName())
+                .proIdx(productReview.getProduct().getIdx())
+                .memHp(productReview.getMember().getHp())
+                .memName(productReview.getMember().getName())
+                .memEmail(productReview.getMember().getEmail())
+                .regdate(productReview.getRegdate())
+                .ansDate(productReview.getAnsDate())
+                .build();
+        return productReviewListResponse;
+    }
+
+    public Header<List<ProductReviewApiResponse>> search(Pageable pageable){
+        Page<ProductReview> productReview = productReviewRepository.findAll(pageable);
+        List<ProductReviewApiResponse> productReviewApiResponseList = productReview.stream()
+                .map(productReviews -> response(productReviews))
+                .collect(Collectors.toList());
+        Pagination pagination = Pagination.builder()
+                .totalPages(productReview.getTotalPages()-1)
+                .totalElements(productReview.getTotalElements())
+                .currentPage(productReview.getNumber())
+                .currentElements(productReview.getNumberOfElements())
+                .build();
+        return Header.OK(productReviewApiResponseList, pagination);
+    }
+
+    public Header<List<MemberReviewResponse>> userReviewList(Long proIdx, Integer like, Integer page){
+        String jpql = "select r from ProductReview r";
+
+        if (like != null){
+            jpql += " where";
+            if(like < 4) jpql += " rv_like < 4";
+            else if(like < 7) jpql += " rv_like > 3 and rv_like < 7";
+            else jpql += " rv_like > 6";
+        }
+
+        jpql += " order by idx desc";
+
+        TypedQuery<ProductReview> query = em.createQuery(jpql, ProductReview.class);
+
+        List<ProductReview> result = query.getResultList();
+
+        int count = 10;
+        int start = count * page;
+        int end = Math.min(result.size(), start + 10);
+
+        List<MemberReviewResponse> list = new ArrayList<>();
+
+        for (ProductReview productReview: result.subList(start, end)){
+            list.add(userReviewResponse(productReview));
+        }
+
+        Pagination pagination = Pagination.builder()
+                .totalElements((long) result.size())
+                .currentElements(count)
+                .currentPage(page)
+                .totalPages(result.size() / count)
+                .build();
+
+        return Header.OK(list, pagination);
+    }
+
+    private MemberReviewResponse userReviewResponse(ProductReview productReview){
+        return MemberReviewResponse.builder()
+                .idx(productReview.getIdx())
+                .memIdx(productReview.getMember().getIdx())
+                .memName(productReview.getMember().getName())
+                .like(productReview.getLike())
+                .proCount(productReview.getMemberOrderProduct().getProCount())
+                .content(productReview.getContent())
+                .ansFlag(productReview.getAnsFlag())
+                .ansContent(productReview.getAnsContent())
+                .files(productReview.getFiles())
+                .ansDate(productReview.getAnsDate())
+                .build();
+    }
+
+    public Header<List<MyPageOrderResponse>> myPage(Flag flag, Long idx){
+        Member member = memberRepository.findById(idx).get();
+
+        List<ProductReview> productReviews = productReviewRepository.findAllByAnsFlagAndMemberOrderByIdxDesc(flag, member);
+
+        List<MyPageOrderResponse> list = new ArrayList<>();
+
+        for (ProductReview productReview: productReviews){
+            list.add(myPageOrderResponse(productReview));
+        }
+
+        return Header.OK(list);
+    }
+
+    public MyPageOrderResponse myPageOrderResponse(ProductReview productReview){
+        Product product = productReview.getProduct();
+        return MyPageOrderResponse.builder()
+                .proIdx(product.getIdx())
+                .proName(product.getName())
+                .proImg(product.getImg1())
+                .proWeightSize(product.getSizeWeight())
+                .regdate(productReview.getRegdate())
+                .rvIdx(productReview.getIdx())
+                .build();
+    }
+}

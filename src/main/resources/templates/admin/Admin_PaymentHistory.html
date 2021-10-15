@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 | 결제내역 관리</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script src="/admin/js/checkbox.js"></script>
+</head>
+<body>
+    <!--content_title 시작-->        
+    <div class="content_title">
+        <p>고객센터<span>결제내역 관리</span></p>
+    </div>    
+    <!--content_title 끝-->
+    <!--Pay_list 시작--> 
+    <div class="Pay_list">
+        <!--PH_c1 시작-->
+        <div class="PH_c1">
+            <!--form 시작-->
+            <form name="payment_search">
+                <p class="product_title" id="PH_c1_title"><label>결제내역 조회</label></p>
+                <!--table 시작-->
+                <table>
+                    <tr>
+                        <th width="100">결제일 기준</th>
+                        <td>
+                            <input type="date" name="date" value="기간필터"> - <input type="date" name="date" value="기간필터">
+                            <span class="datebtn">
+                                <input type="button" name="button" value="최근 1주일">
+                                <input type="button" name="button" value="최근 1개월">
+                                <input type="button" name="button" value="최근 3개월">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <select>
+                                <option value="회원번호">회원번호</option>
+                                <option value="비회원번호">비회원번호</option>
+                                <option value="상품번호">상품번호</option>
+                            </select>
+                            <input type="text" name="text" placeholder="직접 입력">
+                        </td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!--No_c1_btnBox 시작-->
+                <div class="bottom_btn" id="PH_c1_btnBox">
+                    <span><input type="button" name="button" value="초기화"></span>
+                    <span><input type="button" name="button" value="검색"></span>
+                </div>
+                <!--No_c1_btnBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>   
+        <!--PH_c1 끝-->      
+        <!--No_c2 시작-->
+        <div class="No_c2">
+            <!--No_c2_title 시작-->
+            <div id="No_c2_title" class="green_title">
+                <p>결제내역 목록<span>(<span>현재 등록 : 10개</span>)</span></p>
+            </div>
+            <!--No_c2_title 끝-->
+            <!--form 시작-->
+            <form name="notice_list">
+                <span>
+                    <input type="button" name="button" value="선택삭제">
+                    <select class="list_select">
+                        <option value="최신순">최신순</option>
+                        <option value="높은금액순">높은금액순</option>
+                        <option value="낮은금액순">낮은금액순</option>
+                    </select>
+                </span>
+                <!--table 시작-->
+                <table width="100%" class="list_table">
+                    <tr>
+                        <th width="5%"><input type="checkbox" value="cou_list" id="PH_check" name="selectall" onclick="PH_selectAll(this)"><label for="PH_check"></th>
+                        <th width="10%">고객번호</th>
+                        <th width="12%">이름</th>
+                        <th width="15%">결제상태</th>
+                        <th width="15%">금액</th>
+                        <th width="18%">결제일</th>
+                        <th width="10%">카드번호(끝 4자리)</th>
+                        <th width="15%">결제방식</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="cou_list" id="PH_check_2" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_2"></td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!-- pageBox 시작-->
+                <div class="pageBox">
+                    <ul>
+                        <li id="Maxprev"><a href="#"><<</a></li>
+                        <li><a href="#"><</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">></a></li>
+                        <li id="Maxnext"><a href="#">>></a></li>
+                    </ul>
+                </div>
+                <!-- pageBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>  
+        <!--No_c2 끝-->          
+    </div>  
+    <!--Pay_list 끝-->                   
+</body>
+</html>

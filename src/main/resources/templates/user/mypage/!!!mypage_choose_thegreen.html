@@ -1,0 +1,178 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더그린배송</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <style>
+        #mypage-box { overflow: hidden; height: 100%;}
+        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
+        .list li:nth-child(4) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
+        .list li:nth-child(4) > a { color: #5dab99;}
+    </style>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        $(() => {
+            const Idx = $("#memIdx").val();
+            axios.get('/api/memberAddresses/read/'+Idx, {
+
+            }).then(function(response) {
+                // const addressName = response.data.data.addrName;             // 배송지명
+                const name = response.data.data.name;                           // 받는 사람
+                const hp = response.data.data.hp;                               // 전화번호
+                const zipcode = response.data.data.zipcode;                     // 우편번호
+                const addr1 = response.data.data.addr1;                         // 도로명주소 + 상세주소
+                const addr2 = response.data.data.addr2;                         // 나머지주소
+                const requestType = response.data.data.requestType;             // 배송타입
+                let onString;                                                   // 배송타입 (문자열)
+                const requestMemo1 = response.data.data.requestMemo1;           // 배송요청사항
+                // const requestMemo2 = response.data.data.requestMemo2;        // 배송기사님께
+                const dawnFlag = response.data.data.dawnFlag.id;                // 새벽배송
+                const baseFlag = response.data.data.baseFlag.id;                // 기본배송지
+                const grFlag = response.data.data.grFlag.id;                    // 그린배송
+                let onStringFlag;
+                // 배송요청사항
+                switch (requestType) {
+                    case 1:
+                        onString = "문앞";
+                        $(".shipping_font:nth-child(1)").append(onString);
+                        $(".shipping_font:nth-child(2)").append(requestMemo1);
+                        break;
+                    case 2:
+                        onString = "문앞 비밀번호 없이 출입가능"
+                        $(".shipping_font:nth-child(1)").append(onString);
+                        $(".shipping_font:nth-child(2)").css("display", "none");
+                        break;
+                    case 3:
+                        onString = "경비실";
+                        $(".shipping_font:nth-child(1)").append(onString);
+                        $(".shipping_font:nth-child(2)").append(requestMemo1);
+                        break;
+                    case 4:
+                        onString = "택배함";
+                        $(".shipping_font:nth-child(1)").append(onString);
+                        $(".shipping_font:nth-child(2)").append(requestMemo1);
+                        break;
+                    case 5:
+                        onString = "기타장소";
+                        $(".shipping_font:nth-child(1)").append(onString);
+                        $(".shipping_font:nth-child(2)").append(requestMemo1);
+                        break;
+                }
+                // 배송타입
+                if(baseFlag.id == 1){
+                    onStringFlag = "기본";
+                    $(".shipping_txt:nth-child(2)").append(onStringFlag);
+                    $(".shipping_txt:nth-child(1)").css("display", "block");
+                    if(dawnFlag.id == 1){
+                        onStringFlag = "새벽";
+                        $(".shipping_txt:nth-child(3)").append(onStringFlag);
+                    }else{
+                        $(".shipping_txt:nth-child(3)").css("display", "none");
+                        $(".shipping_txt:nth-child(1)").css("display", "none");
+                    }
+                    if(grFlag.id == 1){
+                        onStringFlag = "더그린";
+                        $(".shipping_txt:nth-child(4)").append(onStringFlag);
+                    }else{
+                        $(".shipping_txt:nth-child(4)").css("display", "none");
+                        $(".shipping_txt:nth-child(1)").css("display", "none");
+                    }
+                }else{
+                    $(".shipping_txt:nth-child(1)").css("display", "none");
+                    $(".shipping_txt:nth-child(2)").css("display", "none");
+                    $(".shipping_txt:nth-child(3)").css("display", "none");
+                    $(".shipping_txt:nth-child(4)").css("display", "none");
+                    $(".shipping_txt:nth-child(4)").append("")
+                }
+                // 받는사람
+                $(".shipping_box1_line2:nth-child(1)").append(name);
+                // 연락처
+                $(".shipping_box1_line2:nth-child(1)").append(hp);
+                // 우편번호
+                $(".shipping_box1_line2:nth-child(4)").append("["+zipcode+"]"+" "+addr1+" "+addr2);
+
+            }).then(function(err) {
+                console.log(err)
+            });
+        });
+    </script>
+    <!-- axios -->
+</head>
+<body>
+    <div id="mypage-box">
+        <div class="container">
+            <div th:replace="/user/fragment/header::header"></div>
+            <div class="contents">
+                <div th:replace="/user/fragment/section::section"></div>
+            </div>
+            <div class="main">
+                <input type="hidden" id="memIdx" name="memIdx" th:value="${idx}">
+                <!-- main_leftaside 시작 -->
+                <div class="main_leftaside1">
+                    <div th:replace="/user/fragment/sidebar1::sidebar1"></div>
+                <!-- main_leftaside 끝 -->
+                </div>
+                <div class="main_contents">
+                    <div class="contents_box1">                                               
+                        <div class="back_button">
+                            <a href="javascript:history.back();" alt="뒤로 돌아가기"></a>
+                        </div>
+                        <h2 class="contents_name">더그린배송지 선택</h2>
+                    </div>
+                    <div class="thegreen_shipping_title">
+                        <p>
+                            더그린배송은 <em>새벽배송</em> 지역만 이용이 가능합니다.<span class="underline"></span><br>                        
+                            배송지 선택 시 보증금 결제화면으로 이동합니다.
+                        </p>
+                    </div>
+                    <div class="shipping_box1">
+                        <div class="shipping_box1_line1">
+                            <div class="shipping_txt">
+                                <span>기본 배송지</span>
+                                <span><!-- 기본 --></span>
+                                <span><!-- 새벽 --></span>
+                                <span><!-- 더그린 --></span>
+                            </div>
+                        </div>
+                        <div class="shipping_box1_line2">
+                            <span><!-- 홍길동 --></span>
+                            <span><!-- 010-1234-1234 --></span>
+                            <br>
+                            <span>
+                                <!-- [우편번호] 도로명 주소 + 상세주소 -->
+                                <!-- [06232] 서울특별시 강남구 강남대로 지하 396 (역삼동, 강남역) -->
+                            </span>
+                        </div>
+                        <div class="shipping_delivery_detail">
+                            <span class="shipping_font">
+                                <!-- 문앞 -->
+                            </span>
+                            <span>
+                                <!-- 비밀번호 없이 출입 가능 -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="enroll_hellopass_area2">
+                        <button type="submit" class="hellopass_button_reset" id="reset_hellopass" onClick="location.href='/mypage_addShipping'">배송지 추가</button>
+                        <button type="submit" class="hellopass_button_submit" id="pay_hellopass" onClick="location.href='/mypage_paythegreen'" disabled>더그린배송 결제</button>
+                    </div>
+                </div>             
+            <!-- main 끝 -->
+            </div>
+            <div th:replace="/user/fragment/footer::footer"></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>
+

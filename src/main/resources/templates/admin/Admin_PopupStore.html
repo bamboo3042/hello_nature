@@ -1,0 +1,181 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헬로네이처 추천 관리 | 팝업스토어</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script src='/admin/js/popup.js'></script>
+    <script src='/admin/js/Admin.imeage.js'></script>
+    <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
+
+</head>
+<script>
+    function sendit(){
+        alert("소민이바보")
+        let img = $("#img").val();
+        let title = $("#title").val();
+        let des = $("#des").val();
+        let brIdx = $("#br_idx").val();
+        let content = CKEDITOR.instances.PS_editor.getData();
+        let dateStart = $("#date_start").val();
+        let dateEnd = $("#date_end").val();
+
+        axios.post('/api/popupstore/create', {
+            headers: {'Content-type': 'application/json'},
+            data: {
+                img: "uploads/예시",
+                title: title,
+                des: des,
+                brIdx: 1,
+                content: content,
+                dateStart: dateStart,
+                dateEnd: dateEnd
+            }
+        }).then(function (response){
+            alert("팝업스토어 등록완료")
+        }).catch(function (err){
+            console.log(err)
+        })
+    };
+
+    $(function (){
+        const id = $("#id").val();
+        axios.get('/api/popupstore/list' + id, {
+
+        }).then(function (response){
+            const img = response.data.data.img;
+            const title = response.data.data.title;
+            const des = response.data.data.des;
+            const brIdx = response.data.data.brIdx;
+            const content = response.data.data.content;
+
+            document.getElementById("img").value = img;
+            document.getElementById("title").value = title;
+            document.getElementById("des").value = des;
+            document.getElementById("brIdx").value = brIdx;
+            document.getElementById("content").value = content;
+        }).catch(function (err){
+            console.log(err)
+        })
+    })
+
+    function edit(){
+        let id = $("#id").val();
+        let title = $("#title").val();
+        let des = $("#des").val();
+        let brIdx = $("#brIdx").val();
+        let content = $("#content").val();
+
+        axios.put('/api/popupstore/update', {
+            headers: {'Content-type': 'application/json'},
+            data: {
+                "id": id,
+                "title": title,
+                "des": des,
+                "brIdx": brIdx,
+                "content": content
+            }
+        }).then(function (err){
+            console.log(err)
+        })
+    }
+</script>
+<body>
+<!--content_title 시작-->
+<div class="content_title">
+    <p>헬로네이처 추천 관리 <span>팝업스토어</span></p>
+</div>
+<!--content_title 끝-->
+<!--Pstore 시작-->
+<div class="Pstore">
+    <!--PS_c1 시작-->
+    <div class="PS_c1">
+        <!--form 시작-->
+        <form name="pop_enter">
+            <p id="PS_c1_title" class="product_title"><label>팝업스토어 등록/수정</label></p>
+            <table>
+                <tr>
+                    <th>이미지</th>
+                    <td colspan="3">
+                        <img src=" " id="PS_c1_img">
+                        <div class="file_input_div_p">
+                            <input type="button" value="파일 등록" class="file_input_button_p">
+                            <input type="file" class="file_input_hidden_p" id="PS_c1_imgbtn">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td colspan="3"><input type="text" name="text" placeholder="100자 내외로 입력하세요" maxlength="100" id="title"></td>
+                </tr>
+                <tr>
+                    <th>설명</th>
+                    <td colspan="3"><input type="text" name="text" placeholder="100자 내외로 입력하세요" maxlength="100" id="des"></td>
+                </tr>
+                <tr>
+                    <th>브랜드명</th>
+                    <td>
+                        <!--팝업창 부분 시작 -->
+                        <input type="text" name="brand"><button class="pop_btn" type="button" onclick="modal_open()"><img src="/admin/img/search_icon.png" alt="" style="width: 30px; border: 1px solid #266266;"></button>
+                        <div id="mw_temp" class="mw">
+                            <div class="bg"><!--이란에는 내용을 넣지 마십시오.--></div>
+                            <div class="fg">
+                                <div id="modal_title" class="modal_greentitle">
+                                    <p>브랜드 찾기<span><img src='/admin/img/close2.png' onclick="modal_close()" class="modal_closeBtn"></span></p>
+                                </div>
+                                <div class="Modal">
+                                    <div class="modal_cateBox" method="" action="#" id="modal_form">
+                                        <div class="modal_search"><span>브랜드명</span><input type="text"><input type="button" value="검색"></div>
+                                        <div class="modal_list">
+                                            <span>목록</span>
+                                            <ul>
+                                                <li>경복궁</li>
+                                                <li>계절밥상</li>
+                                                <li>고래감자탕</li>
+                                                <li>고려감자탕</li>
+                                                <li>고메공방</li>
+                                                <li>곰표</li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal_btn">
+                                            <button onclick="modal_submit()" type="submit">확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--팝업창 부분 끝 -->
+                    </td>
+                    <th>전시기간</th>
+                    <td><input type="date" name="date" placeholder="yyyy/mm/dd"> - <input type="date" name="date" placeholder="yyyy/mm/dd"></td>
+                </tr>
+            </table>
+            <!--PS_c2_title 시작-->
+            <div id="PS_c2_title" class="green_title">
+                <p>HTML</p>
+            </div>
+            <!--PS_c2_title 끝-->
+            <!-- CKEditor 시작-->
+            <textarea name="productText" id="PS_editor" cols="30" rows="10"></textarea>
+            <script type="text/javascript">
+                CKEDITOR.replace('PS_editor'
+                    , {height: 300
+                    });
+            </script>
+            <!-- CKEditor 끝-->
+            <!--PS_c2_btnBox 시작-->
+            <div id="PS_c1_btnBox" class="bottom_btn">
+                <span><input type="button" name="submit" value="등록" onclick="sendit()"></span>
+                <span><input type="button" name="button" value="수정"></span>
+            </div>
+            <!--PS_c1_btnBox 끝-->
+        </form>
+        <!--form 끝-->
+    </div>
+    <!--PS_c1 끝-->
+</div>
+<!--Pstore 끝-->
+</body>
+</html>

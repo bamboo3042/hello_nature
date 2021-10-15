@@ -1,0 +1,49 @@
+package com.hellonature.hellonature_back.service;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class FileService {
+
+    @Value("${file.upload.directory}")
+    private String uploadDir;
+
+    public List<String> imagesUploads(List<MultipartFile> multipartFiles, String targetDir){
+
+        List<String> pathList = new ArrayList<>();
+
+        try {
+            for (int i = 0; i < multipartFiles.size(); i++){
+                if (multipartFiles.get(i).isEmpty()) pathList.add(null);
+                else {
+                    Path copyOfLocation = Paths.get(uploadDir + File.separator + targetDir + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + "_"
+                            + StringUtils.cleanPath(multipartFiles.get(i).getOriginalFilename())).toAbsolutePath();
+                    Files.copy(multipartFiles.get(i).getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+                    String temp =  copyOfLocation.toString().substring(copyOfLocation.toString().indexOf("\\upload"));
+                    temp = temp.replace("\\","/");
+                    pathList.add(temp);
+                }
+            }
+
+            System.out.println(pathList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pathList;
+    }
+}

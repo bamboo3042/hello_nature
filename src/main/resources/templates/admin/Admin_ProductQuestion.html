@@ -1,0 +1,142 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 상품 관리 | 상품문의</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<script>
+    $(function (){
+        let id = $("#id").val()
+        axios.get("/api/productquestion/list" + id,{
+        }).then(function (response){
+            let writer = response.data.data.memIdx.getName();
+            let title = response.data.data.title;
+            let proIdx = response.data.data.prodIdx;
+            let content = response.data.data.content;
+            let proIdxName = response.data.data.proIdx.getName();
+            let regdate = response.data.data.regdate;
+            let img = response.data.data.img.toString(8);
+            let ansFlg = response.data.data.ansFlag;
+
+            $("#PQ_writer").text(writer);
+            $("#PQ_title").text(title);
+            $("#PQ_proIdx").text(proIdx);
+            $("#PQ_prodName").text(proIdxName);
+            $("#PQ_regdate").text(regdate.toISOString().substring(0, 10));
+            $("#PQ_img").text(img);
+            CKEDITOR.instances.content.getData(content);
+            $("input:radio[name='answer']").val(ansFlg).prop("checked", true);
+
+        }).catch(function (err){
+            console.log(err)
+        })
+
+        $("#edit").click(function (){
+            let ansFlag = $("input:radio[name='answer']:checked").val();
+            axios.put("/api/",{
+                data:{
+                    ansContent : content,
+                    ansFlag: ansFlag,
+                }
+            })
+        })
+    })
+
+    function seindit(){
+        let content = CKEDITOR.instances.content.getData();
+        let ansFlag = $("input:radio[name='answer']:checked").val();
+
+        axios.put("/api/productquestion/update",{
+            data:{
+                ansContent : content,
+                ansFlag: ansFlag,
+            }
+
+        })
+    }
+
+</script>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title">
+        <p>전체 상품 관리 <span>상품문의</span></p>
+    </div>
+    <!--content_title 끝-->
+    <!--Pro_question 시작-->
+    <div class="Pro_question">
+        <!--PQ_c1 시작-->
+        <div class="PQ_c1">
+            <!--form 시작-->
+            <form name="pro_question">
+                <p id="Pt_title1" class="product_title"><label>문의 상세</label></p>
+                <!--table 시작-->
+                <table id="pro_question">
+                    <tr>
+                        <th width="140">작성자</th>
+                        <td width="300" id="PQ_writer">김사과</td>
+                        <th width="140">작성일시</th>
+                        <td width="300" id="PQ_regdate">2021-08-01 11:13:45</td>
+                    </tr>
+                    <tr>
+                        <th>문의상품</th>
+                        <td id="PQ_prodName">자숙 손질 문어</td>
+                        <th>상품코드</th>
+                        <td id="PQ_proIdx">G1000001</td>
+                    </tr>
+                    <tr>
+                        <th>문의종류</th>
+                        <td id="PQ_type">배송관련</td>
+                        <th>첨부파일</th>
+                        <td>Phone.png</td>
+                    </tr>
+                    <tr>
+                        <th>문의내용</th>
+                        <td colspan="3">지금 시키면 언제 받을 수 있나요</td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <p id="Pt_title2" class="product_title"><label>문의 답변하기</label></p>
+                <!--table 시작-->
+                <table id="product_answer">
+                    <tr>
+                        <th width="120">답변 상태</th>
+                        <td>
+                            <span><input type="radio" name="answer" value="0">답변대기</span>
+                            <span><input type="radio" name="answer" value="1">답변완료</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>답변 내용</th>
+                        <td width="1000px">
+                            <textarea name="productText" id="PQ_editor" cols="30" rows="10"></textarea>
+                            <!-- CKEditor 시작-->
+                            <script type="text/javascript">
+                                CKEDITOR.replace('PQ_editor'
+                                            , {height: 200                                                 
+                                        });
+                            </script>
+                            <!-- CKEditor 끝-->
+                        </td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!--PQ_c1_btnBox 시작-->
+                <div id="PA_c1_btnBox" class="bottom_btn">
+                    <input type="submit" name="submit" value="등록">
+                    <input type="button" name="edit" value="수정">
+                </div>
+            <!--PQ_c1_btnBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>
+        <!--PQ_c1 끝-->
+    </div>
+    <!--Pro_question 끝-->
+</body>
+</html>

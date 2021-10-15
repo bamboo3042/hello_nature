@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 | 쿠폰관리</title>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous">
+    </script>
+    <script src="/static/admin/js/popup.js"></script>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+</head>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title">
+        <p>고객센터 <span>쿠폰관리</span></p>
+    </div>
+    <!--content_title 끝-->
+    <!--Cou_create 시작-->
+    <div class="Cou_create">
+        <!--form 시작-->
+        <form name="coupon_create" action="./Admin_CouponList.html">
+            <p id="CC_c1_title" class="product_title"><label>쿠폰 등록</label></p>
+            <table>
+                <tr>
+                    <th>쿠폰명</th>
+                    <td><input type="text" name="create_text" placeholder="쿠폰명을 입력하세요"></td>
+                </tr>
+                <tr>
+                    <th>발급 방법</th>
+                    <td>
+                        <span><input type="radio" name="visa" value="직접 발급" checked style="width: 14px; height: 14px;">직접 발급</span>
+                        <span><input type="radio" name="visa" value="자동 발급" style="width: 14px; height: 14px;">자동 발급</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>발급건수 제한</th>
+                    <td>
+                        <span><input type="radio" name="visa2" value="제한없음" checked style="width: 14px; height: 14px;">제한없음</span>
+                        <span><input type="radio" name="visa2" value="제한있음" style="width: 14px; height: 14px;">제한있음</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>할인 설정</th>
+                    <td>
+                        <input type="text" name="price" placeholder="할인율 입력">
+                    </td>
+                </tr>
+                <tr>
+                    <th>최소구매가</th>
+                    <td>
+                        <input type="text" name="price" placeholder="최소 구매가격">
+                    </td>
+                </tr>
+                <tr>
+                    <th>유효기간</th>
+                    <td>
+                        <input type="date" name="date" value="기간필터"> - <input type="date" name="date" value="기간필터">
+                    </td>
+                </tr>
+            </table>
+            <!--CC_c1_btnBox 시작-->
+            <div id="CC_c1_btnBox" class="bottom_btn">
+                <span><input type="reset" name="reset" value="초기화"></span>
+                <span><input type="submit" name="submit" value="등록"></span>
+            </div>
+            <!--CC_c1_btnBox 끝-->
+        </form>
+        <!--form 끝-->
+    </div>
+    <!--Cou_create 끝-->
+</body>
+</html>

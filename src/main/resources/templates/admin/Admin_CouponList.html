@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 | 쿠폰 관리</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script src="/admin/js/checkbox.js"></script>
+</head>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title">
+        <p>고객센터<span>쿠폰 관리</span></p>
+    </div>
+    <!--content_title 끝-->
+    <!--Cou_list 시작-->
+    <div class="Cou_list">
+        <!--CL_c1 시작-->
+        <div class="CL_c1">
+            <!--form 시작-->
+            <form name="coupon_search">
+                <p id="CL_c1_title" class="product_title"><label>쿠폰 조회</label> <span style="margin-left: 20px;"><input type="button" name="button" value="쿠폰 등록하기" onclick="CC_location()"></span></p>
+                <!--table 시작-->
+                <table>
+                    <tr>
+                        <th width="130">쿠폰번호</th>
+                        <td><input type="text" name="cou_number"></td>
+                    </tr>
+                    <tr>
+                        <th>기간</th>
+                        <td><input type="date" name="date" value="기간필터"> - <input type="date" name="date" value="기간필터"></td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <div class="bottom_btn">
+                    <span><input type="reset" name="reset" value="초기화"></span>
+                    <span><input type="submit" name="submit" value="검색"></span>
+                </div>
+            </form>
+            <!--form 끝-->
+        </div>
+        <!--CL_c1 끝-->
+        <!--CL_c2 시작-->
+        <div class="CL_c2">
+            <!--CL_c2_title 시작-->
+            <div id="CL_c2_title" class="green_title">
+                <p>쿠폰 목록</p>
+            </div>
+            <!--CL_c2_title 끝-->
+            <!--form 시작-->
+            <form name="coupon_list">
+                <span>
+                    <input type="button" name="button" value="전체선택"><input type="button" name="button" value="삭제"><input type="button" name="button" value="변경">
+                </span>
+                <!--table 시작-->
+                <table width="100%">
+                    <tr>
+                        <th width="5%"><input type="checkbox" value="cou_list" id="CP_check" name="selectall" onclick="CL_selectAll(this)"><label for="CP_check"></label></th>
+                        <th width="15%">쿠폰번호</th>
+                        <th width="22%">쿠폰명</th>
+                        <th width="14%">적용상품</th>
+                        <th width="11%">최소구매가격</th>
+                        <th width="23%">사용기간</th>
+                        <th width="10%">등록상태</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="cou_list" id="CP_check_2" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_2"></label></td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>예시</td>
+                        <td>
+                            <select>
+                                <option>진행중</option>
+                                <option>종료</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!-- pageBox 시작-->
+                <div class="pageBox">
+                    <ul>
+                        <li id="Maxprev"><a href="#"><<</a></li>
+                        <li><a href="#"><</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">></a></li>
+                        <li id="Maxnext"><a href="#">>></a></li>
+                    </ul>   
+                </div> 
+                <!-- pageBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>
+        <!--CL_c2 끝-->
+    </div>
+    <!--Cou_list 끝-->
+</body>
+</html>

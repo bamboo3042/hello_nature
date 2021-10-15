@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 상품 관리 | 1:1 문의내역</title>
+    <link rel="stylesheet" href="/admin/css/style2.css">
+    <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <!--content_title 시작-->
+    <div class="content_title">
+        <p>전체 상품 관리 <span>1:1 문의내역</span></p>
+    </div>
+    <!--content_title 끝-->
+    <!--Question_list 시작-->
+    <div class="Question">
+        <!--PQ_c1 시작-->
+        <div class="Qt_c1">
+            <!--form 시작-->
+            <form name="Lquestion">
+                <p id="QL_title1" class="product_title"><label>문의 상세</label></p>
+                <!--table 시작-->
+                <table id="Lquestion">
+                    <tr>
+                        <th width="140">작성자</th>
+                        <td width="300">김사과</td>
+                        <th width="140">이메일</th>
+                        <td width="300">apple@apple.com</td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>010-0000-8888</td>
+                        <th>문의상품</th>
+                        <td>피크닉 소시지</td>
+                    </tr>
+                    <tr>
+                        <th>등록날짜</th>
+                        <td>2021-08-01 11:13:45</td>
+                        <th>처리날짜</th>
+                        <td style="color: blue;">2021-08-02 11:13:45</td>
+                    </tr>
+                    <tr>
+                        <th>문의종류</th>
+                        <td>배송관련</td>
+                        <th>첨부파일</th>
+                        <td>Phone.png</td>
+                    </tr>
+                    <tr>
+                        <th>문의내용</th>
+                        <td colspan="3">지금 시키면 언제 받을 수 있나요</td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+            </form>
+            <p id="Qt_title2" class="product_title"><label>문의 답변하기</label></p>
+            <form>
+                <!--table 시작-->
+                <table id="Qanswer">
+                    <tr>
+                        <th width="120">답변 상태</th>
+                        <td>
+                            <span><input type="radio" name="answer" value="답변대기">답변대기</span>
+                            <span><input type="radio" name="answer" value="답변완료">답변완료</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>답변 내용</th>
+                        <td width="1000px">
+                            <textarea name="productText" id="Q_editor" cols="30" rows="10"></textarea>
+                            <!-- CKEditor 시작-->
+                            <script type="text/javascript">
+                                CKEDITOR.replace('Q_editor'
+                                            , {height: 200                                                 
+                                        });
+                            </script>
+                            <!-- CKEditor 끝-->
+                        </td>
+                    </tr>
+                </table>
+                <!--table 끝-->
+                <!--QL_c1_btnBox 시작-->
+                <div id="QL_c1_btnBox" class="bottom_btn">
+                    <input type="reset" name="reset" value="초기화">
+                    <input type="submit" name="submit" value="등록">
+                </div>
+            <!--QL_c1_btnBox 끝-->
+            </form>
+            <!--form 끝-->
+        </div>
+        <!--QL_c1 끝-->
+    </div>
+    <!--Question_list 끝-->
+</body>
+</html>

@@ -1,0 +1,173 @@
+package com.hellonature.hellonature_back.service;
+
+
+import com.hellonature.hellonature_back.model.entity.Event;
+import com.hellonature.hellonature_back.model.enumclass.Flag;
+import com.hellonature.hellonature_back.model.network.Header;
+import com.hellonature.hellonature_back.model.network.Pagination;
+import com.hellonature.hellonature_back.model.network.request.EventApiRequest;
+import com.hellonature.hellonature_back.model.network.response.EventApiResponse;
+import com.hellonature.hellonature_back.repository.EventRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class EventService extends BaseService<EventApiRequest, EventApiResponse, Event> {
+
+    private final EntityManager em;
+    private final EventRepository eventRepository;
+
+
+    @Override
+    public Header<EventApiResponse> create(Header<EventApiRequest> request) {
+        EventApiRequest eventApiRequest = request.getData();
+
+        Event event = Event.builder()
+                .typeFlag(eventApiRequest.getTypeFlag())
+                .ingFlag(eventApiRequest.getIngFlag())
+                .dateStart(eventApiRequest.getDateStart())
+                .dateEnd(eventApiRequest.getDateEnd())
+                .img(eventApiRequest.getImg())
+                .title(eventApiRequest.getTitle())
+                .des(eventApiRequest.getDes())
+                .content(eventApiRequest.getContent())
+                .build();
+        Event newEvent = eventRepository.save(event);
+        return Header.OK();
+    }
+
+    @Override
+    public Header<EventApiResponse> read(Long idx) {
+        return eventRepository.findById(idx)
+                .map(event -> response(event))
+                .map(Header::OK)
+                .orElseGet(()->Header.ERROR("No data"));
+    }
+
+    @Override
+    public Header<EventApiResponse> update(Header<EventApiRequest> request) {
+        EventApiRequest eventApiRequest = request.getData();
+        Optional<Event> optional = eventRepository.findById(eventApiRequest.getIdx());
+        return optional.map(event -> {
+            event.setTypeFlag(eventApiRequest.getTypeFlag());
+            event.setIngFlag(eventApiRequest.getIngFlag());
+            event.setDateStart(eventApiRequest.getDateStart());
+            event.setDateEnd(eventApiRequest.getDateEnd());
+            event.setImg(eventApiRequest.getImg());
+            event.setTitle(eventApiRequest.getTitle());
+            event.setDes(eventApiRequest.getDes());
+            event.setContent(eventApiRequest.getContent());
+
+            return event;
+        }).map(event -> eventRepository.save(event))
+                .map(event -> response(event))
+                .map(Header::OK)
+                .orElseGet(()-> Header.ERROR("No data"));
+    }
+
+    @Override
+    public Header delete(Long idx) {
+        Optional<Event> optional = eventRepository.findById(idx);
+
+        return optional.map(event -> {
+            eventRepository.delete(event);
+            return Header.OK();
+        }).orElseGet(()-> Header.ERROR("No data"));
+    }
+
+    private EventApiResponse response(Event event){
+        EventApiResponse eventApiResponse = EventApiResponse.builder()
+                .idx(event.getIdx())
+                .typeFlag(event.getTypeFlag())
+                .ingFlag(event.getIngFlag())
+                .dateStart(event.getDateStart())
+                .dateEnd(event.getDateEnd())
+                .img(event.getImg())
+                .title(event.getTitle())
+                .des(event.getDes())
+                .content(event.getContent())
+                .build();
+        return eventApiResponse;
+    }
+
+    public Header<List<EventApiResponse>> list(Flag typeFlag, String title, String dateStart, String dateEnd, Integer page){
+        String jpql = "select e from Event e";
+        boolean check = false;
+
+        if(typeFlag != null ||title != null || dateStart != null || dateEnd != null){
+            jpql += " where";
+            if(typeFlag != null){
+                jpql += " type_flag = :typeFlag";
+                check = true;
+            }
+            if (title != null){
+                if (check) jpql += " and";
+                jpql += " title like :title";
+                check = true;
+            }
+            if (dateStart != null){
+                if(check) jpql += " and";
+                jpql += " TO_char(regdate, 'YYYY-MM-DD') >= :dateStart";
+                check = true;
+            }
+            if(dateEnd != null){
+                if (check) jpql += " and";
+                jpql += " TO_char(regdate, 'YYYY-MM-DD') <= :dateEnd";
+            }
+        }
+
+        jpql += " order by idx desc";
+        TypedQuery<Event> query = em.createQuery(jpql, Event.class);
+
+        if (typeFlag != null) query = query.setParameter("typeFlag", typeFlag);
+        if (title != null) query = query.setParameter("title", "%"+title+"%");
+        if (dateStart != null) query = query.setParameter("dateStart", dateStart);
+        if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
+
+        List<Event> result = query.getResultList();
+
+        int count = 10;
+        int start = count * page;
+        int end = Math.min(result.size(), start + count);
+
+        List<EventApiResponse> list = new ArrayList<>();
+
+        for (Event event: result.subList(start, end)){
+            list.add(response(event));
+        }
+
+        Pagination pagination = Pagination.builder()
+                .totalPages(result.size() / count)
+                .currentPage(page)
+                .totalElements((long) result.size())
+                .currentElements(end - start)
+                .build();
+
+
+        return Header.OK(list, pagination);
+    }
+    public Header<List<EventApiResponse>> search(Pageable pageable){
+        Page<Event> event = eventRepository.findAll(pageable);
+        List<EventApiResponse> eventApiResponseList = event.stream()
+                .map(events -> response(events))
+                .collect(Collectors.toList());
+        Pagination pagination = Pagination.builder()
+                .totalPages(event.getTotalPages()-1)
+                .totalElements(event.getTotalElements())
+                .currentPage(event.getNumber())
+                .currentElements(event.getNumberOfElements())
+                .build();
+        return Header.OK(eventApiResponseList, pagination);
+    }
+}
+

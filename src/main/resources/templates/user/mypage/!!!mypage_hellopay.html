@@ -1,0 +1,170 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헬로페이</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <style>
+        #mypage-box { overflow: hidden; height: 100%;}
+        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
+        .list li:nth-child(3) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
+        .list li:nth-child(3) > a { color: #5dab99;}
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const Idx = $("#memIdx").val();
+
+        axios.get('/api/card/read/'+Idx, {
+
+        }).then((response) => {
+            let numList = response.data.data.num;               // 카드번호
+            let bankType = response.data.data.bankType;         // 은행타입
+            // let bankType = ["KB", "SINHAN", "CITY", "IBK", "KEB", "BNK", "SC", "GWANGJU", "WOORI"];
+            let cardIdx = response.data.data.idx;               // Primary key
+
+            if(cardIdx == null){
+                $(".ifHasCard").css('display', 'none');
+                $("#contents_hellopay_h5").innerText("카드를 등록해주세요.");
+                return false;
+            }else{
+                $(".ifHasCard").css('display', 'show');
+                $("#contents_hellopay_h5").innerText("등록된 카드");
+            }
+
+            // 카드번호 마지막 4자리
+            let num = numList.split("-");    // 1234-1234-1234-1234
+            let splitNum = num[3];           //                ---- num[3]
+            let lastNum = splitNum;          // 카드번호 마지막 4자리
+
+            // 은행종류 (영어 -> 한국어)
+            let bank;
+            switch(bankType){
+                case "KB":
+                    bank = "국민은헹";
+                    break;
+                case "SINHAN":
+                    bank = "신한은행";
+                    break;
+                case "CITY":
+                    bank = "한국씨티은행";
+                    break;
+                case "IBK":
+                    bank = "IBK기업은행";
+                    break;
+                case "KEB":
+                    bank = "KEB하나은행";
+                    break;
+                case "BNK":
+                    bank = "부산은행";
+                    break;
+                case "SC":
+                    bank = "SC제일은행";
+                    break;
+                case "GWANGJU":
+                    bank = "광주은행";
+                    break;
+                case "WOORI":
+                    bank = "우리은행";
+                    break;
+            }
+
+            // id가 card_name인 input[type="text"]에 value값으로 bank를 삽입
+            $("#card_name").attr('value', bank);
+
+            $(".hellopay_bankname").append(bank);
+            $(".hellopay_star:nth-child(2)").append(lastNum);
+        });
+
+        // 헬로페이 삭제
+        function deleteHellopay() {
+            const Idx = $("#memIdx").val();
+
+            axios.delete('/api/card/delete/'+Idx, {
+
+            }).then((response) => {
+                alert("카드 정보를 삭제하였습니다.");
+            })
+
+        }
+    </script>
+    <!-- axios -->
+</head>
+<body>
+    <div id="mypage-box">
+        <div class="container">
+            <div th:replace="/user/fragment/header::header"></div>
+            <div class="contents">
+                <div th:replace="/user/fragment/section::section"></div>
+            </div>
+            <div class="main">
+                <!-- tb_members id -->
+                <input type="hidden" id="memIdx" class="memIdx" th:value="${idx}" />
+                <!-- main_leftaside 시작 -->
+                <div class="main_leftaside3">
+                    <div th:replace="/user/fragment/sidebar3::sidebar3"></div>
+                <!-- main_leftaside 끝 -->
+                </div>
+                <!-- main_contents 시작 -->
+                <div class="main_contents">
+                    <div class="contents_box1">
+                        <h2 class="contents_name">헬로페이</h2>                        
+                    </div> 
+                    <h5 id="contents_hellopay_h5">
+                        <!-- 등록된 카드 -->
+                    </h5>
+                    <!-- 카드 -->
+                    <div class="ifHasCard">
+                        <div class="contents_hellopay_inputcard">
+                            <div class="hellopay_radio_box">
+                                <div class="hellopay_radio_box_inner">
+                                    <input type="radio" name="radio_id" id="hellopay_radio"/>
+                                    <label for="hellopay_radio"></label>
+                                </div>
+                                <div class="hellopay_card_edit_del">
+                                    <p id="hellopayEditNickname">별칭수정</p>
+                                    <div class="hellopay_line"></div>
+                                    <p id="hellopayDelete" onClick="deleteHellopay()">삭제</p>
+                                </div>
+                            </div>
+                            <div class="hellopay_cardname">
+                                <input type="text" id="cardname" maxlength="10" readonly>
+                            </div>
+                            <div class="hellopay_card_info">
+                                <span class="hellopay_bankname">
+                                    <!-- KB국민카드 -->
+                                </span>
+                                <span class="hellopay_star">
+                                    <i>**** **** ****</i>
+                                    <span><!-- 1234 --></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 카드 -->
+                    <div class="hellopay_button_area">
+                        <button type="submit" onClick="location.href='/mypage_enrollHellopay'"class="hellopay_inputcard_submit" id="regist_card">카드 등록</button>
+                    </div>
+                <!-- main_contents 끝 -->        
+                </div>
+            <!-- main 끝 -->
+            </div>
+            <div th:replace="/user/fragment/footer::footer"></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>
+

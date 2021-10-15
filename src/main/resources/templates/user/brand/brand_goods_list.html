@@ -1,0 +1,730 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브랜드 - 아이템 리스트</title>
+    <link rel="stylesheet" href="/user/css/index_style.css">
+
+</head>
+
+<body>
+<div id="container">
+
+    <!--header thymeleaf-->
+    <div th:replace="/user/fragment/header::header"></div>
+
+    <!-- main 시작 -->
+    <main type="hidden" id="brandIdx" th:value="@{brandIdx}">
+
+        <!-- 브랜드 아이템 리스트 -->
+        <section id="item_list_brand">
+
+            <div class="list_bg">
+                <div class="category_bg">
+                    <div class="category_mold">
+                        <div class="ico_cate">
+                            <span class="txt">브랜드관</span>
+                        </div>
+                        <ul class="list">
+                            <li><a href="">창화당</a></li>
+
+                        </ul>
+                        <div class="list_ability">
+                            <div class="sort_menu">
+                                <div>
+                                    <div class="select_type user_sort" >
+                                        <button id="filter_btn" onclick="filterBtn()" >
+                                            <div class="filter_info" >필터</div>
+                                            <span class="filter_btn_img"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 세부 카테고리 시작 -->
+                        <div id="filter_box" class="filter_box_wrap" style="display: none;">
+                            <div class="list_filters">
+                                <form action="">
+                                    <div class="ckeck_filter">
+                                        <input type="checkbox" id="rec" name="filter" value="rec" onclick="checkOnlyOne(this)" checked>
+                                        <span class="box">box</span>
+                                        <label for="rec">추천순</label>
+
+                                        <input type="checkbox" id="new" name="filter" value="new" onclick="checkOnlyOne(this)">
+                                        <span class="box">box</span>
+                                        <label for="new">신상품순</label>
+
+                                        <input type="checkbox" id="hot" name="filter" value="hot" onclick="checkOnlyOne(this)">
+                                        <span class="box">box</span>
+                                        <label for="hot">인기순</label>
+
+                                        <input type="checkbox" id="low" name="filter" value="low" onclick="checkOnlyOne(this)">
+                                        <span class="box">box</span>
+                                        <label for="low">낮은 가격순</label>
+
+                                        <input type="checkbox" id="high" name="filter" value="high" onclick="checkOnlyOne(this)">
+                                        <span class="box">box</span>
+                                        <label for="high">높은 가격순</label>
+                                    </div>
+                                    <input class="filter_btn" type="submit" value="검색">
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 세부 카테고리 끝 -->
+                    </div>
+                </div>
+
+                <ul class="list_mold">
+
+                    <!-- 브랜드 배너 -->
+                    <li class="brand_bnr_wrap">
+                        <div id="brand_bnr" class="brand_bnr">
+                            <div id="brand_tit" class="brand_tit_wrap">
+                                <div class="logo"></div>
+                                <span class="brand_name">창화당</span>
+                                <span id="brand_des">익선동 만두 잘하는 집</span>
+
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 브랜드 배너 -->
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none;">10%</span>
+                            <span class="item_best" style="display: none;">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale"  style="display: none">10%</span>
+                            <span class="item_best"  style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+
+
+
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+
+
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+
+
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+
+
+
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale"  style="display: none">10%</span>
+                            <span class="item_best"  style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale"  style="display: none">10%</span>
+                            <span class="item_best"  style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_end_wrap">
+                        <div class="item_info">
+                            <span class="item_sale"  style="display: none">10%</span>
+                            <span class="item_best"  style="display: none">Best</span>
+                        </div>
+                        <a href="/product" target="" class="item_img"></a>
+                        <a href="/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+                    <li class="life_item_wrap">
+                        <div class="item_info">
+                            <span class="item_sale" style="display: none">10%</span>
+                            <span class="item_best" style="display: none">Best</span>
+                        </div>
+                        <a href="#" target="" class="item_img">
+                            <p id="minimumCount" style="display: none">몇 개 안 남았어요 :)</p>
+                        </a>
+                        <a href="#" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
+                        <div class="item_price"><span class="price_comma">5900000</span>원</div><del><span class="price_comma">8480000</span>원</del>
+                        <div class="item_storage"><span>냉동</span></div>
+                        <div class="like_area">
+                            <span class="item_star">4.2점</span>
+                            <div class="rating" data-rate="4.2">
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                                <div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>
+                            </div>
+                            <a href="#">
+                                <button class="price_cart">카트에 담기</button></a>
+                        </div>
+                    </li>
+
+
+
+
+                </ul>
+
+            </div>
+        </section>
+
+    </main>
+    <!-- main 끝 -->
+
+</div>
+
+<!--footer thymeleaf-->
+<!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+<div th:replace="/user/fragment/footer::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+
+<script>
+
+    /* ---- axios ---- */
+    // http://127.0.0.1:8080/api/brand/read/1
+    $(function (){  // 브랜드 메인 사진(banner), 브랜드명(name), 설명(des)
+
+        let idx = $('#brandIdx').val();
+        console.log(idx);
+
+        axios.get('/api/brand/read/' + idx, {
+        }).then(function (response){
+            console.log(response);
+
+            let name = response.data.data.name; // 브랜드명
+            let des = response.data.data.des;   // 간략설명
+            let logo = response.data.data.logo; // 로고이미지
+            let banner = response.data.data.banner; // 메인(대표)이미지
+
+            document.getElementById('brand_id').getElementsByClassName('brand_name').innerText = name;
+            document.getElementById('brand_tit').getElementsByClassName('brand_name').innerText = name;
+            document.getElementById('brand_des').innerText = des;
+            // document.getElementById('brand_tit').getElementsByClassName('logo').style.background = logo; // 로고이미지
+            // document.getElementById('brand_bnr').style.background = banner;  // 메인(대표)이미지
+
+        });
+    });
+
+    $(function (){  // 브랜드별 상품 리스트
+        axios.get('/api/product/read' + brIdx, {}).then(function (response){
+            console.log(response)
+
+            for(let i in response.data.data){
+                let $name = response.data.data[i].name;             // 상품명
+                // let $img = response.data.data[i].img;            // 상품사진
+                let $netPrice = response.data.data[i].netPrice;     // 가격
+                let $salePrice = response.data.data[i].salePrice;   // 할인가(계산해서 넣어라)
+                let $discount = response.data.data[i].salePrice;    // 할인 퍼센트 마크 (10%)
+                if ($discount == null){
+                    $discount = 0;
+                }
+                let $temp = response.data.data[i].temp;             // 보관법(1:냉장, 2:냉동, 3:상온)
+
+                let $count = response.data.data[i].count;           // 재고얼마 없다
+                if( count < 10 ){    // count의 값이 10보다 작을경우
+                    document.getElementById('minimumCount').style.display = block;
+                }
+                let $star = response.data.data[i].star;             // 별점(점수 넣어주면됨)
+                let $bestFlag = response.data.data[i].bestFlag;     // true,false
+            }
+
+        });
+    });
+
+
+
+    /* ---- axios ---- */
+</script>
+
+</body>
+
+</html>

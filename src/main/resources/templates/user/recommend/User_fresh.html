@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head -->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloNature-Recommend-fresh</title>
+    <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+</head>
+<!-- head 끝 -->
+<body>
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <div th:replace="/user/fragment/header::header"></div>
+        <!-- header 끝 -->
+
+        <!-- main -->
+        <main>
+            <!-- fresh content -->
+            <div id="recommend_wrapper">
+                <div id="recommend_content">
+                    <div class="page_article">
+                        <!-- 헬로네이처 추천 메뉴 -->
+                        <div class="recommend_top_menu">
+                            <ul class="recommend_category">
+                                <li onclick="location.href='/recommend/fresh'">
+                                    <img src="/user/images/recommend/recommend1.webp" alt="">
+                                    <p>
+                                        <span>더신선</span>
+                                        <span>신선 그 이상의 신선</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/recommend/store'">
+                                    <img src="/user/images/recommend/recommend2.webp" alt="">
+                                    <p>
+                                        <span>팝업스토어</span>
+                                        <span>지금 가장 핫한 그 제품들</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/recommend/event'">
+                                    <img src="/user/images/recommend/recommend3.webp" alt="">
+                                    <p>
+                                        <span>기획전·이벤트</span>
+                                        <span>현재 진행중인 다양한 이벤트</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/innerbrand'">
+                                    <img src="/user/images/recommend/recommend4.webp" alt="">
+                                    <p>
+                                        <span>브랜드관</span>
+                                        <span>헬로네이처의 프리미엄 브랜드들</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 헬로네이처 추천 메뉴 끝 -->
+
+                        <!-- 더신선 컨텐츠 -->
+                        <div class="fresh_content">
+                            <div class="fresh_img">
+                                <img src="/user/images/recommend/fresh/fresh.jpg" alt="더신선">
+                            </div>
+                            <div class="item_list">
+                                <ul>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item1.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>김종오 명인의 달콤말캉 복숭아</h4>
+                                                <p>복숭아 명인의 정성과 노하우로 1년에 5번 부지런히 열매를 솎아 크고 달고 말캉하게 무르익혔어요.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item2.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>동해 바다 참가리비</h4>
+                                                <p>채롱에 담아 통통하게 살찌웠어요. 플랑크톤만 먹으며 건강하게 자랐죠.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item3.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>박푸른들 님의 유기농 허브</h4>
+                                                <p>충남 홍성에서 허브를 짓습니다. 농약 없이 유기농법을 고집하죠. 천천히 자라나 향이 짙고 깊어요.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item4.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>양평 용문산 산양삼</h4>
+                                                <p>바람 잘 드는 산 중턱에 씨 뿌려 농약 없이 건강하게 키웠어요. 몸집은 작아도 영양은 못지않죠.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item5.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>지금 제일 맛있는 계절 꽃 샐러드</h4>
+                                                <p>특급호텔 셰프 출신 최종섭 님이 계절마다 가장 어여쁜 꽃으로 골라 직접 재배합니다. 접시 위를 화려하게, 맛있게 꽃피우세요.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item6.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>강원도 生 공추냉이</h4>
+                                                <p>청정 샘물에서 1년 반 튼실하게 바로 갈아먹을 때만 누릴 수 있는 달고 맑은 알싸함을 경험해보세요.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item7.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>미경산 한우 암소</h4>
+                                                <p>미경산(未經産), 아직 출산한 적이 없는 암소죠. 야들한 육질과 을레인산이 최고의 고기 맛을!</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item8.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>우리 토종쌀</h4>
+                                                <p>지금은 잊혀진 우리 토종 쌀의 아롱이다롱이 밥맛과 이야기가 매일의 밥상을 특별하게 지어줍니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item9.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>울릉도 건오징어</h4>
+                                                <p>당일 잡아 장일 말려 당일바리라 하죠. 울릉도 서쪽 태하마을에서 맑은 골바람 맞으며 건조해 육질이 참 쫄깃쫄깃합니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item10.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>5℃ 우윳빛쌀</h4>
+                                                <p>수확부터 배송 직전까지 5℃를 지킵니다. 쌀이 숨을 멈추니 양분을 뿜어낼 일도 없죠. 처음 영양 그대로 더 달고 구수한 밥맛!</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item11.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>추자도 돌멍게</h4>
+                                                <p>깊은 바닷속 바위에 착 붙어 몸집을 키웁니다. 쫀득한 살결에 달보드레 바다내음이 물씬하죠. 태고의 섬 추자도 바다를 생생하게 만끽하세요.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item12.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>청산도 자연산 전복</h4>
+                                                <p>슬로시티 청산도에선 전복도 천천히 오래 자랍니다. 거친 물살을 견디며 5년 넘게 몸을 키우다 보면 어른 손바닥만 한 살집이 오도독 더 탄탄해집니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item13.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>수경재배 원컷 채소 & 허브</h4>
+                                                <p>흙 아닌 물에 뿌리를 내리고 잎을 펼칩니다. 뿌리째 담아 새벽 밭의 생기를 더 오래오래. 밑동만 툭 잘라 쓰는 원컷 채소&허브입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item14.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>임형문 님의 1년 벌꿀</h4>
+                                                <p>벌집이 100% 찰 때 비로소 채밀합니다. 그리곤 발효와 숙성으로 밀도와 풍미를 다지죠. 꼬박 1년을 기다려 얻은 진짜 꿀맛입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item15.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>대한민국 1번 계란</h4>
+                                                <p>대한민국 3%, 1번 계란만 모았습니다. 닭 본래의 습성대로 너른 평지를 뛰놀며 알을 품는 가장 자연에 가까운 계란입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item16.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>흑산도 보름홍어회</h4>
+                                                <p>겨울 바다 흑산도는 홍어가 한창입니다. 물 만난 홍어를 보름간 살큰 삭혔습니다. 탱글탱글 톡 쏘는 살맛이 딱 제철입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item17.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>여서도 해녀물미역</h4>
+                                                <p>남해바다 완도 아래 작고 외딴 섬 여서도. 톡톡한데 보드라운 제철 돌미역을 섬 해녀가 자맥질로 캐내 미역귀 그대로 말려 전합니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item18.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>약대구</h4>
+                                                <p>양팔 너비 대구를 바닷가 덕장에 걸어두고 간장을 부어가며 꾸덕꾸덕 잘 말렸습니다. 더위를 대비하는 힘 불끈 바다 보양식입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item19.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>슈퍼골든포크</h4>
+                                                <p>달고 꼬순 살맛, 쫀득한 비계, 탱글한 식감. 미슐랭이 인정한 '돼지 맛'을 소개합니다. 돼지고기도 이제 품종 따져 먹는 시대입니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="fresh_item">
+                                        <a href="">
+                                            <div class="item_img">
+                                                <img src="/user/images/recommend/fresh/fresh_item20.jpg" alt="">
+                                            </div>
+                                            <div class="item_text">
+                                                <h4>노화도 단지 문어</h4>
+                                                <p>노화도 깊은 바다 속에 단지를 엮어 담가 두면 문어가 슬며시 기어들어와 제 집을 짓습니다. 문어의 습성대로, 옛 방식대로 잡아 바로 전합니다.</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 더신선 컨텐츠 끝 -->
+                    </div>
+                </div>
+            </div>
+            <!-- fresh content 끝-->
+        </main>
+        <!-- main 끝 -->
+
+        <!-- footer -->
+        <!--footer thymeleaf-->
+        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+        <div th:replace="/user/fragment/footer::footer"></div>
+        <!-- footer 끝 -->
+
+        <!-- aside -->
+        <!-- aside 끝 -->
+    </div>
+    <!-- container 끝 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head -->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloNature-Recommend-fresh</title>
+    <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+</head>
+<!-- head 끝 -->
+<body>
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <div th:replace="/user/fragment/header::header"></div>
+        <!-- header 끝 -->
+
+        <!-- main -->
+        <main>
+            <!-- fresh content -->
+            <div id="recommend_wrapper">
+                <div id="recommend_content">
+                    <div class="page_article">
+                        <!-- 헬로네이처 추천 메뉴 -->
+                        <div class="recommend_top_menu">
+                            <ul class="recommend_category">
+                                <li onclick="location.href='/recommend/fresh'">
+                                    <img src="/user/images/recommend/recommend1.webp" alt="">
+                                    <p>
+                                        <span>더신선</span>
+                                        <span>신선 그 이상의 신선</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/recommend/store'">
+                                    <img src="/user/images/recommend/recommend2.webp" alt="">
+                                    <p>
+                                        <span>팝업스토어</span>
+                                        <span>지금 가장 핫한 그 제품들</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/recommend/event'">
+                                    <img src="/user/images/recommend/recommend3.webp" alt="">
+                                    <p>
+                                        <span>기획전·이벤트</span>
+                                        <span>현재 진행중인 다양한 이벤트</span>
+                                    </p>
+                                </li>
+                                <li onclick="location.href='/innerbrand'">
+                                    <img src="/user/images/recommend/recommend4.webp" alt="">
+                                    <p>
+                                        <span>브랜드관</span>
+                                        <span>헬로네이처의 프리미엄 브랜드들</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 헬로네이처 추천 메뉴 끝 -->
+
+                        <!-- 팝업스토어 내용 -->
+                        <div class="popup_top">
+                            <div class="popup_date">
+                                <!--db에서 idx read -->
+                                <div class="popup_idx">no.186</div>
+                                <!-- db에서 date read-->
+                                <div class="popup_dday">9.13 ~ 9.19</div>
+                            </div>
+                            <div class="popup_title">꿀맛나는 납작만두집</div>
+                        </div>
+
+                        <!-- db에서 content read -->
+                        <div class="popup_content">
+                            <div class="popup_cont_html">
+                                <img src="/user/images/recommend/store/20210910113931572.jpg" alt="">
+                                <p>대구 칠성시장 20년 납작만두 장인 아버지를 이어 아들은 그야말로 ‘꿀맛나는’ 납작만두집을 열었죠. 대구 명물 납작만두의 MZ적 변신 ‘편밀밀’과 납작만두떡볶이를 소개합니다.</p>
+                                <img src="./images/dudgns/store/20210910152103784.jpg" alt="">
+
+                                <hr class="line_01">
+
+                                <p>원조 납작만두의 MZ적 변신</p>
+                                <img src="/user/images/recommend/store/20210910122445408.jpg" alt="">
+                                <p>아버지 한병철 님은 대구 칠성시장에서 20년 넘게 납작만두를 빚었습니다. 사이드 메뉴에 불과하던 납작만두를 단독 주연으로 데뷔시킨 건 아들 한대탁 님이죠. 편밀밀은 대구 명물 납작만두를 트렌디한 요리로 재해석하며 MZ세대 취향 저격 뉴트로 맛집으로 떠올랐습니다. 바삭고소한 납작만두에 걸쭉매콤한 떡볶이를 더하면 말해 뭐해? 제대로 맛.없.없 조합이죠.</p>
+
+                                <hr class="line_01">
+
+                                <img src="/user/images/recommend/store/20210910122744964.jpg" alt="">
+                                <p>생긴 건 납작해도 맛은 풍성하죠</p>
+                                <p>납작만두는 생각보다 더 ‘납작’합니다. 만두피에 당면과 파를 가위로 잘게 잘라 넣는 만두소 조금이 전부니까요. 20년 장인의 편밀밀 납작만두는 좀 다릅니다. 만두피는 진공 배합으로 더 쫀득고소, 만두소는 넉넉하게 채워 아삭든든하거든요. 바삭하게 눌러 지져 간장소스에만 찍어 먹어도 참 맛있습니다.</p>
+
+                                <img src="/user/images/recommend/store/20210910123005912.jpg" alt="">
+                                <p>한국인의 소울푸드 분식계의 제왕</p>
+                                <p>500원의 행복이던 학교 앞 분식집부터 우리네 떡볶이 사랑은 영원하죠. 떡볶이의 온갖 화려한 변신 속에서도 달짝지근한 옛날 떡볶이가 그리울 때가 있습니다. 그런 떡볶이를 찾고 있다면 편밀밀 떡볶이가 해답입니다. 탱글한 밀떡과 쫄깃한 어묵, 매콤달콤 떡볶이소스까지, 추억 속 바로 그 맛이니까요.</p>
+
+                                <img src="/user/images/recommend/store/20210910123144906.jpg" alt="">
+                                <p>아는 맛에 아는 맛 맛있음은 무한대</p>
+                                <p>만두와 떡볶이 조합은 다 아는 맛이라고요? 섭섭한 말씀! 편밀밀 납작만두와 편밀밀 떡볶이가 만나면 맛있음이 두 배, 아니 무한대! 싸서 먹고 찍어 먹고 여기에 삶은 달걀까지 폭폭 깨먹으면 편밀밀 이름 그대로 꿀맛이죠. 누구나 간편하게 조리할 수 있게 모든 재료 넉넉히 챙겨 보내드릴게요. 우리집이 SNS 맛집 편밀밀이 되는 순간!</p>
+
+                                <hr class="line_01">
+                            </div>
+                        </div>
+
+                        <!-- BEST 브랜드 -->
+                        <div class="popup_best_brand">
+                            <p>hellonature Popup Store</p>
+                            <div class="best_brand_controls">
+                                <div class="best_brand_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                                <div class="best_brand_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                            </div>
+                            <div class="best_brand_wrap">
+                                <ul class="best_brand_box">
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand01.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand02.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand03.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand04.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand05.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="best_brand">
+                                        <a href="/brand_goods_list">
+                                            <img src="/user/images/recommend/store/brand06.jpg" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- BEST 브랜드 끝 -->
+                    </div>
+                </div>
+            </div>
+            <!-- fresh content 끝-->
+        </main>
+        <!-- main 끝 -->
+
+        <!-- footer -->
+
+        <!--footer thymeleaf-->
+        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
+        <div th:replace="/user/fragment/footer::footer"></div>
+
+        <!-- footer 끝 -->
+
+        <!-- aside -->
+        <!-- aside 끝 -->
+    </div>
+    <!-- container 끝 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/recommend.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더그린배송</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <style>
+        #mypage-box { overflow: hidden; height: 100%;}
+        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
+        .list li:nth-child(4) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
+        .list li:nth-child(4) > a { color: #5dab99;}
+    </style>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function sendit() {
+            let paymentType;        // 결제수단
+            const paymentTypeList = [ '헬로페이', '차이페이', '네이버페이', '페이코', '삼성페이', 'SK페이', '신용카드 일반결제'];    // 결제수단 리스트
+            // 결제수단 div가 클릭되었을 때, className=payment_box_clicked가 추가되는데 해당 요소 안에 라디오타입인 인풋의 아이디 속성이 'method1' 일 때
+            if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method1')){
+                paymentType = paymentTypeList[0];   // 헬로페이
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method2')){
+                paymentType = paymentTypeList[1];   // 차이페이
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method3')){
+                paymentType = paymentTypeList[2];   // 네이버페이
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method4')){
+                paymentType = paymentTypeList[3];   // 페이코
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method5')){
+                paymentType = paymentTypeList[4];   // 삼성페이
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method6')){
+                paymentType = paymentTypeList[5];   // SK페이
+            }else if($('.payment_box_clicked > input[type="radio"]').attr(id, 'method7')){
+                paymentType = paymentTypeList[6];   // 신용카드 일반결제
+            }
+            let price = 5000;       // 총결제금액 : 5000원
+            let state = 1;          // 결제상태 1 : 결제완료, 0 : 결제취소
+            let lastNum;            // 마지막 카드번호 4자리
+
+            // 결제방식이 헬로페이일 경우 (카드정보 사전등록)
+            // 카드번호 마지막 4자리 가져오기
+            if(paymentType != null){
+                axios.get('/api/card/read', { }).then((response) => {
+                    let num = response.data.data.num;       // 1234-1234-1234-1234
+                    let splitNum = num.split("-");          // 1234 1234 1234 1234
+                    lastNum = splitNum[3];                  //                ---- splitNum[3]
+                }).catch((err) => {
+                    console.log(err);
+                    alert('카드정보를 입력하세요.')
+                    return false;
+                });
+            }
+
+            axios.post('/api/membersPayments/read', {
+                headers: {'Content-type': 'application/json'},
+                data: {
+                    paymentType: paymentType,       // 결제방식
+                    price: price,                   // 총 결제금액
+                    state: state,                   // 결제상태
+                    num: lastNum                    // 마지막 카드번호 4자리
+                }
+            }).then((response) => {
+                alert('더그린배송 5000원을 결제하였습니다.');
+            })
+        };
+    </script>
+    <!-- axios -->
+</head>
+<body>
+    <div id="mypage-box">
+        <div class="container">
+            <div th:replace="/user/fragment/header::header"></div>
+            <div class="contents">
+                <div th:replace="/user/fragment/section::section"></div>
+            </div>
+            <div class="main">
+                <input type="hidden" id="memIdx" class="memIdx" th:value="${idx}" />
+                <!-- main_leftaside 시작 -->
+                <div class="main_leftaside1">
+                    <div th:replace="/user/fragment/sidebar1::sidebar1"></div>
+                <!-- main_leftaside 끝 -->
+                </div>
+                <!-- main_contents 시작 -->
+                <div class="main_contents">                    
+                    <div class="contents_box1">
+                        <div class="back_button">
+                            <a href="javascript:history.back();" alt="뒤로 돌아가기"></a>
+                        </div>
+                        <h2 class="contents_name">더그린배송 결제</h2>                        
+                    </div>
+                    <!-- from 시작 -->
+                    <form target="_blank" onsubmit="return sendit()">
+                    <!-- 결제 정보 -->
+                        <div class="enroll_thegreen_box1">
+                            <div class="enroll_thegreen_guide">
+                                <h3>결제 정보를</h3>
+                                <h3>확인해주세요</h3>
+                            </div>
+                            <div class="show_thegreen_image">
+                                <input type="button" id="thegreen_image">
+                                <label for="thegreen_image"></label>
+                            </div>
+                        </div>
+                        <!-- 결제 정보 -->
+                        <!-- 결제수단 -->
+                        <div class="enroll_hellopass_box2">
+                            <h5>결제수단</h5>
+                            <a href="#" class="hellopass_link_payment">선택해주세요.</a>
+                        </div>
+                        <!-- 결제수단 -->
+                        <!-- 결제 수단 팝업창 -->
+                        <div class="popup_payment_box">
+                            <div class="popup_topline">
+                                <h2>결제 수단 선택</h2>
+                                <div class="popup_close">
+                                    <a href="#">close</a>
+                                </div>
+                            </div>
+                            <!-- popup_payment_form 시작 -->
+                            <div class="popup_payment_form">
+                                <h5>결제수단</h5>
+                                <!-- choose_payment_box 시작 -->
+                                <div class="choose_payment_box">
+                                    <!-- 헬로페이 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method" id="method1" class="popup_radio_hide">
+                                        <label for="method1">
+                                            <img src="/user/images/mypage.img/popup/popup_hellopay.png" alt="헬로네이처 간편결제" class="popup_hellopay">
+                                            <div class="payment_text_box_4words">
+                                                <span class="payment_text">헬로페이</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 헬로페이 -->
+                                    <!-- 차이페이 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method2" id="method2" class="popup_radio_hide">
+                                        <label for="method2">
+                                            <img src="/user/images/mypage.img/popup/popup_chaipay.png" alt="헬로네이처 간편결제" class="popup_chaipay">
+                                            <div class="payment_text_box_4words">
+                                                <span class="payment_text">차이페이</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 차이페이 -->
+                                    <!-- 네이버페이 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method3" id="method3" class="popup_radio_hide">
+                                        <label for="method3">
+                                            <img src="/user/images/mypage.img/popup/popup_naverpay.png" alt="헬로네이처 간편결제" class="popup_naverpay">
+                                            <div class="payment_text_box_5words">
+                                                <span class="payment_text">네이버페이</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 네이버페이 -->
+                                    <!-- 페이코 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method4" id="method4" class="popup_radio_hide">
+                                        <label for="method4">
+                                            <img src="/user/images/mypage.img/popup/popup_payco.png" alt="헬로네이처 간편결제" class="popup_payco">
+                                            <div class="payment_text_box_3words">
+                                                <span class="payment_text">페이코</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 페이코 -->
+                                    <!-- 삼성페이 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method5" id="method5" class="popup_radio_hide">
+                                        <label for="method5">
+                                            <img src="/user/images/mypage.img/popup/popup_samsungpay.png" alt="헬로네이처 간편결제" class="popup_samsungpay">
+                                            <div class="payment_text_box_4words">
+                                                <span class="payment_text">삼성페이</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 삼성페이 -->
+                                    <!-- SK페이 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method6" id="method6" class="popup_radio_hide">
+                                        <label for="method6">
+                                            <img src="/user/images/mypage.img/popup/popup_skpay.png" alt="헬로네이처 간편결제" class="popup_skpay">
+                                            <div class="payment_text_box_skpay">
+                                                <span class="payment_text">SK페이</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- SK페이 -->
+                                    <!-- 신용카드 일반결제 -->
+                                    <div class="payment_box">
+                                        <input type="radio" name="method7" id="method7" class="popup_radio_hide">
+                                        <label for="method7">
+                                            <img src="/user/images/mypage.img/popup/popup_normal.png" alt="헬로네이처 간편결제" class="popup_normal">
+                                            <div class="payment_text_box_normal">
+                                                <span class="payment_text">신용카드 일반결제</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- 신용카드 일반결제 -->
+                                <!-- choose_payment_box 끝 -->
+                                </div>
+                                <button type="button" id="select_payment" class="button_submit" onclick="return choosePaymentType()">선택완료</button>
+                                <script>
+                                    function choosePaymentType(){
+                                        let url = "PopupPayment.html";
+                                        let name = "test";
+                                        let option = "width= 1300, height= 700, top = 100, left= 100";
+
+                                        if($(".choose_payment_box:nth-child(1)").hasClass(".payment_box_clicked")){         // 헬로페이가 선택
+                                            alert('헬로페이를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(2)").hasClass(".payment_box_clicked")){   // 차이페이 선택
+                                            alert('차이페이를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(3)").hasClass(".payment_box_clicked")){   // 네이버페이 선택
+                                            alert('네이버페이를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(4)").hasClass(".payment_box_clicked")){   // 페이코 선택
+                                            alert('페이코를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(5)").hasClass(".payment_box_clicked")){   // 삼성페이 선택
+                                            alert('삼성페이를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(6)").hasClass(".payment_box_clicked")){   // SK페이 선택
+                                            alert('SK페이를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else if($(".choose_payment_box:nth-child(7)").hasClass(".payment_box_clicked")){   // 신용카드 일반결제 선택
+                                            alert('신용카드 일반결제를 선택하였습니다.');
+                                            window.open(url, name, option);
+                                        }else{
+                                            alert('결제방식을 선택해주세요.');
+                                            return false;
+                                        }
+                                    }
+                                </script>
+                            <!-- popup_payment_form 끝 -->
+                            </div>
+                        </div>
+                        <div class="enroll_hellopass_box3">
+                            <h5>결제정보</h5>
+                            <div class="hellopass_charge_price">
+                                <p>총 결제 금액</p>
+                                <p>5,000<span>원</span></p>
+                            </div>
+                            <div class="hellopass_charge_guide">
+                                <p>헬로패스 결제 시 쿠폰, 헬로캐시 사용이 불가합니다.</p>
+                            </div>
+                        </div>
+                        <!-- 개인 정보 동의 체크박스 시작 -->
+                        <div class="enrollpay_allow">
+                            <div class="enrollhellopay_box_check_inner">
+                                <input type="checkbox" class="check_business_credit_card check_privacy" id="check_business_credit_card">
+                            </div>
+                            <label for="check_business_credit_card">개인 정보 수집 및 이용 동의</label>
+                            <div class="allow_button">
+                                <a href="#" alt="개인 정보 수집 및 이용 동의 오버뷰"></a>
+                            </div>
+                        </div>
+                        <!-- 개인 정보 수집 체크박스 끝 -->
+                        <!-- 개인 정보 수집 및 이용 동의 시작 -->
+                        <div class="enrollpay_allow_list2">
+                            <h5>개인 정보 수집 및 이용 동의</h5>
+                            <div class="allow_contents1">
+                                <p>헬로네이처는 고객님께서 구매하신 서비스 및 상품의 원활한 제공을 위해 최소한의 범위 내에서 아래와 같이 개인 정보를 수집 • 이용합니다. 고객님께서는 정보 제공에 동의하지 않으실 수 있으며 동의하지 않으실 경우, 일부 구매가 제한될 수 있습니다.</p>
+                            </div>
+                            <div class="allow_table">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>수집목적</th>
+                                            <td>상품 배송 및 서비스 제공을 위한 사용자 정보 확인</td>
+                                        </tr>
+                                        <tr>
+                                            <th>수집항목</th>
+                                            <td>주문자 정보(주문자명, 주문자 연락처 등) 배송정보(수취인명/수취인 주소, 수취인 연락처 등), 결제정보(현금영수증 발행여부 등)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>보유기간</th>
+                                            <td>5년 (계약 및 청약철회, 대금결제 및 재화 등의 공급) 또는 회원탈퇴 후 90일 까지</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 개인 정보 수집 및 이용 동의 끝 -->
+                        <!-- 카드 등록 버튼 시작 -->
+                        <div class="enroll_hellopass_area">
+                            <button type="submit" class="hellopass_button_submit" id="pay_hellopass">5,000원 결제하기</button>
+                        </div>
+                    </form>
+                    <!-- form 끝 -->
+                    <!-- 카드 등록 버튼 끝 -->
+                <!-- main_contents 끝 -->        
+                </div>           
+            <!-- main 끝 -->
+            </div>
+            <div th:replace="/user/fragment/footer::footer"></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</body>
+</html>
+
