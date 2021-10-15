@@ -53,7 +53,7 @@ public class ProductReviewService  {
 
     public Header<ProductReviewApiResponse> read(Long id) {
         return productReviewRepository.findById(id)
-                .map(productReview -> response(productReview))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -92,7 +92,7 @@ public class ProductReviewService  {
     }
 
     private ProductReviewApiResponse response(ProductReview productReview){
-        ProductReviewApiResponse productReviewApiResponse = ProductReviewApiResponse.builder()
+        return ProductReviewApiResponse.builder()
                 .idx(productReview.getIdx())
                 .memIdx(productReview.getMember().getIdx())
                 .proIdx(productReview.getProduct().getIdx())
@@ -103,7 +103,6 @@ public class ProductReviewService  {
                 .ansDate(productReview.getAnsDate())
                 .files(productReview.getFiles())
                 .build();
-        return productReviewApiResponse;
     }
 
     public Header<List<ProductReviewListResponse>> list(Flag ansFlag, Long proIdx, Integer page){
@@ -120,9 +119,7 @@ public class ProductReviewService  {
             if (proIdx != null){
                 if (check) jpql += " and";
                 jpql += " pro_idx = :proIdx";
-                check = true;
             }
-
         }
 
         jpql += " order by idx desc";
@@ -135,8 +132,8 @@ public class ProductReviewService  {
 
         int count = 10;
 
-        Integer start = count * page;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * page;
+        int end = Math.min(result.size(), start + count);
 
         List<ProductReviewListResponse> list = new ArrayList<>();
 
@@ -154,7 +151,7 @@ public class ProductReviewService  {
     }
 
     private ProductReviewListResponse responseList(ProductReview productReview){
-        ProductReviewListResponse productReviewListResponse = ProductReviewListResponse.builder()
+        return ProductReviewListResponse.builder()
                 .idx(productReview.getIdx())
                 .proName(productReview.getProduct().getName())
                 .proIdx(productReview.getProduct().getIdx())
@@ -164,13 +161,12 @@ public class ProductReviewService  {
                 .regdate(productReview.getRegdate())
                 .ansDate(productReview.getAnsDate())
                 .build();
-        return productReviewListResponse;
     }
 
     public Header<List<ProductReviewApiResponse>> search(Pageable pageable){
         Page<ProductReview> productReview = productReviewRepository.findAll(pageable);
         List<ProductReviewApiResponse> productReviewApiResponseList = productReview.stream()
-                .map(productReviews -> response(productReviews))
+                .map(this::response)
                 .collect(Collectors.toList());
         Pagination pagination = Pagination.builder()
                 .totalPages(productReview.getTotalPages()-1)
@@ -223,7 +219,7 @@ public class ProductReviewService  {
                 .memIdx(productReview.getMember().getIdx())
                 .memName(productReview.getMember().getName())
                 .like(productReview.getLike())
-                .proCount(productReview.getMemberOrderProduct().getProCount())
+//                .proCount(productReview.getMemberOrderProduct().getProCount())
                 .content(productReview.getContent())
                 .ansFlag(productReview.getAnsFlag())
                 .ansContent(productReview.getAnsContent())
