@@ -17,30 +17,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/memberslikes")
 @RequiredArgsConstructor
-public class LikeApiController extends CrudController<LikeApiRequest, LikeApiResponse, Like> {
+public class LikeApiController{
 
     private final LikeService likeService;
 
-    @Override
     @PostMapping("/create")
     public Header<LikeApiResponse> create(@RequestBody Header<LikeApiRequest> request) {
         return likeService.create(request);
     }
 
-    @Override
-    public Header<LikeApiResponse> read(Long id) {
-        return null;
-    }
-
-    @Override
-    public Header<LikeApiResponse> update(Header<LikeApiRequest> request) {
-        return null;
-    }
-
-    @Override
-    @DeleteMapping("/delete/{idx}")
-    public Header<LikeApiResponse> delete(@PathVariable(name = "idx") Long idx) {
-        return likeService.delete(idx);
+    @DeleteMapping("/delete")
+    public Header delete(@RequestParam(name = "memIdx") Long memIdx,
+                         @RequestParam(name = "proIdx", required = false) Long proIdx,
+                         @RequestParam(name = "magIdx", required = false) Long magIdx) {
+        return proIdx == null ? likeService.magDelete(memIdx, magIdx) : likeService.proDelete(memIdx, proIdx);
     }
 
     @GetMapping("/list")
@@ -48,4 +38,5 @@ public class LikeApiController extends CrudController<LikeApiRequest, LikeApiRes
                                                   @RequestParam(name = "memIdx") Long memIdx){
         return type == 1 ? likeService.productList(memIdx) : likeService.magazineList(memIdx);
     }
+
 }

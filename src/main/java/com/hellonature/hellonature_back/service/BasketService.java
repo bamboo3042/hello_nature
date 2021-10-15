@@ -33,8 +33,8 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
         BasketApiRequest basketApiRequest = request.getData();
 
         Basket basket = Basket.builder()
-                .member(memberRepository.findById(basketApiRequest.getIdx()).get())
-                .product(productRepository.findById(basketApiRequest.getIdx()).get())
+                .member(memberRepository.findById(basketApiRequest.getMemIdx()).get())
+                .product(productRepository.findById(basketApiRequest.getProIdx()).get())
                 .proCount(basketApiRequest.getProCount())
                 .build();
         Basket newBasket = basketRepository.save(basket);

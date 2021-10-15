@@ -40,7 +40,7 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<ProductQuestionApiResponse> delete(Long idx) {
+    public Header delete(Long idx) {
         return productQuestionService.delete(idx);
     }
 
@@ -53,5 +53,9 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
         return productQuestionService.list(typeFlag, title, dateStart, dateEnd, startPage);
     }
 
-
+    @GetMapping("/detail/list")
+    public Header<List<ProductQuestionApiResponse>> productDetailList(@RequestParam(name = "proIdx") Long proIdx,
+                                                                      @RequestParam(name = "page", defaultValue = "0") Integer page){
+        return productQuestionService.productDetailList(proIdx, page);
+    }
 }

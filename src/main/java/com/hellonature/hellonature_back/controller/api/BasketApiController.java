@@ -18,7 +18,7 @@ public class BasketApiController extends CrudController<BasketApiRequest, Basket
 
     @Override
     @PostMapping("/create")
-    public Header<BasketApiResponse> create(Header<BasketApiRequest> request) {
+    public Header<BasketApiResponse> create(@RequestBody Header<BasketApiRequest> request) {
         return basketService.create(request);
     }
 
@@ -30,7 +30,7 @@ public class BasketApiController extends CrudController<BasketApiRequest, Basket
 
     @Override
     @PutMapping("/update")
-    public Header<BasketApiResponse> update(Header<BasketApiRequest> request) {
+    public Header<BasketApiResponse> update(@RequestBody Header<BasketApiRequest> request) {
         return basketService.update(request);
     }
 

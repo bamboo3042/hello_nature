@@ -3,6 +3,7 @@ package com.hellonature.hellonature_back.repository;
 import com.hellonature.hellonature_back.model.entity.Like;
 import com.hellonature.hellonature_back.model.entity.Magazine;
 import com.hellonature.hellonature_back.model.entity.Member;
+import com.hellonature.hellonature_back.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByMember(Member member);
     Long countByMagazine(Magazine magazine);
     Optional<Like> findByMagazine(Magazine magazine);
+    Optional<Like> findByMemberAndProduct(Member member, Product product);
+    void deleteByMemberAndProduct(Member member, Product product);
+    void deleteByMemberAndMagazine(Member member, Magazine magazine);
 }

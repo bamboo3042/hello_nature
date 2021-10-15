@@ -24,7 +24,7 @@
                             let num = parseInt(i) + 1;
 
 
-                            let li = $(`<li id="rootIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdx}'">`).append(
+                            let li = $(`<li id="rootIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdx}&page=0'">`).append(
                                 '<input id="firstCate_value" type="hidden" value="' + rootIdx +'">' +
                                 '<a href="#" class="cate-parent fruit"><img src="/user/images/icon/icon_cate_' + num + '.png" alt="과일 아이콘"><div>' + name + '</div></a></li>'
                             );
@@ -46,7 +46,7 @@
                                     let cateIdx = res.data.data[j].idx;
                                     let name = res.data.data[j].name;
 
-                                    let cateIdx_li = $(`<li id="cateIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdxValue}&cateIdx=${cateIdx}'">`).append(
+                                    let cateIdx_li = $(`<li id="cateIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdxValue}&cateIdx=${cateIdx}&page=0'">`).append(
                                         '<input id="secondCate_value" type="hidden" value="' + cateIdx +'">' +
                                         '<a href="#" class="menu"><span>' + name + '</span></a></li>'
                                     );

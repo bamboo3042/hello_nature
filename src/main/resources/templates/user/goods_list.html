@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,15 +13,12 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function() {
-
-            const currentUrl = new URL(location.href);          // 현재 url
-            const currentUrlTemp = currentUrl.searchParams;     // 물음표 뒤 값 잘라내기
-            const rootIdxParam = currentUrlTemp.get("rootIdx"); // 1차 카테고리
-            const cateIdxParam = currentUrlTemp.get("cateIdx"); // 2차 카테고리
-
-            let paramUrl, cateIdx, tempUrl;
-
-            let pageNum = $('.hidden_page_num').val();
+            const currUrl = new URL(location.href);           // 현재 url
+            const searchParams = currUrl.searchParams;        // 파라미터값 객체로 변환
+            const rootIdxParam = searchParams.get("rootIdx"); // 1차 카테고리
+            const cateIdxParam = searchParams.get("cateIdx"); // 2차 카테고리
+            let page = searchParams.get("page");
+            let paramUrl, cateIdx, tempUrl, newParam;
 
             // 1차 카테고리 이름 띄우기
             axios.get('/api/category/read/' + rootIdxParam, {
@@ -29,7 +27,7 @@
             });
 
             // 2차 카테고리 불러오기
-            axios.get("/api/category/list/second?idx=" + rootIdxParam +"&lifeFlag=FALSE", {
+            axios.get("/api/category/list/second?idx="+ rootIdxParam +"&lifeFlag=FALSE", {
             }).then(function(res) {
 
                 let ul = $('<ul class="list"><li class="prod_cate" id="prodItemAll" value="'+ rootIdxParam +'">전체</li>');
@@ -37,8 +35,6 @@
                 for (let i in res.data.data) {
                     cateIdx = res.data.data[i].idx;
                     let name = res.data.data[i].name;
-
-                    let k = parseInt(i + 1);
 
                     let li = $('<li class="prod_cate" value="' + cateIdx + '">').append(
                         name + '</li>'
@@ -51,20 +47,21 @@
 
                 // 1차 카테고리로 넘어올때
                 if (rootIdxParam !== null && cateIdxParam == null) {
-                    paramUrl = "/api/product/user/list?cateIdx="+ rootIdxParam +"&page="+ pageNum + "&lifeFlag=FALSE";
+                    paramUrl = "/api/product/user/list?cateIdx="+ rootIdxParam +"&page="+ page +"&lifeFlag=FALSE";
                     // 2차 카테고리로 넘어올때
                 } else if (rootIdxParam !== null && cateIdxParam !== null) {
-                    paramUrl = "/api/product/user/list?cateIdx=" + cateIdxParam +"&page="+ pageNum + "&lifeFlag=FALSE";
+                    paramUrl = "/api/product/user/list?cateIdx=" + cateIdxParam +"&page="+ page +"&lifeFlag=FALSE";
                 }
 
                 axios.get(paramUrl, {
 
                 }).then(function(res) {
 
+                    $(".page_num").remove();
+
                     let ul = $('<ul class="list_mold">');
 
                     for (let i in res.data.data) {
-                        console.log(res.data.data);
                         let prodIdx = res.data.data[i].idx;            // 상품번호
                         let name = res.data.data[i].name;              // 상품명
                         let netPrice = res.data.data[i].netPrice;      // 판매가(원)
@@ -76,7 +73,6 @@
                         else { netPriceText = "inline"; discountIcon = "inline-block"; }
 
                         let img = res.data.data[i].img;              // 이미지
-                        console.log(img);
                         let temp = res.data.data[i].temp;              // 보관온도
                         let star = res.data.data[i].star;              // 별점
 
@@ -122,11 +118,25 @@
                     $('#goods_list_bg').append(ul);
 
                     for (let i=res.data.pagination.totalPages; i>=0; i--) {
-                        let pageNumbering = $('<div class="page_num" value="'+ i +'"></div>').append(
-                            (i+1) +'</li>'
+                        let pageNumbering = $('<div class="page_num" value="'+i+'">').append(
+                            (i+1) +'</div>'
                         )
                         $(".page_prev").after(pageNumbering);
                     }
+
+                    let pageNum = document.querySelectorAll(".page_num");
+                    for(let i=0; i<pageNum.length; i++) {
+                        pageNum[i].addEventListener('click', function() {
+                            let num = pageNum[i].innerText;
+                            let k = parseInt(num);
+                            searchParams.set('page', String(k-1));
+                            newParam = searchParams.toString();
+                            location.href = location.pathname+'?'+newParam, '_self';
+                            console.log(String(k-1));
+                        });
+                    }
+
+                    // 만약 axios가 실행되면 tempUrl에 실행한 api주소를 담는다.
                     tempUrl = paramUrl;
                 }).catch(function(err) {
                     console.log(err);
@@ -135,6 +145,7 @@
 
                 let prodCate = document.getElementsByClassName("prod_cate");
 
+                // 카테고리를 for문으로 돌려서
                 for (let i=0; i<prodCate.length; i++) {
                     prodCate[i].addEventListener('click', function() {
 
@@ -143,7 +154,7 @@
 
                         let cateIdxValue = prodCate[i].value;
 
-                        axios.get('/api/product/user/list?cateIdx=' + cateIdxValue + '&page=' + pageNum + '&lifeFlag=FALSE', {
+                        axios.get('/api/product/user/list?cateIdx=' + cateIdxValue +'&page='+ page +'&lifeFlag=FALSE', {
 
                         }).then(function(res) {
                             let ul = $('<ul class="list_mold">');
@@ -208,13 +219,27 @@
                             $('#goods_list_bg').append(ul);
 
                             for (let i=res.data.pagination.totalPages; i>=0; i--) {
-                                let pageNumbering = $('<div class="page_num" value="'+ i +'"></div>').append(
-                                    (i+1) +'</li>'
+                                let pageNumbering = $('<div class="page_num" value="'+i+'">').append(
+                                    (i+1) +'</div>'
                                 )
                                 $(".page_prev").after(pageNumbering);
                             }
 
-                            tempUrl = "/api/product/user/list?cateIdx=" + cateIdxValue + "&page=" + pageNum + "&lifeFlag=FALSE";
+                            // 페이지네이션 url 값 변경
+                            let pageNum = document.querySelectorAll(".page_num");
+                            for(let i=0; i<pageNum.length; i++) {
+                                pageNum[i].addEventListener('click', function() {
+                                    let num = pageNum[i].innerText;
+                                    let k = parseInt(num);
+                                    searchParams.set('page', String(k-1));
+                                    newParam = searchParams.toString();
+                                    window.open(location.pathname+'?'+newParam, '_self');
+                                    console.log(String(k-1));
+                                });
+                            }
+
+                            // 만약 axios가 실행되면 tempUrl에 실행한 api주소를 담는다.
+                            tempUrl = "/api/product/user/list?cateIdx=" + cateIdxValue +"&lifeFlag=FALSE";
 
                         }).catch(function(err) {
                             console.log(err);
@@ -227,18 +252,12 @@
                 let filterItem = document.querySelectorAll(".filter_item");
                 let searchUrl;
 
-                // 선택한 조건으로 검색을 눌렀을 때
-                filterSearch.addEventListener('click', function() {
-                    // 조건들을 돌려서
-                    for (let i = 0; i < filterItem.length; i++) {
-                        // 만약에 조건들 중에 체크되어 있는 게 있으면
-                        if (filterItem[i].checked == true) {
-                            // 그 체크된 요소의 벨류값을 가져오고
-                            let filterItemValue = filterItem[i].value;
-
-                            // tempUrl에 저장된 api 주소를 가지고 order 를 추가시켜서 조건별로 상품 불러오기
-                            if (tempUrl) {
-                                switch(filterItemValue) {
+                filterSearch.addEventListener('click', function() {         // 1. 선택한 조건으로 검색을 눌렀을 때
+                    for (let i = 0; i < filterItem.length; i++) {           // 2. 조건들을 일단 다 돌리고
+                        if (filterItem[i].checked == true) {                // 3. 조건들 중에서 체크된 요소가 있으면
+                            let filterItemValue = filterItem[i].value;      // 4. 그 체크된 요소의 벨류값을 변수에 저장.
+                            if (tempUrl) {                                  // 5. api를 실행시키면서 api주소가 저장되는 변수를 가져와서
+                                switch(filterItemValue) {                   // 6. 체크된 요소의 벨류값에 따라 api주소에 덧붙여서 필터를 실행.
                                     case "new":
                                         searchUrl = tempUrl + "&order=1";
                                         break;
@@ -256,7 +275,6 @@
                                         break;
                                 }
                             }
-                            console.log(searchUrl);
 
                             $('#goods_list_bg').empty();
 
@@ -419,6 +437,7 @@
                 <input type="hidden" value="0" class="hidden_page_num">
             </div>
             <!-- 페이징 끝 -->
+
         </section>
     </main>
     <!-- main 끝 -->
@@ -426,6 +445,7 @@
 
 <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/common.js}"></script>
 <div th:replace="/user/fragment/footer::footer"></div>
 </body>
 </html>

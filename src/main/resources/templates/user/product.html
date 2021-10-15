@@ -30,6 +30,7 @@
 
             axios.get('/api/product/detail?proIdx=' + prodIdx + '&memIdx=' + memIdx, {}).then(function (res) {
                 console.log(res.data.data)
+                let start = res.data.data.star;
                 let name = res.data.data.name;
                 let bestFlag = res.data.data.bestFlag;
                 let brIdx = res.data.data.brIdx;
@@ -49,6 +50,7 @@
                 }
                 let foodType = res.data.data.foodType;
                 let img1 = res.data.data.img1;
+                let star = res.data.data.star;
                 let likeFlag = res.data.data.likeFlag;
                 let proDes = res.data.data.proDes;
                 let location = res.data.data.location;
@@ -121,15 +123,17 @@
 
             $("#like_button").click(function (e) {
                 if (this.classList.contains("likeClicked")) {
-                    this.classList.remove("likeClicked");
                     axios.delete("/api/memberslikes/delete", {
-                        data: {}
+                        data: {
+                            memIdx: memIdx,
+                            proIdx: prodIdx
+                        }
                     }).then(function () {
-
+                        location.reload()
+                    }).catch(function (err){
+                        console.log(err)
                     })
                 } else {
-                    this.classList.add("likeClicked");
-                    alert("해당 상품을 좋아합니다")
                     axios.post("/api/memberslikes/create", {
                         data: {
                             memIdx: memIdx,
@@ -137,9 +141,38 @@
                         }
                     }).then(function () {
                         alert("해당 상품을 좋아합니다")
+                        location.reload()
                     }).catch(function (err) {
                         console.log(err)
+                        alert("로그인을 해주세요")
+                        location.href("/user/mypage_userLogin");
                     })
+                }
+            })
+
+            $("#goods_cart").click(function(){
+                let count = $(".item_ea").text()
+                console.log(memIdx);
+                if(memIdx !== ""){
+                console.log(memIdx);
+                console.log(prodIdx);
+                console.log(count);
+                    axios.post("/api/basket/create", {
+                        data:{
+                            memIdx: memIdx,
+                            proIdx: prodIdx,
+                            proCount: count
+                        }
+                    }).then(function (){
+                        alert("장바구니에 등록되었습니다")
+                    }).catch(function (err){
+                        console.log(err)
+                    })
+                }else{
+                    alert("넌비회원이야")
+                    let proidx_list = [];
+
+                    sessionStorage.setItem("noMem", prodIdx)
                 }
             })
         })

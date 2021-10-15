@@ -49,7 +49,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
     @Override
     public Header<ProductQuestionApiResponse> read(Long id) {
         return productQuestionRepository.findById(id)
-                .map(productQuestion -> response(productQuestion))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -67,8 +67,8 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                     productQuestion.setAnsDate(productQuestionApiRequest.getAnsDate());
 
                     return productQuestion;
-                }).map(productQuestion -> productQuestionRepository.save(productQuestion))
-                .map(productQuestion -> response(productQuestion))
+                }).map(productQuestionRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -84,7 +84,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
     }
 
     private ProductQuestionApiResponse response(ProductQuestion productQuestion){
-        ProductQuestionApiResponse productQuestionApiResponse = ProductQuestionApiResponse.builder()
+        return ProductQuestionApiResponse.builder()
                 .memIdx(productQuestion.getMember().getIdx())
                 .proIdx(productQuestion.getProduct().getIdx())
                 .content(productQuestion.getContent())
@@ -92,8 +92,6 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .ansContent(productQuestion.getAnsContent())
                 .ansDate(productQuestion.getAnsDate())
                 .build();
-
-        return productQuestionApiResponse;
     }
 
     public Header<List<ProductQuestionListResponse>> list(Flag ansFlag, String title, String dateStart, String dateEnd, Integer startPage){
@@ -155,20 +153,19 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
     }
 
     private ProductQuestionListResponse responseList(ProductQuestion productQuestion){
-        ProductQuestionListResponse productQuestionListResponse = ProductQuestionListResponse.builder()
+        return ProductQuestionListResponse.builder()
                 .idx(productQuestion.getIdx())
                 .regdate(productQuestion.getRegdate())
                 .ansFlag(productQuestion.getAnsFlag())
                 .content(productQuestion.getContent())
                 .name(productQuestion.getMember().getName())
                 .build();
-        return productQuestionListResponse;
     }
 
     public Header<List<ProductQuestionApiResponse>> search(Pageable pageable){
         Page<ProductQuestion> productQuestion = productQuestionRepository.findAll(pageable);
         List<ProductQuestionApiResponse> productQuestionApiResponseList = productQuestion.stream()
-                .map(productQuestions -> response(productQuestions))
+                .map(this::response)
                 .collect(Collectors.toList());
         Pagination pagination = Pagination.builder()
                 .totalPages(productQuestion.getTotalPages()-1)
@@ -177,5 +174,29 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .currentElements(productQuestion.getNumberOfElements())
                 .build();
         return Header.OK(productQuestionApiResponseList, pagination);
+    }
+
+    public Header<List<ProductQuestionApiResponse>> productDetailList(Long proIdx, Integer page){
+        List<ProductQuestion> productQuestions = productQuestionRepository.findAllByProduct(productRepository.findById(proIdx).get());
+
+        int count = 5;
+        int size = productQuestions.size();
+        int start = count * page;
+        int end = Math.min(size, start + count);
+
+        List<ProductQuestionApiResponse> productQuestionApiResponses = new ArrayList<>();
+
+        for (ProductQuestion productQuestion: productQuestions.subList(start, end)){
+            productQuestionApiResponses.add(response(productQuestion));
+        }
+
+        Pagination pagination = Pagination.builder()
+                .totalPages(size % 5 == 0 ? size / 5 : size / 5 + 1)
+                .totalElements((long) size)
+                .currentPage(page)
+                .currentElements(end - start)
+                .build();
+
+        return Header.OK(productQuestionApiResponses, pagination);
     }
 }

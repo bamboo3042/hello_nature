@@ -26,6 +26,7 @@ public class Header<T> {
 
     private T data;
 
+    @Nullable
     private Pagination pagination;
 
     // Ok

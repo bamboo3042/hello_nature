@@ -498,9 +498,8 @@ public class ProductService{
     @Transactional
     public Header<ProductDetailResponse> detail(Long proIdx, Long memIdx){
         Optional<Member> member = memIdx == null ? Optional.empty() : memberRepository.findById(memIdx);
-        Optional<Like> like = member.isEmpty() ? Optional.empty() : likeRepository.findByMember(member.get());
         return productRepository.findById(proIdx)
-                .map(product -> detailResponse(product, productReviewRepository.findAllByProduct(product), like))
+                .map(product -> detailResponse(product, productReviewRepository.findAllByProduct(product), member.isEmpty() ? Optional.empty() : likeRepository.findByMemberAndProduct(member.get(), product)))
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("상품이 없습니다"));
     }
@@ -526,6 +525,7 @@ public class ProductService{
                 .salePrice(product.getSalePrice())
                 .price(product.getPrice())
                 .state(product.getState())
+                .star(star)
                 .dateStart(product.getDateStart())
                 .dateEnd(product.getDateEnd())
                 .origin(product.getOrigin())

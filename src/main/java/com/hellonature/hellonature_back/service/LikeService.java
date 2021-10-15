@@ -23,14 +23,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class LikeService extends BaseService<LikeApiRequest, LikeApiResponse, Like> {
+public class LikeService {
 
     private final LikeRepository likeRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
     private final MagazineRepository magazineRepository;
 
-    @Override
     public Header<LikeApiResponse> create(Header<LikeApiRequest> request) {
         LikeApiRequest likeApiRequest = request.getData();
 
@@ -59,35 +58,30 @@ public class LikeService extends BaseService<LikeApiRequest, LikeApiResponse, Li
         return Header.OK();
     }
 
-    @Override
-    public Header<LikeApiResponse> read(Long id) {
-        return null;
+    public Header proDelete(Long memIdx, Long proIdx){
+        try {
+            Optional<Product> optional = productRepository.findById(proIdx);
+            Product product = optional.get();
+            product.minusLike();
+            likeRepository.deleteByMemberAndProduct(memberRepository.findById(memIdx).get(), product);
+        }catch (Exception e){
+            return Header.ERROR("회원 또는 상품정보가 잘못되었습니다");
+        }
+        return Header.OK();
     }
 
-    @Override
-    public Header<LikeApiResponse> update(Header<LikeApiRequest> request) {
-        return null;
+    public Header magDelete(Long memIdx, Long magIdx){
+        try {
+            Optional<Magazine> optional = magazineRepository.findById(magIdx);
+            Magazine magazine = optional.get();
+            magazine.minusLike();
+            likeRepository.deleteByMemberAndMagazine(memberRepository.findById(memIdx).get(), magazine);
+        }catch (Exception e){
+            return Header.ERROR("회원 또는 매거진이 잘못되었습니다");
+        }
+        return Header.OK();
     }
 
-    @Override
-    public Header delete(Long id) {
-        Optional<Like> optional = likeRepository.findById(id);
-
-        return optional.map(like -> {
-            likeRepository.delete(like);
-
-            if (like.getProduct() != null){
-                Product product = like.getProduct();
-                product.minusLike();
-            }
-            else{
-                Magazine magazine = like.getMagazine();
-                magazine.minusLike();
-            }
-
-            return Header.OK();
-        }).orElseGet( () -> Header.ERROR("삭제 실패"));
-    }
 
     public Header<List<LikeApiResponse>> productList(Long memIdx){
         Optional<Member> optional = memberRepository.findById(memIdx);
