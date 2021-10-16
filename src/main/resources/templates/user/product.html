@@ -87,13 +87,14 @@
                 netPrice = netPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 salePrice = salePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 earnPoint = earnPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                let totalPrice_1 = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
                 img1 = img1.replace("\\", "/");
                 let img1_1 = img1.replace("\\", "/");
                 let img1_2 = img1_1.replace("\\", "/");
                 let img1_3 = img1_2.replace("\\", "/");
 
+                document.getElementById("total_prcie_hidden").value = totalPrice;
                 document.getElementById("prod_img").style.backgroundImage = "url(" + img1_3 + ")";
                 document.getElementById("prod_name").innerText = name;
                 document.getElementById("prod_price").innerText = salePrice + "원";
@@ -104,7 +105,7 @@
                 document.getElementById("temp").innerText = tempText;
                 document.getElementById("delivery").innerText = deliveryText;
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint + "원";
-                document.getElementById("total_price").innerText = totalPrice;
+                document.getElementById("total_price").innerText = totalPrice_1;
                 document.getElementById("pro_type").innerText = proType;
                 document.getElementById("pro_name").innerText = proName;
                 document.getElementById("food_type").innerText = foodType;
@@ -123,12 +124,17 @@
 
             $("#like_button").click(function (e) {
                 if (this.classList.contains("likeClicked")) {
+                    memIdx = parseInt(memIdx)
+                    console.log(memIdx)
+                    console.log(typeof memIdx)
+
                     axios.delete("/api/memberslikes/delete", {
                         data: {
                             memIdx: memIdx,
                             proIdx: prodIdx
                         }
                     }).then(function () {
+                        alert("좋아요를 취소합니다")
                         location.reload()
                     }).catch(function (err) {
                         console.log(err)
@@ -174,6 +180,54 @@
 
                     sessionStorage.setItem("noMem", prodIdx)
                 }
+            })
+
+
+            $(".plus_btn").click(function(e) {
+                e.preventDefault();                         // 이벤트 전파 방지
+                let stat = $('.item_ea').text();            // 현재 값을 가져옴.
+                let plusNum = parseInt(stat, 10);           // 숫자로 변환
+                plusNum++;                                  // 하나씩 더하기
+                if (plusNum > 10) {                         // 10개를 넘으려고 하면
+                    alert('더 이상 늘릴 수 없습니다.');         // 막기
+                    plusNum = 10;
+                }
+                $('.item_ea').text(plusNum);
+                let itemea =  $('.item_ea').text()
+                let totalprice = $("#total_prcie_hidden").val()
+                let total = itemea * totalprice;
+                let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                let earnPoint_plus = total * 0.01;
+                earnPoint_plus = earnPoint_plus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_plus + "원";
+
+                document.getElementById("total_price").innerText = total_1;
+
+            });
+
+            $(".minus_btn").click(function(e) {
+                e.preventDefault();
+                let stat = $('.item_ea').text();
+                let minusNum = parseInt(stat, 10);
+                minusNum--;
+                if (minusNum < 1) {
+                    alert('더이상 줄일수 없습니다.');
+                    minusNum = 1;
+                }
+                $('.item_ea').text(minusNum);
+                let itemea =  $('.item_ea').text()
+                let totalprice = $("#total_prcie_hidden").val()
+                let total = itemea * totalprice;
+                let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                let earnPoint_minus = total * 0.01;
+                console.log(earnPoint_minus)
+                earnPoint_minus = earnPoint_minus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_minus + "원";
+
+                document.getElementById("total_price").innerText = total_1;
+
             })
 
             axios.get('/api/productReview/userReview/list?proIdx=' + prodIdx, {}).then(function (response) {
@@ -229,7 +283,7 @@
                             let $proCount = response.data.data[i].proCount;
 
                             let row = $('#prod_review_tbody').append(
-                                '<tr class="review_click" id="review_click' + i + '"><td>' + i + '</td>' +
+                                '<tr class="review_click" id="review_cli ck' + i + '"><td>' + i + '</td>' +
                                 ' <td><span>500g</span><span>' + $proCount + '</span></td>' +
                                 '<td><img src="../images/ico_attach2.gif" alt="">' + $content + '</td>' +
                                 '<td>' + $like + '</td><td>' + $name + '</td>' +
@@ -358,6 +412,7 @@
                                         </div>
                                         <div class="total">
                                             <div class="price">
+                                                <input type="hidden" id="total_prcie_hidden">
                                                 <strong class="tit">총 상품금액 :</strong>
                                                 <span class="sum">
                                                         <span class="num" id="total_price"></span>
@@ -727,9 +782,9 @@
 
                             <!-- 상품문의 페이징 -->
                             <div id="prod_qna_pagination">
-                                <div id="prod_qna_page_first"><img src="/user/images/pagenation/pagination_first.png">
+                                <div id="prod_qna_page_first"><img src="/user/images/icon/pagination_first.png">
                                 </div>
-                                <div id="prod_qna_page_prev"><img src="/user/images/pagenation/pagination_prev.png">
+                                <div id="prod_qna_page_prev"><img src="/user/images/icon/pagination_prev.png">
                                 </div>
                                 <!--                                <div id="prod_qna_page_num">1</div>-->
                                 <!--                                <div id="prod_qna_page_num">2</div>-->
@@ -738,9 +793,9 @@
                                 <!--                                <div id="prod_qna_page_num">5</div>-->
                                 <!--                                <div id="prod_qna_page_num">6</div>-->
                                 <!--                                <div id="prod_qna_page_num">7</div>-->
-                                <div id="prod_qna_page_next"><img src="/user/images/pagenation/pagination_next.png">
+                                <div id="prod_qna_page_next"><img src="/user/images/icon/pagination_next.png">
                                 </div>
-                                <div id="prod_qna_page_last"><img src="/user/images/pagenation/pagination_last.png">
+                                <div id="prod_qna_page_last"><img src="/user/images/icon/pagination_last.png">
                                 </div>
                             </div>
                             <!-- 상품문의 페이징 끝 -->
