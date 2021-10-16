@@ -130,7 +130,7 @@
                         }
                     }).then(function () {
                         location.reload()
-                    }).catch(function (err){
+                    }).catch(function (err) {
                         console.log(err)
                     })
                 } else {
@@ -150,34 +150,101 @@
                 }
             })
 
-            $("#goods_cart").click(function(){
+            $("#goods_cart").click(function () {
                 let count = $(".item_ea").text()
                 console.log(memIdx);
-                if(memIdx !== ""){
-                console.log(memIdx);
-                console.log(prodIdx);
-                console.log(count);
+                if (memIdx !== "") {
+                    console.log(memIdx);
+                    console.log(prodIdx);
+                    console.log(count);
                     axios.post("/api/basket/create", {
-                        data:{
+                        data: {
                             memIdx: memIdx,
                             proIdx: prodIdx,
                             proCount: count
                         }
-                    }).then(function (){
+                    }).then(function () {
                         alert("장바구니에 등록되었습니다")
-                    }).catch(function (err){
+                    }).catch(function (err) {
                         console.log(err)
                     })
-                }else{
+                } else {
                     alert("넌비회원이야")
                     let proidx_list = [];
 
                     sessionStorage.setItem("noMem", prodIdx)
                 }
             })
+
+            axios.get('/api/productReview/userReview/list?proIdx=' + prodIdx, {}).then(function (response) {
+                for (let i in response.data.data) {
+                    let $content = response.data.data[i].content;
+                    let $name = response.data.data[i].name;
+                    let $regdate = response.data.data[i].regdate;
+                    let $like = response.data.data[i].like;
+                    let $proCount = response.data.data[i].proCount;
+
+                    let row = $('#prod_review_tbody').append(
+                        '<tr class="review_click" id="review_click' + i + '"><td>' + i + '</td>' +
+                        ' <td><span>500g</span><span>' + $proCount + '</span></td>' +
+                        '<td><img src="../images/ico_attach2.gif" alt="">' + $content + '</td>' +
+                        '<td>' + $like + '</td><td>' + $name + '</td>' +
+                        '<td>2021 / 09 / 11</td></tr>' +
+                        '<tr class="review_show"><td clospan="6"><div>' +
+                        '<img src="/user/images/fruit2_img.png" alt=""><p>' + $content + '</p></div></td></tr>'
+                    )
+
+                    var article = (".review_board .review_show");
+
+                    $(".review_board #review_click" + i).click(function () {
+                        var myArticle = $(this).parents().next("tr");
+                        if ($(myArticle).hasClass('review_detail')) {
+                            $(article).removeClass('review_show').addClass('review_detail');
+                            $(myArticle).removeClass('review_detail').addClass('review_show');
+                        } else {
+                            $(myArticle).addClass('review_detail').removeClass('review_show');
+                        }
+                    });
+                }
+                $('#prod_review_thead').after($('#prod_review_tbody'));
+                for (let i = response.data.pagination.totalPages; i > 0; i--) {
+                    let pages = $('<li class="review_page_num" id="page_num' + i + '" value="' + (i + 1) + '">').append(
+                        i + '</li>'
+                    )
+                    $('#review_page_prev').after(pages);
+                }
+                $('.review_page_num').click(function (e) {
+                    $('tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+
+                    axios.get('/api/productReview/userReview/list?proIdx='+prodIdx+'&page=' + page, {}).then(function (response) {
+                        for (let i in response.data.data) {
+                            let $content = response.data.data[i].content;
+                            let $name = response.data.data[i].name;
+                            let $regdate = response.data.data[i].regdate;
+                            let $like = response.data.data[i].like;
+                            let $proCount = response.data.data[i].proCount;
+
+                            let row = $('#prod_review_tbody').append(
+                                '<tr class="review_click" id="review_click' + i + '"><td>' + i + '</td>' +
+                                ' <td><span>500g</span><span>' + $proCount + '</span></td>' +
+                                '<td><img src="../images/ico_attach2.gif" alt="">' + $content + '</td>' +
+                                '<td>' + $like + '</td><td>' + $name + '</td>' +
+                                '<td>2021 / 09 / 11</td></tr>' +
+                                '<tr class="review_detail"><td clospan="6"><div>' +
+                                '<img src="/user/images/fruit2_img.png" alt=""><p>' + $content + '</p></div></td></tr>'
+                            )
+                        }
+                    })
+                })
+            }).catch(function (err) {
+                console.log(err);
+                alert('에러발생')
+            })
         })
     </script>
-    <!-- axios -->
 </head>
 
 <body>

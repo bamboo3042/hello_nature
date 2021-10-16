@@ -619,6 +619,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .goods-view-infomation-tab { display: flex; flex: 1; vertical-align: top; }
 .goods-view-infomation-tab:first-child .goods-view-infomation-tab-anchor { border-left: 1px solid #eee; }
 .goods-view-infomation-tab-anchor span { font-size: 14px; font-weight: 400; color: #999; }
+
 /* 기본 클릭된 상태 */
 /* .goods-view-infomation-tab-anchor.__active { background-color: #fff; color: #155c65; border-bottom: 0; } */
 
@@ -627,14 +628,15 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .goods-view-infomation-content.__active { display: block; }
 .goods-view-infomation-content { padding-top: 40px; min-height: 500px; margin-bottom: 50px; }
 
-.main_title_wrap {width: 1010px; height: 2400px; margin: 0 auto;}
-.main_title_wrap img {width: 1010px; height: 580px; display: flex; flex-direction: row;}
+
+/* ---------- proDes ---------- */
+.main_title_wrap {width: 1010px; margin: 0 auto;}
+.main_title_wrap img {width: 1010px; display: flex; flex-direction: row;}
 .main_title_wrap p:nth-child(2){font-size: 24px; margin: 55px 0 10px; text-align: center; color: #666;}
 .main_title_wrap h3 {font-size: 38px; margin: 0 auto; font-weight: 400; text-align: center; color: #666; padding-bottom: 45px; border-bottom: 1px solid #c1c1c1;}
 .main_title_wrap p:nth-child(4) {margin-top: 50px; font-size: 19px; font-weight: 400; color: #666;}
 .main_title_wrap p:nth-child(5) {margin-top: 15px; font-size: 18px; font-weight: 300; color: #666;}
 .main_title_wrap img:nth-child(6) {width: 700px; height: 462px; margin: 80px auto;}
-
 .main_title_wrap p:nth-child(7) {margin-top: 45px; font-size: 19px; font-weight: 400; color: #666;}
 .main_title_wrap p:nth-child(8) {margin-top: 15px; font-size: 18px; font-weight: 300; color: #666;}
 .main_title_wrap img:nth-child(9) {width: 700px; height: 462px; margin: 80px auto;}
@@ -645,14 +647,16 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .check_point_wrap ul {border: 1px solid #c1c1c1; padding-left: 50px; padding: 60px 0 30px;}
 .check_point_wrap ul li { margin: 10px 0 10px 30px; font-size: 18px; color: #666; font-weight: 300;}
 
-.tip_wrap {width: 1010px; height: 900px; margin: 0 auto;}
+.tip_wrap {width: 1010px;   margin: 0 auto;}
 .tip_wrap h3 {text-align: center; color: #666; font-size: 35px; font-weight: 500; letter-spacing: -0.5px; margin: 40px auto -30px;align-items: center; display: flex; justify-content: center;}
 .tip_wrap h3 span {background-color: #fff; padding: 0 20px;}
 .tip_wrap img {width: 1010px; margin: 50px 0 20px;}
 .tip_wrap p { margin: 10px 0 10px 30px; font-size: 18px; color: #666; font-weight: 300;}
+.tip_wrap .detail_img {display: flex; height: 320px; width: 320px; margin: 70px auto 20px;}
+/* ---------- proDes ---------- */
 
-.goods_info_wrap{width: 1010px; height: 300px; margin: 0 auto;}
-.goods_info_wrap img { height: 280px; display: flex; margin: 30px auto 50px;}
+
+.goods_info_wrap{width: 1010px; margin: 0 auto 100px;}
 .goods_info_wrap table {width: 100%; height: 250px;}
 .goods_info_wrap tbody {font-size: 13px; color: #666; }
 .goods_info_wrap th {width: 15%; background-color: #eee; font-weight: 300;}
@@ -689,7 +693,6 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .about_deli_info5 .info table th {font-weight: 500;}
 
 .about_deli_wrap .about_deli span {color: #666;}
-
 /* 상품 리뷰, QnA------------------------------------------------------------------------------- */
 
 /* review_wrap */
