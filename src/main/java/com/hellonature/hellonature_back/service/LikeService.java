@@ -17,6 +17,7 @@ import com.hellonature.hellonature_back.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class LikeService {
         return Header.OK();
     }
 
+    @Transactional
     public Header proDelete(Long memIdx, Long proIdx){
         try {
             Optional<Product> optional = productRepository.findById(proIdx);
@@ -70,6 +72,7 @@ public class LikeService {
         return Header.OK();
     }
 
+    @Transactional
     public Header magDelete(Long memIdx, Long magIdx){
         try {
             Optional<Magazine> optional = magazineRepository.findById(magIdx);
