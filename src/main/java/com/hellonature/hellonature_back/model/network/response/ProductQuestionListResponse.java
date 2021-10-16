@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class ProductQuestionListResponse {
     private Long idx;
     private Flag ansFlag;
+    private String ansContent;
     private String content;
     private String name;
     private LocalDateTime regdate;

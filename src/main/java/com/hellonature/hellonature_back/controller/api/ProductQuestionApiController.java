@@ -54,7 +54,7 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
     }
 
     @GetMapping("/detail/list")
-    public Header<List<ProductQuestionApiResponse>> productDetailList(@RequestParam(name = "proIdx") Long proIdx,
+    public Header<List<ProductQuestionListResponse>> productDetailList(@RequestParam(name = "proIdx") Long proIdx,
                                                                       @RequestParam(name = "page", defaultValue = "0") Integer page){
         return productQuestionService.productDetailList(proIdx, page);
     }

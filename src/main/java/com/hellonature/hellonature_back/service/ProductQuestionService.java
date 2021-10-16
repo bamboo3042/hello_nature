@@ -157,6 +157,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .idx(productQuestion.getIdx())
                 .regdate(productQuestion.getRegdate())
                 .ansFlag(productQuestion.getAnsFlag())
+                .ansContent(productQuestion.getAnsContent())
                 .content(productQuestion.getContent())
                 .name(productQuestion.getMember().getName())
                 .build();
@@ -176,7 +177,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
         return Header.OK(productQuestionApiResponseList, pagination);
     }
 
-    public Header<List<ProductQuestionApiResponse>> productDetailList(Long proIdx, Integer page){
+    public Header<List<ProductQuestionListResponse>> productDetailList(Long proIdx, Integer page){
         List<ProductQuestion> productQuestions = productQuestionRepository.findAllByProduct(productRepository.findById(proIdx).get());
 
         int count = 5;
@@ -184,10 +185,10 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
         int start = count * page;
         int end = Math.min(size, start + count);
 
-        List<ProductQuestionApiResponse> productQuestionApiResponses = new ArrayList<>();
+        List<ProductQuestionListResponse> productQuestionListResponses = new ArrayList<>();
 
         for (ProductQuestion productQuestion: productQuestions.subList(start, end)){
-            productQuestionApiResponses.add(response(productQuestion));
+            productQuestionListResponses.add(responseList(productQuestion));
         }
 
         Pagination pagination = Pagination.builder()
@@ -197,6 +198,6 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .currentElements(end - start)
                 .build();
 
-        return Header.OK(productQuestionApiResponses, pagination);
+        return Header.OK(productQuestionListResponses, pagination);
     }
 }
