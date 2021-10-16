@@ -206,6 +206,7 @@
                         }
                     });
                 }
+
                 $('#prod_review_thead').after($('#prod_review_tbody'));
                 for (let i = response.data.pagination.totalPages; i > 0; i--) {
                     let pages = $('<li class="review_page_num" id="page_num' + i + '" value="' + (i + 1) + '">').append(
