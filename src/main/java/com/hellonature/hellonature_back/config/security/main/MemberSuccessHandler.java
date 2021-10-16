@@ -38,6 +38,7 @@ public class MemberSuccessHandler implements AuthenticationSuccessHandler {
         session.setAttribute("idx", securityMemberLoginDTO.getMember().getIdx());
         session.setAttribute("name", securityMemberLoginDTO.getMember().getName());
         session.setAttribute("email", securityMemberLoginDTO.getMember().getEmail());
+        session.setAttribute("hp", securityMemberLoginDTO.getMember().getHp());
 
         response.sendRedirect(url);
     }

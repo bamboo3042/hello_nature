@@ -95,7 +95,12 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
 
         List<BasketProductResponse> basketProductResponses = new ArrayList<>();
 
-        if (proIdx == null) basketRepository.findAllByMember(member).stream().map(basket -> basketProductResponses.add(basketProductResponse(basket.getProduct(), basket.getProCount())));
+        if (proIdx == null){
+            List<Basket> baskets = basketRepository.findAllByMember(member);
+            for (Basket basket: baskets) {
+                basketProductResponses.add(basketProductResponse(basket.getProduct(), basket.getProCount()));
+            }
+        }
         else{
             Optional<Product> optionalProduct = productRepository.findById(proIdx);
             if (optionalProduct.isEmpty()) return Header.ERROR("상품 정보가 잘못되었습니다");

@@ -62,7 +62,7 @@ public class Header<T> {
     public static <T> Header<T> ERROR(String description){
         return (Header<T>)Header.builder()
                 .transactionTime(LocalDateTime.now())
-                .resultCode("ERROR")
+                .resultCode(description)
 //                .description(description)
                 .build();
     }
