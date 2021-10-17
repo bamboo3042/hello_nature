@@ -78,24 +78,27 @@
                     let netPrice = res.data.data.product[i].netPrice;   // 정상가 15000
                     let totPrice = price * count;
                     let totNetPrice = netPrice * count;
+                    let salePrice = res.data.data.product[i].salePrice;
 
                     let li = $('<li class="goods_cart_item">').append(
                         '<input type="hidden" id="hidden_basIdx" value="'+ basIdx +'">'+
                         '<input type="hidden" id="hidden_proIdx" class="hidden_proIdx" value="'+ proIdx +'">'+
                         '<div class="inner_goods_cart_item">' +
-                        '<div><img src="' + img + '"></div>' +
+                        '<div><img src="' + img + '" class="pro_img"></div>' +
                         '<div><span class="prod_name">' + name + '</span></div>' +
                         '<div class="item_count">' +
                         '<button class="minus_btn"><img src="/user/images/icon/ico_minus_on.svg"></button>' +
                         '<span class="item_ea">' + count + '</span>' +
                         '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg"></button>' +
                         '</div>' +
-                        '<div id="totalPrice">' + totPrice + '원</div>' +
+                        '<div id="totalPrice" class="totalPrice">' + netPrice + '원</div>' +
                         '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
-                        '<input type="hidden" id="hidden_totalPrice" value="' + totPrice + '">'+        // 할인가 총금액
-                        '<input type="hidden" id="hidden_netPrice" value="' + netPrice + '">'+          // 정상가
+                        '<input type="hidden" id="hidden_totalPrice" value="' + netPrice + '">'+        // 할인가 총금액
+                            '<input type="hidden" id="hidden_netPrice" value="' + netPrice + '">'+          // 정상가
                         '<input type="hidden" id="hidden_totalNetPrice" value="'+ totNetPrice +'">'+    // 정가 총금액
                         '<input type="hidden" id="hidden_totalCount" value="">'+                        // 총수량
+                        '<input type="hidden" id="hidden_salePrice" class="hidden_salePrice" value="'+netPrice * salePrice/100 +'">'+ //할인금액
+                        '<input type="hidden" id="hidden_saleTotPrice" class="hidden_saleTotPrice" value="0">'+ //총 할인금액
                         '<div id="delete">✖</div>' +
                         '</div></li>'
                     )
@@ -112,7 +115,7 @@
 
                 /* 초기 장바구니화면, 등록된 각 아이템 수량+정가 합을 모두 합한 정가 총 금액 띄우기 */
                 let hiddenTotNet = document.querySelectorAll("#hidden_totalNetPrice");
-                let hiddenTotPrice = document.querySelectorAll("#hidden_totalPrice");
+                let hiddenTotPrice = document.querySelectorAll(".hidden_salePrice");
                 let sum_1 = 0;
                 let sum_2 = 0;
 
@@ -121,115 +124,80 @@
 
                 document.getElementById("net_price").innerText = String(sum_1);
                 document.getElementById("sale_price").innerText = String(sum_2);
-                document.getElementById("final_price").innerText = String(sum_2 + 3000);
+                document.getElementById("final_price").innerText = String(sum_2 + 2000);
 
 
-                /* + 버튼 클릭 시 수량 및 금액 변동 */
-                let plusBtn = document.querySelectorAll(".plus_btn");
-                for (let i=0; i < plusBtn.length; i++) {
-                    plusBtn[i].addEventListener('click', function (e) {
-                        e.preventDefault();
-                        let itemeaEl = plusBtn[i].previousSibling;
-                        let stat = itemeaEl.innerText;
-                        let plusNum = parseInt(stat);
-                        plusNum++;
-                        if (plusNum > 10) {
-                            alert('더 이상 늘릴 수 없습니다.');
-                            plusNum = 10;
+                $(".plus_btn").click(function (e){
+                    let count = parseInt($(this).siblings("span").text()) + 1;
+                    if( count <= 10) {
+                        $(this).siblings("span").text(count)
+                        let hidden_totalPrice = $(this).parent().parent().children("#hidden_totalPrice").val();
+                        let totalPrice = $(this).parent().parent().children("#totalPrice");
+                        totalPrice.text(count*hidden_totalPrice + "원")
+
+                        let hidden_discount = $(this).parent().parent().children("#hidden_salePrice").val()
+                        $(this).parent().parent().children("#hidden_saleTotPrice").val(count * hidden_discount)
+
+                        let row = 0;
+                        let totalALL = document.querySelectorAll(".totalPrice");
+                        for(let i =0; i<totalALL.length; i++){
+                            row += parseInt(totalALL[i].innerText);
+                            document.getElementById("net_price").innerText = row;
                         }
-                        itemeaEl.innerText = plusNum;
 
-                        /* 화면에 찍힌 최종 수량과 클릭한 버튼의 상품 할인가를 곱하여 총 금액 구하기 */
-                        let totalCount = itemeaEl.innerText;
-                        let hiddenPrice = plusBtn[i].parentNode.nextSibling.nextSibling;
-                        let price = hiddenPrice.value;
-                        let totalPrice = parseInt(price) * parseInt(totalCount);
-
-                        /* 클릭한 버튼의 총 금액 띄우기 */
-                        let totalPriceEl = plusBtn[i].parentNode.nextSibling;
-                        totalPriceEl.innerText = totalPrice + "원";
-
-                        /* 클릭한 버튼의 수량을 히든에 담아두기 (정가와 곱하여 상품금액란에 띄워야하기 때문에) */
-                        let hiddenCount = plusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
-                        let count = hiddenCount.value;
-                        hiddenCount.value = totalCount;
-
-                        /* 수량에 따라 정가 합산 */
-                        let totalNet = parseInt(document.getElementById("net_price").innerText);
-                        let netPriceEl = plusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
-                        let netPrice = parseInt(netPriceEl.value);
-                        document.getElementById("net_price").innerText = String(totalNet + netPrice);
-
-                        /* 수량에 따라 할인가 합산 */
-                        let totalSale = parseInt(document.getElementById("sale_price").innerText);
-                        let salePriceEl = plusBtn[i].parentNode.nextSibling.nextSibling;
-                        let salePrice = parseInt(salePriceEl.value);
-                        document.getElementById("sale_price").innerText = String(totalSale + salePrice);
-
-                        /* 합산된 할인가에 배송비 3000원(고정) 합산 */
-                        document.getElementById("final_price").innerText = String(totalSale + salePrice + 3000);
-
-                        /* 수량 업데이트 */
-                        // let basIdxEl = plusBtn[i].parentNode.previousSibling.previousSibling;
-                        // let basIdx = parseInt(basIdxEl.value);
-                        // let proIdxEl = plusBtn[i].parentNode.previousSibling;
-                        // let proIdx = parseInt(proIdxEl.value);
-                        // axios.put('/api/basket/update', {
-                        //     data: {
-                        //         idx : basIdx,
-                        //         memIdx : memIdx,
-                        //         proIdx : proIdx,
-                        //         proCount : count
-                        //     }
-                        // }).then(function(e) {
-                        //     alert('업데이트 성공')
-                        // }).catch(function(err) {
-                        //     console.log(err);
-                        // });
-
-                    });
-                };
-
-                let minusBtn = document.querySelectorAll(".minus_btn");
-
-                for (let i=0; i<minusBtn.length; i++) {
-                    minusBtn[i].addEventListener('click', function (e){
-                        e.preventDefault();
-                        let itemeaElement = minusBtn[i].nextSibling;
-                        let stat = itemeaElement.innerText;
-                        let minusNum = parseInt(stat);
-                        minusNum--;
-                        if(minusNum < 1) {
-                            alert('더이상 줄일수 없어!!!!!!!!!!');
-                            minusNum = 1;
+                        let discount_row = 0;
+                        let saleALL = document.querySelectorAll(".hidden_saleTotPrice");
+                        console.log(saleALL)
+                        for(let i=0; i<saleALL.length; i++){
+                            discount_row += parseInt(saleALL[i].value);
+                            console.log(discount_row)
+                            document.getElementById("sale_price").innerText = discount_row;
                         }
-                        itemeaElement.innerText = minusNum;
 
-                        let totalCount = itemeaElement.innerText;                   // 클릭 횟수
-                        let hiddenPrice = minusBtn[i].parentElement.nextSibling.nextSibling; // 히든한 값
-                        let price = hiddenPrice.value;                              // 얼마나 빠지는지? 품목의 가격
-                        let totalPrice = parseInt(price) * parseInt(totalCount);    // 계산된 가격을 넣어줘야해
+                        document.getElementById("final_price").innerText = parseInt(document.getElementById("net_price").innerText) - parseInt(document.getElementById("sale_price").innerText) + 2000
+                        $(".emph").text("구매 시" + parseInt($("#final_price").text())*0.01 + "원 적립")
+                    }else{
+                        alert("더이상 늘릴 수 없습니다")
+                    }
+                })
 
-                        let totalPriceEl = minusBtn[i].parentNode.nextSibling;      // 넣어줄 자리
-                        totalPriceEl.innerText = totalPrice + "원";
+                $(".minus_btn").click(function (e){
+                    let count = parseInt($(this).siblings("span").text()) - 1;
+                    if( count >= 1) {
+                        $(this).siblings("span").text(count)
+                        let hidden_totalPrice = $(this).parent().parent().children("#hidden_totalPrice").val();
+                        let totalPrice = $(this).parent().parent().children("#totalPrice");
+                        totalPrice.text(count*hidden_totalPrice + "원")
 
-                        let hiddenCount = minusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
-                        hiddenCount.value = totalCount;
+                        let hidden_discount = $(this).parent().parent().children("#hidden_salePrice").val()
+                        $(this).parent().parent().children("#hidden_saleTotPrice").val(count * hidden_discount)
 
-                        let totalNet = parseInt(document.getElementById("net_price").innerText);
-                        let netPriceEl = minusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
-                        let netPrice = parseInt(netPriceEl.value);
-                        document.getElementById("net_price").innerText = String(totalNet + netPrice);
+                        let row = 0;
+                        let totalALL = document.querySelectorAll(".totalPrice");
+                        for(let i =0; i<totalALL.length; i++){
+                            row += parseInt(totalALL[i].innerText);
+                            document.getElementById("net_price").innerText = row;
+                        }
 
-                        let totalSale = parseInt(document.getElementById("sale_price").innerText);
-                        let salePriceEl = minusBtn[i].parentNode.nextSibling.nextSibling;
-                        let salePrice = parseInt(salePriceEl.value);
-                        document.getElementById("sale_price").innerText = String(totalSale + salePrice);
+                        let discount_row = 0;
+                        let saleALL = document.querySelectorAll(".hidden_saleTotPrice");
+                        console.log(saleALL)
+                        for(let i=0; i<saleALL.length; i++){
+                            discount_row += parseInt(saleALL[i].value);
+                            console.log(discount_row)
+                            document.getElementById("sale_price").innerText = discount_row;
+                        }
 
-                        document.getElementById("final_price").innerText = String(totalSale + salePrice + 3000);
+                        document.getElementById("final_price").innerText = parseInt(document.getElementById("net_price").innerText) - parseInt(document.getElementById("sale_price").innerText) + 2000
+                        $(".emph").text("구매 시" + parseInt($("#final_price").text())*0.01 + "원 적립")
+                    }else{
+                        alert("더이상 줄일 수 없습니다")
+                    }
+                })
 
-                    });
-                };
+
+
+
 
                 /* 장바구니 삭제하기 (새로고침해야 없어짐ㅠㅠ) */
                 let deleteBtn = document.querySelectorAll("#delete");
@@ -238,8 +206,11 @@
                         let basIdxEl = deleteBtn[i].parentNode.previousSibling.previousSibling;
                         let basIdx = basIdxEl.value;
                         axios.delete('/api/basket/delete/' + basIdx, {
-                        }).catch(function(err) {
-                            console.log(err);
+                        }).then(function(err) {
+                            alert("해당 항목을 장바구니에서 삭제했습니다")
+                            location.reload()
+                        }).catch(function (err){
+                            console.log(err)
                         });
                     });
                 };
@@ -256,16 +227,30 @@
             }else{
                 let hidden_proIdx = document.querySelectorAll(".hidden_proIdx")
                 let prod_name = document.querySelectorAll(".prod_name")
+                let itemEA = document.querySelectorAll(".item_ea")
+                let pro_img = document.querySelectorAll(".pro_img")
+                let netPrice = document.getElementById("net_price").innerText;
+                let salePrice = document.getElementById("sale_price").innerText;
+                let num = document.getElementById("num").innerText;
 
                 let prodIdx = [];
                 let prodName = [];
+                let proEA = [];
+                let proIMG =[];
                 for(let i =0; i< hidden_proIdx.length; i++){
                     prodIdx.push(hidden_proIdx[i].value)
                     prodName.push(prod_name[i].innerText)
+                    proEA.push(itemEA[i].innerText)
+                    proIMG.push(pro_img[i].src)
                 }
 
                 sessionStorage.setItem("prodIdx", prodIdx)
                 sessionStorage.setItem("prodName", prodName)
+                sessionStorage.setItem("proEA", proEA)
+                sessionStorage.setItem("proIMG", proIMG)
+                sessionStorage.setItem("netPrice", netPrice)
+                sessionStorage.setItem("salePrice", salePrice)
+                sessionStorage.setItem("num", num)
 
                 location.href="/user/mypage_userOrdersheet"
             }
@@ -315,7 +300,7 @@
                                     <dl class="amount">
                                         <dt class="tit">배송비</dt>
                                         <dd class="price">
-                                            <span class="num">3,000</span>
+                                            <span class="num" id="num">2,000</span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>

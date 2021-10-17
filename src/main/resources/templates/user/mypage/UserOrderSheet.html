@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/inner.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common2.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box {
             overflow: hidden;
@@ -32,7 +33,7 @@
             border-radius: 8px;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script>
         /* 포인트 입력 (숫자 제한) */
         function maxLengthCheck(object) {
@@ -60,6 +61,49 @@
         function modal_close() {
             document.getElementById("mw_temp_p").style.display = 'none';
         }
+
+        $(function (){
+            let memIdx = $("#hidden_user").val()
+            let prodIdx = sessionStorage.getItem("prodIdx").split(",");
+            let proName = sessionStorage.getItem("prodName").split(",");
+            let proEA = sessionStorage.getItem("proEA").split(",");
+            let proImg = sessionStorage.getItem("proIMG").split(",");
+            let netPrice = sessionStorage.getItem("netPrice");
+            let salePrice = sessionStorage.getItem("salePrice");
+            let num = sessionStorage.getItem("num");
+
+            for(let i=0; i<prodIdx.length; i++){
+                let row = $('<div id="order_item_list">').append(
+                    '<div id="order_item_list"><div class="item_image"><img src="'+proImg[i]+'"></div>' +
+                    ' <div class="item_name"><a href="#">'+proName[i]+'</a></div>' +
+                    '<div class="item_count"><span>'+proEA[i]+ '개' + '</span></div></div>'
+                )
+                $("#order_item_box").append(row)
+                console.log(row)
+            }
+
+            axios.get("/api/memberOrder/load/" + memIdx,{}).then(function (response){
+                let name = response.data.data.address.name;
+                let hp = response.data.data.address.hp;
+                let addrName = response.data.data.address.addrName;
+                let zipcode = response.data.data.address.zipcode;
+                let addr1 = response.data.data.address.addr1;
+                let addr2 = response.data.data.address.addr2;
+                let baseFlag = response.data.data.address.baseFlag;
+                let dawnFlag = response.data.data.address.dawnFlag;
+                let greenFlag = response.data.data.address.greenFlag;
+                let couponList = response.data.data.couponList;
+                let hellocash = response.data.data.hellocash;
+
+                $("#addr").text(addrName + "/" +  addr1)
+                $("#name").val(name)
+                $("#hp").val(hp)
+                $("#addr2").text("[" +zipcode+ "] " + addr2)
+
+                $("#showHelloCash").text(hellocash + "원")
+            })
+
+        })
     </script>
 </head>
 <body>
@@ -76,54 +120,6 @@
                         <div id="order_form_box">
                             <h2 class="order_form_title">주문상품</h2>
                             <div id="order_item_box">
-                                <div id="order_item_list">
-                                    <div class="item_image">
-                                        <a href="#">상품이미지</a>
-                                    </div>
-                                    <!-- 상품이름 -->
-                                    <div class="item_name">
-                                        <a href="#">상품이름</a>
-                                    </div>
-                                    <div class="item_count">
-                                        <span>1개</span>
-                                    </div>
-                                    <!-- 상품 금액 -->
-                                    <div class="item_price">
-                                        <p>100,000원</p>
-                                    </div>
-                                </div>
-                                <div id="order_item_list">
-                                    <div class="item_image">
-                                        <a href="#">상품이미지</a>
-                                    </div>
-                                    <!-- 상품이름 -->
-                                    <div class="item_name">
-                                        <a href="#">상품이름</a>
-                                    </div>
-                                    <div class="item_count">
-                                        <span>1개</span>
-                                    </div>
-                                    <!-- 상품 금액 -->
-                                    <div class="item_price">
-                                        <p>100,000원</p>
-                                    </div>
-                                </div>
-                                <div id="order_item_list">
-                                    <div class="item_image">
-                                        <a href="#">상품이미지</a>
-                                    </div>
-                                    <!-- 상품이름 -->
-                                    <div class="item_name">
-                                        <a href="#">상품이름</a>
-                                    </div>
-                                    <div class="item_count">
-                                        <span>1개</span>
-                                    </div>
-                                    <!-- 상품 금액 -->
-                                    <div class="item_price">
-                                        <p>100,000원</p>
-                                    </div>
-                                </div>
                             </div>
                             <!-- 폼 안에 들어갈 내용 -->
                             <div class="wsriteOrderForm">
@@ -134,15 +130,15 @@
                                         <tbody>
                                         <tr>
                                             <th>보내는 분</th>
-                                            <td>김사과</td>
+                                            <td th:text="${session['name']}"></td>
                                         </tr>
                                         <tr>
                                             <th>휴대폰</th>
-                                            <td>01011111111</td>
+                                            <td th:text="${session['hp']}"></td>
                                         </tr>
                                         <tr>
                                             <th>이메일</th>
-                                            <td>apple@apple.com</td>
+                                            <td th:text="${session['email']}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -154,18 +150,18 @@
                                         <tbody>
                                         <tr>
                                             <th>배송지</th>
-                                            <td>입력주소</td>
+                                            <td id="addr"></td>
                                             <td>
                                                 <button class="addr_edit_btn" onclick='modal_open()'>수정</button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>정보</th>
-                                            <td><input type="text">/<input type="text"></td>
+                                            <td>받는 분: <input type="text" id="name">/연락처: <input type="text" id="hp"></td>
                                         </tr>
                                         <tr>
                                             <th>상세정보</th>
-                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
+                                            <td><span id="addr2">배송받을위치</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -334,7 +330,7 @@
                                     </select>
                                 </li>
                                 <li>
-                                    <h5 class="hello_coupon_cash_tit">헬로캐시<span id="showHelloCash"> 0원</span></h5>
+                                    <h5 class="hello_coupon_cash_tit">헬로캐시<span id="showHelloCash"></span></h5>
                                     <ul class="hello_cash_line">
                                         <li>
                                             <input type="number" maxlength="8" class="input_hcash" placeholder="0"
@@ -561,7 +557,6 @@
         <div th:replace="/user/fragment/footer::footer"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
 <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
 <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
