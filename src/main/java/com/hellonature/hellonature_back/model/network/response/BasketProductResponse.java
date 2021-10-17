@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class BasketProductResponse {
-    private Long proIdx;
-    private Long basIdx;
+    private Long idx;
     private String name;
     private Integer netPrice;
     private Integer salePrice;

@@ -1,193 +1,258 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
+    <meta charSet="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 장바구니</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/inner.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common2.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
     <style>
-        #mypage-box { overflow: hidden; height: 100%; overflow-y: auto;}
-        .container { min-width: 1050px; margin: 0 auto; height: 100%;}
-        .main { margin-bottom: 50px !important;}
+        #mypage-box {
+            overflow: hidden;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .container {
+            min-width: 1050px;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .main {
+            margin-bottom: 50px !important;
+        }
     </style>
     <script>
         // 회원 로그인 | 비회원 로그인
-        $(document).ready(function(){
-          $("#member_click").click(function(){
-            $(".member_form").show();
-            $(".member_choice").eq(0).addClass("member_line");
-            $(".notmember_form").hide();
-            $(".member_choice").eq(1).removeClass("member_line");
+        $(document).ready(function () {
 
-            $(".mem_login").addClass("member_line_checked");
-            $(".nomem_login").removeClass("member_line_checked");
-          });
-          $("#notmember_click").click(function(){
-            $(".member_form").hide();
-            $(".member_choice").eq(0).removeClass("member_line");
-            $(".notmember_form").show();
-            $(".member_choice").eq(1).addClass("member_line");
+            $("#member_click").click(function () {
+                $(".member_form").show();
+                $(".member_choice").eq(0).addClass("member_line");
+                $(".notmember_form").hide();
+                $(".member_choice").eq(1).removeClass("member_line");
 
-            $(".mem_login").removeClass("member_line_checked");
-            $(".nomem_login").addClass("member_line_checked");
-          });
+                $(".mem_login").addClass("member_line_checked");
+                $(".nomem_login").removeClass("member_line_checked");
+            });
+            $("#notmember_click").click(function () {
+                $(".member_form").hide();
+                $(".member_choice").eq(0).removeClass("member_line");
+                $(".notmember_form").show();
+                $(".member_choice").eq(1).addClass("member_line");
+
+                $(".mem_login").removeClass("member_line_checked");
+                $(".nomem_login").addClass("member_line_checked");
+            });
         });
 
-        $(".mem_login").click(function() {
-          $(".mem_login").addClass('member_line_checked');
+        $(".mem_login").click(function () {
+            $(".mem_login").addClass('member_line_checked');
         })
     </script>
+
+    <!-- axios -->
+    <script>
+        $(function () {
+            let memIdx = $("#hidden_user").val()
+
+            let now = new Date();
+            let month = ("0" + (1 + now.getMonth())).slice(-2);
+            now.setDate(now.getDate() + 2);
+            let day = ("0" + now.getDate()).slice(-2);
+
+            document.getElementById('delivery_date').innerText = month + "월 " + day + "일 도착 예정";
+
+
+            axios.get('/api/basket/member/list?memIdx=' + memIdx, {
+
+            }).then(function (res) {
+
+                let ul = $('.goods_cart_itembox');
+
+                for (let i in res.data.data.product) {                  // 상품 (배열)
+                    let basIdx = res.data.data.idx;
+                    let proIdx = res.data.data.product[i].proidx;       // 상품번호
+                    let img = res.data.data.product[i].img;             // 이미지
+                    let name = res.data.data.product[i].name;           // 상품명
+                    let count = res.data.data.product[i].count;         // 총수량
+                    let price = res.data.data.product[i].price;         // 판매가 13500
+                    let netPrice = res.data.data.product[i].netPrice;   // 정상가 15000
+                    let totalPrice = price * count;
+
+                    let li = $('<li class="goods_cart_item">').append(
+                        '<input type="hidden" id="hidden_basIdx" value="'+ basIdx +'">'+
+                        '<input type="hidden" id="hidden_proIdx" value="'+ proIdx +'">'+
+                        '<div class="inner_goods_cart_item">' +
+                        '<div><img src="' + img + '"></div>' +
+                        '<div><span>' + name + '</span></div>' +
+                        '<div class="item_count">' +
+                        '<button class="minus_btn"><img src="/user/images/icon/ico_minus_on.svg"></button>' +
+                        '<span class="item_ea">' + count + '</span>' +
+                        '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg"></button>' +
+                        '</div>' +
+                        '<div id="totalPrice">' + totalPrice + '원</div>' +
+                        '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
+                        '<input type="hidden" id="hidden_netPrice" value="'+ netPrice +'">'+            // 정상가
+                        '<input type="hidden" id="hidden_totalPrice" value="'+ totalPrice +'">'+        // 총금액
+                        '<div id="delete">✖</div>' +
+                        '</div></li>'
+                    )
+                    ul.append(li);
+                }
+
+
+                let plusBtn = document.querySelectorAll(".plus_btn");           // 플러스버튼 배열 저장
+
+                for (let i = 0; i < plusBtn.length; i++) {                      // 하나씩 돌려서
+                    plusBtn[i].addEventListener('click', function (e) {         // 클릭된 요소의
+                        e.preventDefault();
+                        let itemeaElement = plusBtn[i].previousSibling;         // 위에 형제 요소 가져오기
+                        let stat = itemeaElement.innerText;                     // 그 형제요소의 수량값 가져오기
+                        let plusNum = parseInt(stat);                           // 숫자로 형변환
+                        plusNum++;                                              // 클릭될떄마다 1씩 더해주기
+                        if (plusNum > 10) {                                     // 10을 넘으려고 하면
+                            alert('더 이상 늘릴 수 없습니다.');                     // 못 넘게 막고
+                            plusNum = 10;                                       // 10으로 고정하기
+                        }
+                        itemeaElement.innerText = plusNum;                      // 수량 실시간 변경
+
+
+                        let totalCount = itemeaElement.innerText;                                 // 최종 수량
+                        let hiddenPriceElement = plusBtn[i].parentNode.nextSibling.nextSibling;   // 히든으로 담아둔 판매가 요소
+                        let price = hiddenPriceElement.value;                                     // 판매가
+                        let totalPrice = parseInt(price) * parseInt(totalCount);                  // 판매가 * 최종 수량
+
+                        let totalPriceElement = plusBtn[i].parentNode.nextSibling;                // 총금액 요소
+                        totalPriceElement.innerText = totalPrice + "원";                          // 총금액 변경
+
+
+
+                        let proIdxElement = plusBtn[i].parentNode.parentNode;                     // 상품 idx 값이 담긴 히든 요소
+                        let proIdx = proIdxElement.value;                                         // 상품 idx
+                        let basIdxElement = plusBtn[i].parentNode.parentNode.parentNode;          // 장바구니 idx 값이 담긴 히든 요소
+                        let basIdx = basIdxElement.value;                                         // 장바구니 idx
+                        axios.put('/api/goodscart/update/', {
+                            data: {
+                                "idx" : basIdx,          // 장바구니 번호
+                                "memIdx" : memIdx,       // 회원 번호
+                                "proIdx" : proIdx,       // 상품 번호
+                                "proCount" : totalCount  // 최종 수량
+                            }
+                        }).catch(function(err) {
+                            console.log(err);
+                        });
+
+                    });
+                };
+
+                // '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
+                // '<input type="hidden" id="hidden_netPrice" value="'+ netPrice +'">'+            // 정상가
+                // '<input type="hidden" id="hidden_totalPrice" value="'+ totalPrice +'">'+        // 총금액
+
+                let finalTotalPriceElement = document.querySelectorAll("#hidden_totalPrice");
+                let finalTotalPrice = 0;
+                for (let i=0; i<finalTotalPriceElement.length; i++) {
+                    finalTotalPriceElement[i].value;
+                    finalTotalPrice = finalTotalPrice + parseInt(finalTotalPriceElement[i].value);
+                }
+
+                let final
+
+
+            }).catch(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <!-- axios -->
+
 </head>
 <body>
-    <div id="mypage-box">
-        <div class="container">
-            <div th:replace="/user/fragment/header::header"></div>
-            <div class="main">
-                <section id="content">                
-                    <div id="goods_cart_box">
-                        <div id="goods_cart_title">
-                            <h1>장바구니</h1>
-                        </div>        
-                        <!-- 장바구니 내용 전체 감싸는 박스 -->
-                        <div id="goods_cart_item_box">
-                            <form action="" method="post" class="goodsCartForm">
-                                <div class="goods_cart_checkbox">
-                                    <span class="goods_cart_all"></span>
-                                    <span>전체선택</span>
-                                    <span> | </span>
-                                    <span>선택삭제</span>
-                                </div>
-                                <div class="goods_cart_wrap">                                
-                                    <div id="cartItemsList">                                  
-                                        <div class="goods_cart_listbox">                                    
-                                            <div class="goods_cart_dail_date">
-                                                <span>새벽배송</span>
-                                                <span>08.25 (수) 도착 예정</span>
-                                            </div>
-                                            <ul class="goods_cart_itembox">
-                                                <li class="goods_cart_item">
-                                                    <div class="inner_goods_cart_item">
-                                                        <div class="cart_check_btn"></div>
-                                                        <div><img src="/user/images/mypage.img/helloNature.png" alt=""></div>
-                                                        <div>
-                                                            <span>[브랜드명]</span>
-                                                            <span>상품이름상품이름상품이름</span>
-                                                        </div>
-                                                        <div class="item_count">
-                                                            <button class="minus_btn"></button>
-                                                            <span class="item_ea">1</span>
-                                                            <button class="plus_btn"></button>
-                                                        </div>
-                                                        <div>10,500원</div>
-                                                        <div>✖</div>
-                                                    </div>
-                                                </li>
-                                                <li class="goods_cart_item">
-                                                    <div class="inner_goods_cart_item">
-                                                        <div class="cart_check_btn"></div>
-                                                        <div><img src="/user/images/mypage.img/helloNature.png" alt=""></div>
-                                                        <div>
-                                                            <span>[브랜드명]</span>
-                                                            <span>상품이름상품이름상품이름</span>
-                                                        </div>
-                                                        <div class="item_count">
-                                                            <button class="minus_btn"></button>
-                                                            <span class="item_ea">1</span>
-                                                            <button class="plus_btn"></button>
-                                                        </div>
-                                                        <div>10,500원</div>
-                                                        <div>✖</div>
-                                                    </div>
-                                                </li>
-                                                <li class="goods_cart_item">
-                                                    <div class="inner_goods_cart_item">
-                                                        <div class="cart_check_btn"></div>
-                                                        <div><img src="/user/images/mypage.img/helloNature.png" alt=""></div>
-                                                        <div>
-                                                            <span>[브랜드명]</span>
-                                                            <span>상품이름상품이름상품이름</span>
-                                                        </div>
-                                                        <div class="item_count">
-                                                            <button class="minus_btn"></button>
-                                                            <span class="item_ea">1</span>
-                                                            <button class="plus_btn"></button>
-                                                        </div>
-                                                        <div>10,500원</div>
-                                                        <div>✖</div>
-                                                    </div>
-                                                </li>
-                                            </ul>                                      
-                                        </div>
-                                    </div>
-                                    <div class="inner_result">
-                                        <div class="cart_delivery">
-                                            <h3>배송지</h3>
-                                            <div class="address">
-                                                <p class="addr">주소</p>
-                                                <p class="delivery_star">새벽배송</p>
-                                                <button id="mem_addr_change_btn" class="change_addr_btn">배송지 변경</button>
-                                            </div>
-                                        </div>
-                                        <div class="amount_view">
-                                            <dl class="amount">
-                                                <dt class="tit">상품금액</dt>
-                                                <dd class="price">
-                                                    <span class="num">3,650</span>
-                                                    <span class="won">원</span>
-                                                </dd>
-                                            </dl>
-                                            <dl class="amount">
-                                                <dt class="tit">상품할인금액</dt>
-                                                <dd class="price">
-                                                    <span class="num">0</span>
-                                                    <span class="won">원</span>
-                                                </dd>
-                                            </dl>
-                                            <dl class="amount">
-                                                <dt class="tit">배송비</dt>
-                                                <dd class="price">
-                                                    <span class="num">0</span>
-                                                    <span class="won">원</span>
-                                                </dd>
-                                            </dl>
-                                            <dl class="amount_lst">
-                                                <dt class="tit">결제예정금액</dt>
-                                                <dd class="price">
-                                                    <span class="num">3,650</span>
-                                                    <span class="won">원</span>
-                                                </dd>
-                                            </dl>
-                                            <dl class="reserve">
-                                                <dd class="bage">적립</dd>
-                                                <dd class="emph">구매 시 183원 적립</dd>
-                                            </dl>                                        
-                                        </div>
-                                        <button id="order_btn">주문하기</button>
-                                        <div class="order_bottom_msg">
-                                            <ul>
-                                                <li>‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</li>
-                                                <li>‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>                                                  
+<div id="mypage-box">
+    <div class="container">
+        <div th:replace="/user/fragment/header::header"></div>
+        <div class="main">
+            <section id="content">
+                <div id="goods_cart_box">
+                    <div id="goods_cart_title">
+                        <h1>장바구니</h1>
                     </div>
-                </section>               
+                    <!-- 장바구니 내용 전체 감싸는 박스 -->
+                    <div id="goods_cart_item_box">
+                        <div class="goods_cart_wrap">
+                            <div id="cartItemsList">
+                                <div class="goods_cart_listbox">
+                                    <div class="goods_cart_dail_date">
+                                        <span>새벽배송</span>
+                                        <span id="delivery_date"></span>
+                                    </div>
+                                    <ul class="goods_cart_itembox">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="inner_result">
+                                <div class="amount_view">
+                                    <dl class="amount">
+                                        <dt class="tit">상품금액</dt>
+                                        <dd class="price">
+                                            <span class="num">3,650</span>
+                                            <span class="won">원</span>
+                                        </dd>
+                                    </dl>
+                                    <dl class="amount">
+                                        <dt class="tit">상품할인금액</dt>
+                                        <dd class="price">
+                                            <span class="num">0</span>
+                                            <span class="won">원</span>
+                                        </dd>
+                                    </dl>
+                                    <dl class="amount">
+                                        <dt class="tit">배송비</dt>
+                                        <dd class="price">
+                                            <span class="num">0</span>
+                                            <span class="won">원</span>
+                                        </dd>
+                                    </dl>
+                                    <dl class="amount_lst">
+                                        <dt class="tit">결제예정금액</dt>
+                                        <dd class="price">
+                                            <span class="num">3,650</span>
+                                            <span class="won">원</span>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reserve">
+                                        <dd class="bage">적립</dd>
+                                        <dd class="emph">구매 시 183원 적립</dd>
+                                    </dl>
+                                </div>
+                                <button id="order_btn">주문하기</button>
+                                <div class="order_bottom_msg">
+                                    <ul>
+                                        <li>‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</li>
+                                        <li>‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- main 끝 -->
-            </div>
-            <div th:replace="/user/fragment/footer::footer"></div>
         </div>
+        <div th:replace="/user/fragment/footer::footer"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/regist.js}"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/regist2.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</div>
+<script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
+<script type="text/javascript" th:src="@{user/js/mypage.js/regist.js}"></script>
+<script type="text/javascript" th:src="@{user/js/mypage.js/regist2.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>

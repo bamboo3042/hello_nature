@@ -58,8 +58,7 @@ public class Member extends DateEntity{
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "mem_site")
-    @Builder.Default
-    private SiteType site = SiteType.HELLONATURE;
+    private SiteType site;
 
     @Builder.Default
     @Enumerated(EnumType.ORDINAL)

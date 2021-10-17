@@ -11,6 +11,18 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
             $(function () {
+
+                let memIdx = $("#hidden_user").val()
+
+                if (memIdx !== "") {
+                    $("#basket_list").css("display", 'inline-block')
+                    axios.get('/api/basket/member/list?memIdx=' + memIdx, {}).then(function (res) {
+                        let basket_list = res.data.data.product.length;
+                        console.log(basket_list)
+                        $("#basket_list").text(basket_list)
+                    })
+                }
+
                 $("#categoryAll").on('click', function (e) {
                     e.preventDefault();
                     $(".cate_1dep").css("display", "block");
@@ -158,8 +170,7 @@
                             <label>
                                 <a href="/mypage_usercart" target="" class="icon_cart"><img
                                         src="/user/images/icon/icon_cart.png" alt="장바구니 아이콘">
-                                    <span style="border-radius: 100%; background-color: red; width: 25px; height: 15px; position: absolute; margin-top: -5px; margin-left: -10px; color: white; padding-bottom: 10px; text-align: center;">
-                                  1
+                                    <span id="basket_list" style="display: none; border-radius: 100%; background-color: red; width: 25px; height: 15px; position: absolute; margin-top: -5px; margin-left: -10px; color: white; padding-bottom: 10px; text-align: center;">
                                 </span>
                                 </a>
                             </label>
