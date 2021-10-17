@@ -30,17 +30,22 @@ public class CouponType extends DateEntity{
 
     private String title;
     @Column(name = "ct_target")
-    private String target;
+    @Builder.Default
+    private Integer target = 1;
     @Column(name = "ct_auto")
-    private Flag auto;
+    @Builder.Default
+    private Flag auto = Flag.FALSE;
 
     @Column(name = "ct_count")
     private Integer count;
     private Integer discount;
-    private Integer minPrice;
+    @Builder.Default
+    private Integer minPrice = 0;
     private String dateStart;
-    private String dateEnd;
-    private Integer type1;
+    @Builder.Default
+    private String dateEnd = "9999-12-31";
+    @Builder.Default
+    private Integer type1 = 1;
     private String type2;
 
     public int plusCount(){

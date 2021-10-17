@@ -58,10 +58,19 @@ public class Member extends DateEntity{
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "mem_site")
-    private SiteType site;
+    @Builder.Default
+    private SiteType site = SiteType.HELLONATURE;
 
     @Builder.Default
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "member_role")
     private MemberRole role = MemberRole.MEMBER;
+
+    public void plusHelloCash(int point){
+        this.hellocash += point;
+    }
+
+    public void minusHelloCash(int point){
+        this.hellocash -= point;
+    }
 }

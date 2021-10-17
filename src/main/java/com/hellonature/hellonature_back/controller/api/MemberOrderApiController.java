@@ -5,6 +5,7 @@ import com.hellonature.hellonature_back.model.entity.MemberOrder;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.MemberOrderApiRequest;
 import com.hellonature.hellonature_back.model.network.response.MemberOrderApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberOrderLoadResponse;
 import com.hellonature.hellonature_back.service.MemberOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class MemberOrderApiController extends CrudController<MemberOrderApiReque
 
     @Override
     @GetMapping("/read/{idx}")
-    public Header<MemberOrderApiResponse> read(Long idx) {
+    public Header<MemberOrderApiResponse> read(@PathVariable(name = "idx") Long idx) {
         return memberOrderService.read(idx);
     }
 
@@ -35,7 +36,12 @@ public class MemberOrderApiController extends CrudController<MemberOrderApiReque
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<MemberOrderApiResponse> delete(Long idx) {
+    public Header delete(@PathVariable(name = "idx") Long idx) {
         return memberOrderService.delete(idx);
+    }
+
+    @GetMapping("load/{memIdx}")
+    public Header<MemberOrderLoadResponse> load(@PathVariable(name = "memIdx") Long memIdx){
+        return memberOrderService.load(memIdx);
     }
 }
