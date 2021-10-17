@@ -46,17 +46,9 @@ public class MultipleSecurityConfig {
         @Override protected void configure(HttpSecurity http) throws Exception {
             http
                     .antMatcher("/user/**")
-//                    .addFilter(jwtAuthenticationFilter())
                     .httpBasic().disable()
                     .csrf().disable()
-//                    .authenticationProvider(memberAuthenticationProvider())
                     .authorizeRequests()
-//                    .antMatchers("/user/mypage_userRegist").permitAll()
-//                    .antMatchers("/user/mypage_findEmail").permitAll()
-//                    .antMatchers("/user/mypage_findPassword").permitAll()
-//                    .antMatchers("/user/mypage_userLogin").permitAll()
-//                    .antMatchers("/user/login_proc").permitAll()
-//                    .antMatchers("/user/*").hasRole("MEMBER")
                     .anyRequest().permitAll()
                     .and().formLogin()
                     .loginPage("/user/mypage_userLogin")

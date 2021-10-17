@@ -33,30 +33,7 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script language="javascript">
-        //버튼클릭시 javascript 호출합니다.
-        function javascript() {
-            //팝업창출력
-            //width : 300px크기
-            //height : 300px크기
-            //top : 100px 위의 화면과 100px 차이해서 위치
-            //left : 100px 왼쪽화면과 100px 차이해서 위치
-            //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
-            window.open('./inner_regist_shipping_popup.html', 'popName',
-                'width=600,height=800,top=100%,left=100%,toolbar=no,menubar=no,scrollbars=no,resizable=yes,status=no');
-        }
-
-        function javascript2() {
-            //팝업창출력
-            //width :  크기
-            //height : 크기
-            //top : 100px 위의 화면과 100px 차이해서 위치
-            //left : 100px 왼쪽화면과 100px 차이해서 위치
-            //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
-            window.open('./inner_shipping_popup.html', 'popName',
-                'width=600,height=800,top=100%,left=100%,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
-        }
-
+    <script>
         /* 포인트 입력 (숫자 제한) */
         function maxLengthCheck(object) {
             if (object.value.length > object.maxLength) {
@@ -76,12 +53,12 @@
             });
         });
 
-        function modal_open(){
-            document.getElementById("mw_temp").style.display = 'block';
+        function modal_open() {
+            document.getElementById("mw_temp_p").style.display = 'block';
         }
 
-        function modal_close(){
-            document.getElementById("mw_temp").style.display = 'none';
+        function modal_close() {
+            document.getElementById("mw_temp_p").style.display = 'none';
         }
     </script>
 </head>
@@ -193,18 +170,19 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <!--팝업창 부분 시작 -->
-                                <div id="mw_temp" class="mw">
-                                    <div class="bg"><!--이란에는 내용을 넣지 마십시오.--></div>
-                                    <div class="fg">
-                                        <div id="modal_title" class="modal_greentitle">
+                                <div id="mw_temp_p" class="mw_p">
+                                    <div class="bg_p"><!--이란에는 내용을 넣지 마십시오.--></div>
+                                    <div class="fg_p">
+                                        <div id="modal_title_s" class="modal_greentitle">
                                             <p>배송지 수정<span><img src='/admin/img/close2.png' onclick="modal_close()"
                                                                 class="modal_closeBtn"></span></p>
                                         </div>
-                                        <div class="Modal">
-                                            <div id="address_edit_box" style="height: 800px">
-                                                <h2 class="address_list_title">배송지 정보</h2>
-                                                <div class="address_list_order_address">
+                                        <div class="Modal_s">
+                                            <div class="modal_cateBox" method="" action="#" id="modal_form">
+                                                <h2 class="address_list_title" style="margin: 30px">배송지 정보</h2>
+                                                <div id="address_edit_box" style="height: 600px; overflow-x: hidden; overflow-y: scroll">
                                                     <table class="addr_list_table">
                                                         <tbody>
                                                         <tr>
@@ -227,14 +205,15 @@
                                                         <tr>
                                                             <th>배송지</th>
                                                             <td>입력주소</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
+                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
+                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -243,14 +222,15 @@
                                                         <tr>
                                                             <th>배송지</th>
                                                             <td>입력주소</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
+                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
+                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -259,14 +239,15 @@
                                                         <tr>
                                                             <th>배송지</th>
                                                             <td>입력주소</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
+                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
+                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -275,14 +256,15 @@
                                                         <tr>
                                                             <th>배송지</th>
                                                             <td>입력주소</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
+                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
+                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -291,46 +273,15 @@
                                                         <tr>
                                                             <th>배송지</th>
                                                             <td>입력주소</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
+                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>받는사람</span>/<span>연락처</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치</span>/<span>배송위치상세정보</span></td>
+                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

@@ -31,7 +31,6 @@
     <script>
         // 회원 로그인 | 비회원 로그인
         $(document).ready(function () {
-
             $("#member_click").click(function () {
                 $(".member_form").show();
                 $(".member_choice").eq(0).addClass("member_line");
@@ -60,15 +59,8 @@
     <!-- axios -->
     <script>
         $(function () {
-            let memIdx = $("#hidden_user").val()
 
-            let now = new Date();
-            let month = ("0" + (1 + now.getMonth())).slice(-2);
-            now.setDate(now.getDate() + 2);
-            let day = ("0" + now.getDate()).slice(-2);
-
-            document.getElementById('delivery_date').innerText = month + "월 " + day + "일 도착 예정";
-
+            let memIdx = $("#hidden_user").val();   // 헤더에서 가져온 로그인된 회원번호
 
             axios.get('/api/basket/member/list?memIdx=' + memIdx, {
 
@@ -76,103 +68,210 @@
 
                 let ul = $('.goods_cart_itembox');
 
-                for (let i in res.data.data.product) {                  // 상품 (배열)
-                    let basIdx = res.data.data.idx;
-                    let proIdx = res.data.data.product[i].proidx;       // 상품번호
+                for (let i in res.data.data.product) {
+                    let basIdx = res.data.data.product[i].basIdx;       // 장바구니번호
+                    let proIdx = res.data.data.product[i].proIdx;       // 상품번호
                     let img = res.data.data.product[i].img;             // 이미지
                     let name = res.data.data.product[i].name;           // 상품명
                     let count = res.data.data.product[i].count;         // 총수량
                     let price = res.data.data.product[i].price;         // 판매가 13500
                     let netPrice = res.data.data.product[i].netPrice;   // 정상가 15000
-                    let totalPrice = price * count;
+                    let totPrice = price * count;
+                    let totNetPrice = netPrice * count;
 
                     let li = $('<li class="goods_cart_item">').append(
                         '<input type="hidden" id="hidden_basIdx" value="'+ basIdx +'">'+
-                        '<input type="hidden" id="hidden_proIdx" value="'+ proIdx +'">'+
+                        '<input type="hidden" id="hidden_proIdx" class="hidden_proIdx" value="'+ proIdx +'">'+
                         '<div class="inner_goods_cart_item">' +
                         '<div><img src="' + img + '"></div>' +
-                        '<div><span>' + name + '</span></div>' +
+                        '<div><span class="prod_name">' + name + '</span></div>' +
                         '<div class="item_count">' +
                         '<button class="minus_btn"><img src="/user/images/icon/ico_minus_on.svg"></button>' +
                         '<span class="item_ea">' + count + '</span>' +
                         '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg"></button>' +
                         '</div>' +
-                        '<div id="totalPrice">' + totalPrice + '원</div>' +
+                        '<div id="totalPrice">' + totPrice + '원</div>' +
                         '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
-                        '<input type="hidden" id="hidden_netPrice" value="'+ netPrice +'">'+            // 정상가
-                        '<input type="hidden" id="hidden_totalPrice" value="'+ totalPrice +'">'+        // 총금액
+                        '<input type="hidden" id="hidden_totalPrice" value="' + totPrice + '">'+        // 할인가 총금액
+                        '<input type="hidden" id="hidden_netPrice" value="' + netPrice + '">'+          // 정상가
+                        '<input type="hidden" id="hidden_totalNetPrice" value="'+ totNetPrice +'">'+    // 정가 총금액
+                        '<input type="hidden" id="hidden_totalCount" value="">'+                        // 총수량
                         '<div id="delete">✖</div>' +
                         '</div></li>'
                     )
                     ul.append(li);
                 }
 
+                /* 배송 도착 예정일 계산 */
+                let now = new Date();
+                let month = ("0" + (1 + now.getMonth())).slice(-2);
+                now.setDate(now.getDate() + 2);
+                let day = ("0" + now.getDate()).slice(-2);
+                document.getElementById('delivery_date').innerText = month + "월 " + day + "일 도착 예정";
 
-                let plusBtn = document.querySelectorAll(".plus_btn");           // 플러스버튼 배열 저장
 
-                for (let i = 0; i < plusBtn.length; i++) {                      // 하나씩 돌려서
-                    plusBtn[i].addEventListener('click', function (e) {         // 클릭된 요소의
+                /* 초기 장바구니화면, 등록된 각 아이템 수량+정가 합을 모두 합한 정가 총 금액 띄우기 */
+                let hiddenTotNet = document.querySelectorAll("#hidden_totalNetPrice");
+                let hiddenTotPrice = document.querySelectorAll("#hidden_totalPrice");
+                let sum_1 = 0;
+                let sum_2 = 0;
+
+                for (let i=0; i<hiddenTotNet.length; i++) { sum_1 += parseInt(hiddenTotNet[i].value); }
+                for (let j=0; j<hiddenTotPrice.length; j++) { sum_2 += parseInt(hiddenTotPrice[j].value); }
+
+                document.getElementById("net_price").innerText = String(sum_1);
+                document.getElementById("sale_price").innerText = String(sum_2);
+                document.getElementById("final_price").innerText = String(sum_2 + 3000);
+
+
+                /* + 버튼 클릭 시 수량 및 금액 변동 */
+                let plusBtn = document.querySelectorAll(".plus_btn");
+                for (let i=0; i < plusBtn.length; i++) {
+                    plusBtn[i].addEventListener('click', function (e) {
                         e.preventDefault();
-                        let itemeaElement = plusBtn[i].previousSibling;         // 위에 형제 요소 가져오기
-                        let stat = itemeaElement.innerText;                     // 그 형제요소의 수량값 가져오기
-                        let plusNum = parseInt(stat);                           // 숫자로 형변환
-                        plusNum++;                                              // 클릭될떄마다 1씩 더해주기
-                        if (plusNum > 10) {                                     // 10을 넘으려고 하면
-                            alert('더 이상 늘릴 수 없습니다.');                     // 못 넘게 막고
-                            plusNum = 10;                                       // 10으로 고정하기
+                        let itemeaEl = plusBtn[i].previousSibling;
+                        let stat = itemeaEl.innerText;
+                        let plusNum = parseInt(stat);
+                        plusNum++;
+                        if (plusNum > 10) {
+                            alert('더 이상 늘릴 수 없습니다.');
+                            plusNum = 10;
                         }
-                        itemeaElement.innerText = plusNum;                      // 수량 실시간 변경
+                        itemeaEl.innerText = plusNum;
 
+                        /* 화면에 찍힌 최종 수량과 클릭한 버튼의 상품 할인가를 곱하여 총 금액 구하기 */
+                        let totalCount = itemeaEl.innerText;
+                        let hiddenPrice = plusBtn[i].parentNode.nextSibling.nextSibling;
+                        let price = hiddenPrice.value;
+                        let totalPrice = parseInt(price) * parseInt(totalCount);
 
-                        let totalCount = itemeaElement.innerText;                                 // 최종 수량
-                        let hiddenPriceElement = plusBtn[i].parentNode.nextSibling.nextSibling;   // 히든으로 담아둔 판매가 요소
-                        let price = hiddenPriceElement.value;                                     // 판매가
-                        let totalPrice = parseInt(price) * parseInt(totalCount);                  // 판매가 * 최종 수량
+                        /* 클릭한 버튼의 총 금액 띄우기 */
+                        let totalPriceEl = plusBtn[i].parentNode.nextSibling;
+                        totalPriceEl.innerText = totalPrice + "원";
 
-                        let totalPriceElement = plusBtn[i].parentNode.nextSibling;                // 총금액 요소
-                        totalPriceElement.innerText = totalPrice + "원";                          // 총금액 변경
+                        /* 클릭한 버튼의 수량을 히든에 담아두기 (정가와 곱하여 상품금액란에 띄워야하기 때문에) */
+                        let hiddenCount = plusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
+                        let count = hiddenCount.value;
+                        hiddenCount.value = totalCount;
 
+                        /* 수량에 따라 정가 합산 */
+                        let totalNet = parseInt(document.getElementById("net_price").innerText);
+                        let netPriceEl = plusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
+                        let netPrice = parseInt(netPriceEl.value);
+                        document.getElementById("net_price").innerText = String(totalNet + netPrice);
 
+                        /* 수량에 따라 할인가 합산 */
+                        let totalSale = parseInt(document.getElementById("sale_price").innerText);
+                        let salePriceEl = plusBtn[i].parentNode.nextSibling.nextSibling;
+                        let salePrice = parseInt(salePriceEl.value);
+                        document.getElementById("sale_price").innerText = String(totalSale + salePrice);
 
-                        let proIdxElement = plusBtn[i].parentNode.parentNode;                     // 상품 idx 값이 담긴 히든 요소
-                        let proIdx = proIdxElement.value;                                         // 상품 idx
-                        let basIdxElement = plusBtn[i].parentNode.parentNode.parentNode;          // 장바구니 idx 값이 담긴 히든 요소
-                        let basIdx = basIdxElement.value;                                         // 장바구니 idx
-                        axios.put('/api/goodscart/update/', {
-                            data: {
-                                "idx" : basIdx,          // 장바구니 번호
-                                "memIdx" : memIdx,       // 회원 번호
-                                "proIdx" : proIdx,       // 상품 번호
-                                "proCount" : totalCount  // 최종 수량
-                            }
-                        }).catch(function(err) {
-                            console.log(err);
-                        });
+                        /* 합산된 할인가에 배송비 3000원(고정) 합산 */
+                        document.getElementById("final_price").innerText = String(totalSale + salePrice + 3000);
+
+                        /* 수량 업데이트 */
+                        // let basIdxEl = plusBtn[i].parentNode.previousSibling.previousSibling;
+                        // let basIdx = parseInt(basIdxEl.value);
+                        // let proIdxEl = plusBtn[i].parentNode.previousSibling;
+                        // let proIdx = parseInt(proIdxEl.value);
+                        // axios.put('/api/basket/update', {
+                        //     data: {
+                        //         idx : basIdx,
+                        //         memIdx : memIdx,
+                        //         proIdx : proIdx,
+                        //         proCount : count
+                        //     }
+                        // }).then(function(e) {
+                        //     alert('업데이트 성공')
+                        // }).catch(function(err) {
+                        //     console.log(err);
+                        // });
 
                     });
                 };
 
-                // '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
-                // '<input type="hidden" id="hidden_netPrice" value="'+ netPrice +'">'+            // 정상가
-                // '<input type="hidden" id="hidden_totalPrice" value="'+ totalPrice +'">'+        // 총금액
+                let minusBtn = document.querySelectorAll(".minus_btn");
 
-                let finalTotalPriceElement = document.querySelectorAll("#hidden_totalPrice");
-                let finalTotalPrice = 0;
-                for (let i=0; i<finalTotalPriceElement.length; i++) {
-                    finalTotalPriceElement[i].value;
-                    finalTotalPrice = finalTotalPrice + parseInt(finalTotalPriceElement[i].value);
-                }
+                for (let i=0; i<minusBtn.length; i++) {
+                    minusBtn[i].addEventListener('click', function (e){
+                        e.preventDefault();
+                        let itemeaElement = minusBtn[i].nextSibling;
+                        let stat = itemeaElement.innerText;
+                        let minusNum = parseInt(stat);
+                        minusNum--;
+                        if(minusNum < 1) {
+                            alert('더이상 줄일수 없어!!!!!!!!!!');
+                            minusNum = 1;
+                        }
+                        itemeaElement.innerText = minusNum;
 
-                let final
+                        let totalCount = itemeaElement.innerText;                   // 클릭 횟수
+                        let hiddenPrice = minusBtn[i].parentElement.nextSibling.nextSibling; // 히든한 값
+                        let price = hiddenPrice.value;                              // 얼마나 빠지는지? 품목의 가격
+                        let totalPrice = parseInt(price) * parseInt(totalCount);    // 계산된 가격을 넣어줘야해
 
+                        let totalPriceEl = minusBtn[i].parentNode.nextSibling;      // 넣어줄 자리
+                        totalPriceEl.innerText = totalPrice + "원";
+
+                        let hiddenCount = minusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
+                        hiddenCount.value = totalCount;
+
+                        let totalNet = parseInt(document.getElementById("net_price").innerText);
+                        let netPriceEl = minusBtn[i].parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
+                        let netPrice = parseInt(netPriceEl.value);
+                        document.getElementById("net_price").innerText = String(totalNet + netPrice);
+
+                        let totalSale = parseInt(document.getElementById("sale_price").innerText);
+                        let salePriceEl = minusBtn[i].parentNode.nextSibling.nextSibling;
+                        let salePrice = parseInt(salePriceEl.value);
+                        document.getElementById("sale_price").innerText = String(totalSale + salePrice);
+
+                        document.getElementById("final_price").innerText = String(totalSale + salePrice + 3000);
+
+                    });
+                };
+
+                /* 장바구니 삭제하기 (새로고침해야 없어짐ㅠㅠ) */
+                let deleteBtn = document.querySelectorAll("#delete");
+                for(let i=0; i<deleteBtn.length; i++) {
+                    deleteBtn[i].addEventListener('click', function() {
+                        let basIdxEl = deleteBtn[i].parentNode.previousSibling.previousSibling;
+                        let basIdx = basIdxEl.value;
+                        axios.delete('/api/basket/delete/' + basIdx, {
+                        }).catch(function(err) {
+                            console.log(err);
+                        });
+                    });
+                };
 
             }).catch(function (err) {
                 console.log(err);
             });
         });
+
+        function order(){
+            let memIdx = $("#hidden_user").val();
+            if(memIdx === ''){
+                alert("로그인을 해주세요")
+            }else{
+                let hidden_proIdx = document.querySelectorAll(".hidden_proIdx")
+                let prod_name = document.querySelectorAll(".prod_name")
+
+                let prodIdx = [];
+                let prodName = [];
+                for(let i =0; i< hidden_proIdx.length; i++){
+                    prodIdx.push(hidden_proIdx[i].value)
+                    prodName.push(prod_name[i].innerText)
+                }
+
+                sessionStorage.setItem("prodIdx", prodIdx)
+                sessionStorage.setItem("prodName", prodName)
+
+                location.href="/user/mypage_userOrdersheet"
+            }
+        }
     </script>
     <!-- axios -->
-
 </head>
 <body>
 <div id="mypage-box">
@@ -202,28 +301,28 @@
                                     <dl class="amount">
                                         <dt class="tit">상품금액</dt>
                                         <dd class="price">
-                                            <span class="num">3,650</span>
+                                            <span class="num" id="net_price"></span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>
                                     <dl class="amount">
                                         <dt class="tit">상품할인금액</dt>
                                         <dd class="price">
-                                            <span class="num">0</span>
+                                            <span class="num" id="sale_price"></span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>
                                     <dl class="amount">
                                         <dt class="tit">배송비</dt>
                                         <dd class="price">
-                                            <span class="num">0</span>
+                                            <span class="num">3,000</span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>
                                     <dl class="amount_lst">
                                         <dt class="tit">결제예정금액</dt>
                                         <dd class="price">
-                                            <span class="num">3,650</span>
+                                            <span class="num" id="final_price"></span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>
@@ -232,7 +331,7 @@
                                         <dd class="emph">구매 시 183원 적립</dd>
                                     </dl>
                                 </div>
-                                <button id="order_btn">주문하기</button>
+                                <button id="order_btn" onclick="order()">주문하기</button>
                                 <div class="order_bottom_msg">
                                     <ul>
                                         <li>‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</li>
