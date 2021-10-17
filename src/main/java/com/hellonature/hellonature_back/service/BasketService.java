@@ -98,13 +98,13 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
         if (proIdx == null){
             List<Basket> baskets = basketRepository.findAllByMember(member);
             for (Basket basket: baskets) {
-                basketProductResponses.add(basketProductResponse(basket.getProduct(), basket.getProCount()));
+                basketProductResponses.add(basketProductResponse(basket.getIdx(), basket.getProduct(), basket.getProCount()));
             }
         }
         else{
             Optional<Product> optionalProduct = productRepository.findById(proIdx);
             if (optionalProduct.isEmpty()) return Header.ERROR("상품 정보가 잘못되었습니다");
-            basketProductResponses.add(basketProductResponse(optionalProduct.get(), 1));
+            basketProductResponses.add(basketProductResponse(null, optionalProduct.get(), 1));
         }
 
         BasketResponse basketResponse = BasketResponse.builder()
@@ -119,7 +119,7 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
         List<Product> products = productRepository.findAllByIdxIn(proList);
         List<BasketProductResponse> basketProductResponses = new ArrayList<>();
         for (Product product: products){
-            basketProductResponses.add(basketProductResponse(product, 1));
+            basketProductResponses.add(basketProductResponse(null, product, 1));
         }
 
         BasketResponse basketResponse = BasketResponse.builder()
@@ -142,9 +142,10 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
                 .build();
     }
 
-    private BasketProductResponse basketProductResponse(Product product, Integer count){
+    private BasketProductResponse basketProductResponse(Long idx, Product product, Integer count){
         return BasketProductResponse.builder()
-                .idx(product.getIdx())
+                .proIdx(product.getIdx())
+                .basIdx(idx)
                 .name(product.getName())
                 .img(product.getImg1())
                 .netPrice(product.getNetPrice())
