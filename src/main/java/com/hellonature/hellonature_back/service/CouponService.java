@@ -65,8 +65,8 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
             coupon.setDateEnd(couponApiRequest.getDateEnd());
             
             return coupon;
-        }).map(coupon -> couponRepository.save(coupon))
-                .map(coupon -> response(coupon))
+        }).map(couponRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("수정 실패"));
     }

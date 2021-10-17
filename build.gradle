@@ -11,6 +11,10 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+//    developmentOnly
+//    runtimeClasspath {
+//        extendsFrom developmentOnly
+//    }
 }
 
 repositories {
@@ -39,6 +43,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 test {
