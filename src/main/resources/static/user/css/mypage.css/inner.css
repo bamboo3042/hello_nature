@@ -362,29 +362,27 @@ a:focus { color: #444;}
 
 /* 장바구니 리스트 */
 .goods_cart_itembox { margin-right: 15px; }
-.goods_cart_item { box-sizing: border-box; padding: 20 0px; }
+.goods_cart_item { box-sizing: border-box; padding: 20px 0px; }
 
 /* 체크 */
-.goods_cart_all { padding-right: 14px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_off.png') center no-repeat; background-size: contain; }
-.goods_cart_all_checked {padding-right: 14px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_on.png') center no-repeat; background-size: contain;  }
-.cart_check_btn, .regist_check_btn, .regist_check_all_btn { padding: 3px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_off.png') center no-repeat; background-size: contain; cursor: pointer; }
-.cart_check_btn_checked, .regist_check_btn_checked, .regist_check_all_btn_checked  { display: inline-block; padding: 3px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_on.png') center no-repeat; background-size: contain; cursor: pointer;}
-.cart_check_btn_checked { margin: 0;}
+.regist_check_btn, .regist_check_all_btn { padding: 3px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_off.png') center no-repeat; background-size: contain; cursor: pointer; }
+.regist_check_btn_checked, .regist_check_all_btn_checked  { display: inline-block; padding: 3px; width: 14px; height: 14px; background: url('/user/images/mypage.img/regist/icon_check_on.png') center no-repeat; background-size: contain; cursor: pointer;}
 .regist_check_btn { display: inline-block; vertical-align: -3px; margin-right: 10px; }
 .goods_cart_item { padding: 20px 10px; border-bottom: 1px solid #CCC; }
 .inner_goods_cart_item { display: flex; justify-content: space-between; align-items: center; }
-.inner_goods_cart_item div:nth-child(2) > img { width: 70px; height: 70px; }
-.inner_goods_cart_item div:nth-child(3) { box-sizing: border-box; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px 0 0; }
-.inner_goods_cart_item div:nth-child(4) { display: flex; justify-content: space-between; border: 1px solid #CCC; border-radius: 4px; width: 100px; height: 25px; }
-.inner_goods_cart_item div:nth-child(4) button { cursor: pointer; border: none; background: none; }
-.inner_goods_cart_item div:nth-child(4) button:first-child { width: 150px; background: url('/user/images/mypage.img/regist/ico_minus_on.svg') center no-repeat; background-size: contain; }
-.inner_goods_cart_item div:nth-child(4) button:last-child { width: 150px; background: url('/user/images/mypage.img/regist/ico_plus_on.svg') center no-repeat; background-size: contain; }
-.inner_goods_cart_item div:nth-child(5) { width: 80px; text-align: center; }
+.inner_goods_cart_item div:nth-child(1) > img { width: 70px; height: 70px; }
+.inner_goods_cart_item div:nth-child(2) { box-sizing: border-box; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px 0 0; }
+.inner_goods_cart_item div:nth-child(3) { display: flex; justify-content: space-between; border: 1px solid #CCC; border-radius: 4px; width: 100px; height: 25px; }
+.inner_goods_cart_item div:nth-child(3) button { cursor: pointer; border: none; background: none; }
+.inner_goods_cart_item div:nth-child(3) button:first-child { width: 150px; background: center no-repeat; background-size: contain; }
+.inner_goods_cart_item div:nth-child(3) button:last-child { width: 150px; background: center no-repeat; background-size: contain; }
+.inner_goods_cart_item div:nth-child(4) { width: 80px; text-align: center; }
 .inner_goods_cart_item div:last-child { cursor: pointer; }
 .ship_type_opt input { cursor: pointer; }
 .ship_type_opt label { cursor: pointer; }
 #ship_type01_first, #ship_type01_second, #ship_type02_first, #ship_type02_second  { margin-left: 20px; }
 #ship_type02_second { margin-left: 29px; }
+
 
 /* 로그인페이지 (회원/비회원) 체크효과 */
 .mem_login.member_line_checked, .nomem_login.member_line_checked  { font-weight: bold; border-bottom: 2px solid #5dab99; color: #5dab99; }

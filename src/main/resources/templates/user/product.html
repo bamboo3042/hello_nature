@@ -89,15 +89,13 @@
                 earnPoint = earnPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 let totalPrice_1 = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                // img1 = img1.replace("\\", "/");
-                // let img1_1 = img1.replace("\\", "/");
-                // let img1_2 = img1_1.replace("\\", "/");
-                // let img1_3 = img1_2.replace("\\", "/");
-
-                console.log(img1_3)
+                img1 = img1.replace("\\", "/");
+                let img1_1 = img1.replace("\\", "/");
+                let img1_2 = img1_1.replace("\\", "/");
+                let img1_3 = img1_2.replace("\\", "/");
 
                 document.getElementById("total_prcie_hidden").value = totalPrice;
-                document.getElementById("prod_img").style.backgroundImage = "url(" + "'" + img1_3 +  "'" + ")";
+                document.getElementById("prod_img").style.backgroundImage = "url(" + img1_3 + ")";
                 document.getElementById("prod_name").innerText = name;
                 document.getElementById("prod_price").innerText = salePrice + "원";
                 document.getElementById("prod_netPrice").innerText = netPrice + "원";
@@ -126,6 +124,10 @@
 
             $("#like_button").click(function (e) {
                 if (this.classList.contains("likeClicked")) {
+                    memIdx = parseInt(memIdx)
+                    console.log(memIdx)
+                    console.log(typeof memIdx)
+
                     axios.delete("/api/memberslikes/delete?memIdx=" + memIdx + "&proIdx=" + prodIdx, {
                     }).then(function () {
                         alert("좋아요를 취소합니다")
@@ -154,6 +156,9 @@
                 let count = $(".item_ea").text()
                 console.log(memIdx);
                 if (memIdx !== "") {
+                    console.log(memIdx);
+                    console.log(prodIdx);
+                    console.log(count);
                     axios.post("/api/basket/create", {
                         data: {
                             memIdx: memIdx,
@@ -162,6 +167,7 @@
                         }
                     }).then(function () {
                         alert("장바구니에 등록되었습니다")
+                        location.reload()
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -177,7 +183,7 @@
             $(".plus_btn").click(function(e) {
                 e.preventDefault();                         // 이벤트 전파 방지
                 let stat = $('.item_ea').text();            // 현재 값을 가져옴.
-                let plusNum = parseInt(stat);           // 숫자로 변환
+                let plusNum = parseInt(stat, 10);           // 숫자로 변환
                 plusNum++;                                  // 하나씩 더하기
                 if (plusNum > 10) {                         // 10개를 넘으려고 하면
                     alert('더 이상 늘릴 수 없습니다.');         // 막기
@@ -188,17 +194,19 @@
                 let totalprice = $("#total_prcie_hidden").val()
                 let total = itemea * totalprice;
                 let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                document.getElementById("total_price").innerText = total_1;
 
                 let earnPoint_plus = total * 0.01;
                 earnPoint_plus = earnPoint_plus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_plus + "원";
+
+                document.getElementById("total_price").innerText = total_1;
+
             });
 
             $(".minus_btn").click(function(e) {
                 e.preventDefault();
                 let stat = $('.item_ea').text();
-                let minusNum = parseInt(stat);
+                let minusNum = parseInt(stat, 10);
                 minusNum--;
                 if (minusNum < 1) {
                     alert('더이상 줄일수 없습니다.');
@@ -209,13 +217,13 @@
                 let totalprice = $("#total_prcie_hidden").val()
                 let total = itemea * totalprice;
                 let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                document.getElementById("total_price").innerText = total_1;
 
                 let earnPoint_minus = total * 0.01;
+                console.log(earnPoint_minus)
                 earnPoint_minus = earnPoint_minus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_minus + "원";
 
-
+                document.getElementById("total_price").innerText = total_1;
 
             })
 
@@ -287,17 +295,6 @@
                 console.log(err);
                 alert('에러발생')
             })
-
-            $("#direct_buy").click(function () {
-                if (memIdx !== "") {
-
-                    let
-
-
-                } else {
-                    alert("넌비회원이야")
-                }
-            })
         })
     </script>
 </head>
@@ -320,8 +317,7 @@
                     </div>
                     <!-- 좋아요/공유버튼 끝 -->
 
-                    <div class="prod_img" id="prod_img">
-                        상품이미지</div>
+                    <div class="prod_img" id="prod_img">상품이미지</div>
 
                     <!-- 상품정보 -->
                     <div class="prod_info">
@@ -428,7 +424,7 @@
                                     </div>
                                     <div class="group_btn off">
                                         <div class="view_function">
-                                            <button class="btn buy_now" id="direct_buy">바로 구매</button>
+                                            <button class="btn buy_now" onclick="location.href=''">바로 구매</button>
                                         </div>
                                         <span class="btn_type1">
                                             <button type="button" class="txt_type" id="goods_cart">장바구니 담기</button>
