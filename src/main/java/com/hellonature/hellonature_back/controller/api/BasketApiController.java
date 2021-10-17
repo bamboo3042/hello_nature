@@ -27,7 +27,7 @@ public class BasketApiController extends CrudController<BasketApiRequest, Basket
 
     @Override
     @GetMapping("/read/{idx}")
-    public Header<BasketApiResponse> read(Long idx) {
+    public Header<BasketApiResponse> read(@PathVariable(name = "idx") Long idx) {
         return basketService.read(idx);
     }
 
@@ -39,7 +39,7 @@ public class BasketApiController extends CrudController<BasketApiRequest, Basket
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<BasketApiResponse> delete(Long idx) {
+    public Header<BasketApiResponse> delete(@PathVariable(name = "idx") Long idx) {
         return basketService.delete(idx);
     }
 

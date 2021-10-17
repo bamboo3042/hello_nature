@@ -53,8 +53,8 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
         BasketApiRequest basketApiRequest = request.getData();
         Optional<Basket> optional = basketRepository.findById(basketApiRequest.getIdx());
         return optional.map(basket -> {
-                    basket.setMember(memberRepository.findById(basketApiRequest.getIdx()).get());
-                    basket.setProduct(productRepository.findById(basketApiRequest.getIdx()).get());
+                    basket.setMember(memberRepository.findById(basketApiRequest.getMemIdx()).get());
+                    basket.setProduct(productRepository.findById(basketApiRequest.getProIdx()).get());
                     basket.setProCount(basketApiRequest.getProCount());
 
                     return basket;
