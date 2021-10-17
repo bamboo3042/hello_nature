@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductOrderService {
@@ -58,7 +60,7 @@ public class ProductOrderService {
                 .price(memberOrderApiRequest.getPrice())
                 .state(memberOrder.getState())
                 .paymentType(memberOrderApiRequest.getPaymentType())
-                .num(memberOrderApiRequest.getNum())
+                .num(memberOrderApiRequest.getCardNum())
                 .build();
 
         memberPayment = memberPaymentRepository.save(memberPayment);
@@ -66,17 +68,16 @@ public class ProductOrderService {
 
         memberOrderRepository.save(memberOrder);
 
-        Long[] proIdx = memberOrderApiRequest.getProIdx();
-        Integer[] proCount = memberOrderApiRequest.getProCount();
-        Integer[] proPrice = memberOrderApiRequest.getProPrice();
+        List<Long> proList= memberOrderApiRequest.getProIdxList();
+        List<Integer> proCountList = memberOrderApiRequest.getProCountList();
 
-        for (int i = 0; i < memberOrderApiRequest.getProIdx().length; i++){
-            Product product = productRepository.findById(proIdx[i]).get();
+        for (int i = 0; i < proList.size(); i++){
+            Product product = productRepository.findById(proList.get(i)).get();
             MemberOrderProduct memberOrderProduct = MemberOrderProduct.builder()
                     .order(memberOrder)
                     .product(product)
-                    .proCount(proCount[i])
-                    .proPrice(proPrice[i])
+                    .proCount(proCountList.get(i))
+                    .proPrice(product.getPrice())
                     .build();
             memberOrderProductRepository.save(memberOrderProduct);
         }
