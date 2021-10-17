@@ -34,7 +34,8 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
     private final CardRepository cardRepository;
     private final CouponRepository couponRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AddressService addressService;
+    private final AddressRepository addressRepository;
+
 
     @Override
     public Header<MemberApiResponse> create(Header<MemberApiRequest> request) {
@@ -213,21 +214,22 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
 
         Member newMember = memberRepository.save(member);
 
-        AddressApiRequest address = AddressApiRequest.builder()
-                .memIdx(newMember.getIdx())
-                .name(memberCreateRequest.getName())
-                .hp(memberCreateRequest.getHp())
+        Address address = Address.builder()
                 .zipcode(memberCreateRequest.getZipcode())
                 .addr1(memberCreateRequest.getAddr1())
                 .addr2(memberCreateRequest.getAddr2())
-                .requestType(memberCreateRequest.getRequestType())
+                .addrName("기본 배송지")
+                .name(memberCreateRequest.getName())
+                .dawnFlag(isSeoul(memberCreateRequest.getAddr1())? Flag.TRUE : Flag.FALSE)
+                .baseFlag(Flag.TRUE)
+                .hp(memberCreateRequest.getHp())
+                .member(newMember)
                 .requestMemo1(memberCreateRequest.getRequestMemo1())
                 .requestMemo2(memberCreateRequest.getRequestMemo2())
-                .addrName("기본 배송지")
-                .baseFlag(Flag.TRUE)
+                .requestType(memberCreateRequest.getRequestType())
                 .build();
 
-        addressService.create(Header.OK(address));
+        addressRepository.save(address);
 
         return Header.OK();
     }
@@ -263,5 +265,10 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
         member.setPassword(passwordEncoder.encode(password));
         memberRepository.save(member);
         return Header.OK();
+    }
+
+    private Boolean isSeoul(String addr){
+        String[] temp = addr.split(" ");
+        return temp[0].equals("서울시");
     }
 }
