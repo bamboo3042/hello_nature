@@ -65,4 +65,12 @@ public class Member extends DateEntity{
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "member_role")
     private MemberRole role = MemberRole.MEMBER;
+
+    public void plusHelloCash(int point){
+        this.hellocash += point;
+    }
+
+    public void minusHelloCash(int point){
+        this.hellocash -= point;
+    }
 }

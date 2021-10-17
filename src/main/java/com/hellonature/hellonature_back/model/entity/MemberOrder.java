@@ -33,7 +33,8 @@ public class MemberOrder extends DateEntity{
     @Column(name = "mord_state")
     @Builder.Default
     private Integer state = 1;
-    private Flag dawnFlag;
+    private String recName;
+    private String recHp;
     private Integer alarm;
     private String zipcode;
     private String address1;
@@ -42,6 +43,7 @@ public class MemberOrder extends DateEntity{
     private String requestMemo1;
     private String requestMemo2;
     private Flag greenFlag;
+    private Flag dawnFlag;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "mem_idx")
@@ -52,4 +54,5 @@ public class MemberOrder extends DateEntity{
     private Coupon coupon;
     @OneToOne(mappedBy = "order")
     private MemberPayment payment;
+
 }

@@ -478,7 +478,9 @@ create table tb_members_orders(
                                   request_memo2 varchar2(30),
                                   cp_idx  number(10),
                                   regdate date default sysdate,
-                                  green_flag number(1) not null
+                                  green_flag number(1) not null,
+                                  rec_name varchar2(20),
+                                  rec_hp varchar2(20)
 );
 
 create sequence members_orders_seq

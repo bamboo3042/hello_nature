@@ -81,7 +81,7 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
     }
 
     private CouponApiResponse response(Coupon coupon){
-        CouponApiResponse couponApiResponse = CouponApiResponse.builder()
+        return CouponApiResponse.builder()
                 .idx(coupon.getIdx())
                 .memIdx(coupon.getMember().getIdx())
                 .ctIdx(coupon.getCouponType().getIdx())
@@ -89,7 +89,6 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
                 .dateStart(coupon.getDateStart())
                 .dateEnd(coupon.getDateEnd())
                 .build();
-        return couponApiResponse;
     }
 
     public Header<Long> count(Long memIdx){
