@@ -314,6 +314,11 @@ public class MypageController {
     public String mypageNonUserOrderSheet(){
         return "user/mypage/NonUserOrderSheet.html";
     }
+
+    //  바로구매 주문서
+    @GetMapping("/mypage_userDirectOrdersheet")
+    public String mypageuserDirectOrdersheet(){return "user/mypage/User_Direct_OrderSheet.html";}
+
     // 회원 주문서
     @GetMapping("/mypage_userOrdersheet")
     public String mypageUserOrderSheet(){

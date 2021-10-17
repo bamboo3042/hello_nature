@@ -3,21 +3,20 @@
 <div th:fragment="header">
     <!-- header 시작 -->
     <header>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 
         <!-- axios -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
-            $(function() {
-                $("#categoryAll").on('click', function(e) {
+            $(function () {
+                $("#categoryAll").on('click', function (e) {
                     e.preventDefault();
                     $(".cate_1dep").css("display", "block");
                     $(".cate_1dep").empty();
 
-                    axios.get("/api/category/list/first?lifeFlag=FALSE", {
-
-                    }).then(function (res) {
+                    axios.get("/api/category/list/first?lifeFlag=FALSE", {}).then(function (res) {
                         for (let i in res.data.data) {
                             let rootIdx = res.data.data[i].idx;
                             let name = res.data.data[i].name
@@ -25,29 +24,27 @@
 
 
                             let li = $(`<li id="rootIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdx}&page=0'">`).append(
-                                '<input id="firstCate_value" type="hidden" value="' + rootIdx +'">' +
+                                '<input id="firstCate_value" type="hidden" value="' + rootIdx + '">' +
                                 '<a href="#" class="cate-parent fruit"><img src="/user/images/icon/icon_cate_' + num + '.png" alt="과일 아이콘"><div>' + name + '</div></a></li>'
                             );
                             $(".cate_1dep").append(li);
                         }
 
 
-                        $(".cate_1dep > li").mouseover(function(e) {
+                        $(".cate_1dep > li").mouseover(function (e) {
                             e.preventDefault();
                             $(".cate_2dep").css("display", "block");
 
                             $(".cate_2dep").empty();
                             let rootIdxValue = $(this).children().val();
-                            axios.get("/api/category/list/second/?idx=" + rootIdxValue +"&lifeFlag=FALSE", {
-
-                            }).then(function (res) {
+                            axios.get("/api/category/list/second/?idx=" + rootIdxValue + "&lifeFlag=FALSE", {}).then(function (res) {
 
                                 for (let j in res.data.data) {
                                     let cateIdx = res.data.data[j].idx;
                                     let name = res.data.data[j].name;
 
                                     let cateIdx_li = $(`<li id="cateIdx" onclick="location.href='/user/goods_list?rootIdx=${rootIdxValue}&cateIdx=${cateIdx}&page=0'">`).append(
-                                        '<input id="secondCate_value" type="hidden" value="' + cateIdx +'">' +
+                                        '<input id="secondCate_value" type="hidden" value="' + cateIdx + '">' +
                                         '<a href="#" class="menu"><span>' + name + '</span></a></li>'
                                     );
                                     $(".cate_2dep").append(cateIdx_li);
@@ -57,7 +54,7 @@
                                 console.log(err);
                             });
 
-                            $(".gnb_box").mouseleave(function() {
+                            $(".gnb_box").mouseleave(function () {
                                 $(".cate_1dep").css("display", "none");
                                 $(".cate_2dep").css("display", "none");
                             });
@@ -99,16 +96,19 @@
                     <div class="nav_userMenu">
                         <!-- 더그린배송 버튼 시작 -->
                         <label>
-                            <a href="/mypage_thegreen" target="" >
-                                <img src="/user/images/icon/nav_theGreenDeli.png" alt="더그린배송 아이콘" class="nav_theGreenDeli"></a>
+                            <a href="/mypage_thegreen" target="">
+                                <img src="/user/images/icon/nav_theGreenDeli.png" alt="더그린배송 아이콘"
+                                     class="nav_theGreenDeli"></a>
                         </label>
                         <!-- 더그린배송 버튼 끝 -->
                         <!-- 회원가입, 로그인, 고객센터 시작 -->
                         <div class="login_wrap">
-                        <a href="/user/mypage_userRegist" class="regist" sec:authorize="!isAuthenticated()"><span>회원가입</span></a>
-                        <a th:href="@{/user/mypage_orderlist}" class="regist" sec:authorize="isAuthenticated()"><span th:text="${session['name']} + '님'"></span></a>
-                        <a href="/user/logout" class="login" sec:authorize="isAuthenticated()"><span >로그아웃</span></a>
-                        <a href="/user/mypage_userLogin" class="login" sec:authorize="!isAuthenticated()"><span >로그인</span></a>
+                            <a href="/user/mypage_userRegist" class="regist" sec:authorize="!isAuthenticated()"><span>회원가입</span></a>
+                            <a th:href="@{/user/mypage_orderlist}" class="regist"
+                               sec:authorize="isAuthenticated()"><span th:text="${session['name']} + '님'"></span></a>
+                            <a href="/user/logout" class="login" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
+                            <a href="/user/mypage_userLogin" class="login"
+                               sec:authorize="!isAuthenticated()"><span>로그인</span></a>
 
                             <div class="header_callcenter dropdown">
                                 <button class="dropbtn"><span>고객센터</span>
@@ -123,7 +123,8 @@
                         <!-- 회원가입, 로그인, 고객센터 끝 -->
                         <!-- 헬로네이처 메인 로고 시작 -->
                         <div class="logo_top_wrap">
-                            <div class="logo_top"><label><a href="/user/index" target=""><img src="/user/images/icon/helloNature.png" alt="헬로네이처 메인 로고"></a></label></div>
+                            <div class="logo_top"><label><a href="/user/index" target=""><img
+                                    src="/user/images/icon/helloNature.png" alt="헬로네이처 메인 로고"></a></label></div>
                         </div>
                         <!-- 헬로네이처 메인 로고 끝 -->
                     </div>
@@ -149,10 +150,19 @@
 
                         <!-- 검색 / 마이페이지 / 장바구니 시작 -->
                         <div class="search_my_cart_box">
-                            <div class="searchbar_wrap"><input type="text" maxlength="30" placeholder=""><img src="/user/images/icon/search_icon.png" alt="돋보기">
+                            <div class="searchbar_wrap"><input type="text" maxlength="30" placeholder=""><img
+                                    src="/user/images/icon/search_icon.png" alt="돋보기">
                             </div>
-                            <label><a href="/mypage_orderlist" target="" class="icon_mypage"><img src="/user/images/icon/icon_my.png" alt="마이페이지 아이콘"></a></label>
-                            <label><a href="/mypage_usercart" target="" class="icon_cart"><img src="/user/images/icon/icon_cart.png" alt="장바구니 아이콘"></a></label>
+                            <label><a href="/mypage_orderlist" target="" class="icon_mypage"><img
+                                    src="/user/images/icon/icon_my.png" alt="마이페이지 아이콘"></a></label>
+                            <label>
+                                <a href="/mypage_usercart" target="" class="icon_cart"><img
+                                        src="/user/images/icon/icon_cart.png" alt="장바구니 아이콘">
+                                    <span style="border-radius: 100%; background-color: red; width: 25px; height: 15px; position: absolute; margin-top: -5px; margin-left: -10px; color: white; padding-bottom: 10px; text-align: center;">
+                                  1
+                                </span>
+                                </a>
+                            </label>
                         </div>
                         <!-- 검색 / 마이페이지 / 장바구니 끝 -->
 

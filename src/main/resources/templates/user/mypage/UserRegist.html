@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/inner.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common2.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
@@ -16,9 +17,15 @@
         .main { margin-bottom: 50px !important;}
         #content { padding: 20px; border: 3px solid #5dab99; border-radius: 8px; }
     </style>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/mypage.js/check.js}"></script>         <!-- 동의버튼 -->
+    <script type="text/javascript" th:src="@{/user/js/mypage.js/script2.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/mypage.js/regist3.js}"></script>        <!-- 가입버튼 -->
+    <script type="text/javascript" th:src="@{/user/js/mypage.js/regist2.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <script>
         function sample6_execDaumPostcode() {
             new daum.Postcode({
@@ -276,14 +283,6 @@
         <div th:replace="/user/fragment/footer::footer"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript" th:src="@{/user/js/mypage.js/check.js}"></script>         <!-- 동의버튼 -->
-<script type="text/javascript" th:src="@{/user/js/mypage.js/script2.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/mypage.js/regist3.js}"></script>        <!-- 가입버튼 -->
-<script type="text/javascript" th:src="@{/user/js/mypage.js/regist2.js}"></script>
-<!-- header, footer -->
-<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>
 

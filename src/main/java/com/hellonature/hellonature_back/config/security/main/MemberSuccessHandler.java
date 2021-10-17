@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
@@ -37,6 +35,7 @@ public class MemberSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession();
         session.setAttribute("idx", securityMemberLoginDTO.getMember().getIdx());
         session.setAttribute("name", securityMemberLoginDTO.getMember().getName());
+        session.setAttribute("hp", securityMemberLoginDTO.getMember().getHp());
         session.setAttribute("email", securityMemberLoginDTO.getMember().getEmail());
         session.setAttribute("hp", securityMemberLoginDTO.getMember().getHp());
 
