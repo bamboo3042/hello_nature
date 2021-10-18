@@ -24,7 +24,7 @@ public class OrderListApiController {
     public Header<List<OrderListResponse>> orderList(@RequestParam(name = "dateStart", required = false) String dateStart,
                                                      @RequestParam(name = "dateEnd",required = false) String dateEnd,
                                                      @RequestParam(name = "state", required = false) Integer state,
-                                                     @RequestParam(name = "member") Integer member,
+                                                     @RequestParam(name = "member", defaultValue = "1") Integer member,
                                                      @RequestParam(name = "orderIdx", required = false) Long orderIdx,
                                                      @RequestParam(name = "startPage", defaultValue = "0") Integer startPage){
         return member == 1? orderListService.memberOrderList(dateStart, dateEnd, state, orderIdx, startPage) : orderListService.nonMemberOrderList(dateStart, dateEnd, state, orderIdx, startPage);

@@ -40,7 +40,10 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         Member member = optionalMember.get();
 
-        Optional<Coupon> optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
+        Optional<Coupon> optionalCoupon = Optional.empty();
+        if (memberOrderApiRequest.getCpIdx() != null && memberOrderApiRequest.getCpIdx().equals("")) {
+            optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
+        }
 
         MemberOrder memberOrder = MemberOrder.builder()
                 .state(1)
