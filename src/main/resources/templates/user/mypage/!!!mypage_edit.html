@@ -38,8 +38,11 @@
             console.log("email"+useremail);
             console.log("password"+userpw);
 
-            axios.get('/api/login/user?id='+ useremail +'&password='+ userpw, {
-
+            axios.post('/api/login/user', {
+                data : {
+                    id : useremail,
+                    password : userpw
+                }
             }).then(function(res) {
                 console.log(res);
                 alert('확인되었습니다.');
