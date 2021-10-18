@@ -116,69 +116,69 @@ public class MultipleSecurityConfig {
 //        }
     }
 
-//    @Order(2)
-//    @Configuration
-//    public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//        @Override protected void configure(HttpSecurity http) throws Exception {
-//            http
-//                .antMatcher("/admin/**")
-//                .httpBasic().disable().authenticationProvider(adminAuthenticationProvider())
-//                .csrf().disable()
-////                    .addFilter(jwtAuthorizationFilter())
-//                    .anonymous()
-//                .and().authorizeRequests()
-//                .antMatchers("/admin/Login").permitAll()
-//                .anyRequest().hasRole("ADMIN")
-//                .and().formLogin()
-//                .loginPage("/admin/Login")
-//                .loginProcessingUrl("/admin/login_proc")
-//                .usernameParameter("userid")
-//                .passwordParameter("userpw")
-//                .successHandler(adminAuthenticationSuccessHandler())
-//                .failureUrl("/admin/Login")
-//                .failureHandler(adminAuthenticationFailureHandler())
-//                .permitAll()
-//                .and().logout()
-//                .logoutUrl("/admin/logout")
-//                .logoutSuccessUrl("/admin/index")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("remember-me", "JSESSIONID")
-//                .and()
-//                    .rememberMe()
-//                    .key("helloNature")
-//                    .rememberMeParameter("remember-me")
-//                    .tokenRepository(persistentTokenRepository())
-//                    .userDetailsService(adminDetailsService);
-//        }
-//
-//        @Override
-//        public void configure(WebSecurity web) {
-//            web.ignoring()
-//                    // /css/**, /images/**, /js/** 등 정적 리소스는 보안필터를 거치지 않게 한다.
-//                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-//                    .antMatchers("/api/**")
-//                    .antMatchers("/admin/css/**")
-//                    .antMatchers("/admin/images/**")
-//                    .antMatchers("/admin/js/**");
-//        }
-//
-//        @Bean
-//        public AdminAuthenticationProvider adminAuthenticationProvider(){
-//            return new AdminAuthenticationProvider();
-//        }
-//
-//        @Bean
-//        public AuthenticationSuccessHandler adminAuthenticationSuccessHandler() {
-//            return new AdminSuccessHandler();
-//        }
-//
-//        @Bean
-//        public AuthenticationFailureHandler adminAuthenticationFailureHandler() {
-//            return new AdminLoginFailureHandler();
-//        }
-//
-//    }
+    @Order(2)
+    @Configuration
+    public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override protected void configure(HttpSecurity http) throws Exception {
+            http
+                .antMatcher("/admin/**")
+                .httpBasic().disable().authenticationProvider(adminAuthenticationProvider())
+                .csrf().disable()
+//                    .addFilter(jwtAuthorizationFilter())
+                    .anonymous()
+                .and().authorizeRequests()
+                .antMatchers("/admin/Login").permitAll()
+                .anyRequest().hasRole("ADMIN")
+                .and().formLogin()
+                .loginPage("/admin/Login")
+                .loginProcessingUrl("/admin/login_proc")
+                .usernameParameter("userid")
+                .passwordParameter("userpw")
+                .successHandler(adminAuthenticationSuccessHandler())
+                .failureUrl("/admin/Login")
+                .failureHandler(adminAuthenticationFailureHandler())
+                .permitAll()
+                .and().logout()
+                .logoutUrl("/admin/logout")
+                .logoutSuccessUrl("/admin/index")
+                .invalidateHttpSession(true)
+                .deleteCookies("remember-me", "JSESSIONID")
+                .and()
+                    .rememberMe()
+                    .key("helloNature")
+                    .rememberMeParameter("remember-me")
+                    .tokenRepository(persistentTokenRepository())
+                    .userDetailsService(adminDetailsService);
+        }
+
+        @Override
+        public void configure(WebSecurity web) {
+            web.ignoring()
+                    // /css/**, /images/**, /js/** 등 정적 리소스는 보안필터를 거치지 않게 한다.
+                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                    .antMatchers("/api/**")
+                    .antMatchers("/admin/css/**")
+                    .antMatchers("/admin/images/**")
+                    .antMatchers("/admin/js/**");
+        }
+
+        @Bean
+        public AdminAuthenticationProvider adminAuthenticationProvider(){
+            return new AdminAuthenticationProvider();
+        }
+
+        @Bean
+        public AuthenticationSuccessHandler adminAuthenticationSuccessHandler() {
+            return new AdminSuccessHandler();
+        }
+
+        @Bean
+        public AuthenticationFailureHandler adminAuthenticationFailureHandler() {
+            return new AdminLoginFailureHandler();
+        }
+
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
