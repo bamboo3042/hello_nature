@@ -196,8 +196,13 @@
             let requestMemo1 = $("#requestMemo1").val()
             let requestMemo2 = $("#requestMemo2").val()
 
-            let proIdxList = sessionStorage.getItem("prodIdx")
-            let proCountList = sessionStorage.getItem("proEA")
+            let proIdxList = [];
+            let proCountList = [];
+
+            proIdxList.push(sessionStorage.getItem("prodIdx"));
+            proCountList.push(sessionStorage.getItem("proEA"));
+
+
             let price = $("#total_price").text()
             let paymentType = $("input[name='method']:checked").val()
             let hellocash = $("#order_hello").text()
