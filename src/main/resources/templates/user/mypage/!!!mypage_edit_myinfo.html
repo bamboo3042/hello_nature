@@ -24,9 +24,9 @@
 <script>
     $(function (){
 
-        let idx = sessionStorage.getItem("idx");
+        let memIdx = $("#hidden_user").val();
 
-        axios.get('/api/member/read/71', {
+        axios.get('/api/member/read/' + memIdx, {
 
         }).then(function (response){
             let $email = response.data.data.email;
@@ -69,6 +69,7 @@
     })
 
     function edit(){
+        let memIdx = $("#hidden_user").val();
         let name = $("#name").val();
         let hp = $('#hp').val();
         let password = $('#password').val();
@@ -79,7 +80,7 @@
 
         axios.put("/api/member/update",{
             data: {
-                "idx": 71,
+                "idx": memIdx,
                 "hp": hp,
                 "password": password,
                 "emailFlag": emailFlag,
@@ -97,10 +98,9 @@
 
     function delInfo(){
 
-        let idx = sessionStorage.getItem("idx");
+        let memIdx = $("#hidden_user").val();;
 
-        axios.delete('/api/member/delete/71', {
-
+        axios.delete('/api/member/delete/' + memIdx, {
         }).then(function (){
             alert("정상적으로 탈퇴되었습니다.")
         })
