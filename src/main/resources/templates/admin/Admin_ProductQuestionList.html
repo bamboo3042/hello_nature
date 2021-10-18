@@ -16,13 +16,14 @@
 </head>
 <script>
     $(function(){
-        axios.get('/api/productquestion/list', {
+
+        let page = $('.page').val()
+        axios.get('/api/productquestion/list?startPage=' + page, {
 
         }).then(function (response){
-            let tb = $('<tbody>');
+            let tb = $('<tbody class="tbody">');
 
             for(let i in response.data.data) {
-                let $id = response.data.data[i].id;
                 let $ansFlag = response.data.data[i].ansFlag;
                 let $content = response.data.data[i].content;
                 let $writer = response.data.data[i].memidx.getName();
@@ -31,114 +32,217 @@
                 let j = parseInt(i) + 1
                 let k = parseInt(i)
 
-                let row = $('<tr>').append(
-                    '<td><input type="checkbox" value=' + $id +  'id="PQ_check_'+k+'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+k+'"></label></td>' +
-                    '<td>' + j + '</td>' +
-                    '<td><input type="button" onclick="PQL_location()" value=' + $ansFlag + '></td>' +
-                    '<td>' + $content + '</td>' +
-                    '<td>' + $writer + '</td>' +
-                    '<td>' + $date + $dateTime + '</td>'
-                )
-                tb.append(row);
-            }
-            tb.append('</tbody>');
-            $('.thead').after(tb);
-
-        }).catch(function (err){
-            console.log(err);
-        })
-    })
-
-    $(function () {
-        $('#delbtn').click(function (){
-            let id = [];
-            ($("input:checkbox[name='pquestion']:checked").each(function (e){
-                id.push($(this).val())
-            }));
-            console.log(id)
-
-            axios.delete("/api/productquestion/delete", {
-                data:{
-                    id: id,
+                if($ansFlag === "TRUE") {
+                    $ansFlag = '답변완료'
+                }else if($ansFlag === "FALSE"){
+                    $ansFlag = '답변대기'
                 }
-            }).then(function (){
-                alert("선택된 상품문의 삭제 성공")
-            })
-        }).catch(function (err){
-            console.log(err)
-        })
-    })
-
-    $(function () {
-        let now = new Date();
-        let now_result = now.toISOString().substring(0, 10);
-
-        document.getElementById("weekbtn").addEventListener("click", function () {
-            let week = new Date();
-            week.setDate(week.getDate() - 7);
-            var week_result = week.toISOString().substring(0, 10);
-
-            document.getElementById("date_start").value = week_result;
-            document.getElementById("date_end").value = now_result;
-        })
-
-        document.getElementById("monthbtn").addEventListener("click", function () {
-
-            let month = new Date();
-            month.setMonth(month.getMonth() - 1);
-            var month_result = month.toISOString().substring(0, 10);
-
-
-            document.getElementById("date_start").value = month_result;
-            document.getElementById("date_end").value = now_result;
-        })
-
-        document.getElementById("three_monthbtn").addEventListener("click", function () {
-
-            let three_month = new Date();
-            three_month.setMonth(three_month.getMonth() - 3);
-            var three_month_result = three_month.toISOString().substring(0, 10);
-
-
-            document.getElementById("date_start").value = three_month_result;
-            document.getElementById("date_end").value = now_result;
-        })
-    })
-
-    $('#schbtn').click(function () {
-        let dateStart = $('#date_start').val();
-        let dateEnd = $('#date_end').val();
-        let answer = $('#answer').val();
-        let searchType = $('#search_type').val();
-        let search = $('#search').val();
-
-        //http://127.0.0.1:9999/api/productquestion/list?dateStart=?&dateEnd=?&answer=?&searchType=?&search
-        axios.get("api/productquestion/list?dateStart=" + dateStart + "&dateEnd=" + dateEnd + "&answer=" + answer + "&searchType=" + searchType + "&search="+ search, {
-        }).then(function (response) {
-            for (let i in response.data.data) {
-                let $id = response.data.data[i].id;
-                let $ansFlag = response.data.data[i].ansFlag;
-                let $content = response.data.data[i].content;
-                let $writer = response.data.data[i].memidx.getName();
-                let $date = response.data.data[i].date;
-                let $dateTime = response.data.data[i].dateTime;
-                let j = parseInt(i) + 1
-                let k = parseInt(i)
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value=' + $id +  'id="PQ_check_'+k+'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+k+'"></label></td>' +
+                    '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td><input type="button" onclick="PQL_location()" value=' + $ansFlag + '></td>' +
                     '<td>' + $content + '</td>' +
                     '<td>' + $writer + '</td>' +
-                    '<td>' + $date + $dateTime + '</td>'
+                    '<td>' + $date + $dateTime + '</td></tr>'
                 )
                 tb.append(row);
             }
             tb.append('</tbody>');
             $('.thead').after(tb);
 
-        }).catch(function (err){
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function(e){
+
+                $('.tbody').empty();
+
+                $('.page').val($(this).val())
+                let page = $('.page').val()
+
+                axios.get('/api/productquestion/list?startPage=' + page, {
+
+                }).then(function (response){
+                    let tb = $('<tbody class="tbody">');
+
+                    for(let i in response.data.data) {
+                        let $ansFlag = response.data.data[i].ansFlag;
+                        let $content = response.data.data[i].content;
+                        let $writer = response.data.data[i].memidx.getName();
+                        let $date = response.data.data[i].date;
+                        let $dateTime = response.data.data[i].dateTime;
+                        let j = parseInt(i) + 1
+                        let k = parseInt(i)
+
+                        if($ansFlag === "TRUE") {
+                            $ansFlag = '답변완료'
+                        }else if($ansFlag === "FALSE"){
+                            $ansFlag = '답변대기'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
+                            '<td>' + j + '</td>' +
+                            '<td><input type="button" onclick="PQL_location()" value=' + $ansFlag + '></td>' +
+                            '<td>' + $content + '</td>' +
+                            '<td>' + $writer + '</td>' +
+                            '<td>' + $date + $dateTime + '</td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    tb.append('</tbody>');
+                    $('.thead').after(tb);
+                })
+
+            }).catch(function (err){
+                console.log(err);
+            })
+        })
+
+        $(function () {
+            $('#delbtn').click(function (){
+                let id = [];
+                ($("input:checkbox[name='pquestion']:checked").each(function (e){
+                    id.push($(this).val())
+                }));
+                console.log(id)
+
+                axios.delete("/api/productquestion/delete", {
+                    data:{
+                        id: id,
+                    }
+                }).then(function (){
+                    alert("선택된 상품문의 삭제 성공")
+                })
+            }).catch(function (err){
+                console.log(err)
+            })
+        })
+
+        $(function () {
+            let now = new Date();
+            let now_result = now.toISOString().substring(0, 10);
+
+            document.getElementById("weekbtn").addEventListener("click", function () {
+                let week = new Date();
+                week.setDate(week.getDate() - 7);
+                var week_result = week.toISOString().substring(0, 10);
+
+                document.getElementById("date_start").value = week_result;
+                document.getElementById("date_end").value = now_result;
+            })
+
+            document.getElementById("monthbtn").addEventListener("click", function () {
+
+                let month = new Date();
+                month.setMonth(month.getMonth() - 1);
+                var month_result = month.toISOString().substring(0, 10);
+
+
+                document.getElementById("date_start").value = month_result;
+                document.getElementById("date_end").value = now_result;
+            })
+
+            document.getElementById("three_monthbtn").addEventListener("click", function () {
+
+                let three_month = new Date();
+                three_month.setMonth(three_month.getMonth() - 3);
+                var three_month_result = three_month.toISOString().substring(0, 10);
+
+
+                document.getElementById("date_start").value = three_month_result;
+                document.getElementById("date_end").value = now_result;
+            })
+        })
+
+        $('#schbtn').click(function () {
+            let dateStart = $('#date_start').val();
+            let dateEnd = $('#date_end').val();
+            let answer = $('#answer').val();
+            let searchType = $('#search_type').val();
+            let search = $('#search').val();
+
+            //http://127.0.0.1:9999/api/productquestion/list?dateStart=?&dateEnd=?&answer=?&searchType=?&search
+            axios.get("api/productquestion/list?dateStart=" + dateStart + "&dateEnd=" + dateEnd + "&answer=" + answer + "&searchType=" + searchType + "&search="+ search, {
+            }).then(function (response) {
+                for (let i in response.data.data) {
+                    let $id = response.data.data[i].id;
+                    let $ansFlag = response.data.data[i].ansFlag;
+                    let $content = response.data.data[i].content;
+                    let $writer = response.data.data[i].memidx.getName();
+                    let $date = response.data.data[i].date;
+                    let $dateTime = response.data.data[i].dateTime;
+                    let j = parseInt(i) + 1
+                    let k = parseInt(i)
+
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" value=' + $id + 'id="PQ_check_' + k + '" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_' + k + '"></label></td>' +
+                        '<td>' + j + '</td>' +
+                        '<td><input type="button" onclick="PQL_location()" value=' + $ansFlag + '></td>' +
+                        '<td>' + $content + '</td>' +
+                        '<td>' + $writer + '</td>' +
+                        '<td>' + $date + $dateTime + '</td>'
+                    )
+                    tb.append(row);
+                }
+                tb.append('</tbody>');
+                $('.thead').after(tb);
+
+                for(let i = response.data.pagination.totalPages; i > 0; i--){
+                    let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
+                }
+                $('.page_num').click(function(e){
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+
+                    axios.get('/api/productquestion/list?startPage=' + page, {
+
+                    }).then(function (response){
+                        let tb = $('<tbody class="tbody">');
+
+                        for(let i in response.data.data) {
+                            let $ansFlag = response.data.data[i].ansFlag;
+                            let $content = response.data.data[i].content;
+                            let $writer = response.data.data[i].memidx.getName();
+                            let $date = response.data.data[i].date;
+                            let $dateTime = response.data.data[i].dateTime;
+                            let j = parseInt(i) + 1
+                            let k = parseInt(i)
+
+                            if($ansFlag === "TRUE") {
+                                $ansFlag = '답변완료'
+                            }else if($ansFlag === "FALSE"){
+                                $ansFlag = '답변대기'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
+                                '<td>' + j + '</td>' +
+                                '<td><input type="button" onclick="PQL_location()" value=' + $ansFlag + '></td>' +
+                                '<td>' + $content + '</td>' +
+                                '<td>' + $writer + '</td>' +
+                                '<td>' + $date + $dateTime + '</td></tr>'
+                            )
+                            tb.append(row);
+                        }
+                        tb.append('</tbody>');
+                        $('.thead').after(tb);
+                    })
+
+                })
+            })
+
+        }).catch(function (err) {
             console.log(err);
         })
     })
@@ -224,26 +328,17 @@
                     <th width="20%">작성일시</th>
                 </tr>
                 </thead>
-                <tr>
-                    <td><input type="checkbox" value="prod_list" id="PQ_check_5" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_5"></label></td>
-                    <td>예시</td>
-                    <td><input type="button" onclick="PQL_location()" value="답변대기"></td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                </tr>
             </table>
             <!--table 끝-->
             <!-- pageBox 시작-->
             <div class="pageBox">
                 <ul>
                     <li id="Maxprev"><a href="#"><<</a></li>
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">></a></li>
+                    <li id="prev"><</li>
+                    <li>></li>
                     <li id="Maxnext"><a href="#">>></a></li>
                 </ul>
+                <input type="hidden" value="0" class="page">
             </div>
             <!-- pageBox 끝-->
         </form>
