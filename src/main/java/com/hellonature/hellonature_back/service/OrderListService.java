@@ -203,7 +203,7 @@ public class OrderListService {
                 .regdate(memberOrderProduct.getRegdate())
                 .dawnFlag(memberOrder.getDawnFlag())
                 .greenFlag(memberOrder.getGreenFlag())
-                .rvIdx(memberOrderProduct.getProductReview().getIdx())
+                .rvIdx(memberOrderProduct.getProductReview() == null ? null : memberOrderProduct.getProductReview().getIdx())
                 .build();
     }
 }
