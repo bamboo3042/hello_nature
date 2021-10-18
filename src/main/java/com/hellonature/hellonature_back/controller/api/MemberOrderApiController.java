@@ -18,7 +18,7 @@ public class MemberOrderApiController extends CrudController<MemberOrderApiReque
 
     @Override
     @PostMapping("/create")
-    public Header<MemberOrderApiResponse> create(Header<MemberOrderApiRequest> request) {
+    public Header<MemberOrderApiResponse> create(@RequestBody Header<MemberOrderApiRequest> request) {
         return memberOrderService.create(request);
     }
 
