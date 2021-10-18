@@ -1,5 +1,6 @@
 package com.hellonature.hellonature_back.controller.api;
 
+import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.response.LoginApiResponse;
 import com.hellonature.hellonature_back.service.LoginService;
@@ -17,13 +18,13 @@ public class LoginApiController {
     private final LoginService loginService;
 
     @GetMapping("/user")
-    public Header<LoginApiResponse> userLogin(@RequestParam(name = "id") String id,
-                                              @RequestParam(name = "password") String password){
+    public Header<Flag> userLogin(@RequestParam(name = "id") String id,
+                                  @RequestParam(name = "password") String password){
         return loginService.userLogin(id, password);
     }
 
     @GetMapping("/admin")
-    public Header<LoginApiResponse> adminLogin(@RequestParam(name = "id") String id,
+    public Header<Flag> adminLogin(@RequestParam(name = "id") String id,
                                               @RequestParam(name = "password") String password){
         return loginService.adminLogin(id, password);
     }

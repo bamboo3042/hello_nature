@@ -41,6 +41,7 @@
             axios.get('/api/login/user?id='+ useremail +'&password='+ userpw, {
 
             }).then(function(res) {
+                console.log(res);
                 alert('확인되었습니다.');
                 location.href = '/user/mypage_editMyinfo';
 

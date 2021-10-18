@@ -58,6 +58,15 @@ public class Header<T> {
                 .build();
     }
 
+    public static <T> Header<T> ERROR(T data){
+        return (Header<T>)Header.builder()
+                .transactionTime(LocalDateTime.now())
+                .resultCode("OK")
+//                .description("OK")
+                .data(data)
+                .build();
+    }
+
     // error
     public static <T> Header<T> ERROR(String description){
         return (Header<T>)Header.builder()

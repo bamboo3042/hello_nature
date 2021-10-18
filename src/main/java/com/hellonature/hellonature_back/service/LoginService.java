@@ -2,6 +2,7 @@ package com.hellonature.hellonature_back.service;
 
 import com.hellonature.hellonature_back.model.entity.Admin;
 import com.hellonature.hellonature_back.model.entity.Member;
+import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.response.LoginApiResponse;
 import com.hellonature.hellonature_back.repository.AdminRepository;
@@ -18,18 +19,16 @@ public class LoginService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Header<LoginApiResponse> userLogin(String id, String password){
+    public Header<Flag> userLogin(String id, String password){
         return memberRepository.findByEmailAndPassword(id, passwordEncoder.encode(password))
-                .map(this::response)
-                .map(Header::OK)
-                .orElseGet(() -> Header.ERROR("로그인 실패"));
+                .map(member -> Header.OK(Flag.TRUE))
+                .orElseGet(() -> Header.ERROR(Flag.FALSE));
     }
 
-    public Header<LoginApiResponse> adminLogin(String id, String password){
+    public Header<Flag> adminLogin(String id, String password){
         return adminRepository.findByIdAndPassword(id, passwordEncoder.encode(password))
-                .map(this::response)
-                .map(Header::OK)
-                .orElseGet(() -> Header.ERROR("로그인 실패"));
+                .map(admin -> Header.OK(Flag.TRUE))
+                .orElseGet(() -> Header.ERROR(Flag.FALSE));
     }
 
     public LoginApiResponse response(Member member){
