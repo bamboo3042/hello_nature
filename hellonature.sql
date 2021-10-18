@@ -442,7 +442,8 @@ create table tb_members_payments(
                                     mpaym_state number(1) not null,
                                     payment_type number(1) not null,
                                     mpaym_num varchar2(20),
-                                    regdate date default sysdate
+                                    regdate date default sysdate,
+                                    mem_idx number(10)
 );
 
 create sequence members_payments_seq
@@ -470,9 +471,9 @@ create table tb_members_orders(
                                   mord_state number(2) not null,
                                   dawn_flag number(1) not null,
                                   alarm number(1) not null,
-                                  zipcode varchar2(10) not null,
-                                  address1 varchar2(20) not null,
-                                  address2 varchar2(30) not null,
+                                  zipcode varchar2(20) not null,
+                                  address1 varchar2(50) not null,
+                                  address2 varchar2(50) not null,
                                   request_type number(1) not null,
                                   request_memo1 varchar2(30),
                                   request_memo2 varchar2(30),
