@@ -62,19 +62,22 @@
                     let ul = $('<ul class="list_mold">');
 
                     for (let i in res.data.data) {
-                        let prodIdx = res.data.data[i].idx;            // 상품번호
-                        let name = res.data.data[i].name;              // 상품명
-                        let netPrice = res.data.data[i].netPrice;      // 판매가(원)
-                        let discount = res.data.data[i].salePrice;     // 할인율(%)
-                        let salePrice = res.data.data[i].price;        // 할인가(원)
+                        let prodIdx = res.data.data[i].idx;             // 상품번호
+                        let name = res.data.data[i].name;               // 상품명
+                        let netPrice = res.data.data[i].netPrice;       // 판매가(원)
+                        let discount = res.data.data[i].salePrice;      // 할인율(%)
+                        let salePrice = res.data.data[i].price;         // 할인가(원)
 
                         let discountIcon, netPriceText;
                         if (discount == 0 || discount == null) { netPriceText = "none"; discountIcon = "none"; }
                         else { netPriceText = "inline"; discountIcon = "inline-block"; }
 
-                        let img = res.data.data[i].img;              // 이미지
-                        let temp = res.data.data[i].temp;              // 보관온도
-                        let star = res.data.data[i].star;              // 별점
+                        let img = res.data.data[i].img;                 // 이미지
+                        let temp = res.data.data[i].temp;               // 보관온도
+                        let star = res.data.data[i].star;               // 별점
+                        img = img.split("/");
+                        img1 = img[img.length - 1];
+                        console.log(img1);
 
                         let bestFlag = res.data.data[i].bestFlag;      // 베스트여부
                         if (bestFlag == "FALSE") { bestFlag = "none"; }
@@ -95,7 +98,7 @@
                             '<span class="item_sale" style="display:'+ discountIcon +'">'+ discount +'%</span>' +
                             '<span class="item_best" id="best_flag" style="display:'+ bestFlag +'">Best</span>' +
                             '</div>' +
-                            `<a onclick="location.href='/user/product?prodIdx=${prodIdx}'" class="item_img" style="background-image: url("${img}")"></a>` +
+                            `<a onclick="location.href='/user/product?prodIdx=${prodIdx}'" class="item_img" ' + 'style="background-image: url(/uploads/product/"${img1}")"></a>` +
                             `<a onclick="location.href='/user/product?prodIdx=${prodIdx}'" class="item_name"> ${name} </a>` +
                             '<div class="item_price"><span class="price_comma">'+ salePrice +'</span>원</div><del style="display:'+ netPriceText +'" `><span class="price_comma" style="display:'+ netPriceText +'">'+ netPrice +'원</span></del>' +
                             '<div class="item_storage"><span>'+ tempText +'</span></div>' +
