@@ -41,7 +41,7 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
                 .addr2(addressApiRequest.getAddr2())
                 .addrName(addressApiRequest.getAddrName())
                 .name(addressApiRequest.getName())
-                .dawnFlag(isSeoul(addressApiRequest.getAddr1())? Flag.TRUE : Flag.FALSE)
+                .dawnFlag(addressApiRequest.getDawnFlag())
                 .baseFlag(addressApiRequest.getBaseFlag())
                 .hp(addressApiRequest.getHp())
                 .member(memberRepository.findById(addressApiRequest.getMemIdx()).get())
