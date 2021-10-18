@@ -29,35 +29,6 @@
         }
     </style>
     <script>
-        // 회원 로그인 | 비회원 로그인
-        $(document).ready(function () {
-            $("#member_click").click(function () {
-                $(".member_form").show();
-                $(".member_choice").eq(0).addClass("member_line");
-                $(".notmember_form").hide();
-                $(".member_choice").eq(1).removeClass("member_line");
-
-                $(".mem_login").addClass("member_line_checked");
-                $(".nomem_login").removeClass("member_line_checked");
-            });
-            $("#notmember_click").click(function () {
-                $(".member_form").hide();
-                $(".member_choice").eq(0).removeClass("member_line");
-                $(".notmember_form").show();
-                $(".member_choice").eq(1).addClass("member_line");
-
-                $(".mem_login").removeClass("member_line_checked");
-                $(".nomem_login").addClass("member_line_checked");
-            });
-        });
-
-        $(".mem_login").click(function () {
-            $(".mem_login").addClass('member_line_checked');
-        })
-    </script>
-
-    <!-- axios -->
-    <script>
         $(function () {
 
             let memIdx = $("#hidden_user").val();   // 헤더에서 가져온 로그인된 회원번호
@@ -98,7 +69,7 @@
                         '<input type="hidden" id="hidden_totalNetPrice" value="'+ totNetPrice +'">'+    // 정가 총금액
                         '<input type="hidden" id="hidden_totalCount" value="">'+                        // 총수량
                         '<input type="hidden" id="hidden_salePrice" class="hidden_salePrice" value="'+netPrice * salePrice/100 +'">'+ //할인금액
-                        '<input type="hidden" id="hidden_saleTotPrice" class="hidden_saleTotPrice" value="0">'+ //총 할인금액
+                        '<input type="hidden" id="hidden_saleTotPrice" class="hidden_saleTotPrice" value="'+netPrice * salePrice/100 +'">' + //총 할인금액
                         '<div id="delete">✖</div>' +
                         '</div></li>'
                     )
@@ -196,10 +167,7 @@
                 })
 
 
-
-
-
-                /* 장바구니 삭제하기 (새로고침해야 없어짐ㅠㅠ) */
+                /* 장바구니 삭제하기 */
                 let deleteBtn = document.querySelectorAll("#delete");
                 for(let i=0; i<deleteBtn.length; i++) {
                     deleteBtn[i].addEventListener('click', function() {
@@ -232,6 +200,7 @@
                 let netPrice = document.getElementById("net_price").innerText;
                 let salePrice = document.getElementById("sale_price").innerText;
                 let num = document.getElementById("num").innerText;
+                let hello
 
                 let prodIdx = [];
                 let prodName = [];
@@ -251,6 +220,7 @@
                 sessionStorage.setItem("netPrice", netPrice)
                 sessionStorage.setItem("salePrice", salePrice)
                 sessionStorage.setItem("num", num)
+                sessionStorage.setItem("hello", hello)
 
                 location.href="/user/mypage_userOrdersheet"
             }

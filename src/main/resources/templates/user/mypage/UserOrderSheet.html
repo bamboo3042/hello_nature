@@ -95,14 +95,19 @@
                 let couponList = response.data.data.couponList;
                 let hellocash = response.data.data.hellocash;
 
+                if(dawnFlag === "FALSE"){
+                    $("#ship_type01_first").attr("disabled", true)
+                    $("#ship_type01_second").prop("checked", true)
+                }
+
                 $("#addr").text(addrName + "/" +  addr1)
                 $("#name").val(name)
                 $("#hp").val(hp)
                 $("#addr2").text("[" +zipcode+ "] " + addr2)
 
                 $("#showHelloCash").text(hellocash + "원")
+                let couponList_type = couponList.split(",");
             })
-
         })
     </script>
 </head>
@@ -293,6 +298,7 @@
                                             배송 방법
                                         </div>
                                         <div class="ship_type_opt">
+                                            <input type="hidden" id="dwan_flag" value="">
                                             <input type="radio" name="ship_type01" id="ship_type01_first" value="새벽배송"
                                                    onclick="selectMsgShow()" checked><label
                                                 for="ship_type01_first">새벽배송</label>
