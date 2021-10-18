@@ -106,6 +106,12 @@
 
                     sessionStorage.setItem("ship_id", ship_id)
                     location.href = "/user/mypage_editShipping"
+
+                    if ($(this).parents().siblings(".shipping_txt").children("span").text() === "기본 배송지") {
+                        sessionStorage.setItem("base_id", ship_id)
+                    }else{
+                        sessionStorage.removeItem("base_id")
+                    }
                 })
 
                 $(".shipping_delete_button").click(function (e) {
