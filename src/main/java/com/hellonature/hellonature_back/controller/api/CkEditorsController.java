@@ -29,6 +29,7 @@ public class CkEditorsController {
         String randomfilename = RandomStringUtils.randomAlphanumeric(8) + "." + filenameEx;
 
         String path = request.getServletContext().getRealPath("/") + "/uploads/";
+
         File files = new File(path);
         if(!files.exists()){
             try{

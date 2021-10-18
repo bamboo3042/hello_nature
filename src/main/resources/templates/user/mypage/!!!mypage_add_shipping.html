@@ -80,14 +80,13 @@
             let requestMemo1 = $(".insert_door_pwd").val()              // 배송 요청사항
             let requestMemo2 = $("#remark_sir").val();                  // 배송기사님께
             let dawnFlag;
-            let idx = sessionStorage.getItem("ship_id");
             let urlidx = $("#section_hidden").val()
             let greenFlag = $("input:radio[name='Thegreen']:checked").val()
-            console.log(postcode.substring(1,2));
-            console.log(postcode.substring(0,1));
+            console.log( parseInt(postcode.substring(1,2)));
+            console.log( parseInt(postcode.substring(0,1)));;
 
 
-            if(postcode.substring(1,2) <= 9 && postcode.substring(1,2) >= 1 && postcode.substring(0,1) == 0){
+            if(parseInt(postcode.substring(1,2)) <= 9 && parseInt(postcode.substring(1,2)) >= 1 && parseInt(postcode.substring(0,1)) === 0){
                 dawnFlag = 1;
             }else{
                 dawnFlag = 0;
@@ -112,7 +111,6 @@
                 return false;
             }
 
-            console.log(idx)
             console.log(urlidx)
             console.log(userName)
             console.log(userHp)
@@ -129,7 +127,6 @@
             axios.post('/api/membersAddresses/create', {
                 headers: {'Content-type': 'application/json'},
                 data: {
-                    idx : idx,
                     memIdx : urlidx,
                     addrName: addressName,
                     name: userName,
@@ -150,13 +147,13 @@
                 return false;
             });
             alert('배송지 정보가 등록되었습니다.');
-            location.href = "/user/mypage_shipping";
+            // location.href = "/user/mypage_shipping";
         };
 
 
         function greensc(){
             let postcode = $("#sample6_postcode").val();
-            if(postcode.substring(1,2) <= 9 && postcode.substring(1,2) >= 1 && postcode.substring(0,1) == 0){
+            if(parseInt(postcode.substring(1,2)) <= 9 && parseInt(postcode.substring(1,2)) >= 1 && parseInt(postcode.substring(0,1)) === 0){
                 $("#green_able").removeAttr("disabled")
                 alert("더그린배송 이용지 지정이 가능합니다")
             }else {

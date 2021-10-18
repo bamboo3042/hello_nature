@@ -44,8 +44,18 @@
                 object.value = object.value.slice(0, object.maxLength);
             }
 
-            $("#order_hello").text($(".input_hcash").val());
-            // $("#total_price").text( parseInt($("#total_price").text()) - parseInt($("#order_hello").text()));
+            if($(".input_hcash").val() <= parseInt($("#showHelloCash").text())) {
+                $("#order_hello").text($(".input_hcash").val());
+                if ($(".input_hcash").val() === "") {
+                    $(".input_hcash").val(0)
+                }
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()))
+            }else{
+                alert("가지고 있는 헬로캐쉬보다 많은 캐쉬를 사용할 수 없습니다")
+                $(".input_hcash").val(0)
+            }
         }
 
         /* inner_mem_order_sheet.html - 택배배송 클릭 시 배송 알림 없음 처리 */
@@ -131,11 +141,16 @@
 
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                 - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()))
             })
         })
 
         function hello_all(){
             $(".input_hcash").val(parseInt($("#showHelloCash").text()));
+            $("#order_hello").text($(".input_hcash").val());
+            $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+            $("#hncash").text(parseInt($("#total_price").text()))
         }
 
         $(function(){
@@ -263,9 +278,9 @@
             let memIdx = $("#hidden_user").val()
 
             axios.get('/api/membersAddresses/user/list/' + memIdx, {}).then(function (response) {
-                console.log(response.data.data)
 
                 for (let i in response.data.data) {
+                    let addrName = response.data.data[i].addrName;
                     let id = response.data.data[i].idx;
                     let name = response.data.data[i].name;                           // 받는 사람
                     let hp = response.data.data[i].hp;                               // 전화번호
@@ -273,13 +288,53 @@
                     let addr1 = response.data.data[i].addr1;                         // 도로명주소 + 상세주소
                     let addr2 = response.data.data[i].addr2;                         // 나머지주소
                     let requestType = response.data.data[i].requestType;             // 배송타입
-                    let baseFlag = response.data.data[i].baseFlag;                // 기본배송지
+                    let baseFlag = response.data.data[i].baseFlag;                   // 기본배송지
                     let greenFlag = response.data.data[i].greenFlag;
+                    let dawnFlag = response.data.data[i].dawnFlag;
+                    let requestMemo1 = response.data.data[i].requestMemo1;
+                    let requestMemo2 = response.data.data[i].requestMemo2;
 
-
-
-
+                    let row = $("<table class='addr_list_table'>").append(
+                        '<tbody><tr><th>배송지</th><td id="eidt_addrName">'+addrName + '/' + addr1 + '</td></tr>' +
+                        '<tr><th>정보</th><td id="edit_info"><span id="edit_name">'+name+'</span>/<span id="edit_hp">'+hp+'</span></td></tr>' +
+                        '<tr><th>상세정보</th><td id="edit_addr2"><span id="edit_zipcode">'+ zipcode +'</span>/<span>'+addr2+'</span></td></tr></tbody>' +
+                        '<input type="hidden" value="'+zipcode+'" id="hidden_zip"><input type="hidden" value="'+dawnFlag+'" id="hidden_dawn"><input type="hidden" value="'+requestType+'" id="hidden_type">' +
+                        '<input type="hidden" value="'+greenFlag+'" id="hidden_green"><input type="hidden" value="'+requestMemo1+'" id="hidden_memo1"><input type="hidden" value="'+requestMemo2+'" id="hidden_memo2">' +
+                        '<input type="hidden" value="'+addr1+'" id="hidden_addr1"><input type="hidden" value="'+addr2+'" id="hidden_addr2"></table>'
+                    )
+                    $("#address_edit_box").append(row)
                 }
+
+
+                $(".addr_list_table").click(function (e){
+
+                    $("#addr").text($(this).children("tbody").children("tr").children("#eidt_addrName").text())
+                    $("#addr2").text($(this).children("tbody").children("tr").children("#edit_addr2").text())
+                    $("#name").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_name").text())
+                    $("#hp").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_hp").text())
+
+                    $("#greenFlag").val(($(this).children("#hidden_green").val()));
+                    $("#dawnFlag").val(($(this).children("#hidden_dawn").val()))
+                    $("#requestType").val(($(this).children("#hidden_type").val()))
+                    $("#requestMemo1").val(($(this).children("#hidden_memo1").val()))
+                    $("#requestMemo2").val(($(this).children("#hidden_memo2").val()))
+                    $("#zipcode").val(($(this).children("#hidden_zip").val()))
+                    $("#hidden_addr2").val(($(this).children("#hidden_addr2").val()))
+                    $("#hidden_addr1").val(($(this).children("#hidden_addr1").val()))
+
+                    if($("#dawnFlag").val() === "TRUE"){
+                        $("#ship_type01_first").removeAttr("disabled");
+                    }else{
+                        $("#ship_type01_first").attr("disabled", true)
+                    }
+
+
+                    alert("배송지가 수정되었습니다")
+                    document.getElementById("mw_temp_p").style.display = 'none';
+                })
+
+            }).catch(function (err){
+                console.log(err)
             })
         })
     </script>
@@ -365,108 +420,6 @@
                                             <div class="modal_cateBox" method="" action="#" id="modal_form">
                                                 <h2 class="address_list_title" style="margin: 30px">배송지 정보</h2>
                                                 <div id="address_edit_box" style="height: 600px; overflow-x: hidden; overflow-y: scroll">
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="addr_list_table">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>배송지</th>
-                                                            <td>입력주소</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <th>정보</th>
-                                                            <td><span>이예솔 </span>/<span> 010-1234-1234</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>상세정보</th>
-                                                            <td><span>배송받을위치 </span>/<span> 배송위치상세정보</span></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
