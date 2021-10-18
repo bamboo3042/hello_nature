@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box {
             overflow: hidden;
@@ -46,7 +47,7 @@
             axios.get('/api/membersAddresses/user/list/' + urlidx, {}).then(function (response) {
                 console.log(response.data.data)
 
-                for(let i in response.data.data) {
+                for (let i in response.data.data) {
                     let id = response.data.data[i].idx;
                     let name = response.data.data[i].name;                           // 받는 사람
                     let hp = response.data.data[i].hp;                               // 전화번호
@@ -58,18 +59,18 @@
                     let greenFlag = response.data.data[i].greenFlag;
                     sessionStorage.setItem("ship_id", id)
 
-                    if(baseFlag === "TRUE"){
+                    if (baseFlag === "TRUE") {
                         baseFlag = "기본 배송지"
-                    }else{
+                    } else {
                         baseFlag = "그 외"
                     }
-                    if(greenFlag == "TRUE"){
+                    if (greenFlag == "TRUE") {
                         baseFlag += "/ 더그린 배송지"
-                    }else{
+                    } else {
                         baseFlag = baseFlag
                     }
 
-                    switch (requestType){
+                    switch (requestType) {
                         case 1:
                             requestType = "문앞 / 공동현관 비밀번호"
                             break;
@@ -88,39 +89,44 @@
                     }
 
                     let row = $('<div class="shipping_box1">').append(
-                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span>'+baseFlag+'</span></div>' +
-                        '<div class="shipping_edit_box"><a href="#" class="shipping_edit_button"><input type="hidden" value='+id+'>수정</a>' +
-                        '<div class="just-line"></div><span onClick="deleteShipping()">삭제</span></div></div>' +
+                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span>' + baseFlag + '</span></div>' +
+                        '<div class="shipping_edit_box"><a href="#" class="shipping_edit_button"><input type="hidden" value=' + id + '>수정</a>' +
+                        '<div class="just-line"></div><span class="shipping_delete_button"><input type="hidden" value=' + id + '>삭제</span></div></div>' +
                         '<div class="shipping_box1_line2"> ' + name + ' <span></span>' +
                         '<span>' + hp + '</span><br>' +
-                        '<span>[ '+ zipcode + ' ] ' + addr1 + ' ( ' + addr2 +' ) </span></div>' +
-                        '<span>'+requestType+'</span></div></div>'
-                )
+                        '<span>[ ' + zipcode + ' ] ' + addr1 + ' ( ' + addr2 + ' ) </span></div>' +
+                        '<span>' + requestType + '</span></div></div>'
+                    )
                     $(".shipping_list").append(row)
                 }
 
-                $(".shipping_edit_button").click(function (e){
+                $(".shipping_edit_button").click(function (e) {
                     let ship_id = $(this).children("input").val()
                     console.log(ship_id)
 
                     sessionStorage.setItem("ship_id", ship_id)
-                    location.href="/user/mypage_editShipping"
+                    location.href = "/user/mypage_editShipping"
                 })
 
+                $(".shipping_delete_button").click(function (e) {
+                    let ship_id = $(this).children("input").val()
+                    console.log($(this).parents().siblings(".shipping_txt").children("span").text())
+
+                    if ($(this).parents().siblings(".shipping_txt").children("span").text() === "기본 배송지") {
+                        alert("기본 배송지는 삭제할 수 없습니다")
+                    }else {
+                        axios.delete('/api/membersAddresses/delete/' + ship_id, {}).then((response) => {
+                            alert("배송지 정보가 삭제되었습니다.");
+                            location.href = "/user/mypage_shipping";
+                        }).catch((err) => {
+                            console.log(err);
+                        })
+                    }
+                })
             }).catch(function (err) {
                 console.log(err)
             });
         });
-
-        function deleteShipping() {
-            let Idx = $("#memIdx").val();
-            axios.delete('/api/membersAddresses/delete/' + Idx, {}).then((response) => {
-                alert("배송지 정보가 삭제되었습니다.");
-                location.href = "/mypage_shipping";
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
     </script>
     <!-- axios -->
 </head>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
@@ -67,6 +68,7 @@
         });
 
         function sendit() {
+
             let baseFlag;
             let addressName = $('#addressName').val();                  // 배송지명
             let userName = $("#userName").val();                        // 받는사람
@@ -143,10 +145,12 @@
                     greenFlag : greenFlag
                 }
             }).then(function () {
-                alert('배송지 정보가 등록되었습니다.');
             }).catch(function (err) {
                 console.log(err)
+                return false;
             });
+            alert('배송지 정보가 등록되었습니다.');
+            location.href = "/user/mypage_shipping";
         };
 
 
@@ -185,14 +189,7 @@
                     <h2 class="contents_name">배송지 수정</h2>
                 </div>
                 <!-- form 시작 -->
-                <form target="_blank" onsubmit="return sendit()">
-                    <div class="shipping_store_box">
-                        <div class="shipping_store_box_inner">
-                            <input type="checkbox" name="baseFlag" class="shipping_store_checkbox"
-                                   id="shipping_store_checkbox">
-                        </div>
-                        <label for="shipping_store_checkbox">기본 배송지로 저장</label>
-                    </div>
+                <div>
                     <!-- edit_shipping_form 시작 -->
                     <div class="edit_shipping_form">
                         <ul class="shipping_form_list">
@@ -318,8 +315,8 @@
                         <label for="check_business_credit_card">개인 정보 수집 및 이용 동의</label>
                     </div>
                     <!-- 개인 정보 수집 체크박스 끝 -->
-                    <button type="submit" class="button_submit">저장</button>
-                </form>
+                    <button type="button" class="button_submit" onclick="sendit()">저장</button>
+                </div>
                 <!-- form 끝 -->
                 <!-- main_contents 끝 -->
             </div>
