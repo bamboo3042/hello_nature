@@ -330,7 +330,7 @@ create table tb_brands(
                           des varchar2(1000) not null,
                           logo varchar2(100) not null,
                           br_state number(1) not null,
-                          banner varchar2(20),
+                          banner varchar2(200),
                           date_start varchar2(20) not null,
                           date_end varchar2(20) not null,
                           regdate date default sysdate

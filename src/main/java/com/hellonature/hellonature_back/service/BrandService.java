@@ -58,7 +58,7 @@ public class BrandService {
 
     public Header<BrandApiResponse> read(Long idx) {
         return brandRepository.findById(idx)
-                .map(brand -> response(brand))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -80,8 +80,8 @@ public class BrandService {
 
                     return brand;
 
-                }).map(brand -> brandRepository.save(brand))
-                .map(brand -> response(brand))
+                }).map(brandRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("수정 실패"));
     }

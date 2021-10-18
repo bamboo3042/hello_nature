@@ -31,11 +31,28 @@ public class BasketService extends BaseService<BasketApiRequest, BasketApiRespon
     public Header<BasketApiResponse> create(Header<BasketApiRequest> request) {
         BasketApiRequest basketApiRequest = request.getData();
 
-        Basket basket = Basket.builder()
-                .member(memberRepository.findById(basketApiRequest.getMemIdx()).get())
-                .product(productRepository.findById(basketApiRequest.getProIdx()).get())
-                .proCount(basketApiRequest.getProCount())
-                .build();
+        Optional<Member> optionalMember = memberRepository.findById(basketApiRequest.getMemIdx());
+        if(optionalMember.isEmpty()) return Header.ERROR("회원 정보가 없습니다");
+
+        Optional<Product> optionalProduct = productRepository.findById(basketApiRequest.getProIdx());
+        if (optionalProduct.isEmpty()) return Header.ERROR("상품 정보가 없습니다");
+
+        Member member = optionalMember.get();
+        Product product = optionalProduct.get();
+
+        Optional<Basket> optionalBasket = basketRepository.findByMemberAndProduct(member, product);
+        Basket basket = null;
+        if (optionalBasket.isPresent()){
+            basket = optionalBasket.get();
+            basket.plusCount();
+        }
+        else{
+            basket = Basket.builder()
+                    .member(memberRepository.findById(basketApiRequest.getMemIdx()).get())
+                    .product(productRepository.findById(basketApiRequest.getProIdx()).get())
+                    .proCount(basketApiRequest.getProCount())
+                    .build();
+        }
         Basket newBasket = basketRepository.save(basket);
         return Header.OK();
     }

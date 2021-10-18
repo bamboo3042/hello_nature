@@ -29,6 +29,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
     private final MemberOrderProductRepository memberOrderProductRepository;
     private final HellocashRepository hellocashRepository;
     private final AddressRepository addressRepository;
+    private final BasketRepository basketRepository;
 
     @Override
     @Transactional
@@ -41,7 +42,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         Member member = optionalMember.get();
 
         Optional<Coupon> optionalCoupon = Optional.empty();
-        if (memberOrderApiRequest.getCpIdx() != null && memberOrderApiRequest.getCpIdx().equals("")) {
+        if (memberOrderApiRequest.getCpIdx() != null) {
             optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
         }
 
@@ -73,6 +74,10 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                     .proCount(memberOrderApiRequest.getProCountList().get(i))
                     .build();
             memberOrderProductRepository.save(memberOrderProduct);
+
+            Optional<Basket> optionalBasket = basketRepository.findByMemberAndProduct(member, products.get(i));
+            if (optionalBasket.isEmpty()) continue;
+            basketRepository.delete(optionalBasket.get());
         }
 
         MemberPayment memberPayment = MemberPayment.builder()

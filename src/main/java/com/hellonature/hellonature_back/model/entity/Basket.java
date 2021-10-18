@@ -35,4 +35,12 @@ public class Basket extends DateEntity{
     private Product product;
 
     private Integer proCount;
+
+    public void plusCount(){
+        this.proCount += 1;
+    }
+
+    public void minusCount(){
+        this.proCount -= 1;
+    }
 }
