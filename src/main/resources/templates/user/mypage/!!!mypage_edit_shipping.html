@@ -124,7 +124,7 @@
                         $(".select_detail_radio_1").css("display", "block")
                     }
                 } else {
-                    $('input:radio[name="detail_addr"][[value="' + requestType + '"]').prop("checked", true)
+                    $('input:radio[name="detail_addr"][value="' + requestType + '"]').prop("checked", true)
                 }
 
                 if (greenFlag === "TRUE") {
@@ -256,13 +256,12 @@
             }
         };
 
-
-        function greensc() {
+        function greensc(){
             let postcode = $("#sample6_postcode").val();
-            if (postcode.substring(1, 2) <= 9 && postcode.substring(1, 2) >= 1 && postcode.substring(0, 1) == 0) {
+            if(parseInt(postcode.substring(1,2)) <= 9 && parseInt(postcode.substring(1,2)) >= 1 && parseInt(postcode.substring(0,1)) === 0){
                 $("#green_able").removeAttr("disabled")
                 alert("더그린배송 이용지 지정이 가능합니다")
-            } else {
+            }else {
                 alert("더그린배송 이용지 지정이 불가능합니다")
                 $("#green_able").attr("disabled", true)
             }
