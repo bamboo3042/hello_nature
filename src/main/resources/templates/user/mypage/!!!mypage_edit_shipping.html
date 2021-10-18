@@ -108,26 +108,26 @@
                 let greenFlag = response.data.data.greenFlag;
                 console.log(greenFlag)
 
-                if(baseFlag === "TRUE"){
+                if (baseFlag === "TRUE") {
                     $("input:checkbox[name='baseFlag']").prop("checked", true)
                 }
 
-                if(requestType === 1 || requestType === 2){
+                if (requestType === 1 || requestType === 2) {
                     $("input:radio[name='detail_addr'][value='문앞']").prop("checked", true)
-                    if(requestType === 1){
+                    if (requestType === 1) {
                         $("input:radio[name='chk_door'][value='1']").prop("checked", true)
-                    }else{
+                    } else {
                         $("input:radio[name='chk_door'][value='2']").prop("checked", true)
                     }
 
-                    if($("input:radio[name='detail_addr'][value='문앞']").is(':checked')){
+                    if ($("input:radio[name='detail_addr'][value='문앞']").is(':checked')) {
                         $(".select_detail_radio_1").css("display", "block")
                     }
-                }else{
+                } else {
                     $('input:radio[name="detail_addr"][[value="' + requestType + '"]').prop("checked", true)
                 }
 
-                if(greenFlag === "TRUE"){
+                if (greenFlag === "TRUE") {
                     $("#green_able").removeAttr("disabled")
                     $('input:radio[name="Thegreen"][value="1"]').prop("checked", true)
                 }
@@ -160,23 +160,23 @@
             let urlidx = $("#section_hidden").val()
             let greenFlag = $("input:radio[name='Thegreen']:checked").val()
 
-            console.log(postcode.substring(1,2));
-            console.log(postcode.substring(0,1));
+            console.log(postcode.substring(1, 2));
+            console.log(postcode.substring(0, 1));
 
 
-            if(postcode.substring(1,2) <= 9 && postcode.substring(1,2) >= 1 && postcode.substring(0,1) == 0){
+            if (postcode.substring(1, 2) <= 9 && postcode.substring(1, 2) >= 1 && postcode.substring(0, 1) == 0) {
                 dawnFlag = 1;
-            }else{
+            } else {
                 dawnFlag = 0;
             }
 
-            if($("input:checkbox[name='baseFlag']").is(':checked')){
+            if ($("input:checkbox[name='baseFlag']").is(':checked')) {
                 baseFlag = 1;
-            }else{
+            } else {
                 baseFlag = 0;
             }
 
-           if(requestType === "문앞"){
+            if (requestType === "문앞") {
                 requestType = $("input:radio[name='chk_door']:checked").val();
             }
 
@@ -203,38 +203,66 @@
             console.log(dawnFlag)
             console.log(greenFlag)
 
-            axios.put('/api/membersAddresses/update', {
-                headers: {'Content-type': 'application/json'},
-                data: {
-                    idx : idx,
-                    memIdx : urlidx,
-                    addrName: addressName,
-                    name: userName,
-                    hp: userHp,
-                    zipcode: postcode,
-                    addr1: address,
-                    addr2: detailAddress,
-                    requestType: requestType,
-                    requestMemo1: requestMemo1,
-                    requestMemo2: requestMemo2,
-                    baseFlag : baseFlag,
-                    dawnFlag : dawnFlag,
-                    greenFlag : greenFlag
-                }
-            }).then(function () {
-                alert('배송지 정보가 수정되었습니다.');
-            }).catch(function (err) {
-                console.log(err)
-            });
+            if ($("input:checkbox[name='baseFlag']").is(':checked')) {
+                let baseIdx = sessionStorage.getItem("base_id");
+                axios.put('/api/membersAddresses/update', {
+                    headers: {'Content-type': 'application/json'},
+                    data: {
+                        idx: idx,
+                        memIdx: urlidx,
+                        addrName: addressName,
+                        name: userName,
+                        hp: userHp,
+                        zipcode: postcode,
+                        addr1: address,
+                        addr2: detailAddress,
+                        requestType: requestType,
+                        requestMemo1: requestMemo1,
+                        requestMemo2: requestMemo2,
+                        baseFlag: baseFlag,
+                        dawnFlag: dawnFlag,
+                        greenFlag: greenFlag,
+                        baseIdx: baseIdx
+                    }
+                }).then(function () {
+                    alert('배송지 정보가 수정되었습니다.');
+                }).catch(function (err) {
+                    console.log(err)
+                });
+            } else {
+                axios.put('/api/membersAddresses/update', {
+                    headers: {'Content-type': 'application/json'},
+                    data: {
+                        idx: idx,
+                        memIdx: urlidx,
+                        addrName: addressName,
+                        name: userName,
+                        hp: userHp,
+                        zipcode: postcode,
+                        addr1: address,
+                        addr2: detailAddress,
+                        requestType: requestType,
+                        requestMemo1: requestMemo1,
+                        requestMemo2: requestMemo2,
+                        baseFlag: baseFlag,
+                        dawnFlag: dawnFlag,
+                        greenFlag: greenFlag
+                    }
+                }).then(function () {
+                    alert('배송지 정보가 수정되었습니다.');
+                }).catch(function (err) {
+                    console.log(err)
+                });
+            }
         };
 
 
-        function greensc(){
+        function greensc() {
             let postcode = $("#sample6_postcode").val();
-            if(postcode.substring(1,2) <= 9 && postcode.substring(1,2) >= 1 && postcode.substring(0,1) == 0){
+            if (postcode.substring(1, 2) <= 9 && postcode.substring(1, 2) >= 1 && postcode.substring(0, 1) == 0) {
                 $("#green_able").removeAttr("disabled")
                 alert("더그린배송 이용지 지정이 가능합니다")
-            }else {
+            } else {
                 alert("더그린배송 이용지 지정이 불가능합니다")
                 $("#green_able").attr("disabled", true)
             }
@@ -319,7 +347,8 @@
                                         <!-- 문앞 -->
                                         <li>
                                             <p><input type="radio" class="ask_detail_radio_1" name="detail_addr"
-                                                      id="detail_addr_1" value="문앞"><label for="detail_addr_1">문앞</label>
+                                                      id="detail_addr_1" value="문앞"><label
+                                                    for="detail_addr_1">문앞</label>
                                             </p>
                                             <div class="select_detail_radio_1" style="display: none">
                                                 <p><input type="radio" class="chk_door" name="chk_door"
@@ -354,14 +383,18 @@
                                             <p><input type="radio" class="ask_detail_radio_4" name="detail_addr"
                                                       id="detail_addr_4" value="5"><label
                                                     for="detail_addr_4">기타장소</label>
-                                                <p style="font-size: 13px">원하시는 장소를 배송기사님께 메모해주세요</p>
+                                            <p style="font-size: 13px">원하시는 장소를 배송기사님께 메모해주세요</p>
                                             </p>
                                             <div class="caution_not_input">수령하실 장소를 입력해주세요.</div>
                                         </li>
                                         <li>
-                                            <h5 class="essbox">더그린 배송지 이용<span class="essential">필수</span><input type="button" value="조회하기" onclick="greensc()" style="margin-left: 10px"></h5>
-                                            <p><input type="radio" name="Thegreen" value="1" style="margin-top: 10px" disabled id="green_able"><label>이용함</label></p>
-                                            <p><input type="radio" name="Thegreen" value="0" style="margin-top: 10px" checked><label>이용안함</label></p>
+                                            <h5 class="essbox">더그린 배송지 이용<span class="essential">필수</span><input
+                                                    type="button" value="조회하기" onclick="greensc()"
+                                                    style="margin-left: 10px"></h5>
+                                            <p><input type="radio" name="Thegreen" value="1" style="margin-top: 10px"
+                                                      disabled id="green_able"><label>이용함</label></p>
+                                            <p><input type="radio" name="Thegreen" value="0" style="margin-top: 10px"
+                                                      checked><label>이용안함</label></p>
                                         </li>
                                     </ul>
                                 </div>

@@ -258,6 +258,30 @@
             $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()));
             alert("선택이 완료되었습니다")
         }
+
+        $(function () {
+            let memIdx = $("#hidden_user").val()
+
+            axios.get('/api/membersAddresses/user/list/' + memIdx, {}).then(function (response) {
+                console.log(response.data.data)
+
+                for (let i in response.data.data) {
+                    let id = response.data.data[i].idx;
+                    let name = response.data.data[i].name;                           // 받는 사람
+                    let hp = response.data.data[i].hp;                               // 전화번호
+                    let zipcode = response.data.data[i].zipcode;                     // 우편번호
+                    let addr1 = response.data.data[i].addr1;                         // 도로명주소 + 상세주소
+                    let addr2 = response.data.data[i].addr2;                         // 나머지주소
+                    let requestType = response.data.data[i].requestType;             // 배송타입
+                    let baseFlag = response.data.data[i].baseFlag;                // 기본배송지
+                    let greenFlag = response.data.data[i].greenFlag;
+
+
+
+
+                }
+            })
+        })
     </script>
 </head>
 <body>
