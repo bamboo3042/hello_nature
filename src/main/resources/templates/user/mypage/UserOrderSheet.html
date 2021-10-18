@@ -51,7 +51,7 @@
                 }
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
-                $("#hncash").text(parseInt($("#total_price").text()))
+                $("#hncash").text(parseInt($("#total_price").text())*0.01)
             }else{
                 alert("가지고 있는 헬로캐쉬보다 많은 캐쉬를 사용할 수 없습니다")
                 $(".input_hcash").val(0)
@@ -141,7 +141,7 @@
 
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                 - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
-                $("#hncash").text(parseInt($("#total_price").text()))
+                $("#hncash").text(parseInt($("#total_price").text())*0.01)
             })
         })
 
@@ -150,7 +150,7 @@
             $("#order_hello").text($(".input_hcash").val());
             $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                 - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
-            $("#hncash").text(parseInt($("#total_price").text()))
+            $("#hncash").text(parseInt($("#total_price").text())*0.01)
         }
 
         $(function(){
