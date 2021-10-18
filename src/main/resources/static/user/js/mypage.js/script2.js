@@ -176,25 +176,3 @@ $(() => {
     })
 
 })
-$(function(){
-    /* 더그린배송 결제수단 클릭시 결제수단 오버뷰 */
-    $(".hellopass_link_payment").on("click", () => {
-        $(".popup_payment_box").toggle();
-    })
-    $(".popup_close").on("click", () => {
-        $(".popup_payment_box").css("display", "none");
-    })
-    /* 더그린배송 결제 개인 정보 수집 및 이용 동의 오버뷰 */
-    $(".enrollpay_allow").on("click", () => {
-        $(".enrollpay_allow_list2").toggle();
-    })
-    $(".enrollpay_allow2").on("click", () => {
-        $(".enrollpay_allow_list3").toggle();
-    })
-    /* 결제수단 클릭상태 css */
-    $(".choose_payment_box > div").click(function (event) {
-        $(this).add(".choose_payment_box > div").addClass("payment_box_clicked")
-        $(".choose_payment_box > div").not($(this)).removeClass("payment_box_clicked")
-        event.stopPropagation();
-    })
-})

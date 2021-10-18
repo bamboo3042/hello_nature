@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common2.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <style>
         #mypage-box {
             overflow: hidden;
@@ -40,6 +43,9 @@
             if (object.value.length > object.maxLength) {
                 object.value = object.value.slice(0, object.maxLength);
             }
+
+            $("#order_hello").text($(".input_hcash").val());
+            // $("#total_price").text( parseInt($("#total_price").text()) - parseInt($("#order_hello").text()));
         }
 
         /* inner_mem_order_sheet.html - 택배배송 클릭 시 배송 알림 없음 처리 */
@@ -79,8 +85,10 @@
                     '<div class="item_count"><span>'+proEA[i]+ '개' + '</span></div></div>'
                 )
                 $("#order_item_box").append(row)
-                console.log(row)
             }
+
+            $("#order_netPrice").text(netPrice);
+            $("#order_salePrice").text(salePrice);
 
             axios.get("/api/memberOrder/load/" + memIdx,{}).then(function (response){
                 let name = response.data.data.address.name;
@@ -94,6 +102,19 @@
                 let greenFlag = response.data.data.address.greenFlag;
                 let couponList = response.data.data.couponList;
                 let hellocash = response.data.data.hellocash;
+                let requestType = response.data.data.address.requestType;
+                let requestMemo1 = response.data.data.address.requestMemo1;
+                let requestMemo2 = response.data.data.address.requestMemo2;
+
+                $("#greenFlag").val(greenFlag)
+                $("#dawnFlag").val(dawnFlag)
+                $("#requestType").val(requestType)
+                $("#requestMemo1").val(requestMemo1)
+                $("#requestMemo2").val(requestMemo2)
+                $("#zipcode").val(zipcode)
+                $("#hidden_addr2").val(addr2)
+                $("#hidden_addr1").val(addr1)
+
 
                 if(dawnFlag === "FALSE"){
                     $("#ship_type01_first").attr("disabled", true)
@@ -106,9 +127,132 @@
                 $("#addr2").text("[" +zipcode+ "] " + addr2)
 
                 $("#showHelloCash").text(hellocash + "원")
-                let couponList_type = couponList.split(",");
+                // let couponList_type = couponList.split(",");
+
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
             })
         })
+
+        function hello_all(){
+            $(".input_hcash").val(parseInt($("#showHelloCash").text()));
+        }
+
+        $(function(){
+            /* 더그린배송 결제수단 클릭시 결제수단 오버뷰 */
+            $(".hellopass_link_payment").on("click", () => {
+                $(".popup_payment_box").toggle();
+            })
+            $(".popup_close").on("click", () => {
+                $(".popup_payment_box").css("display", "none");
+            })
+            /* 더그린배송 결제 개인 정보 수집 및 이용 동의 오버뷰 */
+            $(".enrollpay_allow").on("click", () => {
+                $(".enrollpay_allow_list2").toggle();
+            })
+            $(".enrollpay_allow2").on("click", () => {
+                $(".enrollpay_allow_list3").toggle();
+            })
+            /* 결제수단 클릭상태 css */
+            $(".choose_payment_box > div").click(function (event) {
+                $(this).add(".choose_payment_box > div").addClass("payment_box_clicked")
+                $(".choose_payment_box > div").not($(this)).removeClass("payment_box_clicked")
+                event.stopPropagation();
+            })
+        })
+
+        function order_check(){
+            alert("등록이 클릭되었습니다")
+
+            let memIdx = $("#hidden_user").val();
+            let zipcode = $("#zipcode").val();
+            let address1 = $("#hidden_addr1").val();
+            let address2 = $("#hidden_addr2").val();
+            let green;
+            let dwan;
+            let alarm;
+
+            if($("#greenFlag").val() === "TRUE"){
+                green = 1;
+            }else{
+                green = 0;
+            }
+
+            if($("#dawnFlag").val() === "TRUE"){
+                dwan = 1;
+            }else{
+                dwan = 0;
+            }
+            let recName = $("#name").val();
+            let recHp = $("#hp").val();
+
+            if($("input[name='ship_type01']:checked").val() === "새벽배송"){
+                alarm = $("input[name='ship_type02']:checked").val()
+            }else{
+                alarm = 3
+            }
+
+            let requestType =  $("#requestType").val()
+            let requestMemo1 = $("#requestMemo1").val()
+            let requestMemo2 = $("#requestMemo2").val()
+
+            let proIdxList = sessionStorage.getItem("prodIdx")
+            let proCountList = sessionStorage.getItem("proEA")
+            let price = $("#total_price").text()
+            let paymentType = $("input[name='method']:checked").val()
+            let hellocash = $("#order_hello").text()
+
+            console.log(memIdx)
+            console.log(zipcode)
+            console.log(address1)
+            console.log(address2)
+            console.log(green)
+            console.log(dwan)
+            console.log(recName)
+            console.log(recHp)
+            console.log(alarm)
+            console.log(requestType)
+            console.log(requestMemo1)
+            console.log(requestMemo2)
+            console.log(proIdxList)
+            console.log(proCountList)
+            console.log(price)
+            console.log(paymentType)
+            console.log(hellocash)
+
+            axios.post("/api/memberOrder/create", {
+                data:{
+                    memIdx : memIdx,
+                    zipcode : zipcode,
+                    address1 : address1,
+                    address2 : address2,
+                    greenFlag : green,
+                    dawnFlag : dwan,
+                    recName : recName,
+                    recHp : recHp,
+                    alarm : alarm,
+                    requestType : requestType,
+                    requestMemo1 : requestMemo1,
+                    requestMemo2 : requestMemo2,
+                    // cpIdx : cpIdx,
+                    proIdxList : proIdxList,
+                    proCountList : proCountList,
+                    price : price,
+                    paymentType : paymentType,
+                    cardNum : "0000-0000-0000-0000",
+                    hellocash : hellocash
+                }
+            }).then(function (){
+                    alert("등록에 성공하셨습니다.")
+            }).catch(function (err){
+                console.log(err)
+            })
+        }
+
+        function choice(){
+            $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()));
+            alert("선택이 완료되었습니다")
+        }
     </script>
 </head>
 <body>
@@ -170,6 +314,14 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <input type="hidden" id="greenFlag">
+                                    <input type="hidden" id="dawnFlag">
+                                    <input type="hidden" id="requestType">
+                                    <input type="hidden" id="requestMemo1">
+                                    <input type="hidden" id="requestMemo2">
+                                    <input type="hidden" id="zipcode">
+                                    <input type="hidden" id="hidden_addr1">
+                                    <input type="hidden" id="hidden_addr2">
                                 </div>
 
                                 <!--팝업창 부분 시작 -->
@@ -312,10 +464,10 @@
                                         </div>
                                         <div class="ship_type_opt">
                                             <input class="ship_type_button" type="radio" name="ship_type02"
-                                                   id="ship_type02_first" checked><label for="ship_type02_first">배송
+                                                   id="ship_type02_first" value="1" checked><label for="ship_type02_first">배송
                                             후</label>
                                             <input class="ship_type_button" type="radio" name="ship_type02"
-                                                   id="ship_type02_second"><label for="ship_type02_second">오전 7시
+                                                   id="ship_type02_second"  value="2" ><label for="ship_type02_second">오전 7시
                                             이후</label>
                                         </div>
                                     </div>
@@ -341,7 +493,7 @@
                                         <li>
                                             <input type="number" maxlength="8" class="input_hcash" placeholder="0"
                                                    oninput="maxLengthCheck(this)">
-                                            <button class="use_all_hcash">모두 사용</button>
+                                            <button class="use_all_hcash" onclick="hello_all()">모두 사용</button>
                                         </li>
                                     </ul>
                                 </li>
@@ -357,9 +509,6 @@
                         <div class="popup_payment_box">
                             <div class="popup_topline">
                                 <h2>결제 수단 선택</h2>
-                                <div class="popup_close">
-                                    <a href="#">close</a>
-                                </div>
                             </div>
                             <!-- popup_payment_form 시작 -->
                             <div class="popup_payment_form">
@@ -368,7 +517,7 @@
                                 <div class="choose_payment_box">
                                     <!-- 헬로페이 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method" id="method1" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method1" class="popup_radio_hide" value="1">
                                         <label for="method1">
                                             <img src="/user/images/mypage.img/popup/popup_hellopay.png" alt="헬로네이처 간편결제"
                                                  class="popup_hellopay">
@@ -380,7 +529,7 @@
                                     <!-- 헬로페이 -->
                                     <!-- 차이페이 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method2" id="method2" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method2" class="popup_radio_hide" value="2">
                                         <label for="method2">
                                             <img src="/user/images/mypage.img/popup/popup_chaipay.png" alt="헬로네이처 간편결제"
                                                  class="popup_chaipay">
@@ -392,7 +541,7 @@
                                     <!-- 차이페이 -->
                                     <!-- 네이버페이 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method3" id="method3" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method3" class="popup_radio_hide" value="3">
                                         <label for="method3">
                                             <img src="/user/images/mypage.img/popup/popup_naverpay.png" alt="헬로네이처 간편결제"
                                                  class="popup_naverpay">
@@ -404,7 +553,7 @@
                                     <!-- 네이버페이 -->
                                     <!-- 페이코 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method4" id="method4" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method4" class="popup_radio_hide" value="4">
                                         <label for="method4">
                                             <img src="/user/images/mypage.img/popup/popup_payco.png" alt="헬로네이처 간편결제"
                                                  class="popup_payco">
@@ -416,7 +565,7 @@
                                     <!-- 페이코 -->
                                     <!-- 삼성페이 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method5" id="method5" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method5" class="popup_radio_hide" value="5">
                                         <label for="method5">
                                             <img src="/user/images/mypage.img/popup/popup_samsungpay.png"
                                                  alt="헬로네이처 간편결제" class="popup_samsungpay">
@@ -428,7 +577,7 @@
                                     <!-- 삼성페이 -->
                                     <!-- SK페이 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method6" id="method6" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method6" class="popup_radio_hide" value="6">
                                         <label for="method6">
                                             <img src="/user/images/mypage.img/popup/popup_skpay.png" alt="헬로네이처 간편결제"
                                                  class="popup_skpay">
@@ -440,7 +589,7 @@
                                     <!-- SK페이 -->
                                     <!-- 신용카드 일반결제 -->
                                     <div class="payment_box">
-                                        <input type="radio" name="method7" id="method7" class="popup_radio_hide">
+                                        <input type="radio" name="method" id="method7" class="popup_radio_hide" value="7">
                                         <label for="method7">
                                             <img src="/user/images/mypage.img/popup/popup_normal.png" alt="헬로네이처 간편결제"
                                                  class="popup_normal">
@@ -450,7 +599,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit" id="select_payment" class="button_submit">선택완료</button>
+                                <button id="select_payment" class="button_submit" style="width: 850px;" onclick="choice()">선택완료</button>
                                 <!-- popup_payment_form 끝 -->
                             </div>
                         </div>
@@ -460,7 +609,7 @@
                             <dl class="total_price_view">
                                 <dt class="price_title">총 결제 금액</dt>
                                 <dd class="price">
-                                    <span class="num">3,650</span>
+                                    <span class="num" id="total_price"></span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
@@ -471,42 +620,35 @@
                             <dl class="price_view" id="order_item_price">
                                 <dt class="price_title">주문 금액</dt>
                                 <dd class="price">
-                                    <span class="num">3,650</span>
+                                    <span class="num" id="order_netPrice"></span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
                             <dl class="price_view">
                                 <dt class="price_title">할인금액</dt>
                                 <dd class="price">
-                                    <span class="num">0</span>
-                                    <span class="won">원</span>
-                                </dd>
-                            </dl>
-                            <dl class="price_view">
-                                <dt class="price_title">상품할인</dt>
-                                <dd class="price">
-                                    <span class="num">0</span>
+                                    <span class="num" id="order_salePrice">0</span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
                             <dl class="price_view">
                                 <dt class="price_title">쿠폰</dt>
                                 <dd class="price">
-                                    <span class="num">0</span>
+                                    <span class="num" id="order_coupon">0</span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
                             <dl class="price_view">
                                 <dt class="price_title">헬로캐시</dt>
                                 <dd class="price">
-                                    <span class="num">3,650</span>
+                                    <span class="num" id="order_hello">0</span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
                             <dl class="price_view">
                                 <dt class="price_title">배송비</dt>
                                 <dd class="price">
-                                    <span class="num">0</span>
+                                    <span class="num" id="order_delivery">2000</span>
                                     <span class="won">원</span>
                                 </dd>
                             </dl>
@@ -553,7 +695,7 @@
                         <!-- 개인 정보 수집 및 이용 동의 끝 -->
                         <div id="payment_btns">
                             <button class="cancel_payment">취소</button>
-                            <input type="submit" class="do_payment" onclick="check()" value="결제하기"></bu>
+                            <input type="submit" class="do_payment" onclick="order_check()" value="결제하기"></bu>
                         </div>
                     </div>
                 </div>
@@ -563,8 +705,5 @@
         <div th:replace="/user/fragment/footer::footer"></div>
     </div>
 </div>
-<script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>

@@ -388,7 +388,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .payment_box:nth-child(odd) { margin-right: 10px;}
 .payment_box > label { display: block; border-radius: 8px; box-sizing: border-box; cursor: pointer;}
 .payment_box:hover { border: 1px solid #5dab99;}
-.payment_box_clicked { border: 1px solid #5dab99;}
+.payment_box.payment_box_clicked{ border: 1px solid #5dab99;}
 .payment_box label img { display: block; margin: 0 auto;}
 .choose_payment_box { display: flex; flex-wrap: wrap; width: 100%; box-sizing: border-box; table-layout: fixed; justify-content: space-between; align-items: center;}
 /* 선택완료 버튼 */
