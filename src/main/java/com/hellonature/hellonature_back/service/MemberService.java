@@ -72,7 +72,7 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
         MemberApiRequest memberApiRequest = request.getData();
         Optional<Member> optional = memberRepository.findById(memberApiRequest.getIdx());
         return optional.map(member -> {
-            member.setPassword(memberApiRequest.getPassword() == null ? null : passwordEncoder.encode(memberApiRequest.getPassword()));
+            if (memberApiRequest.getPassword() != null) member.setPassword(passwordEncoder.encode(memberApiRequest.getPassword()));
             member.setName(memberApiRequest.getName());
             member.setHp(memberApiRequest.getHp());
             member.setGender(memberApiRequest.getGender());

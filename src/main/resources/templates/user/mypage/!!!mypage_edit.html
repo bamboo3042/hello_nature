@@ -23,16 +23,39 @@
 </head>
 <script>
     $(function () {
-        let urlidx = $("#section_hidden").val()
+        let urlidx = $("#section_hidden").val();
+
         axios.get('/api/member/read/' + urlidx, {}).then(function (response) {
-            let email = response.data.data.email
-            $(".edit1_email_data").text(email)
-        })
+            let email = response.data.data.email;
+            $(".edit1_email_data").text(email);
 
-        function login(){
+        });
 
-        }
-    })
+        $(".button_submit").on('click', function() {
+            let userpw = $("#pwd").val();
+            let useremail = $(".edit1_email_data").text();
+
+            console.log("email"+useremail);
+            console.log("password"+userpw);
+
+            axios.get('/api/login/user?id='+ useremail +'&password='+ userpw, {
+
+            }).then(function(res) {
+                alert('확인되었습니다.');
+                location.href = '/user/mypage_editMyinfo';
+
+                // if (res.data.data == null) {
+                //     alert('비밀번호가 맞지 않습니다.');
+                //     location.href = '/user/mypage_edit';
+                //     location.reload();
+                // } else {
+                //     alert('확인되었습니다.');
+                //     location.href = '/user/mypage_editMyinfo';
+                // }
+            });
+        });
+    });
+
 </script>
 <body>
 <div id="mypage-box">
@@ -71,7 +94,7 @@
                                 비밀번호를 입력해 주세요.
                             </div>
                         </li>
-                        <button type="submit" class="button_submit" onclick="login()">확인</button>
+                        <button type="submit" class="button_submit">확인</button>
                     </ul>
                     <!-- check_password_form 끝 -->
                 </div>
