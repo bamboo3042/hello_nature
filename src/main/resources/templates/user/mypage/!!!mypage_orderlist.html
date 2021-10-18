@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script
@@ -97,21 +98,21 @@
                     let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=1&memIdx=" + urlidx;
                     console.log(url)
                     axios.get(url,{}).then(function (response){
-                        console.log(response)
+                        console.log(response.data.data)
                     })
 
                 }else if($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품"){
                     let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=2&memIdx=" + urlidx;
                     console.log(url)
                     axios.get(url, {}).then(function (response){
-                        console.log(response)
+                        console.log(response.data.data)
                     })
 
                 }else if($(".category_name1 > h2").text() === "자주 구매"){
                     let url = "/api/frequentlyOrder/list?memIdx="+urlidx+"&dateStart="+date_start+"&dateEnd="+date_end;
                     console.log(url)
                     axios.get(url, {}).then(function (response){
-                        console.log(response)
+                        console.log(response.data.data)
                     })
                 }
             })
