@@ -13,9 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,11 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
     @Override
     @Transactional
     public Header<MemberOrderApiResponse> create(Header<MemberOrderApiRequest> request) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         MemberOrderApiRequest memberOrderApiRequest = request.getData();
         System.out.println(memberOrderApiRequest);
 
@@ -108,6 +115,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             hellocash = Hellocash.builder()
                     .member(member)
                     .point(point)
+                    .dateUsed(simpleDateFormat.format(calendar))
                     .type(2)
                     .title("상품 구매 포인트 사용")
                     .build();
@@ -118,13 +126,17 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             memberRepository.save(member);
         }
 
-        int point = (int)(memberOrderApiRequest.getPrice() / 0.01);
+        calendar.add(Calendar.YEAR, 1);
+        int point = (int)(memberOrderApiRequest.getPrice() * 0.01);
         hellocash = Hellocash.builder()
                 .member(member)
                 .point(point)
                 .type(1)
+                .dateVal(simpleDateFormat.format(calendar))
                 .title("상품 구매 포인트 적립")
                 .build();
+
+        System.out.println(hellocash);
 
         hellocashRepository.save(hellocash);
         member.plusHelloCash(point);

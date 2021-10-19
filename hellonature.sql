@@ -264,7 +264,7 @@ create sequence hellopass_payments_seq
 ----------------------------------------------------------------------------------------------
 create table tb_hellocash(
                              idx number(10) primary key,
-                             hc_point number(6) not null,
+                             hc_point number(10) not null,
                              date_used varchar2(20),
                              date_val varchar2(20),
                              hc_type number(1) not null,
