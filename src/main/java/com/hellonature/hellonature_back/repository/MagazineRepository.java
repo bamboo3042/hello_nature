@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface MagazineRepository extends JpaRepository<Magazine, Long> {
     Optional<Magazine> findById(Long id);
-    List<Magazine> findAllByTypeAndAndShowFlagOOrderByIdx(MagazineType magazineType, Flag flag);
-
+    List<Magazine> findAllByTypeAndAndShowFlagOrderByIdx(MagazineType magazineType, Flag flag);
 
 }
