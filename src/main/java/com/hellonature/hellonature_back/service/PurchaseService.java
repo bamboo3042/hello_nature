@@ -28,7 +28,7 @@ public class PurchaseService{
         temp = dateStart.split("-");
         LocalDateTime start = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 00, 00);
         temp = dateEnd.split("-");
-        LocalDateTime end = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 00, 00);
+        LocalDateTime end = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 23, 59);
 
         List<Purchase> result = purchaseRepository.findAllByMemberAndRegdateBetweenOrderByCountDesc(memberRepository.findById(memIdx).get(), start, end);
         List<PurchaseApiResponse> list = new ArrayList<>();
