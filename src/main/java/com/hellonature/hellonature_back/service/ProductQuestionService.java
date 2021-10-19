@@ -1,11 +1,13 @@
 package com.hellonature.hellonature_back.service;
 
+import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.entity.ProductQuestion;
 
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
 import com.hellonature.hellonature_back.model.network.request.ProductQuestionApiRequest;
+import com.hellonature.hellonature_back.model.network.response.MyPageProductQuestionResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductQuestionApiResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductQuestionListResponse;
 import com.hellonature.hellonature_back.repository.MemberRepository;
@@ -133,8 +135,8 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
 
         int count = 10;
 
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * startPage;
+        int end = Math.min(result.size(), start + count);
 
         List<ProductQuestionListResponse> list = new ArrayList<>();
 
@@ -199,5 +201,33 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .build();
 
         return Header.OK(productQuestionListResponses, pagination);
+    }
+
+    public Header<List<MyPageProductQuestionResponse>> myPageList(Long memIdx){
+        Optional<Member> optionalMember = memberRepository.findById(memIdx);
+        if(optionalMember.isEmpty()) return Header.ERROR("회원 정보가 없습니다");
+
+        List<ProductQuestion> productQuestions = productQuestionRepository.findAllByMember(optionalMember.get());
+        List<MyPageProductQuestionResponse> myPageProductQuestionResponses = new ArrayList<>();
+
+        for (ProductQuestion productQuestion: productQuestions){
+            myPageProductQuestionResponses.add(myPageProductQuestionResponse(productQuestion));
+        }
+
+        return Header.OK(myPageProductQuestionResponses);
+    }
+
+    private MyPageProductQuestionResponse myPageProductQuestionResponse(ProductQuestion productQuestion){
+        return MyPageProductQuestionResponse.builder()
+                .idx(productQuestion.getIdx())
+                .proIdx(productQuestion.getProduct().getIdx())
+                .proName(productQuestion.getProduct().getName())
+                .proImg(productQuestion.getProduct().getImg1())
+                .content(productQuestion.getContent())
+                .ansFlag(productQuestion.getAnsFlag())
+                .ansContent(productQuestion.getAnsContent())
+                .ansDate(productQuestion.getAnsDate())
+                .regdate(productQuestion.getRegdate())
+                .build();
     }
 }

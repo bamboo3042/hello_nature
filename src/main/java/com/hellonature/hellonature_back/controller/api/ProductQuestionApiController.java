@@ -6,6 +6,7 @@ import com.hellonature.hellonature_back.model.entity.ProductQuestion;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.ProductQuestionApiRequest;
+import com.hellonature.hellonature_back.model.network.response.MyPageProductQuestionResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductQuestionApiResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductQuestionListResponse;
 import com.hellonature.hellonature_back.service.ProductQuestionService;
@@ -57,5 +58,10 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
     public Header<List<ProductQuestionListResponse>> productDetailList(@RequestParam(name = "proIdx") Long proIdx,
                                                                       @RequestParam(name = "page", defaultValue = "0") Integer page){
         return productQuestionService.productDetailList(proIdx, page);
+    }
+
+    @GetMapping("/user/list/{memIdx}")
+    public Header<List<MyPageProductQuestionResponse>> myPageList(@PathVariable(name = "memIdx") Long memIdx){
+        return productQuestionService.myPageList(memIdx);
     }
 }
