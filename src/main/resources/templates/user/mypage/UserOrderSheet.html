@@ -211,22 +211,11 @@
             let requestMemo1 = $("#requestMemo1").val()
             let requestMemo2 = $("#requestMemo2").val()
 
-            let proIdx = sessionStorage.getItem("prodIdx");
-            proIdx = proIdx.split(",")
-
-            let proCount = sessionStorage.getItem("proEA")
-            proCount = proCount.split(",")
-
             let proIdxList = [];
             let proCountList = [];
 
-            for(let i=0; i<proIdx.length; i++){
-                proIdxList.push(proIdx[i])
-            }
-
-            for(let i=0; i<proCount.length; i++){
-                proCountList.push(proCount[i])
-            }
+            proIdxList.push(sessionStorage.getItem("prodIdx"));
+            proCountList.push(sessionStorage.getItem("proEA"));
 
 
             let price = $("#total_price").text()

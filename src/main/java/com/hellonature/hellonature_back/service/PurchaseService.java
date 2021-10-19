@@ -46,6 +46,7 @@ public class PurchaseService{
                 .count(purchase.getCount())
                 .memIdx(purchase.getMember().getIdx())
                 .proIdx(product.getIdx())
+                .proName(product.getName())
                 .proImg(product.getImg1())
                 .proWeightSize(product.getSizeWeight())
                 .regdate(purchase.getRegdate())
