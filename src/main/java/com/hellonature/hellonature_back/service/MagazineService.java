@@ -190,10 +190,15 @@ public class MagazineService {
         Optional<Magazine> optional = magazineRepository.findById(idx);
         Magazine magazine = optional.get();
 
-        List<Long> list1 = Arrays.stream(magazine.getIngreList().split("-")).map(Long::parseLong).collect(Collectors.toList());
-        List<Product> ingreList = productRepository.findAllByIdxIn(list1);
-        List<Long> list2 = Arrays.stream(magazine.getRelList().split("-")).map(Long::parseLong).collect(Collectors.toList());
-        List<Product> relList = productRepository.findAllByIdxIn(list2);
+
+        if (magazine.getIngreList() != null){
+            List<Long> list1 = Arrays.stream(magazine.getIngreList().split("-")).map(Long::parseLong).collect(Collectors.toList());
+            List<Product> ingreList = productRepository.findAllByIdxIn(list1);
+        }
+        if (magazine.getRelList() != null){
+            List<Long> list2 = Arrays.stream(magazine.getRelList().split("-")).map(Long::parseLong).collect(Collectors.toList());
+            List<Product> relList = productRepository.findAllByIdxIn(list2);
+        }
 
         MagazineDetailResponse magazineDetailResponse = MagazineDetailResponse.builder()
                 .idx(magazine.getIdx())
