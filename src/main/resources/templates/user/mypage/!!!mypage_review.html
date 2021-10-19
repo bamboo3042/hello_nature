@@ -52,10 +52,10 @@
 
                         let row = $('<div class="contents_box6">').append(
                             '<div class="product_image"></div>' +
-                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 외 2개</p></div>' +
+                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 <span>외<span>2개</span></span></p></div>' +
                             '<div class="contents_box6_inner"><p>구매일자</p></div>'+
                             '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
-                            '<div class="post_button_box"><input type="button" value="후기작성" class="post_button">' +
+                            '<div class="post_button_box"><input type="button" value="후기작성" class="post_button"><input type="hidden" value="proidx">' +
                             '</div></div>'
                         )
                     }).catch(function (err){
@@ -65,9 +65,11 @@
                     $(".post_button").click(function (e){
                         let prodName = $(this).parents().children(".product_info_post").children(".product_post_firstline").children("p").text();
                         let prodDate = $(this).parents().children(".contents_box6_inner").children("p").text();
+                        let prodIdx = $(this).next("input").val()
 
                         sessionStorage.setItem("review_prodName", prodName)
                         sessionStorage.setItem("review_prodDate", prodDate)
+                        sessionStorage.setItem("review_prodDroIdx", prodIdx)
 
                         location.hredf = "/user/mypage_enrollReview";
                     })
@@ -78,7 +80,7 @@
 
                         let row = $('<div class="contents_box6">').append(
                             '<div class="product_image"></div>' +
-                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 외 2개</p>' +
+                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 <span>외<span>2개</span></span></p>' +
                             '<div class="contents_box6_inner"><p>구매일자</p></div>'+
                             '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
                             '<div class="post_button_box"><a href="#" class="post_delete_button"><input type="hidden" value="id">삭제</a>' +
@@ -87,7 +89,6 @@
                     }).catch(function (err){
                         console.log(err)
                     })
-
                     $(".post_delete_button").click(function (e){
                         let idx = $(this).children("input").val();
                         axios.delete("/api/productReview/delete" +idx, {

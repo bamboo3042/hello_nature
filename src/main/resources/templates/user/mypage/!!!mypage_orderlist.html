@@ -127,14 +127,15 @@
                             // console.log(proWeightSize)
                             // console.log(proCount)
 
-
+                            let tb = $('<div>')
                             let row = $('<div class="contents_box4">').append(
                                 '<div class="contents_box4_inner1"><div class="order_date"><p>구매일</p></div>' +
                                 '<div class="default_ship"><p>배송지</p></div></div>' +
-                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div>')
+                                '<div class="order_detail_button" style="cursor:pointer"><a href="#" alt="주문상세페이지 이동"></a></div>')
+                            row.append('</div>')
 
-                            let row2 = $('<div>')
-                            // for(let i=0; i<proIdx.length; i++){
+                            let row2 = $('<div class="orderlist_contain" style="display: none">')
+                            // for(let i=0; i<proIdx.length; i++){a
                                 row2.append(
                                     '<div class="contents_box5"><div class="order_info"><div class="order_info_right">' +
                                     '<p><a href="#" class="order_info_font3">배송상태</a></p></div></div></div>' +
@@ -144,16 +145,31 @@
                                 )
                             // }
                             row2.append('</div>')
-                            row.append(row2)
-                            row.append('</div>')
-                            $("#main_contents").append(row)
+
+                            tb.append(row)
+                            tb.append(row2)
+                            tb.append('</div>')
+                            $("#main_contents").append(tb)
                         }
+
+                        $(".order_detail_button").click(function (e){
+                            if($(this).parents().parents().children(".orderlist_contain").css("display") === "block"){
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "none");
+                            }else{
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "block");
+                            }
+                        })
+
+                    }).catch(function (err){
+                        console.log(err)
                     })
 
                 } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
                     let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
-                    console.log(url)
+                    $("#main_contents").empty();
+
                     axios.get(url, {}).then(function (response) {
+
                     })
 
                 } else if ($(".category_name1 > h2").text() === "자주 구매") {
@@ -174,6 +190,7 @@
             })
 
             $("#mg_ol_sc").click(function () {
+                $("#main_contents").empty();
                 date_start = $("#date_start").val();
                 date_end = $("#date_end").val();
 

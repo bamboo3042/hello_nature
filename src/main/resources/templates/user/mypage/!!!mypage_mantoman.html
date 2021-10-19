@@ -28,20 +28,22 @@
 </head>
 <script>
     $(function (){
+        let memIdx = $("#hidden_user").val();
 
-        axios.get('/api/Question/list', {
+        axios.get('/api/Question/user/list/' + memIdx, {
 
         }).then(function (response){
             for (let i in response.data.data){
                 let $type = response.data.data[i].type;
                 let $ansFlag = response.data.data[i].ansFlag;
-                // let $orderNum = response.data.data[i].orderNum;
                 let $content = response.data.data[i].content;
                 let $ansContent = response.data.data[i].ansContent;
                 let $ansDate = response.data.data[i].ansDate;
+                let k = parseInt(i)
+
 
                 // 답변상태 텍스트로 찍어주기
-                if($ansFlag == 0){
+                if($ansFlag === "FALSE"){
                     $ansFlag = "답변대기"
                 }else{
                     $ansFlag = "답변완료"
@@ -72,23 +74,32 @@
                     $type = "기타"
                 }
 
-                let row = $('<div class="mantoman_list_box" id="mantoman_list_box '+ i +'">').append(
-                    '<div class="mantoman_list_txt">' +
-                    '<div class="mantoman_post_date">' +
+                let ansdate
+                if($ansDate === null){
+                     ansdate = "none";
+                }else{
+                     ansdate = "inline-block";
+                }
+
+                let row = $('<div>').append(
+                    '<div class="mantoman_list_box" id="mantoman_list_box_'+ k +'"><div class="mantoman_list_txt">' +
+                    '<div class="mantoman_post_date" style="display:'+ ansdate +'">' +
                     '<p>' + $ansDate + '</p></div>' +
                     '<a href="#" class="mantoman_list_category">' + $type +
                     '<p class="mantoman_flag_box"><span class="mantoman_flag">'+ $ansFlag +'</span></p></a></div>' +
-                    '<div class="mantoman_list_overview" id="mantoman_list_overview'+ i +'"><a href="#" alt="문의내역"></a></div></div>' +
-                    '<div class="mantoman_contents_qna" id="mantoman_contents_qna '+ i +'"><div class="mantoman_q">' +
+                    '<div class="mantoman_list_overview" id="mantoman_list_overview_'+ k +'" style="display:'+ ansdate +'"><a href="#" alt="문의내역"></a></div></div>' +
+                    '<div class="mantoman_contents_qna" id="mantoman_contents_qna_'+ k +'"><div class="mantoman_q">' +
                     '<p class="q_flag"></p><div><span>주문번호<div class="mantoman_q_line"></div><span>B000001</span></span>' +
                     '<p>상품이름</p><br><br><p>'+ $content +'</p></div></div>' +
                     '<div class="mantoman_a"><p class="a_flag"></p>' +
                     '<p class="mantoman_a_date">'+ $ansDate + '</p><p>'+ $ansContent + '</p></div></div>'
                 )
+
+                row.append('</div>')
                 $('.mantoman_list > h5').after(row);
 
-                $("#mantoman_list_overview" + i).on("click", function(e) {
-                    $('#mantoman_contents_qna' + i).toggle();
+                $("#mantoman_list_overview_" + i).on("click", function(e) {
+                    $('#mantoman_contents_qna_' + i).toggle();
                 })
             }
         }).catch(function (err){

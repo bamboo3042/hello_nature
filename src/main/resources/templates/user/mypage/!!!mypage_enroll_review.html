@@ -15,10 +15,32 @@
         .list li:nth-child(3) > a { color: #5dab99;}
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </head>
+<script>
+    $(function (){
+        $(".product_info > p").text(sessionStorage.getItem("review_prodName"))
+        $(".enroll_post_box1_inner > p").text(sessionStorage.getItem("review_prodDate"))
+        let proIdx = sessionStorage.getItem("review_prodDroIdx")
+
+        axios.post("", {
+            data:{
+                memIdx : memIdx,
+                like : like,
+                content : content,
+                files : files,
+                proIdx : proIdx
+            }
+        }).then(function (){
+            alert("구매후기 등록에 성공하셨습니다")
+        }).catch(function (err){
+            console.log(err)
+        })
+    })
+</script>
 <body>
     <div id="mypage-box">
         <div class="container">
