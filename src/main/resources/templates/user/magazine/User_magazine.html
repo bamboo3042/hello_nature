@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/user/css/magazine.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
     <!-- axios -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <!-- head 끝 -->
@@ -29,11 +29,11 @@
                 <div class="prod_category_box">
                     <div class="prod_cate_tit">매거진</div>
                     <ul class="prod_cate_list">
-                        <li class="prod_cate">전체</li><!--
-                     --><li class="prod_cate">레시피</li><!--
-                     --><li class="prod_cate">탐험노트</li><!--
-                     --><li class="prod_cate">라이프스타일</li><!--
-                     --><li class="prod_cate">키친가이드</li>
+                        <li class="prod_cate" onclick="location.href='/user/magazine'" style="color: #0db081; font-weight: bold; border-bottom: 1px solid #0db081">전체</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/recipe?page=0'">레시피</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/adventure?page=0'">탐험노트</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/lifestyle?page=0'">라이프스타일</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/kitchen?page=0'">키친가이드</li>
                     </ul>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     <div class="preview_wrap">
                         <ul class="preview_box" id="rec_pre_box">
                             <li class="preview" id="rec_pre">
-                                <a th:href="@{'/magazine/recipe_content/'+${id}}">
+                                <a>
                                     <img src="/user/images/magazine/recipe_main/20200514120304710.jpg" alt="">
                                     <div class="preview_info">
                                         <p class="preview_title" id="rec_pre_tit">레시피 제목</p>
@@ -317,7 +317,6 @@
 
     </div>
     <!-- container 끝 -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/magazine.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
