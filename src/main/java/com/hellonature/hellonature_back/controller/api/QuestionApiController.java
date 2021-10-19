@@ -45,7 +45,7 @@ public class QuestionApiController extends CrudController<QuestionApiRequest, Qu
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<QuestionApiResponse> delete(@PathVariable(name="idx") Long idx) {
+    public Header delete(@PathVariable(name="idx") Long idx) {
         return questionService.delete(idx);
     }
 
@@ -63,5 +63,10 @@ public class QuestionApiController extends CrudController<QuestionApiRequest, Qu
     @DeleteMapping("/deleteList/{idx}")
     public Header delete(@PathVariable("idx") List<Long> idx) {
         return questionService.deletePost(idx);
+    }
+
+    @GetMapping("user/list/{memIdx}")
+    public Header<List<QuestionApiResponse>> myPageList(@PathVariable(name = "memIdx") Long memIdx){
+        return questionService.myPageList(memIdx);
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class QuestionService{
     @Transactional
     public Header<QuestionApiResponse> read(Long idx) {
         return questionRepository.findById(idx)
-                .map(question -> response(question))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -72,8 +73,8 @@ public class QuestionService{
                     question.setHp(questionApiRequest.getHp());
                     question.setType(questionApiRequest.getType());
                     return question;
-                }).map(question -> questionRepository.save(question))
-                .map(question -> response(question))
+                }).map(questionRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("수정 실패"));
     }
@@ -88,7 +89,7 @@ public class QuestionService{
     }
 
     private QuestionApiResponse response(Question question){
-        QuestionApiResponse questionApiResponse = QuestionApiResponse.builder()
+        return QuestionApiResponse.builder()
                 .idx(question.getIdx())
                 .memIdx(question.getMember().getIdx())
                 .ansFlag(question.getAnsFlag())
@@ -101,8 +102,6 @@ public class QuestionService{
                 .type(question.getType())
                 .regdate(question.getRegdate())
                 .build();
-
-        return questionApiResponse;
     }
 
 
@@ -134,7 +133,7 @@ public class QuestionService{
 
             if (memEmail != null){
                 if (check) jpql += " and";
-                jpql += " memEmail = :memEmail";
+                jpql += " email = :memEmail";
                 check = true;
             }
 
@@ -160,12 +159,12 @@ public class QuestionService{
 
         int count = 10;
 
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * startPage;
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
                 .totalPages( result.size()>=10 ? (result.size()/count)+1 : 1  )
-                .totalElements(result.stream().count())
+                .totalElements((long) result.size())
                 .currentPage(startPage+1)
                 .currentElements(result.size())
                 .build();
@@ -177,7 +176,7 @@ public class QuestionService{
     public Header<List<QuestionApiResponse>> search(Pageable pageable){
         Page<Question> question = questionRepository.findAll(pageable);
         List<QuestionApiResponse> questionApiResponseList = question.stream()
-                .map(questions -> response(questions))
+                .map(this::response)
                 .collect(Collectors.toList());
         Pagination pagination = Pagination.builder()
                 .totalPages(question.getTotalPages())
@@ -192,6 +191,18 @@ public class QuestionService{
     public Header deletePost(List<Long> idx) {
         questionRepository.deleteAllByIdxIn(idx);
         return Header.OK();
+    }
+
+    public Header<List<QuestionApiResponse>> myPageList(Long memIdx){
+        Optional<Member> optionalMember = memberrepository.findById(memIdx);
+        if (optionalMember.isEmpty()) return Header.ERROR("회원 정보가 없습니다");
+
+        List<Question> questions = questionRepository.findAllByMember(optionalMember.get());
+        List<QuestionApiResponse> questionApiResponses = new ArrayList<>();
+        for (Question question: questions){
+            questionApiResponses.add(response(question));
+        }
+        return Header.OK(questionApiResponses);
     }
 
 }
