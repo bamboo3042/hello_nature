@@ -49,10 +49,10 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
 //    127.0.0.1:8080/api/magazine/list?dateStart=2001-09-15&dateEnd=2021-09-10
     @GetMapping("/list")
     public Header<List<MagazineApiResponse>> list(@RequestParam(name="cateIdx", required = false) Long cateIdx,
-                                       @RequestParam(name="title", required = false) String title,
-                                       @RequestParam(name="dateStart", required = false) String dateStart,
-                                       @RequestParam(name="dateEnd", required = false) String dateEnd,
-                                       @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
+                                                  @RequestParam(name="title", required = false) String title,
+                                                  @RequestParam(name="dateStart", required = false) String dateStart,
+                                                  @RequestParam(name="dateEnd", required = false) String dateEnd,
+                                                  @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
         return magazineService.list(cateIdx, title, dateStart, dateEnd, startPage);
     }
 

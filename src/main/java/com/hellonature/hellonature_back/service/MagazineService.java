@@ -164,8 +164,8 @@ public class MagazineService {
 
         List<Magazine> result = query.getResultList();
         int count = 10;
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * startPage;
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
@@ -185,9 +185,9 @@ public class MagazineService {
         Optional<Magazine> optional = magazineRepository.findById(idx);
         Magazine magazine = optional.get();
 
-        List<Long> list1 = Arrays.asList(magazine.getIngreList().split("-")).stream().map(Long::parseLong).collect(Collectors.toList());
+        List<Long> list1 = Arrays.stream(magazine.getIngreList().split("-")).map(Long::parseLong).collect(Collectors.toList());
         List<Product> ingreList = productRepository.findAllByIdxIn(list1);
-        List<Long> list2 = Arrays.asList(magazine.getRelList().split("-")).stream().map(Long::parseLong).collect(Collectors.toList());
+        List<Long> list2 = Arrays.stream(magazine.getRelList().split("-")).map(Long::parseLong).collect(Collectors.toList());
         List<Product> relList = productRepository.findAllByIdxIn(list2);
 
         MagazineDetailResponse magazineDetailResponse = MagazineDetailResponse.builder()

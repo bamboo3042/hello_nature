@@ -11,6 +11,8 @@ create table tb_magazines(
                              cook_kcal number(4),
                              cook_level char(1),
                              cook_ingredient varchar2(500),
+                             ingre_list varchar2(500),
+                             rel_list varchar2(500),
                              regdate date default sysdate
 );
 
