@@ -177,7 +177,6 @@
         })
 
         function order_check(){
-            alert("등록이 클릭되었습니다")
 
             let memIdx = $("#hidden_user").val();
             let zipcode = $("#zipcode").val();
@@ -211,11 +210,19 @@
             let requestMemo1 = $("#requestMemo1").val()
             let requestMemo2 = $("#requestMemo2").val()
 
+            let proIdx = sessionStorage.getItem("prodIdx").split(",");
+            let proCount = sessionStorage.getItem("proEA").split(",");
+
             let proIdxList = [];
             let proCountList = [];
 
-            proIdxList.push(sessionStorage.getItem("prodIdx"));
-            proCountList.push(sessionStorage.getItem("proEA"));
+            for(let i=0; i<proIdx.length; i++){
+                proIdxList.push(proIdx[i])
+            }
+
+            for(let i=0; i<proCount.length; i++){
+                proCountList.push(proCount[i])
+            }
 
 
             let price = $("#total_price").text()
@@ -263,7 +270,8 @@
                     hellocash : hellocash
                 }
             }).then(function (){
-                    alert("등록에 성공하셨습니다.")
+                    alert("주문에 성공하셨습니다.")
+                    location.href = "/user/index";
             }).catch(function (err){
                 console.log(err)
             })
