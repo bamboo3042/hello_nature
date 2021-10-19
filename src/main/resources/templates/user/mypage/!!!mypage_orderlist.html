@@ -44,16 +44,16 @@
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        $(function (){
-            $(".contents_category_list").click(function (e){
+        $(function () {
+            $(".contents_category_list").click(function (e) {
                 $(".category_name1 > h2").text($(this).children("span").text());
 
-                if($(".category_name1 > h2").text() === '좋아요'){
+                if ($(".category_name1 > h2").text() === '좋아요') {
                     document.getElementById("filter_period_box").style.display = 'none';
                     document.getElementById("mg_period").style.display = 'none';
                     document.getElementById("filter_like_box").style.display = 'block';
                     document.getElementById("filter_like_box").style.display = 'flex';
-                }else{
+                } else {
                     document.getElementById("filter_period_box").style.display = 'block';
                     document.getElementById("filter_period_box").style.display = 'flex';
                     document.getElementById("filter_like_box").style.display = 'none';
@@ -62,102 +62,153 @@
         })
 
         $(function () {
-            let now = new Date();
-            let now_result = now.toISOString().substring(0, 10);
+            const offset = new Date().getTimezoneOffset() * 60000;
+            const now = new Date(Date.now() - offset);
+            console.log(now)
+            const now_result = now.toISOString().substring(0, 10);
+            console.log(now_result)
+
             let date_start = '';
-            let date_end ='';
+            let date_end = '';
             let urlidx = $("#section_hidden").val()
 
-            $(".filter_outline > div").click(function (e){
+            $(".filter_outline > div").click(function (e) {
 
-                if($(this).children("a").text() === "최근 1개월"){
+                if ($(this).children("a").text() === "최근 1개월") {
                     let month = new Date();
                     month.setMonth(month.getMonth() - 1);
                     let month_result = month.toISOString().substring(0, 10);
                     date_end = now_result;
                     date_start = month_result;
-                }else if($(this).children("a").text() === "3개월"){
+                } else if ($(this).children("a").text() === "3개월") {
                     let three_month = new Date();
                     three_month.setMonth(three_month.getMonth() - 3);
                     let three_month_result = three_month.toISOString().substring(0, 10);
                     date_end = now_result;
                     date_start = three_month_result;
-                }else if($(this).children("a").text() === "6개월"){
+                } else if ($(this).children("a").text() === "6개월") {
                     let six_month = new Date();
                     six_month.setMonth(six_month.getMonth() - 6);
                     let sis_month_result = six_month.toISOString().substring(0, 10);
                     date_end = now_result;
                     date_start = sis_month_result;
-                }else if($(this).children("a").text() === "기간 조회"){
-                    if(document.getElementById("mg_period").style.display === 'block'){
+                } else if ($(this).children("a").text() === "기간 조회") {
+                    if (document.getElementById("mg_period").style.display === 'block') {
                         document.getElementById("mg_period").style.display = 'none';
-                    }else document.getElementById("mg_period").style.display = 'block';
+                    } else document.getElementById("mg_period").style.display = 'block';
                 }
 
-                if($(".category_name1 > h2").text() === "주문배송"){
-                    let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=1&memIdx=" + urlidx;
+                if ($(".category_name1 > h2").text() === "주문배송") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
                     console.log(url)
-                    axios.get(url,{}).then(function (response){
+                    axios.get(url, {}).then(function (response) {
+
+                        for(let i in response.data.data) {
+                            let proIdx = response.data.data[i].proIdx;
+                            let proName = response.data.data[i].proName;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
+                            let proCount = response.data.data[i].proCount;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let greenFlag = response.data.data[i].greenFlag;
+                            let dawnFlag = response.data.data[i].dawnFlag;
+
+                            // proIdx = proIdx.split(",")
+                            // proName = proName.split(",")
+                            // proImg = proImg.split(",")
+                            // proWeightSize = proWeightSize.split(",")
+                            // proCount = proCount.split(",")
+
+                            // console.log(proIdx)
+                            // console.log(proName)
+                            // console.log(proImg)
+                            // console.log(proWeightSize)
+                            // console.log(proCount)
+
+
+                            let row = $('<div class="contents_box4">').append(
+                                '<div class="contents_box4_inner1"><div class="order_date"><p>구매일</p></div>' +
+                                '<div class="default_ship"><p>배송지</p></div></div>' +
+                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div></div>')
+
+                            let row2 = $('<div>')
+                            // for(let i=0; i<proIdx.length; i++){
+                                row2.append(
+                                    '<div class="contents_box5"><div class="order_info"><div class="order_info_right">' +
+                                    '<p><a href="#" class="order_info_font3">배송상태</a></p></div></div></div>' +
+                                    '<div class="contents_box6"><div class="product_image"></div><div class="product_info">' +
+                                    '<p>상품명</p><div class="contents_box6_inner"><p>상품규격</p><div class="product_info_line"></div><p>상품갯수</p></div>' +
+                                    '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
+                                )
+                            // }
+                            row2.append('</div>')
+
+                            row.append(row2)
+                            console.log(row[0])
+                            $("#main_contents").append(row)
+                        }
+                    })
+
+                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
+                    console.log(url)
+                    axios.get(url, {}).then(function (response) {
                         console.log(response.data.data)
                     })
 
-                }else if($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품"){
-                    let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=2&memIdx=" + urlidx;
+                } else if ($(".category_name1 > h2").text() === "자주 구매") {
+                    let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
                     console.log(url)
-                    axios.get(url, {}).then(function (response){
-                        console.log(response.data.data)
-                    })
+                    axios.get(url, {}).then(function (response) {
+                        for (let i in response){
 
-                }else if($(".category_name1 > h2").text() === "자주 구매"){
-                    let url = "/api/frequentlyOrder/list?memIdx="+urlidx+"&dateStart="+date_start+"&dateEnd="+date_end;
-                    console.log(url)
-                    axios.get(url, {}).then(function (response){
-                        console.log(response.data.data)
+                        }
                     })
                 }
             })
 
-            $("#mg_ol_sc").click(function (){
+            $("#mg_ol_sc").click(function () {
                 date_start = $("#date_start").val();
                 date_end = $("#date_end").val();
 
-                if($(".category_name1 > h2").text() === "주문배송"){
-                    let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=1&memIdx=" + urlidx;
+                if ($(".category_name1 > h2").text() === "주문배송") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
                     console.log(url)
-                    axios.get(url,{}).then(function (response){
+                    axios.get(url, {}).then(function (response) {
                         console.log(response)
                     })
 
-                }else if($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품"){
-                    let url = "/api/orderList/myPage?dateStart="+date_start+"&dateEnd="+date_end+"&type=2&memIdx=" + urlidx;
+                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
                     console.log(url)
-                    axios.get(url, {}).then(function (response){
+                    axios.get(url, {}).then(function (response) {
                         console.log(response)
                     })
 
-                }else if($(".category_name1 > h2").text() === "자주 구매"){
-                    let url = "/api/frequentlyOrder/list?memIdx="+urlidx+"&dateStart="+date_start+"&dateEnd="+date_end;
+                } else if ($(".category_name1 > h2").text() === "자주 구매") {
+                    let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
                     console.log(url)
-                    axios.get(url, {}).then(function (response){
+                    axios.get(url, {}).then(function (response) {
                         console.log(response)
                     })
                 }
             })
         })
 
-        $(function() {
+        $(function () {
             let type;
             let urlidx = $("#section_hidden").val()
 
-            $(".filter_outline3 > div").click(function (){
-                if($(this).children("a").text() === "상품"){
+            $(".filter_outline3 > div").click(function () {
+                if ($(this).children("a").text() === "상품") {
                     type = 1;
-                }else{
+                } else {
                     type = 2;
                 }
-                let url = "/api/memberslikes/list?type="+type+"&memIdx="+urlidx;
+                let url = "/api/memberslikes/list?type=" + type + "&memIdx=" + urlidx;
                 console.log(url)
-                axios.get(url, {}).then(function (response){
+                axios.get(url, {}).then(function (response) {
                     console.log(response)
                 })
             })
@@ -205,9 +256,14 @@
                             <div><a href="#">매거진</a><span></span></div>
                         </div>
                         <div id="mg_period" style="float:right; display: none;">
-                            <input type="date" id="date_start"> - <input type="date" id="date_end"><input type="button" value="조회하기" id="mg_ol_sc">
+                            <input type="date" id="date_start"> - <input type="date" id="date_end"><input type="button"
+                                                                                                          value="조회하기"
+                                                                                                          id="mg_ol_sc">
                         </div>
                     </div>
+                </div>
+                <div id="main_contents">
+
                 </div>
             </div>
             <!— main 끝 —>
