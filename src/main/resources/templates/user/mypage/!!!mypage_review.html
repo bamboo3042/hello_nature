@@ -8,56 +8,130 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
-        #mypage-box { overflow: hidden; height: 100%;}
-        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
-        .list li:nth-child(3) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
-        .list li:nth-child(3) > a { color: #5dab99;}
+        #mypage-box {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .container {
+            min-width: 1050px;
+            margin: 0 auto;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .list li:nth-child(3) {
+            background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%;
+            background-size: 6px 11px;
+            font-weight: 700;
+            color: #5dab99;
+        }
+
+        .list li:nth-child(3) > a {
+            color: #5dab99;
+        }
     </style>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        const Idx = $("#memIdx").val();
-
-
-    </script>
-    <!-- axios -->
-</head>
-<body>
-    <div id="mypage-box">
-        <div class="container">
-            <div th:replace="/user/fragment/header::header"></div>
-            <div class="contents">
-                <div th:replace="/user/fragment/section::section"></div>
-            </div>
-            <div class="main">
-                <input type="hidden" id="memIdx" name="memIdx" th:value="${idx}">
-                <!-- main_leftaside 시작 -->
-                <div class="main_leftaside1">
-                    <div th:replace="/user/fragment/sidebar1::sidebar1"></div>
-                <!-- main_leftaside 끝 -->
-                </div>
-                <div class="main_contents">
-                    <div class="contents_box1">
-                        <h2 class="contents_name">구매후기</h2>
-                    </div>
-                    <div class="contents_post_box">
-                        <span id="post_filter_available">작성 가능한 후기 1</span>
-                        <span id="post_filter_used">작성한 후기 0</span>
-                    </div>
-                    <div class="review_contents_box">
-                        <!-- available_review.html ajax -->                    
-                    </div>
-                </div>                
-            <!-- main 끝 -->
-            </div>
-            <div th:replace="/user/fragment/footer::footer"></div>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+    <script>
+        $(function () {
+            let ansFlag
+            let memIdx = $("hidden_user").val()
+
+            $(".contents_post_box > span").click(function (e) {
+                if ($(this).text() === "작성 가능한 후기") {
+                    ansFlag = 'FALSE';
+
+                    axios.get("/api/productReview/list/myPage?ansFlag=" + ansFlag + "&memIdx=" + memIdx, {}).then(function () {
+
+                        let row = $('<div class="contents_box6">').append(
+                            '<div class="product_image"></div>' +
+                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 외 2개</p></div>' +
+                            '<div class="contents_box6_inner"><p>구매일자</p></div>'+
+                            '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
+                            '<div class="post_button_box"><input type="button" value="후기작성" class="post_button">' +
+                            '</div></div>'
+                        )
+                    }).catch(function (err){
+                        console.log(err)
+                    })
+
+                    $(".post_button").click(function (e){
+                        let prodName = $(this).parents().children(".product_info_post").children(".product_post_firstline").children("p").text();
+                        let prodDate = $(this).parents().children(".contents_box6_inner").children("p").text();
+
+                        sessionStorage.setItem("review_prodName", prodName)
+                        sessionStorage.setItem("review_prodDate", prodDate)
+
+                        location.hredf = "/user/mypage_enrollReview";
+                    })
+
+                } else {
+                    ansFlag = 'TRUE';
+                    axios.get("/api/productReview/list/myPage?ansFlag=" + ansFlag + "&memIdx=" + memIdx, {}).then(function () {
+
+                        let row = $('<div class="contents_box6">').append(
+                            '<div class="product_image"></div>' +
+                            '<div class="product_info_post"><div class="product_post_firstline"><p>대표 상품명 외 2개</p>' +
+                            '<div class="contents_box6_inner"><p>구매일자</p></div>'+
+                            '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
+                            '<div class="post_button_box"><a href="#" class="post_delete_button"><input type="hidden" value="id">삭제</a>' +
+                            '</div></div>'
+                        )
+                    }).catch(function (err){
+                        console.log(err)
+                    })
+
+                    $(".post_delete_button").click(function (e){
+                        let idx = $(this).children("input").val();
+                        axios.delete("/api/productReview/delete" +idx, {
+                        }).then(function (){
+                            alert("삭제에 성공하셨습니다")
+                        })
+                    })
+                }
+            })
+        })
+    </script>
+    <!-- axios -->
+</head>
+<body>
+<div id="mypage-box">
+    <div class="container">
+        <div th:replace="/user/fragment/header::header"></div>
+        <div class="contents">
+            <div th:replace="/user/fragment/section::section"></div>
+        </div>
+        <div class="main">
+            <input type="hidden" id="memIdx" name="memIdx" th:value="${idx}">
+            <!-- main_leftaside 시작 -->
+            <div class="main_leftaside1">
+                <div th:replace="/user/fragment/sidebar1::sidebar1"></div>
+                <!-- main_leftaside 끝 -->
+            </div>
+            <div class="main_contents">
+                <div class="contents_box1">
+                    <h2 class="contents_name">구매후기</h2>
+                </div>
+                <div class="contents_post_box">
+                    <span id="post_filter_available">작성 가능한 후기<span></span></span>
+                    <span id="post_filter_used">작성한 후기<span></span></span>
+                </div>
+                <div class="review_contents_box">
+
+                </div>
+            </div>
+            <!-- main 끝 -->
+        </div>
+        <div th:replace="/user/fragment/footer::footer"></div>
+    </div>
+</div>
 </body>
 </html>
 
