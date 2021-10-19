@@ -189,15 +189,16 @@ public class MagazineService {
     public Header<MagazineDetailResponse> detail(Long idx){
         Optional<Magazine> optional = magazineRepository.findById(idx);
         Magazine magazine = optional.get();
-
+        List<Product> ingreList = new ArrayList<>();
+        List<Product> relList = new ArrayList<>();
 
         if (magazine.getIngreList() != null){
             List<Long> list1 = Arrays.stream(magazine.getIngreList().split("-")).map(Long::parseLong).collect(Collectors.toList());
-            List<Product> ingreList = productRepository.findAllByIdxIn(list1);
+            ingreList = productRepository.findAllByIdxIn(list1);
         }
         if (magazine.getRelList() != null){
             List<Long> list2 = Arrays.stream(magazine.getRelList().split("-")).map(Long::parseLong).collect(Collectors.toList());
-            List<Product> relList = productRepository.findAllByIdxIn(list2);
+            relList = productRepository.findAllByIdxIn(list2);
         }
 
         MagazineDetailResponse magazineDetailResponse = MagazineDetailResponse.builder()
