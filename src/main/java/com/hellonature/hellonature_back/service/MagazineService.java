@@ -119,6 +119,7 @@ public class MagazineService {
                 .cookKcal(magazine.getCookKcal())
                 .cookLevel(magazine.getCookLevel())
                 .cookIngredient(magazine.getCookIngredient())
+                .regdate(magazine.getRegdate())
                 .build();
         System.out.println(magazineApiResponse);
         return magazineApiResponse;

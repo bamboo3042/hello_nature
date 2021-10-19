@@ -60,4 +60,5 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
     public Header<MagazineDetailResponse> detail(@PathVariable(name = "idx") Long idx){
         return magazineService.detail(idx);
     }
+
 }
