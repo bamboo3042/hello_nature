@@ -2,6 +2,7 @@ package com.hellonature.hellonature_back.controller.api;
 
 import com.hellonature.hellonature_back.controller.CrudController;
 import com.hellonature.hellonature_back.model.entity.Magazine;
+import com.hellonature.hellonature_back.model.enumclass.MagazineType;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.MagazineApiRequest;
 import com.hellonature.hellonature_back.model.network.response.MagazineApiResponse;
@@ -42,7 +43,7 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<MagazineApiResponse> delete(@PathVariable(name="idx") Long idx) {
+    public Header delete(@PathVariable(name="idx") Long idx) {
         return magazineService.delete(idx);
     }
 
@@ -59,6 +60,12 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
     @GetMapping("detail/{idx}")
     public Header<MagazineDetailResponse> detail(@PathVariable(name = "idx") Long idx){
         return magazineService.detail(idx);
+    }
+
+    @GetMapping("user/list")
+    public Header<List<MagazineApiResponse>> userList(@RequestParam(name = "type") MagazineType type,
+                                                      @RequestParam(name = "page", defaultValue = "0") Integer page){
+        return magazineService.userList(type, page);
     }
 
 }

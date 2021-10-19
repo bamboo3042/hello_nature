@@ -3,6 +3,7 @@ package com.hellonature.hellonature_back.service;
 import com.hellonature.hellonature_back.model.entity.Magazine;
 import com.hellonature.hellonature_back.model.entity.Product;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
+import com.hellonature.hellonature_back.model.enumclass.MagazineType;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
 import com.hellonature.hellonature_back.model.network.request.MagazineApiRequest;
@@ -65,7 +66,7 @@ public class MagazineService {
 
     public Header<MagazineApiResponse> read(Long id) {
         return magazineRepository.findById(id)
-                .map(magazine -> response(magazine))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(
                         () -> Header.ERROR("No data")
@@ -90,8 +91,8 @@ public class MagazineService {
                     magazine.setCookIngredient(magazineApiRequest.getCookIngredient());
 
                     return magazine;
-                }).map(magazine -> magazineRepository.save(magazine))
-                .map(magazine -> response(magazine))
+                }).map(magazineRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
@@ -113,6 +114,7 @@ public class MagazineService {
                 .img(magazine.getImg())
                 .title(magazine.getTitle())
                 .des(magazine.getDes())
+                .like(magazine.getLike())
                 .content(magazine.getContent())
                 .type(magazine.getType())
                 .cookTime(magazine.getCookTime())
@@ -170,7 +172,9 @@ public class MagazineService {
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
+                .totalElements((long) result.size())
                 .currentPage(startPage)
+                .currentElements(end - start)
                 .build();
 
         List<MagazineApiResponse> newList = new ArrayList<>();
@@ -216,6 +220,28 @@ public class MagazineService {
         }
 
         return Header.OK(magazineDetailResponse);
+    }
+
+    public Header<List<MagazineApiResponse>> userList(MagazineType magazineType, Integer page){
+        List<Magazine> magazines = magazineRepository.findAllByTypeAndAndShowFlagOOrderByIdx(magazineType, Flag.TRUE);
+        List<MagazineApiResponse> magazineApiResponses = new ArrayList<>();
+
+        int count = 8;
+        int start = count * page;
+        int end = Math.min(magazines.size(), start + count);
+
+        for (Magazine magazine: magazines.subList(start, end)){
+            magazineApiResponses.add(response(magazine));
+        }
+
+        Pagination pagination = new Pagination().builder()
+                .totalPages(magazines.size() / count)
+                .totalElements((long) magazines.size())
+                .currentPage(page)
+                .currentElements(end - start)
+                .build();
+
+        return Header.OK(magazineApiResponses, pagination);
     }
 }
 
