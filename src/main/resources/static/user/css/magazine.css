@@ -3,7 +3,7 @@
 .clearfix { clear: both; }
 
 /* =========== [공통] 세부 카테고리 =========== */
-#prod_category_wrap { box-sizing: border-box; width: 1050px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; color: #333; }
+#prod_category_wrap { box-sizing: border-box; width: 1050px; margin: 0 auto; justify-content: space-between; align-items: flex-end; color: #333; }
 .prod_category_box  .prod_cate_tit { box-sizing: border-box; padding: 20px 0 0 4px;font-size: 14px; font-weight: bold; }
 .prod_category_box ul { box-sizing: border-box; padding-top: 7px; }
 .prod_category_box ul > li { box-sizing: border-box; display: inline; padding: 1em; padding: 10px 13px 7px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #DDD; }
@@ -24,7 +24,7 @@
 .board_list > label:hover { box-sizing: border-box; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
 /* 이미지 */
 .board_image { box-sizing: border-box; cursor: pointer; }
-.board_image > a > img { box-sizing: border-box; width: 100%; height: 500px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.board_image > img { box-sizing: border-box; width: 100%; height: 500px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
 /* 제목 */
 .board_info { box-sizing: border-box; padding: 15px 10px 15px 10px; }
 .board_name { box-sizing: border-box; float: left; padding-right: 15px; font-size: 25px; font-weight: bold; }
@@ -43,7 +43,7 @@
 /* 디폴트 */
 .page_num, .page_first, .page_prev, .page_next, .page_last { box-sizing: border-box; padding: 10px 17.5px; border-left: 1px solid #DDD; border-top: 1px solid #DDD; border-bottom: 1px solid #DDD; text-align: center; }
 .page_last { box-sizing: border-box; border-right: 1px solid #DDD; }
-/*.page_first img, .page_prev img, .page_next img, .page_last img { position: relative; top: 50%; transform: translateY(-50%); }*/
+.page_first img, .page_prev img, .page_next img, .page_last img { position: relative; top: 50%; transform: translateY(-50%); }
 /* 클릭시 효과 */
 .clicked { box-sizing: border-box; font-size: 12px; color: #0db081; font-weight: bolder; background: #DDD; cursor: pointer; }
 /* =========== [공통] 페이지네이션 =========== */
@@ -124,6 +124,7 @@
 .preview img { box-sizing: border-box; width: 330px; height: 330px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
 .preview { box-sizing: border-box; display: inline-block; border-radius: 8px; box-shadow: 0 5px 15px -6px #aaa; }
 .preview:not(:last-child) { box-sizing: border-box; float: left; margin-right: 30px; }
+.preview > a { cursor: pointer; }
 /* 미리보기 슬라이드 버튼 */
 .preview_controls { box-sizing: border-box; position: relative; z-index: 1; }
 .preview_btn_prev { box-sizing: border-box; position: absolute; top: 140px; right: calc(97%); cursor: pointer; }
@@ -202,7 +203,7 @@
 .rec_cook_step { box-sizing: border-box; position: absolute; margin: 10px; }
 .rec_cook_step:first-child { box-sizing: border-box; width: 65px; height: 65px; padding-top: 11px; border-radius: 8px; text-align: center; background: #EE5857; }
 .rec_cook_step:first-child > span { box-sizing: border-box; display: block; font-family: 'NanumSquareRound'; font-size: 12px; letter-spacing: 1px; color: #FFF; }
-.rec_cook_step:first-child > span:last-child { box-sizing: border-box; font-size: 30px; font-weight: bolder; letter-spacing: -1.2px; position: relative; top: -20px;}
+.rec_cook_step:first-child > span:last-child { box-sizing: border-box; font-size: 30px; font-weight: bolder; letter-spacing: -1.2px; position: relative; }
 
 .rec_cook_txt { box-sizing: border-box; width: 510px; padding: 10px 30px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; text-align: center; font-weight: normal; }
 /* 재료담기 */
