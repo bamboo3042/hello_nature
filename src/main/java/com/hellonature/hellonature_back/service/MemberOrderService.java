@@ -30,11 +30,13 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
     private final HellocashRepository hellocashRepository;
     private final AddressRepository addressRepository;
     private final BasketRepository basketRepository;
+    private final PurchaseRepository purchaseRepository;
 
     @Override
     @Transactional
     public Header<MemberOrderApiResponse> create(Header<MemberOrderApiRequest> request) {
         MemberOrderApiRequest memberOrderApiRequest = request.getData();
+        System.out.println(memberOrderApiRequest);
 
         Optional<Member> optionalMember = memberRepository.findById(memberOrderApiRequest.getMemIdx());
         if (optionalMember.isEmpty()) return Header.ERROR("회원 정보가 잘못되었습니다");
@@ -78,6 +80,14 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             Optional<Basket> optionalBasket = basketRepository.findByMemberAndProduct(member, products.get(i));
             if (optionalBasket.isEmpty()) continue;
             basketRepository.delete(optionalBasket.get());
+
+            Purchase purchase = Purchase.builder()
+                    .member(member)
+                    .product(products.get(i))
+                    .count(memberOrderApiRequest.getProCountList().get(i))
+                    .build();
+
+            purchaseRepository.save(purchase);
         }
 
         MemberPayment memberPayment = MemberPayment.builder()
@@ -91,13 +101,15 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         memberPaymentRepository.save(memberPayment);
 
+        Hellocash hellocash;
+
         if (memberOrderApiRequest.getHellocash() != 0){
             int point = memberOrderApiRequest.getHellocash();
-            Hellocash hellocash = Hellocash.builder()
+            hellocash = Hellocash.builder()
                     .member(member)
                     .point(point)
                     .type(2)
-                    .title("상품 구매")
+                    .title("상품 구매 포인트 사용")
                     .build();
 
             hellocashRepository.save(hellocash);
@@ -105,6 +117,18 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
             memberRepository.save(member);
         }
+
+        int point = (int)(memberOrderApiRequest.getPrice() / 0.01);
+        hellocash = Hellocash.builder()
+                .member(member)
+                .point(point)
+                .type(1)
+                .title("상품 구매 포인트 적립")
+                .build();
+
+        hellocashRepository.save(hellocash);
+        member.plusHelloCash(point);
+        memberRepository.save(member);
 
         return Header.OK();
     }
