@@ -50,7 +50,8 @@ public class ProductReview extends DateEntity{
     @Column(name = "rv_content")
     private String content;
     @Enumerated(EnumType.ORDINAL)
-    private Flag ansFlag;
+    @Builder.Default
+    private Flag ansFlag = Flag.FALSE;
     private String ansContent;
     private String files;
     private String ansDate;

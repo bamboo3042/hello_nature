@@ -82,7 +82,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                     .proPrice(products.get(i).getPrice())
                     .proCount(memberOrderApiRequest.getProCountList().get(i))
                     .build();
-            memberOrderProductRepository.save(memberOrderProduct);
+            MemberOrderProduct newMemberOrderProduct = memberOrderProductRepository.save(memberOrderProduct);
 
             Optional<Basket> optionalBasket = basketRepository.findByMemberAndProduct(member, products.get(i));
             if (optionalBasket.isEmpty()) continue;
@@ -95,6 +95,14 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                     .build();
 
             purchaseRepository.save(purchase);
+
+            ProductReview productReview = ProductReview.builder()
+                    .member(member)
+                    .product(products.get(i))
+                    .order(newMemberOrder)
+                    .memberOrderProduct(newMemberOrderProduct)
+                    .build();
+
         }
 
         MemberPayment memberPayment = MemberPayment.builder()
@@ -135,8 +143,6 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .dateVal(simpleDateFormat.format(calendar))
                 .title("상품 구매 포인트 적립")
                 .build();
-
-        System.out.println(hellocash);
 
         hellocashRepository.save(hellocash);
         member.plusHelloCash(point);
