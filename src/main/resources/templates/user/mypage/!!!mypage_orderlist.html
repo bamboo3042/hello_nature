@@ -117,7 +117,7 @@
 
                             // proIdx = proIdx.split(",")
                             // proName = proName.split(",")
-                            // proImg = proImg.split(",")
+                                // proImg = proImg.split(",")
                             // proWeightSize = proWeightSize.split(",")
                             // proCount = proCount.split(",")
 
@@ -131,10 +131,10 @@
                             let row = $('<div class="contents_box4">').append(
                                 '<div class="contents_box4_inner1"><div class="order_date"><p>구매일</p></div>' +
                                 '<div class="default_ship"><p>배송지</p></div></div>' +
-                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div>')
-
+                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div></div>')
+                            row.append('</div>')
                             let row2 = $('<div>')
-                            // for(let i=0; i<proIdx.length; i++){
+                            // for(let i=0; i<proIdx.length; i++){a
                                 row2.append(
                                     '<div class="contents_box5"><div class="order_info"><div class="order_info_right">' +
                                     '<p><a href="#" class="order_info_font3">배송상태</a></p></div></div></div>' +
@@ -145,7 +145,6 @@
                             // }
                             row2.append('</div>')
                             row.append(row2)
-                            row.append('</div>')
                             $("#main_contents").append(row)
                         }
                     })
