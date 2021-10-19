@@ -6,6 +6,7 @@ import com.hellonature.hellonature_back.model.entity.ProductReview;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,5 @@ public interface ProductReviewRepository extends JpaRepository<ProductReview, Lo
         Optional<ProductReview> findById(Long id);
         List<ProductReview> findAllByProduct(Product product);
         List<ProductReview> findAllByAnsFlagAndMemberOrderByIdxDesc(Flag flag, Member member);
+        List<ProductReview> findAllByAnsFlagAndMemberAndRegdateBetweenOrderByIdx(Flag flag, Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
 }

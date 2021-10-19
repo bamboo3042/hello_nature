@@ -63,7 +63,9 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
 
     @GetMapping("list/myPage")
     public Header<List<MyPageOrderResponse>> myPage(@RequestParam(name = "ansFlag") Flag flag,
-                                                    @RequestParam(name = "memIdx") Long idx){
-        return productReviewService.myPage(flag, idx);
+                                                    @RequestParam(name = "memIdx") Long idx,
+                                                    @RequestParam(name = "dateStart") String dateStart,
+                                                    @RequestParam(name = "dateEnd") String dateEnd){
+        return productReviewService.myPage(flag, idx, dateStart, dateEnd);
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -228,10 +229,16 @@ public class ProductReviewService  {
                 .build();
     }
 
-    public Header<List<MyPageOrderResponse>> myPage(Flag flag, Long idx){
+    public Header<List<MyPageOrderResponse>> myPage(Flag flag, Long idx, String dateStart, String dateEnd){
         Member member = memberRepository.findById(idx).get();
 
-        List<ProductReview> productReviews = productReviewRepository.findAllByAnsFlagAndMemberOrderByIdxDesc(flag, member);
+        String[] temp;
+        temp = dateStart.split("-");
+        LocalDateTime start = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 00, 00);
+        temp = dateEnd.split("-");
+        LocalDateTime end = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 23, 59);
+
+        List<ProductReview> productReviews = productReviewRepository.findAllByAnsFlagAndMemberAndRegdateBetweenOrderByIdx(flag, member, start, end);
 
         List<MyPageOrderResponse> list = new ArrayList<>();
 
