@@ -101,6 +101,7 @@
                 if ($(".category_name1 > h2").text() === "주문배송") {
                     let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
                     console.log(url)
+                    $("#main_contents").empty();
                     axios.get(url, {}).then(function (response) {
 
                         for(let i in response.data.data) {
@@ -130,7 +131,7 @@
                             let row = $('<div class="contents_box4">').append(
                                 '<div class="contents_box4_inner1"><div class="order_date"><p>구매일</p></div>' +
                                 '<div class="default_ship"><p>배송지</p></div></div>' +
-                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div></div>')
+                                '<div class="order_detail_button"><a href="#" alt="주문상세페이지 이동"></a></div>')
 
                             let row2 = $('<div>')
                             // for(let i=0; i<proIdx.length; i++){
@@ -143,9 +144,8 @@
                                 )
                             // }
                             row2.append('</div>')
-
                             row.append(row2)
-                            console.log(row[0])
+                            row.append('</div>')
                             $("#main_contents").append(row)
                         }
                     })
@@ -154,15 +154,20 @@
                     let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
                     console.log(url)
                     axios.get(url, {}).then(function (response) {
-                        console.log(response.data.data)
                     })
 
                 } else if ($(".category_name1 > h2").text() === "자주 구매") {
                     let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
                     console.log(url)
                     axios.get(url, {}).then(function (response) {
-                        for (let i in response){
+                        for (let i in response.data.data){
 
+
+                            let row = $('<div class="contents_box6">').append(
+                                '<div class="product_image"></div>' +
+                                '<div class="product_info"><p>상품명 + 규격</p></div>' +
+                                '<div class="favorite_box"><p class="favorite_count">구매횟수</p></div></div>'
+                            )
                         }
                     })
                 }
@@ -209,7 +214,16 @@
                 let url = "/api/memberslikes/list?type=" + type + "&memIdx=" + urlidx;
                 console.log(url)
                 axios.get(url, {}).then(function (response) {
-                    console.log(response)
+                    for(let i in response.data.data){
+
+                        let row = $('<div class="contents_box6">').append(
+                            '<div class="product_image"></div>' +
+                            '<div class="product_info"><p>상품명 규격</p>' +
+                            '<div class="contents_box6_inner"><p>규격</p><div class="product_info_line"></div>' +
+                            '<p>갯수</p></div></div><div class="like_box"><div class="like_image"></div><p class="like_count">좋아요 수</p>' +
+                            '</div></div></div>'
+                        )
+                    }
                 })
             })
         })
