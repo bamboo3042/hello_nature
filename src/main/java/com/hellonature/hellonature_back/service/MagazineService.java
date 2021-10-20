@@ -127,11 +127,11 @@ public class MagazineService {
         return magazineApiResponse;
     }
 
-    public Header<List<MagazineApiResponse>> list(Long cateIdx, String title, String dateStart, String dateEnd, Integer startPage){
+    public Header<List<MagazineApiResponse>> list(Long cateIdx, String title, String dateStart, String dateEnd, MagazineType magazineType, Integer startPage){
         String jpql = "select m from Magazine m";
         boolean check = false;
 
-        if(cateIdx != null || title != null || dateStart != null || dateEnd != null){
+        if(cateIdx != null || title != null || dateStart != null || dateEnd != null || magazineType != null){
             jpql += " where";
             if(cateIdx != null){
                 jpql += " cate_idx = :cateIdx";
@@ -151,6 +151,10 @@ public class MagazineService {
                 if (check) jpql += " and";
                 jpql += " TO_char(regdate, 'YYYY-MM-DD') <= :dateEnd";
             }
+            if (magazineType != null){
+                if (check) jpql += " and";
+                jpql += " mg_type = :magazineType";
+            }
         }
 
         jpql += " order by idx desc";
@@ -164,6 +168,7 @@ public class MagazineService {
         if (title != null) query = query.setParameter("title", "%"+title+"%");
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
+        if (magazineType != null) query = query.setParameter("magazineType", magazineType);
 
         List<Magazine> result = query.getResultList();
         int count = 10;

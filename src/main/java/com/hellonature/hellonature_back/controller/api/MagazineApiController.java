@@ -53,8 +53,9 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
                                                   @RequestParam(name="title", required = false) String title,
                                                   @RequestParam(name="dateStart", required = false) String dateStart,
                                                   @RequestParam(name="dateEnd", required = false) String dateEnd,
+                                                  @RequestParam(name = "type", required = false) MagazineType type,
                                                   @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
-        return magazineService.list(cateIdx, title, dateStart, dateEnd, startPage);
+        return magazineService.list(cateIdx, title, dateStart, dateEnd, type, startPage);
     }
 
     @GetMapping("detail/{idx}")
