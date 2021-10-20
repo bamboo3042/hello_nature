@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface ProductReviewRepository extends JpaRepository<ProductReview, Long> {
         Optional<ProductReview> findById(Long id);
         List<ProductReview> findAllByProduct(Product product);
-        List<ProductReview> findAllByAnsFlagAndMemberOrderByIdxDesc(Flag flag, Member member);
-        List<ProductReview> findAllByAnsFlagAndMemberAndRegdateBetweenOrderByIdx(Flag flag, Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
+        List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdx(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
+        List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdx(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
 }

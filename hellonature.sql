@@ -201,10 +201,10 @@ create sequence products_questions_seq
 ----------------------------------------------------------------------------------
 create table tb_products_reviews(
                                     idx number(10) primary key,
-                                    mem_idx number(10) unique,
+                                    mem_idx number(10),
                                     regdate date default sysdate,
-                                    rv_like number(1) not null,
-                                    rv_content clob not null,
+                                    rv_like number(1),
+                                    rv_content clob,
                                     pro_idx number(10) not null,
                                     ans_flag number(1) default 0 not null,
                                     ans_content clob,
@@ -214,7 +214,7 @@ create table tb_products_reviews(
                                     ans_date varchar2(20)
 );
 
-create sequence products_reviews_seqs
+create sequence products_reviews_seq
     increment by 1
     start with 1;
 ----------------------------------------------------------------------------------

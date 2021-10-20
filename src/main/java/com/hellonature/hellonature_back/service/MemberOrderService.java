@@ -33,6 +33,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
     private final AddressRepository addressRepository;
     private final BasketRepository basketRepository;
     private final PurchaseRepository purchaseRepository;
+    private final ProductReviewRepository productReviewRepository;
 
     @Override
     @Transactional
@@ -103,6 +104,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                     .memberOrderProduct(newMemberOrderProduct)
                     .build();
 
+            productReviewRepository.save(productReview);
         }
 
         MemberPayment memberPayment = MemberPayment.builder()
@@ -123,7 +125,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             hellocash = Hellocash.builder()
                     .member(member)
                     .point(point)
-                    .dateUsed(simpleDateFormat.format(calendar))
+                    .dateUsed(simpleDateFormat.format(calendar.getTime()))
                     .type(2)
                     .title("상품 구매 포인트 사용")
                     .build();
@@ -140,7 +142,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .member(member)
                 .point(point)
                 .type(1)
-                .dateVal(simpleDateFormat.format(calendar))
+                .dateVal(simpleDateFormat.format(calendar.getTime()))
                 .title("상품 구매 포인트 적립")
                 .build();
 

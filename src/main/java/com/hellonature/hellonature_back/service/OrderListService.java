@@ -204,6 +204,11 @@ public class OrderListService {
                 .dawnFlag(memberOrder.getDawnFlag())
                 .greenFlag(memberOrder.getGreenFlag())
                 .rvIdx(memberOrderProduct.getProductReview() == null ? null : memberOrderProduct.getProductReview().getIdx())
+                .recName(memberOrder.getRecName())
+                .recHp(memberOrder.getRecHp())
+                .zipcode(memberOrder.getZipcode())
+                .address1(memberOrder.getAddress1())
+                .address2(memberOrder.getAddress2())
                 .build();
     }
 }

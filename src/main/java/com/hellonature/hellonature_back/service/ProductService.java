@@ -221,7 +221,6 @@ public class ProductService{
         }
 
         TypedQuery<Product> query = em.createQuery(jpql, Product.class);
-        if (cateIdx != null) query = query.setParameter("cateIdx", cateIdx);
         if (state != null) query = query.setParameter("state", state);
         if (name != null) query = query.setParameter("name", name);
         if (id != null) query = query.setParameter("id", id);

@@ -27,6 +27,9 @@ public class MagazineApiRequest {
     private Integer cookLevel;
     private String cookIngredient;
 
+    private String ingreList;
+    private String relList;
+
     private LocalDateTime regdate;
 
 }

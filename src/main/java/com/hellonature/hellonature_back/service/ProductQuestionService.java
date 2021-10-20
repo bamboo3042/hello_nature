@@ -40,8 +40,8 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
 
         ProductQuestion productQuestion = ProductQuestion.builder()
-                .member(memberRepository.findById(productQuestionApiRequest.getIdx()).get())
-                .product(productRepository.findById(productQuestionApiRequest.getIdx()).get())
+                .member(memberRepository.findById(productQuestionApiRequest.getMemIdx()).get())
+                .product(productRepository.findById(productQuestionApiRequest.getProIdx()).get())
                 .content(productQuestionApiRequest.getContent())
                 .build();
         ProductQuestion newProductQuestion = productQuestionRepository.save(productQuestion);
@@ -61,8 +61,8 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
         Optional<ProductQuestion> optional = productQuestionRepository.findById(productQuestionApiRequest.getIdx());
         return optional.map(productQuestion -> {
-                    productQuestion.setMember(memberRepository.findById(productQuestionApiRequest.getIdx()).get());
-                    productQuestion.setProduct(productRepository.findById(productQuestionApiRequest.getIdx()).get());
+                    productQuestion.setMember(memberRepository.findById(productQuestionApiRequest.getMemIdx()).get());
+                    productQuestion.setProduct(productRepository.findById(productQuestionApiRequest.getProIdx()).get());
                     productQuestion.setContent(productQuestionApiRequest.getContent());
                     productQuestion.setAnsFlag(productQuestionApiRequest.getAnsFlag());
                     productQuestion.setAnsContent(productQuestionApiRequest.getAnsContent());
@@ -78,7 +78,6 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
     @Override
     public Header delete(Long id) {
         Optional<ProductQuestion> optional = productQuestionRepository.findById(id);
-
         return optional.map(productQuestion -> {
             productQuestionRepository.delete(productQuestion);
             return Header.OK();
@@ -144,7 +143,6 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
              result.subList(start, end)) {
             list.add(responseList(productQuestion));
         }
-
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
