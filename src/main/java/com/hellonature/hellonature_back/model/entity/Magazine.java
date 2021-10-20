@@ -29,7 +29,8 @@ public class Magazine extends DateEntity{
     private Long idx;
 
     @Enumerated(EnumType.ORDINAL)
-    private Flag showFlag;
+    @Builder.Default
+    private Flag showFlag = Flag.TRUE;
     private String img;
     private String title;
     private String des;

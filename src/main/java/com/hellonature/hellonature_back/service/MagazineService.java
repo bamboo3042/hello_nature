@@ -33,9 +33,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MagazineService {
 
-//    @PersistenceUnit
-//    EntityManagerFactory emf;
-
     private final EntityManager em;
     private final MagazineRepository magazineRepository;
     private final ProductRepository productRepository;
@@ -48,7 +45,6 @@ public class MagazineService {
         MagazineApiRequest magazineApiRequest = request.getData();
 
         Magazine magazine = Magazine.builder()
-                .showFlag(magazineApiRequest.getShowFlag())
                 .title(magazineApiRequest.getTitle())
                 .img(pathList.get(0))
                 .des(magazineApiRequest.getDes())
@@ -58,6 +54,8 @@ public class MagazineService {
                 .cookKcal(magazineApiRequest.getCookKcal())
                 .cookLevel(magazineApiRequest.getCookLevel())
                 .cookIngredient(magazineApiRequest.getCookIngredient())
+                .ingreList(magazineApiRequest.getIngreList())
+                .relList(magazineApiRequest.getRelList())
                 .build();
         magazineRepository.save(magazine);
         return Header.OK();
