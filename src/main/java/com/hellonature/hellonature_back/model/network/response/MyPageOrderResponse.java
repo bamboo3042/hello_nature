@@ -28,4 +28,5 @@ public class MyPageOrderResponse {
     private Flag greenFlag;
     private Flag dawnFlag;
     private Long rvIdx;
+    private Flag ansFlag;
 }

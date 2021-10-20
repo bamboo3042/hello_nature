@@ -258,6 +258,7 @@ public class ProductReviewService  {
                 .proWeightSize(product.getSizeWeight())
                 .regdate(productReview.getRegdate())
                 .rvIdx(productReview.getIdx())
+                .ansFlag(productReview.getAnsFlag())
                 .build();
     }
 }
