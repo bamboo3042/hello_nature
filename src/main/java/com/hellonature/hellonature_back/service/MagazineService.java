@@ -168,7 +168,7 @@ public class MagazineService {
         if (title != null) query = query.setParameter("title", "%"+title+"%");
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
-        if (magazineType != null) query = query.setParameter("magazineType", magazineType);
+        if (magazineType != null) query = query.setParameter("magazineType", magazineType.getId());
 
         List<Magazine> result = query.getResultList();
         int count = 10;
