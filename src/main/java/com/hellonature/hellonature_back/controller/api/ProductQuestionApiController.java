@@ -23,25 +23,25 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
 
     @Override
     @PostMapping("/create")
-    public Header<ProductQuestionApiResponse> create(Header<ProductQuestionApiRequest> request) {
+    public Header<ProductQuestionApiResponse> create(@RequestBody Header<ProductQuestionApiRequest> request) {
         return productQuestionService.create(request);
     }
 
     @Override
     @GetMapping("/read/{idx}")
-    public Header<ProductQuestionApiResponse> read(Long idx) {
+    public Header<ProductQuestionApiResponse> read(@PathVariable(name = "idx") Long idx) {
         return productQuestionService.read(idx);
     }
 
     @Override
     @PutMapping("/update")
-    public Header<ProductQuestionApiResponse> update(Header<ProductQuestionApiRequest> request) {
+    public Header<ProductQuestionApiResponse> update(@RequestBody Header<ProductQuestionApiRequest> request) {
         return productQuestionService.update(request);
     }
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header delete(Long idx) {
+    public Header delete(@PathVariable(name = "idx") Long idx) {
         return productQuestionService.delete(idx);
     }
 

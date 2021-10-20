@@ -157,10 +157,6 @@ public class MagazineService {
 
         jpql += " order by idx desc";
 
-        System.out.println(jpql);
-
-//        EntityManager em = emf.createEntityManager();
-
         TypedQuery<Magazine> query = em.createQuery(jpql, Magazine.class);
         if (cateIdx != null) query = query.setParameter("cateIdx", cateIdx);
         if (title != null) query = query.setParameter("title", "%"+title+"%");

@@ -38,7 +38,8 @@ public class ProductQuestion extends DateEntity{
     private String content;
 
     @Enumerated(EnumType.ORDINAL)
-    private Flag ansFlag;
+    @Builder.Default
+    private Flag ansFlag = Flag.FALSE;
     private String ansContent;
     private String ansDate;
 }
