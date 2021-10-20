@@ -32,7 +32,8 @@ public class Question extends DateEntity{
     private Member member;
 
     @Enumerated(EnumType.ORDINAL)
-    private Flag ansFlag;
+    @Builder.Default
+    private Flag ansFlag = Flag.FALSE;
     private String ansDate;
     private String hp;
 
