@@ -33,6 +33,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
     private final AddressRepository addressRepository;
     private final BasketRepository basketRepository;
     private final PurchaseRepository purchaseRepository;
+    private final ProductReviewRepository productReviewRepository;
 
     @Override
     @Transactional
@@ -103,6 +104,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                     .memberOrderProduct(newMemberOrderProduct)
                     .build();
 
+            productReviewRepository.save(productReview);
         }
 
         MemberPayment memberPayment = MemberPayment.builder()
