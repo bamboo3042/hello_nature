@@ -20,6 +20,11 @@ public class MyPageOrderResponse {
     private Integer proCount;
     private Integer state;
     private LocalDateTime regdate;
+    private String recName;
+    private String recHp;
+    private String zipcode;
+    private String address1;
+    private String address2;
     private Flag greenFlag;
     private Flag dawnFlag;
     private Long rvIdx;
