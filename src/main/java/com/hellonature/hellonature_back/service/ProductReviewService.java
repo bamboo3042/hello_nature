@@ -41,11 +41,11 @@ public class ProductReviewService  {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
 
         ProductReview productReview = ProductReview.builder()
-                .member(memberRepository.findById(request.getIdx()).get())
-                .product(productRepository.findById(request.getIdx()).get())
+                .member(memberRepository.findById(request.getMemIdx()).get())
+                .product(productRepository.findById(request.getProIdx()).get())
                 .like(request.getLike())
                 .content(request.getContent())
-                .files(pathList.get(0))
+                .files(pathList.isEmpty() ? null : pathList.get(0))
                 .build();
         productReviewRepository.save(productReview);
         return Header.OK();
