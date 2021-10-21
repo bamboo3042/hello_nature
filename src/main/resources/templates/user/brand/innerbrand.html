@@ -6,8 +6,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>브랜드 메인</title>
+<!--    <link rel="stylesheet" href="/resource/css/bootstrap.css">-->
     <link rel="stylesheet" href="/user/css/index_style.css">
+    <link rel="stylesheet" th:href="@{/user/css/layout.css}">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- axios -->
+    <script>
+        $(function (){
+
+            axios.get('/api/brand/list?startPage=0&count=9', {
+            }).then(function(res) {
+                let div = $('<div class="brand_item">');
+
+                for (let i in res.data.data) {
+                    let $brIdx = res.data.data[i].idx;
+                    let $logo = res.data.data[i].logo;
+
+                    let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
+                        `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                    )
+                    div.append(brandItem);
+                }
+                div.append($('</div>'));
+                $('#brand_slidebox_first').append(div);
+
+                // ----------------------------------------------------------------------------------------------------
+
+                axios.get('/api/brand/list?startPage=1&count=9', {
+
+                }).then(function(res) {
+                    let div = $('<div class="brand_item">');
+
+                    for (let i in res.data.data) {
+                        let $brIdx = res.data.data[i].idx;
+                        let $logo = res.data.data[i].logo;
+
+                        let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
+                            `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                        )
+                        div.append(brandItem);
+                    }
+                    div.append($('</div>'));
+                    $('#brand_slidebox_second').append(div);
+
+                    // ------------------------------------------------------------------------------------------------
+
+                    axios.get('/api/brand/list?startPage=2&count=9', {
+
+                    }).then(function (res) {
+                        let div = $('<div class="brand_item">');
+
+                        for (let i in res.data.data) {
+                            let $brIdx = res.data.data[i].idx;
+                            let $logo = res.data.data[i].logo;
+
+                            let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
+                                `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                            )
+                            div.append(brandItem);
+                        }
+                        div.append($('</div>'));
+                        $('#brand_slidebox_third').append(div);
+                    });
+                });
+            }).catch(function(err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <!-- axios -->
+
 
 </head>
 
@@ -82,80 +152,13 @@
         <div th:replace="/user/fragment/footer::footer"></div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 
-    <!-- axios -->
-    <script>
-        $(function (){
-
-            axios.get('/api/brand/list?startPage=0&count=9', {
-
-            }).then(function(res) {
-                let div = $('<div class="brand_item">');
-
-                for (let i in res.data.data) {
-                    let $brIdx = res.data.data[i].idx;
-                    let $logo = res.data.data[i].logo;
-
-                    let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
-                        '<div class="brand_img" style="background-color: ' + $logo + '; background-size: cover; background-repeat: no-repeat;"></div></a>'
-                    )
-                    div.append(brandItem);
-                }
-                div.append($('</div>'));
-                $('#brand_slidebox_first').append(div);
-
-                // ----------------------------------------------------------------------------------------------------
-
-                axios.get('/api/brand/list?startPage=1&count=9', {
-
-                }).then(function(res) {
-                    let div = $('<div class="brand_item">');
-
-                    for (let i in res.data.data) {
-                        let $brIdx = res.data.data[i].idx;
-                        let $logo = res.data.data[i].logo;
-
-                        let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
-                            '<div class="brand_img" style="background-color: ' + $logo + '; background-size: cover; background-repeat: no-repeat;"></div></a>'
-                        )
-                        div.append(brandItem);
-                    }
-                    div.append($('</div>'));
-                    $('#brand_slidebox_second').append(div);
-
-                    // ------------------------------------------------------------------------------------------------
-
-                    axios.get('/api/brand/list?startPage=2&count=9', {
-
-                    }).then(function (res) {
-                        let div = $('<div class="brand_item">');
-
-                        for (let i in res.data.data) {
-                            let $brIdx = res.data.data[i].idx;
-                            let $logo = res.data.data[i].logo;
-
-                            let brandItem = $('<a href="/brand_goods_list/' + $brIdx + '">').append(
-                                '<div class="brand_img" style="background-color: ' + $logo + '; background-size: cover; background-repeat: no-repeat;"></div></a>'
-                            )
-                            div.append(brandItem);
-                        }
-                        div.append($('</div>'));
-                        $('#brand_slidebox_third').append(div);
-                    });
-                });
-            }).catch(function(err) {
-                console.log(err);
-            });
-        });
-    </script>
-    <!-- axios -->
 
 </body>
 

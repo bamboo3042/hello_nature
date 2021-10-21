@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
@@ -22,17 +26,39 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
+    window.onload = function (){
+        let idx = sessionStorage.getItem("go_edit")
+        let content = document.getElementById("productInqContents")
+        axios.get('/api/productquestion/read/'+ idx, {}).then(function (res){
+            let $contesnt = res.data.data.content;
+            content.innerText = $contesnt
+        }).catch(function (err){
+            console.log(err);
+        })
+    }
     function sendit(){
-
         let content = $('#productInqContents').val();
-        alert("thals")
+        let idx = sessionStorage.getItem("go_edit");
+        let memIdx = $("#hidden_user").val();
+        let proIdx = sessionStorage.getItem("go_edit_prod")
 
-        axios.post('/api/productQuestion/create', {
+        console.log(idx)
+        console.log(memIdx)
+        console.log(proIdx)
+
+        axios.put('/api/productquestion/update', {
             data: {
-                content: content
+                idx: idx,
+                memIdx: memIdx,
+                proIdx: proIdx,
+                content: content,
+                ansFlag: "FALSE"
             }
         }).then(function (response){
-            alert("상품문의가 등록되었습니다.")
+            alert("상품문의가 수정되었습니다.")
+            location.history();
+        }).catch(function (err){
+            console.log(err)
         })
     }
 </script>
@@ -55,7 +81,7 @@
                     <div class="back_button">
                         <a href="javascript:history.back();" alt="뒤로 돌아가기"></a>
                     </div>
-                    <h2 class="contents_name">문의 작성</h2>
+                    <h2 class="contents_name">문의 수정</h2>
                 </div>
                 <!-- product_inq_bigbox 시작-->
                 <div class="product_inq_bigbox">
@@ -75,7 +101,7 @@
                                 해당 상품과 무관하거나 부적절한 내용의 문의는 통보 없이 삭제될 수 있습니다.
                             </li>
                         </ul>
-                        <button type="submit" class="button_submit_productInq" onsubmit="sendit()" disabled>등록</button>
+                        <button type="submit" class="button_submit_productInq" onclick="sendit()">수정</button>
                         <div class="post_guide_box">
                             <div class="post_guide_box_inner">
                                 <div class="post_guide_help">
@@ -107,9 +133,5 @@
         <div th:replace="/user/fragment/footer::footer"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>

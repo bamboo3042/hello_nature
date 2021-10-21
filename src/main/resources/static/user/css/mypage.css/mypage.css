@@ -434,11 +434,12 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 #post_filter_used, #post_filter_available { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 1px solid #cccccc;}
 .post_filter_available2 { color: #00B081 !important; font-weight: bold !important; padding: 7px 0 11px !important; font-size: 14px !important; background-color: #fff !important; text-align: center !important; box-sizing: border-box !important; letter-spacing: -0.6px !important; line-height: 1.73 !important; width: 410px !important; height: 46px !important; border-bottom: 3px solid #155c65 !important;}
 #post_filter_used:hover, #post_filter_available:hover { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 3px solid #155c65;}
-.post_button_box { padding-left: 400px;}
+.post_button_box { padding-left: 600px;}
 .post_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer; margin-top: 30px;}
+.post_button:hover {background: #0db081}
 .product_post_line { border-right: 1px solid #888; height: 8px; margin: 5px; margin: 7px;}
 .product_info_post { padding-left: 10px;}
-.product_post_firstline > p { font-size: 14px; line-height: 1.6;}
+.product_post_firstline > p { font-size:     14px; line-height: 1.6;}
 .contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .product_post_lastline { display: flex; justify-content: start; align-items: center;}
 .product_post_lastline p:first-child { margin-right: 10px;}
@@ -457,7 +458,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .enroll_post_box2 h3 { font-size: 18px; line-height: 1.5; letter-spacing: -.6px; color: #333; margin-top: 24px;}
 /* 만족도 라디오 박스 */
 .enroll_post_radiobox { display: table; width: 100%; justify-content: space-between; align-items: center; padding-left: 35px; padding-top: 20px;}
-.enroll_post_radiobox > li { display: table-cell; text-align: center;}
+.enroll_post_radiobox > li { display: table-cell; text-align: center; z-index: 100;}
 /* 만족해요 */
 .enroll_post_radiobox > li > .post_radio1_span { position: relative; display: block; margin: 0 auto; width: 120px; height: 120px; justify-content: center; align-items: center;}
 .enroll_post_radiobox > li > .post_radio1_span > label { position: relative; font-size: 15px; margin-right: 0; font-weight: 700; line-height: 1.6; letter-spacing: -.6px; color: #333; opacity: .2; margin: 0 auto;}
@@ -711,7 +712,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .edit2_form_list2 > li > dl:nth-child(3) > dt::before { content: ''; background: url('/user/images/mypage.img/edit2/edit2_naver_green.png') center center no-repeat; width: 30px; height: 30px; margin-right: 8px; display: inline-block; vertical-align: -8px; background-size: contain;}
 .edit2_form_list2 > li > dl:nth-child(4) > dt::before { content: ''; background: url('/user/images/mypage.img/edit2/edit2_apple.png') center center no-repeat; width: 30px; height: 30px; margin-right: 8px; display: inline-block; vertical-align: -8px; background-size: contain;}
 .switch_label { position: relative; display: inline-block; width: 30px; height: 14px; top: .5px; left: 550px; cursor: pointer;}
-.slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 7px;}
+.slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 7px;}
 .slide_checkbox { position: absolute; top: 0; left: 0; width: 30px; height: 14px; margin-right: 0; background: none; cursor: pointer;}
 .slide_checkbox + .slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: -2px; top: 50%; transform: translate(0, -50%); border-radius: 50%; background: #e2e2e2; transition: all 0.4s; box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);}
 .switch_label:hover > .slider::before { background:#00B081; transform: translate(14px, -50%); transition: all 0.4s; box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);}
@@ -733,6 +734,8 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .product_guide_box ul li:before { content: 'ㆍ'; position: absolute; top: 0; left: -2px;}
 .mantoman_connect_tomantoman { color: #00B081;}
 .button_submit_productInq { display: block; width: 100%; background-color: #ccc; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer; border: none;}
+.button_submit_productInq:hover {background: #0db081}
+
 /* ---------------------------------------------------------------- mypage_enroll_product_inq 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_product_inq 끝 ---------------------------------------------------------------- */
