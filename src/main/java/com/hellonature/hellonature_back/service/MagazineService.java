@@ -1,6 +1,8 @@
 package com.hellonature.hellonature_back.service;
 
+import com.hellonature.hellonature_back.model.entity.Like;
 import com.hellonature.hellonature_back.model.entity.Magazine;
+import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.entity.Product;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.enumclass.MagazineType;
@@ -11,6 +13,7 @@ import com.hellonature.hellonature_back.model.network.response.MagazineApiRespon
 import com.hellonature.hellonature_back.model.network.response.MagazineDetailResponse;
 import com.hellonature.hellonature_back.repository.LikeRepository;
 import com.hellonature.hellonature_back.repository.MagazineRepository;
+import com.hellonature.hellonature_back.repository.MemberRepository;
 import com.hellonature.hellonature_back.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,7 @@ public class MagazineService {
     private final ProductRepository productRepository;
     private final LikeRepository likeRepository;
     private final FileService fileService;
+    private final MemberRepository memberRepository;
 
 
     public Header<MagazineApiResponse> create(Header<MagazineApiRequest> request, List<MultipartFile> multipartFiles){
@@ -185,9 +189,9 @@ public class MagazineService {
     }
 
     @Transactional
-    public Header<MagazineDetailResponse> detail(Long idx){
-        Optional<Magazine> optional = magazineRepository.findById(idx);
-        Magazine magazine = optional.get();
+    public Header<MagazineDetailResponse> detail(Long idx, Long memIdx){
+        Optional<Magazine> optionalMagazine = magazineRepository.findById(idx);
+        Magazine magazine = optionalMagazine.get();
         List<Product> ingreList = new ArrayList<>();
         List<Product> relList = new ArrayList<>();
 
@@ -207,7 +211,7 @@ public class MagazineService {
                 .des(magazine.getDes())
                 .content(magazine.getContent())
                 .like(Long.valueOf(magazine.getLike()))
-                .likeFlag(likeRepository.findByMagazine(magazine).isPresent() ? Flag.TRUE : Flag.FALSE)
+                .likeFlag(findLike(magazine, memIdx) ? Flag.TRUE : Flag.FALSE)
                 .type(magazine.getType())
                 .cookTime(magazine.getCookTime())
                 .cookKcal(magazine.getCookKcal())
@@ -247,6 +251,13 @@ public class MagazineService {
                 .build();
 
         return Header.OK(magazineApiResponses, pagination);
+    }
+
+    private boolean findLike(Magazine magazine, Long memIdx){
+        Optional<Member> optionalMember = memberRepository.findById(memIdx);
+        if (optionalMember.isEmpty()) return false;
+        Optional<Like> optionalLike = likeRepository.findByMemberAndMagazine(optionalMember.get(), magazine);
+        return optionalLike.isPresent();
     }
 }
 

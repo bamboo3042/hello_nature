@@ -58,9 +58,10 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
         return magazineService.list(cateIdx, title, dateStart, dateEnd, type, startPage);
     }
 
-    @GetMapping("detail/{idx}")
-    public Header<MagazineDetailResponse> detail(@PathVariable(name = "idx") Long idx){
-        return magazineService.detail(idx);
+    @GetMapping("detail")
+    public Header<MagazineDetailResponse> detail(@RequestParam(name = "idx") Long idx,
+                                                 @RequestParam(name = "memIdx", required = false) Long memIdx){
+        return magazineService.detail(idx, memIdx);
     }
 
     @GetMapping("user/list")
