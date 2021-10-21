@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
@@ -23,39 +24,67 @@
 </head>
 <script>
     $(function (){
-        axios.get('/api/productQuestion/list', {
+        let memIdx = $("#hidden_user").val()
+        axios.get('/api/productquestion/user/list/' + memIdx, {
 
         }).then(function (response){
             for(let i in response.data.data){
-                let $dateTime = response.data.data[i].dateTime;
+                let $idx = response.data.data[i].idx;
+                let $dateTime = response.data.data[i].regdate;
                 let $ansFlag = response.data.data[i].ansFlag;
                 let $content = response.data.data[i].content;
+                let $proImg = response.data.data[i].proImg;
+                let $proName = response.data.data[i].proName;
+                let $proIdx = response.data.data[i].proIdx;
+                let $ansContent = response.data.data[i].ansContent;
+                let edit_display;
+                let ans_display;
+
+                $dateTime = $dateTime.toString().substring(0 , 10);
+                if($ansFlag === "FALSE"){
+                    $ansFlag = "답변대기"
+                    edit_display = "block"
+                    ans_display = "none"
+                }else{
+                    $ansFlag = "답변완료"
+                    edit_display = "none"
+                    ans_display ='block';
+                }
 
                 let row = $('<div class="product_inq_listbox">').append(
-                    '<div class="product_box"><div class="product_image"></div>' +
-                    '<div class="product_info"><p>[행복담원] 서귀포 하우스 감귤 500g</p></div></div>' +
+                    '<div class="product_box"><div class="product_image" style="background: url("'+$proImg+'")"></div>' +
+                    '<div class="product_info"><p>'+$proName+'</p></div></div>' +
                     '<span class="date">'+ $dateTime + '</span>' +
                     '<span class="answer_flag">'+ $ansFlag + '</span>' +
                     '<div class="product_inq_question"><p class="inq_title">'+ $content +'</p></div>' +
-                    '<ul class="inq_button_box"><li><a href="/mypage_enrollProductinq">수정</a></li>' +
-                    '<li><a onclick="deletePro()">삭제</a></li></ul></div>'
+                    '<div class="product_inq_question" style="display:'+ans_display+'"><p class="date">답변 내용</p><p class="inq_title">'+ $ansContent +'</p></div>' +
+                    '<ul class="inq_button_box" style="display: flex;"><li style="display:'+edit_display+'"><a href="#" class="prodQ_edit"><input type="hidden" value="'+$idx+'" id="Que_id"><input type="hidden" value="'+$proIdx+'" id="prod_id">수정</a></li>' +
+                    '<li class="prodQ_del"><input type="hidden" value="'+$idx+'"><a href="#">삭제</a></li></ul></div>'
                 )
                 $(".product_inq_title").after(row);
             }
+
+            $(".prodQ_del").click(function (e){
+                let idx = $(this).children("input").val();
+                confirm("삭제하시겠습니까?")
+                if(confirm) {
+                    axios.delete('/api/productquestion/delete/' + idx, {}).then(function () {
+                        alert("삭제되었습니다");
+                    })
+                } else{
+                    return false;
+                }
+            })
+
+            $(".prodQ_edit").click(function (e) {
+                sessionStorage.setItem("go_edit", $(this).children("#Que_id").val())
+                sessionStorage.setItem("go_edit_prod", $(this).children("#prod_id").val())
+                location.href = "/user/mypage_enrollProductinq";
+            })
         }).catch(function (err){
             console.log(err);
         })
     })
-
-    function deletePro(){
-        let idx = $("#idx").val();
-
-        axios.delete('/api/productQuestion/delete' + idx, {
-
-        }).then(function (response){
-            alert("삭제하시겠습니까");
-        })
-    }
 </script>
 <body>
 <div id="mypage-box">
@@ -77,8 +106,7 @@
                 </div>
                 <!-- product_inq_home 시작 -->
                 <div class="product_inq_home">
-                    <h3 class="product_inq_title">전체&nbsp;<span>1</span></h3>
-                    <input type="hidden" id="idx" th:value="${idx}" />
+                    <h3 class="product_inq_title">전체&nbsp;<span></span></h3>
                     <!-- product_inq_listbox 시작 -->
                     <!--                        <div class="product_inq_listbox">-->
                     <!--                            <div class="product_box">-->
