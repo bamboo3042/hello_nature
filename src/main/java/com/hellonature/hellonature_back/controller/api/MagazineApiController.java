@@ -23,9 +23,8 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
     private final MagazineService magazineService;
 
     @RequestMapping(value ="/create", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public Header<MagazineApiResponse> create(@RequestPart(value = "key") Header<MagazineApiRequest> request,
+    public Header<MagazineApiResponse> create(@RequestPart(value = "key") MagazineApiRequest request,
                                               @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
-
         return magazineService.create(request, fileList);
     }
 
