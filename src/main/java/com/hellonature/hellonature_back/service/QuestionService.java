@@ -36,7 +36,6 @@ public class QuestionService{
         List<String> pathList = fileService.imagesUploads(multipartFiles, "question");
         Question question = Question.builder()
                 .member(memberrepository.findById(request.getMemIdx()).get())
-                .ansFlag(request.getAnsFlag())
                 .ansDate(request.getAnsDate())
                 .content(request.getContent())
                 .ansContent(request.getAnsContent())
