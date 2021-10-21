@@ -553,9 +553,8 @@ public class ProductService{
     private ProductUserListResponse userListResponse(Product product, List<ProductReview> productReviews){
         Float star = (float) 0;
 
-        for (ProductReview productReview:
-             productReviews) {
-            star += productReview.getLike();
+        for (ProductReview productReview: productReviews) {
+            if(productReview.getLike() != null) star += productReview.getLike();
         }
 
         return ProductUserListResponse.builder()

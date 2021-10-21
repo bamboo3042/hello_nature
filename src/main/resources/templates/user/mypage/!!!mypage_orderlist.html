@@ -62,6 +62,7 @@
         })
 
         $(function () {
+
             const offset = new Date().getTimezoneOffset() * 60000;
             const now = new Date(Date.now() - offset);
             console.log(now)
@@ -73,20 +74,24 @@
             let urlidx = $("#section_hidden").val()
 
             $(".filter_outline > div").click(function (e) {
+                $("#main_contents").empty();
 
                 if ($(this).children("a").text() === "최근 1개월") {
+                    $("#main_contents").empty();
                     let month = new Date();
                     month.setMonth(month.getMonth() - 1);
                     let month_result = month.toISOString().substring(0, 10);
                     date_end = now_result;
                     date_start = month_result;
                 } else if ($(this).children("a").text() === "3개월") {
+                    $("#main_contents").empty();
                     let three_month = new Date();
                     three_month.setMonth(three_month.getMonth() - 3);
                     let three_month_result = three_month.toISOString().substring(0, 10);
                     date_end = now_result;
                     date_start = three_month_result;
                 } else if ($(this).children("a").text() === "6개월") {
+                    $("#main_contents").empty();
                     let six_month = new Date();
                     six_month.setMonth(six_month.getMonth() - 6);
                     let sis_month_result = six_month.toISOString().substring(0, 10);
@@ -96,6 +101,7 @@
                     if (document.getElementById("mg_period").style.display === 'block') {
                         document.getElementById("mg_period").style.display = 'none';
                     } else document.getElementById("mg_period").style.display = 'block';
+                    return false;
                 }
 
                 if ($(".category_name1 > h2").text() === "주문배송") {
@@ -104,7 +110,7 @@
                     $("#main_contents").empty();
                     axios.get(url, {}).then(function (response) {
 
-                        for(let i in response.data.data) {
+                        for (let i in response.data.data) {
                             let proIdx = response.data.data[i].proIdx;
                             let proName = response.data.data[i].proName;
                             let proImg = response.data.data[i].proImg;
@@ -114,6 +120,366 @@
                             let regdate = response.data.data[i].regdate;
                             let greenFlag = response.data.data[i].greenFlag;
                             let dawnFlag = response.data.data[i].dawnFlag;
+                            let address1 = response.data.data[i].address1;
+                            let address2 = response.data.data[i].address2;
+                            let recName = response.data.data[i].recName;
+                            let recHp = response.data.data[i].recHp;
+
+
+                            regdate = regdate.toString().substring(0, 10);
+
+                            if (greenFlag === "TRUE") {
+                                greenFlag = "더 그린 배송지"
+                            } else {
+                                greenFlag = ''
+                            }
+
+                            if (dawnFlag === "TRUE") {
+                                dawnFlag = "새벽 배송"
+                            } else {
+                                dawnFlag = ''
+                            }
+
+                            switch (state) {
+                                case 1:
+                                    state = "입금완료";
+                                    break;
+                                case 2:
+                                    state = "상품준비중";
+                                    break;
+                                case 3:
+                                    state = "배송준비중";
+                                    break;
+                                case 4:
+                                    state = "배송중";
+                                    break;
+                                case 5:
+                                    state = "배송완료";
+                                    break;
+                                case 6:
+                                    state = "취소";
+                                    break;
+                                case 7:
+                                    state = "반품요청";
+                                    break;
+                                case 8:
+                                    state = "반품";
+                                    break;
+                                case 9:
+                                    state = "환불요청 ";
+                                    break;
+                                case 0:
+                                    state = "환불";
+                                    break;
+                            }
+
+
+                            let tb = $('<div>')
+                            let row = $('<div class="contents_box4">').append(
+                                '<div class="contents_box4_inner1"><div class="order_date"><p>'+ '구매일 ' + regdate + '</p></div>' +
+                                '<div class="default_ship"><p>'+ address1 + address2 + '<span>' + greenFlag + '</span><span>' + dawnFlag + '</span></p></div></div>' +
+                                '<div class="order_detail_button" style="cursor:pointer"><a href="#" alt="주문상세페이지 이동"></a></div>')
+                            row.append('</div>')
+
+                            let row2 = $('<div class="orderlist_contain" style="display: none">')
+                            // for(let i=0; i<proIdx.length; i++){a
+                            row2.append(
+                                '<div class="contents_box5"><div class="order_info"><p>받는 분'+ recName + '/'  + recHp +'</p>' +
+                                '<div class="order_info_right">' +
+                                '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
+                                '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
+                            )
+                            // }
+                            row2.append('</div>')
+
+                            tb.append(row)
+                            tb.append(row2)
+                            tb.append('</div>')
+                            $("#main_contents").append(tb)
+                        }
+
+                        $(".order_detail_button").click(function (e) {
+                            if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "none");
+                            } else {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "block");
+                            }
+                        })
+
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+
+                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
+                    $("#main_contents").empty();
+                    axios.get(url, {}).then(function (response) {
+
+                        for (let i in response.data.data) {
+                            let proIdx = response.data.data[i].proIdx;
+                            let proName = response.data.data[i].proName;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
+                            let proCount = response.data.data[i].proCount;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let greenFlag = response.data.data[i].greenFlag;
+                            let dawnFlag = response.data.data[i].dawnFlag;
+                            let address1 = response.data.data[i].address1;
+                            let address2 = response.data.data[i].address2;
+                            let recName = response.data.data[i].recName;
+                            let recHp = response.data.data[i].recHp;
+
+
+                            regdate = regdate.toString().substring(0, 10);
+
+
+                            if (greenFlag === "TRUE") {
+                                greenFlag = "더 그린 배송지"
+                            } else {
+                                greenFlag = ''
+                            }
+
+                            if (dawnFlag === "TRUE") {
+                                dawnFlag = "새벽 배송"
+                            } else {
+                                dawnFlag = ''
+                            }
+
+                            switch (state) {
+                                case 1:
+                                    state = "입금완료";
+                                    break;
+                                case 2:
+                                    state = "상품준비중";
+                                    break;
+                                case 3:
+                                    state = "배송준비중";
+                                    break;
+                                case 4:
+                                    state = "배송중";
+                                    break;
+                                case 5:
+                                    state = "배송완료";
+                                    break;
+                                case 6:
+                                    state = "취소";
+                                    break;
+                                case 7:
+                                    state = "반품요청";
+                                    break;
+                                case 8:
+                                    state = "반품";
+                                    break;
+                                case 9:
+                                    state = "환불요청 ";
+                                    break;
+                                case 0:
+                                    state = "환불";
+                                    break;
+                            }
+
+
+                            let tb = $('<div>')
+                            let row = $('<div class="contents_box4">').append(
+                                '<div class="contents_box4_inner1"><div class="order_date"><p>'+ '구매일 ' + regdate + '</p></div>' +
+                                '<div class="default_ship"><p>'+ address1 + address2 + '<span>' + greenFlag + '</span><span>' + dawnFlag + '</span></p></div></div>' +
+                                '<div class="order_detail_button" style="cursor:pointer"><a href="#" alt="주문상세페이지 이동"></a></div>')
+                            row.append('</div>')
+
+                            let row2 = $('<div class="orderlist_contain" style="display: none">')
+                            // for(let i=0; i<proIdx.length; i++){a
+                            row2.append(
+                                '<div class="contents_box5"><div class="order_info"><p>받는 분 '+  recName+  '/'  + recHp +'</p>' +
+                                '<div class="order_info_right">' +
+                                '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
+                                '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
+                            )
+                            // }
+                            row2.append('</div>')
+
+                            tb.append(row)
+                            tb.append(row2)
+                            tb.append('</div>')
+                            $("#main_contents").append(tb)
+                        }
+
+                        $(".order_detail_button").click(function (e) {
+                            if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "none");
+                            } else {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "block");
+                            }
+                        })
+
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+
+                } else if ($(".category_name1 > h2").text() === "자주 구매") {
+                    let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
+                    console.log(url)
+
+                    $("#main_contents").empty();
+                    axios.get(url, {}).then(function (response) {
+                        for (let i in response.data.data) {
+                            let proName = response.data.data[i].proName;
+                            let count = response.data.data[i].count;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
+
+                            let row = $('<div class="contents_box6">').append(
+                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                '<div class="product_info"><p>' + proName + ' ' + proWeightSize + 'g' + '</p></div>' +
+                                '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
+                            )
+                            $("#main_contents").append(row)
+                        }
+                    })
+                }
+            })
+
+
+            $("#mg_ol_sc").click(function () {
+                $("#main_contents").empty();
+                date_start = $("#date_start").val();
+                date_end = $("#date_end").val();
+
+                if ($(".category_name1 > h2").text() === "주문배송") {
+                    alert("주문배송인돼욥")
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
+                    console.log(url)
+                    axios.get(url, {}).then(function (response) {
+
+                        for (let i in response.data.data) {
+                            let proIdx = response.data.data[i].proIdx;
+                            let proName = response.data.data[i].proName;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
+                            let proCount = response.data.data[i].proCount;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let greenFlag = response.data.data[i].greenFlag;
+                            let dawnFlag = response.data.data[i].dawnFlag;
+                            let address1 = response.data.data[i].address1;
+                            let address2 = response.data.data[i].address2;
+                            let recName = response.data.data[i].recName;
+                            let recHp = response.data.data[i].recHp;
+
+
+                            regdate = regdate.toString().substring(0, 10);
+
+
+                            if (greenFlag === "TRUE") {
+                                greenFlag = "더 그린 배송지"
+                            } else {
+                                greenFlag = ''
+                            }
+
+                            if (dawnFlag === "TRUE") {
+                                dawnFlag = "새벽 배송"
+                            } else {
+                                dawnFlag = ''
+                            }
+
+                            switch (state) {
+                                case 1:
+                                    state = "입금완료";
+                                    break;
+                                case 2:
+                                    state = "상품준비중";
+                                    break;
+                                case 3:
+                                    state = "배송준비중";
+                                    break;
+                                case 4:
+                                    state = "배송중";
+                                    break;
+                                case 5:
+                                    state = "배송완료";
+                                    break;
+                                case 6:
+                                    state = "취소";
+                                    break;
+                                case 7:
+                                    state = "반품요청";
+                                    break;
+                                case 8:
+                                    state = "반품";
+                                    break;
+                                case 9:
+                                    state = "환불요청 ";
+                                    break;
+                                case 0:
+                                    state = "환불";
+                                    break;
+                            }
+
+
+                            let tb = $('<div>')
+                            let row = $('<div class="contents_box4">').append(
+                                '<div class="contents_box4_inner1"><div class="order_date"><p>'+ '구매일 ' + regdate + '</p></div>' +
+                                '<div class="default_ship"><p>'+ address1 + address2 + '<span>' + greenFlag + '</span><span>' + dawnFlag + '</span></p></div></div>' +
+                                '<div class="order_detail_button" style="cursor:pointer"><a href="#" alt="주문상세페이지 이동"></a></div>')
+                            row.append('</div>')
+
+                            let row2 = $('<div class="orderlist_contain" style="display: none">')
+                            // for(let i=0; i<proIdx.length; i++){a
+                            row2.append(
+                                '<div class="contents_box5"><div class="order_info"><p>'+ ' ' + recName+ + ' ' + '/' +  ' ' + recHp +'</p>' +
+                                '<div class="order_info_right">' +
+                                '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
+                                '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
+                            )
+                            // }
+                            row2.append('</div>')
+
+                            tb.append(row)
+                            tb.append(row2)
+                            tb.append('</div>')
+                            $("#main_contents").append(tb)
+                        }
+
+                        $(".order_detail_button").click(function (e) {
+                            if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "none");
+                            } else {
+                                $(this).parents().parents().children(".orderlist_contain").css("display", "block");
+                            }
+                        })
+
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+
+                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
+                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
+                    console.log(url)
+                    axios.get(url, {}).then(function (response) {
+
+                        for (let i in response.data.data) {
+                            let proIdx = response.data.data[i].proIdx;
+                            let proName = response.data.data[i].proName;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
+                            let proCount = response.data.data[i].proCount;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let greenFlag = response.data.data[i].greenFlag;
+                            let dawnFlag = response.data.data[i].dawnFlag;
+                            let address1 = response.data.data[i].address1;
+                            let address2 = response.data.data[i].address2;
+                            let recName = response.data.data[i].recName;
+                            let recHp = response.data.data[i].recHp;
+
+
+                            regdate = regdate.toString().substring(0, 10);
 
                             // proIdx = proIdx.split(",")
                             // proName = proName.split(",")
@@ -127,22 +493,69 @@
                             // console.log(proWeightSize)
                             // console.log(proCount)
 
+                            if (greenFlag === "TRUE") {
+                                greenFlag = "더 그린 배송지"
+                            } else {
+                                greenFlag = ''
+                            }
+
+                            if (dawnFlag === "TRUE") {
+                                dawnFlag = "새벽 배송"
+                            } else {
+                                dawnFlag = ''
+                            }
+
+                            switch (state) {
+                                case 1:
+                                    state = "입금완료";
+                                    break;
+                                case 2:
+                                    state = "상품준비중";
+                                    break;
+                                case 3:
+                                    state = "배송준비중";
+                                    break;
+                                case 4:
+                                    state = "배송중";
+                                    break;
+                                case 5:
+                                    state = "배송완료";
+                                    break;
+                                case 6:
+                                    state = "취소";
+                                    break;
+                                case 7:
+                                    state = "반품요청";
+                                    break;
+                                case 8:
+                                    state = "반품";
+                                    break;
+                                case 9:
+                                    state = "환불요청 ";
+                                    break;
+                                case 0:
+                                    state = "환불";
+                                    break;
+                            }
+
+
                             let tb = $('<div>')
                             let row = $('<div class="contents_box4">').append(
-                                '<div class="contents_box4_inner1"><div class="order_date"><p>구매일</p></div>' +
-                                '<div class="default_ship"><p>배송지</p></div></div>' +
+                                '<div class="contents_box4_inner1"><div class="order_date"><p>'+ '구매일 ' + regdate + '</p></div>' +
+                                '<div class="default_ship"><p>'+ address1 + address2 + '<span>' + greenFlag + '</span><span>' + dawnFlag + '</span></p></div></div>' +
                                 '<div class="order_detail_button" style="cursor:pointer"><a href="#" alt="주문상세페이지 이동"></a></div>')
                             row.append('</div>')
 
                             let row2 = $('<div class="orderlist_contain" style="display: none">')
                             // for(let i=0; i<proIdx.length; i++){a
-                                row2.append(
-                                    '<div class="contents_box5"><div class="order_info"><div class="order_info_right">' +
-                                    '<p><a href="#" class="order_info_font3">배송상태</a></p></div></div></div>' +
-                                    '<div class="contents_box6"><div class="product_image"></div><div class="product_info">' +
-                                    '<p>상품명</p><div class="contents_box6_inner"><p>상품규격</p><div class="product_info_line"></div><p>상품갯수</p></div>' +
-                                    '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
-                                )
+                            row2.append(
+                                '<div class="contents_box5"><div class="order_info"><p>'+ ' ' + recName+ + ' ' + '/' +  ' ' + recHp +'</p>' +
+                                '<div class="order_info_right">' +
+                                '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
+                                '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
+                            )
                             // }
                             row2.append('</div>')
 
@@ -152,96 +565,124 @@
                             $("#main_contents").append(tb)
                         }
 
-                        $(".order_detail_button").click(function (e){
-                            if($(this).parents().parents().children(".orderlist_contain").css("display") === "block"){
+                        $(".order_detail_button").click(function (e) {
+                            if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
                                 $(this).parents().parents().children(".orderlist_contain").css("display", "none");
-                            }else{
+                            } else {
                                 $(this).parents().parents().children(".orderlist_contain").css("display", "block");
                             }
                         })
 
-                    }).catch(function (err){
+                    }).catch(function (err) {
                         console.log(err)
                     })
 
-                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
-                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
-                    $("#main_contents").empty();
-
-                    axios.get(url, {}).then(function (response) {
-
-                    })
-
                 } else if ($(".category_name1 > h2").text() === "자주 구매") {
                     let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
                     console.log(url)
                     axios.get(url, {}).then(function (response) {
-                        for (let i in response.data.data){
-
+                        for (let i in response.data.data) {
+                            let proName = response.data.data[i].proName;
+                            let count = response.data.data[i].count;
+                            let proImg = response.data.data[i].proImg;
+                            let proWeightSize = response.data.data[i].proWeightSize;
 
                             let row = $('<div class="contents_box6">').append(
-                                '<div class="product_image"></div>' +
-                                '<div class="product_info"><p>상품명 + 규격</p></div>' +
-                                '<div class="favorite_box"><p class="favorite_count">구매횟수</p></div></div>'
+                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                '<div class="product_info"><p>' + proName + ' ' + proWeightSize + '개' + '</p></div>' +
+                                '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
                             )
+                            $("#main_contents").append(row)
                         }
-                    })
-                }
-            })
-
-            $("#mg_ol_sc").click(function () {
-                $("#main_contents").empty();
-                date_start = $("#date_start").val();
-                date_end = $("#date_end").val();
-
-                if ($(".category_name1 > h2").text() === "주문배송") {
-                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
-                    console.log(url)
-                    axios.get(url, {}).then(function (response) {
-                        console.log(response)
-                    })
-
-                } else if ($(".category_name1 > h2").text() === "취소ㆍ교환ㆍ반품") {
-                    let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=2&memIdx=" + urlidx;
-                    console.log(url)
-                    axios.get(url, {}).then(function (response) {
-                        console.log(response)
-                    })
-
-                } else if ($(".category_name1 > h2").text() === "자주 구매") {
-                    let url = "/api/frequentlyOrder/list?memIdx=" + urlidx + "&dateStart=" + date_start + "&dateEnd=" + date_end;
-                    console.log(url)
-                    axios.get(url, {}).then(function (response) {
-                        console.log(response)
                     })
                 }
             })
         })
 
+
         $(function () {
             let type;
             let urlidx = $("#section_hidden").val()
 
-            $(".filter_outline3 > div").click(function () {
+            $(".filter_outline3 > div").click(function (e) {
+                $("#main_contents").empty();
                 if ($(this).children("a").text() === "상품") {
                     type = 1;
+                    let url = "/api/memberslikes/list?type=" + type + "&memIdx=" + urlidx;
+                    console.log(url)
+                    axios.get(url, {}).then(function (response) {
+                        for (let i in response.data.data) {
+                            let $proName = response.data.data[i].proName;
+                            let $proImg = response.data.data[i].proImg;
+                            let $proWeightSize = response.data.data[i].proWeightSize;
+                            let $proLikeCount = response.data.data[i].proLikeCount;
+                            let $proIdx = response.data.data[i].proIdx
+
+                            let row = $('<div class="contents_box6">').append(
+                                `<div class="product_image" style="background: url('${$proImg}')"></div>` +
+                                '<div class="product_info"><p>' + $proName + " " + $proWeightSize + "(g)" + '</p>' +
+                                '</div><div class="like_box"><div class="like_image" style="cursor: pointer" onclick="likedel()">' +
+                                '<input type="hidden" value="' + $proIdx + '"></div><p class="like_count">' + $proLikeCount + '</p>' +
+                                '</div></div></div>'
+                            )
+                            $("#main_contents").append(row);
+                        }
+
+                        $(".like_image").click(function (e) {
+                            let idx = $(this).children("input").val()
+                            let urlidx = $("#section_hidden").val()
+
+                            axios.delete("/api/memberslikes/delete?memIdx=" + urlidx + "&proIdx=" + idx, {}).then(function () {
+                                alert("좋아요를 취소합니다")
+                                location.reload()
+                            }).catch(function (err) {
+                                console.log(err)
+                            })
+
+                        })
+
+
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
                 } else {
                     type = 2;
-                }
-                let url = "/api/memberslikes/list?type=" + type + "&memIdx=" + urlidx;
-                console.log(url)
-                axios.get(url, {}).then(function (response) {
-                    for(let i in response.data.data){
+                    let url = "/api/memberslikes/list?type=" + type + "&memIdx=" + urlidx;
+                    console.log(url)
+                    axios.get(url, {}).then(function (response) {
+                        for (let i in response.data.data) {
+                            let $mgTitle = response.data.data[i].mgTitle;
+                            let $mgImg = response.data.data[i].mgImg;
+                            let $mgLikeCount = response.data.data[i].mgLikeCount;
+                            let $mgIdx = response.data.data[i].mgIdx
 
-                        let row = $('<div class="contents_box6">').append(
-                            '<div class="product_image"></div>' +
-                            '<div class="product_info"><p>상품명 규격</p>' +
-                            '<div class="contents_box6_inner"><p>규격</p><div class="product_info_line"></div>' +
-                            '<p>갯수</p></div></div><div class="like_box"><div class="like_image"></div><p class="like_count">좋아요 수</p>' +
-                            '</div></div></div>'
-                        )
-                    }
-                })
+
+                            let row = $('<div class="contents_box6">').append(
+                                `<div class="product_image" style="background: url('${$mgImg}')"></div>` +
+                                '<div class="product_info"><p>' + $mgTitle + '</p>' +
+                                '</div><div class="like_box"><div class="like_image" style="cursor: pointer" onclick="likedel()">' +
+                                '<input type="hidden" value="' + $mgIdx + '"></div><p class="like_count">' + $mgLikeCount + '</p>' +
+                                '</div></div></div>'
+                            )
+                            $("#main_contents").append(row);
+                        }
+
+                        $(".like_image").click(function (e) {
+                            let idx = $(this).children("input").val()
+                            let urlidx = $("#section_hidden").val()
+
+                            axios.delete("/api/memberslikes/delete?memIdx=" + urlidx + "&proIdx=" + idx, {}).then(function () {
+                                alert("좋아요를 취소합니다")
+                                location.reload()
+                            }).catch(function (err) {
+                                console.log(err)
+                            })
+
+                        })
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                }
             })
         })
     </script>
