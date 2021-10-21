@@ -86,6 +86,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
 
     private ProductQuestionApiResponse response(ProductQuestion productQuestion){
         return ProductQuestionApiResponse.builder()
+                .idx(productQuestion.getIdx())
                 .memIdx(productQuestion.getMember().getIdx())
                 .proIdx(productQuestion.getProduct().getIdx())
                 .content(productQuestion.getContent())
