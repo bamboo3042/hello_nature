@@ -27,7 +27,7 @@ public class OrderListService {
     public Header<List<OrderListResponse>> memberOrderList(String dateStart, String dateEnd, Integer state, Long orderIdx, Integer startPage){
         String jpql = "select o from MemberOrder o";
         boolean check = false;
-        if(dateStart != null || dateEnd != dateEnd || state != null || orderIdx != null){
+        if(dateStart != null || dateEnd != null || state != null || orderIdx != null){
             jpql += " where";
             if (dateStart != null){
                 jpql += " TO_char(regdate, 'YYYY-MM-DD') >= :dateStart";

@@ -206,7 +206,7 @@ public class MagazineService {
                 .title(magazine.getTitle())
                 .des(magazine.getDes())
                 .content(magazine.getContent())
-                .like(likeRepository.countByMagazine(magazine))
+                .like(Long.valueOf(magazine.getLike()))
                 .likeFlag(likeRepository.findByMagazine(magazine).isPresent() ? Flag.TRUE : Flag.FALSE)
                 .type(magazine.getType())
                 .cookTime(magazine.getCookTime())
