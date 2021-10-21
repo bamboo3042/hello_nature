@@ -16,6 +16,7 @@ public class ProductQuestionApiResponse {
 
     private Long idx;
     private Long memIdx;
+    private String memName;
     private Long proIdx;
 
     private String content;
@@ -23,6 +24,8 @@ public class ProductQuestionApiResponse {
     private Flag ansFlag;
     private String ansContent;
     private String ansDate;
+
+    private String img;
 
     private LocalDateTime regdate;
 }

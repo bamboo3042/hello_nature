@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,26 +30,29 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductQuestionService extends BaseService<ProductQuestionApiRequest, ProductQuestionApiResponse, ProductQuestion> {
+public class ProductQuestionService  {
     private final EntityManager em;
     private final ProductQuestionRepository productQuestionRepository;
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
+    private final FileService fileService;
 
-    @Override
-    public Header<ProductQuestionApiResponse> create(Header<ProductQuestionApiRequest> request) {
+
+    public Header<ProductQuestionApiResponse> create(Header<ProductQuestionApiRequest> request, List<MultipartFile> multipartFiles ) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
 
         ProductQuestion productQuestion = ProductQuestion.builder()
                 .member(memberRepository.findById(productQuestionApiRequest.getMemIdx()).get())
                 .product(productRepository.findById(productQuestionApiRequest.getProIdx()).get())
                 .content(productQuestionApiRequest.getContent())
+                .img(pathList.get(0))
                 .build();
-        ProductQuestion newProductQuestion = productQuestionRepository.save(productQuestion);
+        productQuestionRepository.save(productQuestion);
         return Header.OK();
     }
 
-    @Override
+
     public Header<ProductQuestionApiResponse> read(Long id) {
         return productQuestionRepository.findById(id)
                 .map(this::response)
@@ -56,8 +60,9 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .orElseGet(()-> Header.ERROR("No data"));
     }
 
-    @Override
-    public Header<ProductQuestionApiResponse> update(Header<ProductQuestionApiRequest> request) {
+
+    public Header<ProductQuestionApiResponse> update(Header<ProductQuestionApiRequest> request, List<MultipartFile> multipartFiles) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
         Optional<ProductQuestion> optional = productQuestionRepository.findById(productQuestionApiRequest.getIdx());
         return optional.map(productQuestion -> {
@@ -66,6 +71,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                     productQuestion.setContent(productQuestionApiRequest.getContent());
                     productQuestion.setAnsFlag(productQuestionApiRequest.getAnsFlag());
                     productQuestion.setAnsContent(productQuestionApiRequest.getAnsContent());
+                    productQuestion.setImg(pathList.get(0));
                     productQuestion.setAnsDate(productQuestionApiRequest.getAnsDate());
 
                     return productQuestion;
@@ -75,7 +81,7 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
                 .orElseGet(()-> Header.ERROR("No data"));
     }
 
-    @Override
+
     public Header delete(Long id) {
         Optional<ProductQuestion> optional = productQuestionRepository.findById(id);
         return optional.map(productQuestion -> {
@@ -88,11 +94,14 @@ public class ProductQuestionService extends BaseService<ProductQuestionApiReques
         return ProductQuestionApiResponse.builder()
                 .idx(productQuestion.getIdx())
                 .memIdx(productQuestion.getMember().getIdx())
+                .memName(productQuestion.getMember().getName())
                 .proIdx(productQuestion.getProduct().getIdx())
                 .content(productQuestion.getContent())
                 .ansFlag(productQuestion.getAnsFlag())
                 .ansContent(productQuestion.getAnsContent())
                 .ansDate(productQuestion.getAnsDate())
+                .regdate(productQuestion.getRegdate())
+                .img(productQuestion.getImg())
                 .build();
     }
 

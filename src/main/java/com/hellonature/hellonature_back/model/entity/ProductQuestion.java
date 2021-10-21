@@ -37,6 +37,8 @@ public class ProductQuestion extends DateEntity{
     @Column(name = "proq_content")
     private String content;
 
+    private String img;
+
     @Enumerated(EnumType.ORDINAL)
     @Builder.Default
     private Flag ansFlag = Flag.FALSE;
