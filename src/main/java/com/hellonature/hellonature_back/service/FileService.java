@@ -30,7 +30,9 @@ public class FileService {
 
     public List<String> imagesUploads(List<MultipartFile> multipartFiles, String targetDir){
 
+
         List<String> pathList = new ArrayList<>();
+        if (multipartFiles == null || multipartFiles.isEmpty()) return pathList;
 
         try {
             for (int i = 0; i < multipartFiles.size(); i++){

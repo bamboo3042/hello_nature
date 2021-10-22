@@ -74,7 +74,7 @@ public class ProductReviewService  {
             productReview.setAnsFlag(productReviewApiRequest.getAnsFlag());
             productReview.setAnsContent(productReviewApiRequest.getAnsContent());
             productReview.setAnsDate(productReviewApiRequest.getAnsDate());
-            productReview.setFiles(pathList.isEmpty() ? null : pathList.get(0));
+            if (multipartFiles != null && !multipartFiles.isEmpty()) productReview.setFiles(pathList.get(0));
 
             return productReview;
         }).map(productReviewRepository::save)
