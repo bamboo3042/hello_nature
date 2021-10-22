@@ -37,7 +37,7 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public Header<ProductReviewApiResponse> update(@RequestPart(value = "key") ProductReviewApiRequest request,
-                                                   @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+                                                   @RequestPart(value = "files", required = false) List<MultipartFile> fileList) throws Exception {
         return productReviewService.update(request, fileList);
     }
 
