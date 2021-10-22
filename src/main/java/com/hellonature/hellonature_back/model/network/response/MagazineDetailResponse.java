@@ -1,11 +1,9 @@
 package com.hellonature.hellonature_back.model.network.response;
 
+import com.hellonature.hellonature_back.model.dto.ShowProduct;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.enumclass.MagazineType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,27 +30,17 @@ public class MagazineDetailResponse {
     private Integer cookLevel;
     private String cookIngredient;
     @Builder.Default
-    private List<showProduct> ingreList = new ArrayList<>();
+    private List<ShowProduct> ingreList = new ArrayList<>();
     @Builder.Default
-    private List<showProduct> relList = new ArrayList<>();
+    private List<ShowProduct> relList = new ArrayList<>();
 
     private LocalDateTime regdate;
 
-    @AllArgsConstructor
-    public class showProduct{
-        private Long idx;
-        private String name;
-        private String img;
-        private Integer netPrice;
-        private Integer salePrice;
-        private Flag bestFlag;
-    }
-
     public void addIngreList(Long idx, String name, String img, Integer netprice, Integer salePrice, Flag bestFlag){
-        ingreList.add(new showProduct(idx, name, img, netprice, salePrice, bestFlag));
+        ingreList.add(new ShowProduct(idx, name, img, netprice, salePrice, bestFlag));
     }
 
     public void addRelList(Long idx, String name, String img, Integer netprice, Integer salePrice, Flag bestFlag){
-        relList.add(new showProduct(idx, name, img, netprice, salePrice, bestFlag));
+        relList.add(new ShowProduct(idx, name, img, netprice, salePrice, bestFlag));
     }
 }

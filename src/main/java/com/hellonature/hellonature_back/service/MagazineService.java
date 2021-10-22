@@ -253,6 +253,7 @@ public class MagazineService {
     }
 
     private boolean findLike(Magazine magazine, Long memIdx){
+        if (memIdx == null) return false;
         Optional<Member> optionalMember = memberRepository.findById(memIdx);
         if (optionalMember.isEmpty()) return false;
         Optional<Like> optionalLike = likeRepository.findByMemberAndMagazine(optionalMember.get(), magazine);
