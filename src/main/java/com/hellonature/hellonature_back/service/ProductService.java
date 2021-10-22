@@ -83,11 +83,10 @@ public class ProductService{
                 );
     }
 
-    public Header<ProductApiResponse> update(Header<ProductApiRequest> request, List<MultipartFile> multipartFiles) {
+    public Header<ProductApiResponse> update(ProductApiRequest productApiRequest, List<MultipartFile> multipartFiles) {
 
         List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
 
-        ProductApiRequest productApiRequest = request.getData();
         Optional<Product> optional = productRepository.findById(productApiRequest.getIdx());
         return optional.map(product -> {
             product.setName(productApiRequest.getName());

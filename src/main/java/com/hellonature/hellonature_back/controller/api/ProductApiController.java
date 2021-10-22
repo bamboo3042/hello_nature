@@ -36,7 +36,7 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
     }
 
     @RequestMapping(value = "/update" , method = RequestMethod.PUT, consumes = { "multipart/form-data" })
-    public Header<ProductApiResponse> update(@RequestBody Header<ProductApiRequest> request,
+    public Header<ProductApiResponse> update(@RequestPart(value = "key") ProductApiRequest request,
                                              @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
         return productService.update(request, fileList);
     }
