@@ -60,23 +60,24 @@ public class ProductReviewService  {
     }
 
 
-    public Header<ProductReviewApiResponse> update(Header<ProductReviewApiRequest> request, List<MultipartFile> multipartFiles) {
+    public Header<ProductReviewApiResponse> update(ProductReviewApiRequest productReviewApiRequest, List<MultipartFile> multipartFiles) {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
 
-        ProductReviewApiRequest productReviewApiRequest = request.getData();
         Optional<ProductReview> optional = productReviewRepository.findById(productReviewApiRequest.getIdx());
         return optional.map(productReview -> {
-                    productReview.setMember(memberRepository.findById(productReviewApiRequest.getIdx()).get());
-                    productReview.setProduct(productRepository.findById(productReviewApiRequest.getIdx()).get());
-                    productReview.setLike(productReviewApiRequest.getLike());
-                    productReview.setContent(productReviewApiRequest.getContent());
-                    productReview.setAnsFlag(productReviewApiRequest.getAnsFlag());
-                    productReview.setAnsContent(productReviewApiRequest.getAnsContent());
-                    productReview.setAnsDate(productReviewApiRequest.getAnsDate());
-                    productReview.setFiles(pathList.get(0));
 
-                    return productReview;
-                }).map(productReviewRepository::save)
+            productReview.setIdx(productReviewApiRequest.getIdx());
+            productReview.setMember(memberRepository.findById(productReviewApiRequest.getMemIdx()).get());
+            productReview.setProduct(productRepository.findById(productReviewApiRequest.getProIdx()).get());
+            productReview.setLike(productReviewApiRequest.getLike());
+            productReview.setContent(productReviewApiRequest.getContent());
+            productReview.setAnsFlag(productReviewApiRequest.getAnsFlag());
+            productReview.setAnsContent(productReviewApiRequest.getAnsContent());
+            productReview.setAnsDate(productReviewApiRequest.getAnsDate());
+            productReview.setFiles(pathList.isEmpty() ? null : pathList.get(0));
+
+            return productReview;
+        }).map(productReviewRepository::save)
                 .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("수정 실패"));
