@@ -44,7 +44,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function () {
-
             const offset = new Date().getTimezoneOffset() * 60000;
             const now = new Date(Date.now() - offset);
             const now_result = now.toISOString().substring(0, 10);
@@ -52,6 +51,12 @@
             let date_start = '';
             let date_end = '';
             let memIdx = $("#hidden_user").val()
+
+            axios.get("/api/member/myPage/" + memIdx, {}).then(function (response){
+                let hellocash = response.data.data.hellocash;
+
+                $(".hellocash_won > p").text(hellocash)
+            })
 
             $(".filter_outline > div").click(function (e) {
 
@@ -156,7 +161,7 @@
                         <p>헬로캐시</p>
                     </div>
                     <div class="hellocash_won">
-                        <p>60<span>원</span></p>
+                        <p>60</p><span>원</span>
                     </div>
                 </div>
                 <div class="contents_box3">
