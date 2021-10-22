@@ -634,12 +634,13 @@
                 <div class="RC_c3_editlist">
                     <p>만드는 법</p>
                     <div class='RC_c3_htmllist'>
-                        <div class='create_html'><span>HTML</span></div>
+                        <div class='create_html'><span>HTML</   span></div>
                         <textarea class='textarea' name='textarea'></textarea>
                     </div>
                     <script type="text/javascript">
                         CKEDITOR.replace('textarea'
-                                    , {height: 300                                                 
+                                    , {height: 300,
+                                        filebrowserUploadUrl: "/image/upload/recipe"
                                 });
                     </script>
                     <div class='RC_prodlist'>
