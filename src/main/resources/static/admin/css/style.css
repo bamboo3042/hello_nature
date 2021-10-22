@@ -21,13 +21,17 @@
 .MCT_c3_prodTitle{width: 100%;}
 .MCT_c3_proBox {width: 100%; height: 400px; border-top: 3px solid #ebebeb; border-bottom: 3px solid #ebebeb;
     display: flex; align-items: center; font-size: 15px; color: #555252bd;}
+.MCT_c3_proBox2 {width: 100%; height: 400px; border-top: 3px solid #ebebeb; border-bottom: 3px solid #ebebeb;
+    display: flex; align-items: center; font-size: 15px; color: #555252bd;}
 .MCT_c3_addTitle { font-size: 18px; font-weight: bold; margin-top: 30px;}
 .MCT_c3_scbox { width: 100%; margin-top: 20px; font-size: 15px; border: 2px solid rgb(192, 191, 191);}
 .MCT_c3_scbox tr td { padding-left: 20px; }
 .MCT_c3_scbox tr td label {padding-right: 50px;}
 .MCT_c3_list { width: 100%; border-top: none; text-align: center;}
 #MCT_c3_scName { width: 450px; height: 38px;}
+#MCT_c3_Name { width: 450px; height: 38px;}
 #MCT_c3_scbtn { margin-left: 5px; height: 38px; width: 70px;}
+#MCT_c3_btn { margin-left: 5px; height: 38px; width: 70px;}
 .MCT_c3scbox select { width: 200px; height: 38px; padding-left: 10px; }
 .MCT_c3_scbox input[type="checkbox"] { margin-right: 10px;}
 .MCT_c3_p_list { font-size: 15px; margin-top: 10px; border: 2px solid rgb(192, 191, 191);}
@@ -39,13 +43,18 @@
 .RC_prodTitle{width: 100%;}
 .RC_proBox {width: 100%; height: 400px; border-top: 3px solid #ebebeb; border-bottom: 3px solid #ebebeb;
     display: flex; align-items: center; font-size: 15px; color: #555252bd;}
+.RC_proBox2 {width: 100%; height: 400px; border-top: 3px solid #ebebeb; border-bottom: 3px solid #ebebeb;
+    display: flex; align-items: center; font-size: 15px; color: #555252bd;}
 .RC_addTitle { font-size: 18px; font-weight: bold; margin-top: 30px;}
 .RC_scbox { width: 100%; margin-top: 20px; font-size: 15px; border: 2px solid rgb(192, 191, 191);}
 .RC_scbox tr td { padding-left: 20px; }
 .RC_scbox tr td label {padding-right: 50px;}
 .RC_list { width: 100%; border-top: none; text-align: center;}
+.RC_list2 { width: 100%; border-top: none; text-align: center;}
 #RC_scName { width: 450px; height: 38px;}
 #RC_scbtn { margin-left: 5px; height: 38px; width: 70px;}
+#RC_Name { width: 450px; height: 38px;}
+#RC_btn { margin-left: 5px; height: 38px; width: 70px;}
 .RC_scbox select { width: 200px; height: 38px; padding-left: 10px; }
 .RC_scbox input[type="checkbox"] { margin-right: 10px;}
 .RC_p_list { font-size: 15px; margin-top: 10px; border: 2px solid rgb(192, 191, 191); box-shadow: 8px 8px 8px rgb(163, 163, 163); }
@@ -405,6 +414,8 @@ form[name="FAQ_list"] input[type="button"] { margin-right: 5px; margin-bottom: 5
 .MCT_c3_scbox select { height: 38px; width: 200px; padding-left: 10px;}
 #MCT_btnBox { text-align: right;}
 #MCT_btnBox input { width: 130px; border: 1px solid #266266; font-size: 14px; }
+#MCT_btnBox2 { text-align: right;}
+#MCT_btnBox2 input { width: 130px; border: 1px solid #266266; font-size: 14px; }
 .MCT_c3 .html_add .options { font-size: 14px; color: #999; margin-right: 10px; }
 
 /*QuestionList*/

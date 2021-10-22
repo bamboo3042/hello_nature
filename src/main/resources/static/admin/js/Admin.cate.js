@@ -91,6 +91,13 @@ $(function(){
 $(function(){
     $("#MC_click_box").children('a').off().on('click',function(e){
         let MCclickvalue = $(this).children('input').val();
+
+        if(MCclickvalue == 'GUIDE'){
+            document.getElementById('MCT_prodList').style.display = 'block';
+        }else{
+            document.getElementById('MCT_prodList').style.display = 'none';
+        }
+
         console.log(MCclickvalue);
         $("#MCT_catevalue").val(MCclickvalue);
     })
