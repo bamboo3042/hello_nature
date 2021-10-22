@@ -18,6 +18,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         let prodlist = new Array();
+        let ingreList = new Array();
 
         //1차 카테고리 다중셀렉트
         $(function () {
@@ -52,9 +53,46 @@
             })
         }
 
+        //1차 카테고리 다중셀렉트
+        $(function () {
+            axios.get("/api/category/list/first?lifeFlag=FALSE", {}).then(function (response) {
+                for (let i in response.data.data) {
+                    let $id = response.data.data[i].idx;
+                    let $name = response.data.data[i].name;
+                    let row = $('<option value=' + $id + '>').append(
+                        $name + '</option>'
+                    )
+                    console.log(row)
+                    $('#MC_sel_1').append(row)
+                }
+            })
+        })
+
+        //2차 카테고리 다중셀렉트
+        function categoryChange2(e) {
+            $('#MC_sel_2').empty();
+            axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
+                for (let i in response.data.data) {
+                    console.log(response)
+                    let $id = response.data.data[i].idx;
+                    let $name = response.data.data[i].name;
+
+                    let row = $('<option value=' + $id + '>').append(
+                        $name + '</option>'
+                    )
+                    console.log(row)
+                    $('#MC_sel_2').append(row)
+                }
+            })
+        }
+
+
+
         function sendit() {
             prodlist = prodlist.join("-");
+            ingreList = ingreList.join("-");
             console.log(prodlist)
+            console.log(ingreList)
 
             alert("소민이바보")
             let data = {
@@ -62,8 +100,11 @@
                 title: $('#title').val(),
                 des: $('#des').val(),
                 content: CKEDITOR.instances.textarea.getData(),
-                relList: prodlist
+                relList: prodlist,
+                ingreList: ingreList
             }
+
+            console.log(data.type);
 
             let files = ($('input[name="file"]'));
             let fileList = [];
@@ -283,12 +324,201 @@
             $("input[name='mc_list']:checked").prop("checked", false);
         }
 
+        function search2(){
+
+            let cateIdx = $('#MC_sel_2').val();
+            let page = $('.page2').val();
+            let state = $('input:checkbox[name="status2"]:checked').val();
+            let order = $('input:checkbox[name="filter2"]:checked').val();
+            let name = $('#MCT_c3_Name').val();
+            let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
+
+            if(cateIdx == ""){
+                cateIdx = $('#MC_sel_1').val();
+            }
+
+            if(cateIdx == ""){
+                url = '/api/product/list?page=' + page;
+            }else if(cateIdx != ""){
+                url = url;
+            }
+
+            if(state == ""){
+                url = url;
+            } else if(state != ""){
+                url = url + '&state=' + state;
+            }
+
+            if(order == ""){
+                url = url;
+            }else if(order != ""){
+                url = url + '&order=' + order;
+            }
+
+            if(name == ""){
+                url = url;
+            }else if(name != ""){
+                url = url + '&name=' + name;
+            }
+            console.log(url)
+            axios.get(url, {
+
+            }).then(function(response){
+                $('#tbody').empty();
+                let tb = $('<tbody id="tbody">');
+                for(let i in response.data.data){
+                    let id = response.data.data[i].idx;
+                    let img = response.data.data[i].img1;
+                    let name = response.data.data[i].name;
+                    let state = response.data.data[i].state;
+                    img = img.replace("\\", "/");
+                    console.log(img)
+                    console.log(state)
+                    if(state == 0){
+                        state = '판매대기'
+                    }else if(state == 1){
+                        state = '판매중'
+                    }else if(state == 2){
+                        state = '판매중지'
+                    }else if(state == 3){
+                        state = '판매종료'
+                    }else if(state == 4){
+                        state = '품절'
+                    }else if(state == ""){
+                        state = '전체'
+                    }
+
+                    let row = $('<tr>').append(
+                        '<td height="80px"><input type="checkbox" name="mc_list2" id="check_'+ (i + 9) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_'+ (i + 9) +'"></label></td>' +
+                        '<td><img src="' + img + '"></td>' +
+                        '<td>'+ name +'</td>' +
+                        '<td>'+ state +'</td></tr>'
+                    )
+                    tb.append(row)
+                }
+                $('#thead').after(tb)
+
+                for(let i = response.data.pagination.totalPages; i > 0; i--){
+                    let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
+                        i + '</li>'
+                    )
+                    $('#prev2').after(pages);
+
+                    $('.page_num').click(function(e) {
+
+                        $('#tbody').empty();
+
+                        $('.page2').val($(this).val())
+                        let page = $('.page2').val();
+                        let state = $('input:checkbox[name="status2"]:checked').val();
+                        let order = $('input:checkbox[name="filter2"]:checked').val();
+                        let name = $('#MCT_c3_Name').val();
+                        let url = '/api/product/list?page=' + page;
+
+                        if(state == 0){
+                            state = '판매대기'
+                        }else if(state == 1){
+                            state = '판매중'
+                        }else if(state == 2){
+                            state = '판매중지'
+                        }else if(state == 3){
+                            state = '판매종료'
+                        }else if(state == 4){
+                            state = '품절'
+                        }else if(state == ""){
+                            state = "전체"
+                        }
+
+                        if(cateIdx == ""){
+                            url = url;
+                        }else if(cateIdx != ""){
+                            url = url + '&cateIdx=' + cateIdx;
+                        }
+
+                        console.log(state)
+                        if (state == "") {
+                            url = url;
+                        } else if (state != "") {
+                            url = url + '&state=' + state;
+                        }
+                        if (order == "") {
+                            url = url;
+                        } else if (order != "") {
+                            url = url + '&order=' + order;
+                        }
+
+                        if (name == "") {
+                            url = url;
+                        } else if (name != "") {
+                            url = url + '&name=' + name;
+                        }
+                        console.log(url)
+
+                        axios.get(url, {}).then(function (response) {
+                            let tb = $('<tbody id="tbody">');
+                            for (let i in response.data.data) {
+                                let id = response.data.data[i].idx;
+                                let img = response.data.data[i].img1;
+                                let name = response.data.data[i].name;
+                                let state = response.data.data[i].state;
+                                img = img.replace("\\", "/");
+
+                                let row = $('<tr>').append(
+                                    '<td height="80px"><input type="checkbox" name="mc_list2" id="check_' + (i + 9) + '" onclick="MC_checkSelectAll()"  value="'+id+'"><label for="check_' + (i + 9) + '"></label></td>' +
+                                    '<td><img src="' + img + '"></td>' +
+                                    '<td>' + name + '</td>' +
+                                    '<td>' + state + '</td></tr>'
+                                )
+                                tb.append(row)
+                            }
+                            $('#thead').after(tb)
+                        })
+                    })
+                }
+            }).catch(function(err){
+                console.log(err)
+                alert('리스트 불러오기 실패')
+            })
+        }
+
+        function sendpd2(){
+            let tr=[];
+            $("input:checkbox[name='mc_list2']:checked").each(function(e) {
+                tr.push(this.parentNode.parentNode);
+            })
+            console.log(tr)
+
+            for(let i in tr){
+                let $id = $(tr[i]).children().eq(0).children().val()
+                let $img = $(tr[i]).children().eq(1).children().attr("src")
+                let $title = $(tr[i]).children().eq(2).text();
+                console.log($img)
+                console.log($title)
+                console.log($id)
+
+                let row = $('<div style="margin-right: 15px">').append(
+                    '<input type="hidden" value="'+$id+'" class="mc_hidden2">' +
+                    '<img src="'+$img+'">' +
+                    '<p>'+$title+'</p></div>'
+                )
+                $('.MCT_c3_proBox2').append(row)
+            }
+
+            let ingreidxList = document.querySelectorAll(".mc_hidden2");
+
+            for(let i=0; i<ingreidxList.length; i++){
+                ingreList.push(ingreidxList[i].value)
+                ingreList = Array.from(new Set(ingreList));
+            }
+
+            $("input[name='mc_list2']:checked").prop("checked", false);
+        }
+
         $(function (){
             $('#MC_click_box > a').click(function (e){
                 $('#MC_type_hidden').val(($(this).children("input").val()));
             })
         })
-
     </script>
 </head>
 <body>
@@ -332,39 +562,6 @@
         <!--MCT_c3 시작-->
         <div class="MCT_c3">
             <span class="html_add"><span class="options">*(선택사항)</span>html + 상품 항목</span>
-            <!-- <div class="MCT_c3_add">
-                <select id="MCT_c3_select">
-                    <option value="html">HTML</option>
-                    <option value="product">상품</option>
-                </select>
-                <input type="button" value="추가" id="MCT_C3_addbtn" onclick="addHtml()">
-                <input type="button" value="삭제" id="MCT_C3_delbtn">
-            </div>
-            <html/상품 항목 추가 script 시작-->
-            <!-- <script>
-                let i = 1;
-                let j = 1;
-                const addHtml = function(){
-                    let seleted = document.getElementById("MCT_c3_select");
-                    let seleted_value = seleted.options[seleted.selectedIndex].value;
-                    if(seleted_value == 'html'){
-                        $(".MCT_c3_editlist").append
-                    ("<div class='MCT_c3_htmllist' id='MCT_c3_html_"+i+"'>"
-                        +"<div class='create_html'><span>HTML- 항목"+i+"</span><span class='MCT_c3_img><img src=''></span></div>"
-                        +"<textarea id='MCT_c3_html_text_"+i+"' class='textarea' name='textarea'>"
-                        +"</textarea>"
-                    +"</div>")
-                    i++;
-                    }
-                    else{
-                        $(".MCT_c3_editlist").append
-                        ("<div class='content2_2_productllist' id='content_2_2_con_4_product_"+j+"'><div><span>상품- 항목"+j+"</span></div><a><img scr=''></a><a><img src=''></a><p>상품목록<input type='button' value='추가'></p><div id='content_2_2_con_3_product_list"+j+"'></div></div>")
-                    j++;
-                    }
-
-                };
-            </script> -->
-            <!-- html/상품 항목 추가 생성 script 끝-->
             <div class="MCT_c3_editlist">
                 <div class='MCT_c3_htmllist'>
                     <div class='create_html'><span>HTML</span></div>
@@ -401,9 +598,9 @@
                                     <input type="checkbox" name="d_status2" value="5" id="MCT_c3_check_1"><label for="MCT_c3_check_1">전체</label>
                                     <label><input type="checkbox" name="d_status2" value="0" id="MCT_c3_check_2"><label for="MCT_c3_check_2">판매대기</label>
                                     <label><input type="checkbox" name="d_status2" value="1" id="MCT_c3_check_3"><label for="MCT_c3_check_3">판매중</label>
-                                        <label><input type="checkbox" name="d_status2" value="2" id="MCT_c3_check_4"><label for="MCT_c3_check_4">판매중지</label>
-                                            <label><input type="checkbox" name="d_status2" value="3" id="MCT_c3_check_5"><label for="MCT_c3_check_5">판매종료</label>
-                                            <label><input type="checkbox" name="d_status2" value="4" id="MCT_c3_check_6"><label for="MCT_c3_check_6">품절</label>
+                                    <label><input type="checkbox" name="d_status2" value="2" id="MCT_c3_check_4"><label for="MCT_c3_check_4">판매중지</label>
+                                    <label><input type="checkbox" name="d_status2" value="3" id="MCT_c3_check_5"><label for="MCT_c3_check_5">판매종료</label>
+                                    <label><input type="checkbox" name="d_status2" value="4" id="MCT_c3_check_6"><label for="MCT_c3_check_6">품절</label>
                                 </td>
                             </tr>
                             <tr height="70">
@@ -429,7 +626,7 @@
                         </div>
                         <table width="100%" style="text-align: center;" class="MCT_c3_p_list">
                             <thead class="thead">
-                                <tr id="tbody">
+                                <tr>
                                     <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="MCT_c3_check" name="selectall" onclick="MC_selectAll(this)"><label for="MCT_c3_check"></th>
                                     <th width="40%">상품 이미지</th>
                                     <th width="28%">상품명</th>
@@ -445,6 +642,79 @@
                                 <li id="Maxnext"><a href="#">>></a></li>
                             </ul>
                             <input type="hidden" value="0" class="page">
+                        </div>
+                    </div>
+                </div>
+                <div class='MCT_c3_prodlist' id="MCT_prodList" style="display: none;">
+                    <div class='create_prod'><span>상품</span></div>
+                    <div class='MCT_c3_prodTitle'><p>재료담기 목록</p></div>
+                    <div class='MCT_c3_proBox2'></div>
+                    <div class='MCT_c3_addTitle'>
+                        <p>상품추가<span> + 원하는 상품을 추가해주세요</span></p>
+                    </div>
+                    <div class='MCT_c3_addlist'>
+                        <table border="1px" class='MCT_c3_scbox'>
+                            <tr height="70">
+                                <th width="150">상품분류</th>
+                                <td>
+                                    <select onchange="categoryChange2(this)" id="MC_sel_1">
+                                        <option value="대분류">대분류</option>
+                                    </select>
+                                    <select id="MC_sel_2">
+                                        <option value="중분류">중분류</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr height="70">
+                                <th>판매상태</th>
+                                <td>
+                                    <input type="checkbox" name="status2" value="" id="check_1"><label for="check_1">전체</label>
+                                    <label><input type="checkbox" name="status2" value="0" id="check_2"><label for="check_2">판매대기</label>
+                                    <label><input type="checkbox" name="status2" value="1" id="check_3"><label for="check_3">판매중</label>
+                                    <label><input type="checkbox" name="status2" value="2" id="check_4"><label for="check_4">판매중지</label>
+                                    <label><input type="checkbox" name="status2" value="3" id="check_5"><label for="check_5">판매종료</label>
+                                    <label><input type="checkbox" name="status2" value="4" id="check_6"><label for="check_6">품절</label>
+                                </td>
+                            </tr>
+                            <tr height="70">
+                                <th>정렬</th>
+                                <td>
+                                    <input type="checkbox" id="check_7" name="filter2" value="0"><label for="check_7">최근등록순</label>
+                                    <input type="checkbox" id="check_8" name="filter2" value="1"><label for="check_8">추천순</label>
+                                    <input type="checkbox" id="check_9" name="filter2" value="2"><label for="check_9">인기순</label>
+                                    <input type="checkbox" id="check_10" name="filter2" value="3"><label for="check_10">높은가격순</label>
+                                    <input type="checkbox" id="check_11" name="filter2" value="4"><label for="check_11">낮은가격순</label>
+                                </td>
+                            </tr>
+                            <tr height="70">
+                                <th>상품명</th>
+                                <td>
+                                    <input type="text" placeholder="상품명을 입력해주세요" id="MCT_c3_Name">
+                                    <input type="button" value="검색" id="MCT_c3_btn" onclick="search2()">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="bottom_btn" id="MCT_btnBox2">
+                            <span><input type="button" name="button" value="추가" onclick="sendpd2()"></span>
+                        </div>
+                        <table width="100%" style="text-align: center;" class="MCT_c3_p_list">
+                            <thead id="thead">
+                            <tr>
+                                <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check" name="selectall" onclick="MC_selectAll(this)"><label for="check"></th>
+                                <th width="40%">상품 이미지</th>
+                                <th width="28%">상품명</th>
+                                <th width="25%">판매상태</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <div class="pageBox" id="MC_c3_pageBox">
+                            <ul>
+                                <li id="Maxprev2"><a href="#"><<</a></li>
+                                <li id="prev2"><</li>
+                                <li>></li>
+                                <li id="Maxnext2"><a href="#">>></a></li>
+                            </ul>
+                            <input type="hidden" value="0" class="page2">
                         </div>
                     </div>
                 </div>
