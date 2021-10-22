@@ -39,8 +39,6 @@ public class FileService {
 
                     String path = request.getServletContext().getRealPath("/") + "/uploads/";
 
-                    System.out.println(path);
-
                     File files = new File(path);
                     if(!files.exists()){
                         try{
@@ -59,8 +57,6 @@ public class FileService {
                             e.printStackTrace();
                         }
                     }
-
-                    System.out.println(path2);
 
                     FileCopyUtils.copy(multipartFiles.get(i).getInputStream(), new FileOutputStream(files1.getPath()+File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + "_"
                             + StringUtils.cleanPath(multipartFiles.get(i).getOriginalFilename())));

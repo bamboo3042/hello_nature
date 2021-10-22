@@ -40,12 +40,13 @@
             $(".product_info > p").text(sessionStorage.getItem("review_prodName"))
             $(".enroll_post_box1_inner > p").text(sessionStorage.getItem("review_prodDate"))
             let proImg = sessionStorage.getItem("review_prodImg")
+            console.log(proImg)
             $(".product_image").css("background", "url('" + proImg + "')")
         })
 
-        function sendit() {4
-
+        function sendit() {
             let proIdx = sessionStorage.getItem("review_prodDroIdx")
+            let rvIdx = sessionStorage.getItem("review_rvIdx")
             let memIdx = $("#hidden_user").val();
             let like = $("#rv_like").val();
             let content = $("#post_review").val()
@@ -58,10 +59,12 @@
             console.log(proIdx)
 
             let data = {
+                idx: rvIdx,
                 memIdx: memIdx,
                 like: like,
                 content: content,
-                proIdx: proIdx
+                proIdx: proIdx,
+                ansFlag: "FALSE"
             }
             let files = ($('input[name="file"]'));
             let fileList = [];
@@ -74,7 +77,7 @@
             }
             formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
 
-            axios.post("/api/productReview/create", formData, {
+            axios.put("/api/productReview/update/", formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
             }).then(function (){
                 alert("리뷰후기 등록 완료오!!")
