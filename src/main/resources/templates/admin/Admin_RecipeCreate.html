@@ -19,6 +19,7 @@
 <body>
 <script>
     let prodlist = new Array();
+    let ingreList = new Array();
 
     //1차 카테고리 다중셀렉트
     $(function () {
@@ -43,12 +44,43 @@
                 console.log(response)
                 let $id = response.data.data[i].idx;
                 let $name = response.data.data[i].name;
-
                 let row = $('<option value=' + $id + '>').append(
                     $name + '</option>'
                 )
                 console.log(row)
                 $('#PL_sel_2').append(row)
+            }
+        })
+    }
+
+    //1차 카테고리 다중셀렉트
+    $(function () {
+        axios.get("/api/category/list/first?lifeFlag=FALSE", {}).then(function (response) {
+            for (let i in response.data.data) {
+                let $id = response.data.data[i].idx;
+                let $name = response.data.data[i].name;
+                let row = $('<option value=' + $id + '>').append(
+                    $name + '</option>'
+                )
+                console.log(row)
+                $('#RC_sel_1').append(row)
+            }
+        })
+    })
+
+    //2차 카테고리 다중셀렉트
+    function categoryChange2(e) {
+        $('#RC_sel_2').empty();
+        axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
+            for (let i in response.data.data) {
+                console.log(response)
+                let $id = response.data.data[i].idx;
+                let $name = response.data.data[i].name;
+                let row = $('<option value=' + $id + '>').append(
+                    $name + '</option>'
+                )
+                console.log(row)
+                $('#RC_sel_2').append(row)
             }
         })
     }
@@ -77,6 +109,7 @@
 
     function sendit(){
         prodlist = prodlist.join("-");
+        ingreList = ingreList.join("-");
         console.log(prodlist)
         alert('클릭')
 
@@ -112,7 +145,8 @@
             cookLevel : $('#cookLevel').val(),
             cookIngredient : String(row),
             content :  CKEDITOR.instances.textarea.getData(),
-            relList : prodlist
+            relList : prodlist,
+            ingreList: ingreList
         }
 
         console.log(data.title)
@@ -185,30 +219,27 @@
         let state = $('input:checkbox[name="d_status2"]:checked').val();
         let order = $('input:checkbox[name="filter"]:checked').val();
         let name = $('#RC_scName').val();
-        let url = '/api/product/list?page=' + page;
+        let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
         if(cateIdx == ""){
             cateIdx = $('#PL_sel_1').val();
         }
-
+        console.log(cateIdx);
         if(cateIdx == ""){
-            url = url;
+            url = '/api/product/list?page=' + page;
         }else if(cateIdx != ""){
             url = url + '&cateIdx=' + cateIdx;
         }
-
         if(state == ""){
             url = url;
         } else if(state != ""){
             url = url + '&state=' + state;
         }
-
         if(order == ""){
             url = url;
         }else if(order != ""){
             url = url + '&order=' + order;
         }
-
         if(name == ""){
             url = url;
         }else if(name != ""){
@@ -321,6 +352,191 @@
                             tb.append(row)
                         }
                         $('.thead').after(tb)
+                    })
+                })
+            }
+        }).catch(function(err){
+            console.log(err)
+            alert('리스트 불러오기 실패')
+        })
+    }
+
+    function sendpd2(){
+
+        let tr=[];
+        $("input:checkbox[name='RC_list2']:checked").each(function(e) {
+            tr.push(this.parentNode.parentNode);
+        })
+        console.log(tr)
+
+        for(let i in tr){
+            let $id = $(tr[i]).children().eq(0).children().val()
+            let $img = $(tr[i]).children().eq(1).children().attr("src")
+            let $title = $(tr[i]).children().eq(2).text();
+            console.log($img)
+            console.log($title)
+            console.log($id)
+
+            let row = $('<div style="margin-right: 15px">').append(
+                '<input type="hidden" value="'+$id+'" class="RC_hidden2">' +
+                '<img src="'+$img+'">' +
+                '<p>'+$title+'</p></div>'
+            )
+            $('.RC_proBox2').append(row)
+        }
+        let prodidxlist2 = document.querySelectorAll(".RC_hidden2");
+
+        for(let i=0; i<prodidxlist2.length; i++){
+            ingreList.push(prodidxlist2[i].value)
+            ingreList = Array.from(new Set(ingreList));
+        }
+        $("input[name='RC_list2']:checked").prop("checked", false);
+    }
+
+    function search2(){
+
+        let cateIdx = $('#RC_sel_2').val();
+        let page = $('.page').val();
+        let state = $('input:checkbox[name="status2"]:checked').val();
+        let order = $('input:checkbox[name="filter2"]:checked').val();
+        let name = $('#RC_Name').val();
+        let url = '/api/product/list?';
+
+        if(cateIdx == ""){
+            cateIdx = $('#RC_sel_1').val();
+        }
+
+        if(cateIdx == ""){
+            url = '/api/product/list?page=' + page;
+        }else if(cateIdx != ""){
+            url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
+        }
+        console.log(url)
+        if(state == ""){
+            url = url;
+        } else if(state != ""){
+            url = url + '&state=' + state;
+        }
+        console.log(url)
+        if(order == ""){
+            url = url;
+        }else if(order != ""){
+            url = url + '&order=' + order;
+        }
+
+        if(name == ""){
+            url = url;
+        }else if(name != ""){
+            url = url + '&name=' + name;
+        }
+
+        console.log(url)
+        axios.get(url, {
+
+        }).then(function(response){
+            $('#tbody').empty();
+            let tb = $('<tbody id="tbody">');
+            for(let i in response.data.data){
+                let id = response.data.data[i].idx;
+                let img = response.data.data[i].img1;
+                let name = response.data.data[i].name;
+                let state = response.data.data[i].state;
+                img = img.replace("\\", "/");
+                console.log(img)
+                console.log(state)
+                if(state == 0){
+                    state = '판매대기'
+                }else if(state == 1){
+                    state = '판매중'
+                }else if(state == 2){
+                    state = '판매중지'
+                }else if(state == 3){
+                    state = '판매종료'
+                }else if(state == 4){
+                    state = '품절'
+                }else{
+                    state = ""
+                }
+
+                let row = $('<tr>').append(
+                    '<td height="80px"><input type="checkbox" name="RC_list2" id="check_'+ (i + 12) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_'+ (i + 12) +'"></label></td>' +
+                    '<td><img src="' + img + '"></td>' +
+                    '<td>'+ name +'</td>' +
+                    '<td>'+ state +'</td></tr>'
+                )
+                tb.append(row)
+            }
+            $('#thead').after(tb)
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
+                    i + '</li>'
+                )
+                $('#prev2').after(pages);
+
+                $('.page_num').click(function(e) {
+
+                    $('.tbody').empty();
+
+                    $('.page2').val($(this).val())
+                    let page = $('.page2').val();
+                    let state = $('input:checkbox[name="status2"]:checked').val();
+                    let order = $('input:checkbox[name="filter2"]:checked').val();
+                    let name = $('#RC_scName').val();
+                    let url = '/api/product/list?page=' + page;
+
+                    if(state == 0){
+                        state = '판매대기'
+                    }else if(state == 1){
+                        state = '판매중'
+                    }else if(state == 2){
+                        state = '판매중지'
+                    }else if(state == 3){
+                        state = '판매종료'
+                    }else if(state == 4){
+                        state = '품절'
+                    }else if(state == ""){
+                        state = '전체'
+                    }
+
+                    console.log(state)
+
+                    if (state == "") {
+                        url = url;
+                    } else if (state != "") {
+                        url = url + '&state=' + state;
+                    }
+                    if (order == "") {
+                        url = url;
+                    } else if (order != "") {
+                        url = url + '&order=' + order;
+                    }
+
+                    if (name == "") {
+                        url = url;
+                    } else if (name != "") {
+                        url = url + '&name=' + name;
+                    }
+                    console.log(url)
+
+                    axios.get(url, {}).then(function (response) {
+                        let tb = $('<tbody id="tbody">');
+                        for (let i in response.data.data) {
+                            let id = response.data.data[i].idx;
+                            let img = response.data.data[i].img1;
+                            let name = response.data.data[i].name;
+                            let state = response.data.data[i].state;
+                            img = img.replace("\\", "/");
+
+                            let row = $('<tr>').append(
+                                '<td height="80px"><input type="checkbox" name="RC_list" id="check_' + (i + 12) + '" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_' + (i + 12) + '"></label></td>' +
+                                '<td><img src="' + img + '"></td>' +
+                                '<td>' + name + '</td>' +
+                                '<td>' + state + '</td></tr>'
+                            )
+                            tb.append(row)
+                        }
+                        $('#thead').after(tb)
                     })
                 })
             }
@@ -449,7 +665,7 @@
                                 <tr height="70">
                                     <th>판매상태</th>
                                     <td>
-                                        <input type="checkbox" name="d_status2" value="5" id="RC_check_1"><label for="RC_check_1">전체</label>
+                                        <input type="checkbox" name="d_status2" value="" id="RC_check_1"><label for="RC_check_1">전체</label>
                                         <label><input type="checkbox" name="d_status2" value="0" id="RC_check_2"><label for="RC_check_2">판매대기</label>
                                         <label><input type="checkbox" name="d_status2" value="1" id="RC_check_3"><label for="RC_check_3">판매중</label>
                                         <label><input type="checkbox" name="d_status2" value="2" id="RC_check_4"><label for="RC_check_4">판매중지</label>
@@ -496,6 +712,80 @@
                                     <li id="Maxnext"><a href="#">>></a></li>
                                 </ul>
                                 <input type="hidden" value="0" class="page">
+                            </div>
+                        </form>
+                    </div>
+                    <!--재료담기 상품추가-->
+                    <div class='RC_prodlist'>
+                        <div class='create_prod'><span>재료담기 상품</span></div>
+                        <div class='RC_prodTitle'><p>상품 목록</p></div>
+                        <div class='RC_proBox2'></div>
+                        <div class='RC_addTitle'>
+                            <p>상품추가<span> + 원하는 상품을 추가해주세요</span></p>
+                        </div>
+                        <form class='RC_addlist'>
+                            <table border="1px" class='RC_scbox'>
+                                <tr height="70">
+                                    <th width="150">상품분류</th>
+                                    <td>
+                                        <select onchange="categoryChange2(this)" id="RC_sel_1">
+                                            <option value="대분류">대분류</option>
+                                        </select>
+                                        <select id="RC_sel_2">
+                                            <option value="중분류">중분류</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr height="70">
+                                    <th>판매상태</th>
+                                    <td>
+                                        <input type="checkbox" name="status2" value="" id="check_1"><label for="check_1">전체</label>
+                                        <label><input type="checkbox" name="status2" value="0" id="check_2"><label for="check_2">판매대기</label>
+                                        <label><input type="checkbox" name="status2" value="1" id="check_3"><label for="check_3">판매중</label>
+                                        <label><input type="checkbox" name="status2" value="2" id="check_4"><label for="check_4">판매중지</label>
+                                        <label><input type="checkbox" name="status2" value="3" id="check_5"><label for="check_5">판매종료</label>
+                                        <label><input type="checkbox" name="status2" value="4" id="check_6"><label for="check_6">품절</label>
+                                    </td>
+                                </tr>
+                                <tr height="70">
+                                    <th>정렬</th>
+                                    <td>
+                                        <input type="checkbox" id="check_7" name="filter2" value="0"><label for="check_7">최근등록순</label>
+                                        <input type="checkbox" id="check_8" name="filter2" value="1"><label for="check_8">추천순</label>
+                                        <input type="checkbox" id="check_9" name="filter2" value="2"><label for="check_9">인기순</label>
+                                        <input type="checkbox" id="check_10" name="filter2" value="3"><label for="check_10">높은가격순</label>
+                                        <input type="checkbox" id="check_11" name="filter2" value="4"><label for="check_11">낮은가격순</label>
+                                    </td>
+                                </tr>
+                                <tr height="70">
+                                    <th>상품명</th>
+                                    <td>
+                                        <input type="text" placeholder="상품명을 입력해주세요" id="RC_Name">
+                                        <input type="button" value="검색" id="RC_btn" onclick="search2()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="bottom_btn" id="RC_btnBox2">
+                                <span><input type="button" name="button" value="추가" onclick="sendpd2()"></span>
+                            </div>
+                            <table width="100%" style="text-align: center;" class="RC_p_list">
+                                <thead id="thead">
+                                <tr>
+                                    <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check_12" name="RC_list2"><label for="check_12"></label></th>
+                                    <th width="40%">상품 이미지</th>
+                                    <th width="28%">상품명</th>
+                                    <th width="25%">카테고리</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div class="pageBox" id="RC_c3_pageBox">
+                                <ul>
+                                    <li id="Maxprev2"><a href="#"><<</a></li>
+                                    <li id="prev2"><</li>
+                                    <li>></li>
+                                    <li id="Maxnext2"><a href="#">>></a></li>
+                                </ul>
+                                <input type="hidden" value="0" class="page2">
                             </div>
                         </form>
                     </div>
