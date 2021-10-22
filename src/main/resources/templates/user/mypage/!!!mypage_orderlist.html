@@ -74,7 +74,6 @@
             let urlidx = $("#section_hidden").val()
 
             $(".filter_outline > div").click(function (e) {
-                $("#main_contents").empty();
 
                 if ($(this).children("a").text() === "최근 1개월") {
                     $("#main_contents").empty();
@@ -437,7 +436,7 @@
                                 '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
                                 '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
                             )
-                            // }
+
                             row2.append('</div>')
 
                             tb.append(row)

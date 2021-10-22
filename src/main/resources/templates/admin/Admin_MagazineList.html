@@ -16,36 +16,110 @@
 </head>
 <script>
     $(function () {
-        axios.get("/api/magazine/list", {}).then(function (response) {
+        let page = $('.page').val()
+
+        axios.get("/api/magazine/list?page"+ page, {}).then(function (response) {
             let tb = $('<tbody>');
-            console.log(response.data.data[1].idx)
 
             for (let i in response.data.data) {
                 let $id = response.data.data[i].idx;
                 let $title = response.data.data[i].title;
                 let $showFlag = response.data.data[i].showFlag;
+                let $regdate = response.data.data[i].regdate;
+                let $type = response.data.data[i].type;
                 let j = parseInt(i) + 1
                 let k = parseInt(i)
-                console.log($title)
+                $regdate = $regdate.toString().substring(0,10);
+
+                if($showFlag == 0){
+                    $showFlag = '전시중'
+                }else if($showFlag == 1){
+                    $showFlag = '전시종료'
+                }
+
+                if($type == 'RECIPE'){
+                    $type = '레시피'
+                }else if($type == 'NOTE'){
+                    $type = '탐험노트'
+                }else if($type == 'STYLE'){
+                    $type = '라이프스타일'
+                }else if($type == ''){
+                    $type = '키친가이드'
+                }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="ML_check_' + k + '"name="magazine" onclick="ML_checkSelectAll()" value="' + $id + '"><label for="ML_check_' + k + '"></label></td>' +
+                    '<td><input type="checkbox" id="ML_check_' + k + '"name="magazine" onclick="ML_checkSelectAll()"><label for="ML_check_' + k + '"></label></td>' +
                     '<td>' + j + '</td>' +
+                    '<td>' + $type + '</td>' +
                     '<td>' + $title + '</td>' +
+                    '<td>' + $regdate + '</td>' +
                     '<td class="showFlag"><input type="hidden" value=' + $showFlag + '>' + $showFlag + '</td></tr>'
                 )
                 tb.append(row);
             }
             tb.append('</tbody>');
             $('.thead').after(tb);
-            let showFlag = document.querySelectorAll(".showFlag");
-            for (let i =0; showFlag.length; i++){
-                if(showFlag[i].innerText==1){
-                    showFlag[i].innerText="전시중"
-                }else{
-                    showFlag[i].innerText="전시종료"
-                }
+
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
             }
+
+            $('.page_num').click(function (e) {
+
+                $('.tbody').empty();
+
+                $('.page').val($(this).val())
+                let page = $('.page').val();
+
+                axios.get("/api/magazine/list?page=" + page, {}).then(function (response) {
+                    let tb = $('<tbody class="tbody">');
+
+                    for (let i in response.data.data) {
+                        let $id = response.data.data[i].idx;
+                        let $title = response.data.data[i].title;
+                        let $showFlag = response.data.data[i].showFlag;
+                        let $regdate = response.data.data[i].regdate;
+                        let $type = response.data.data[i].type;
+                        let j = parseInt(i) + 1
+                        let k = parseInt(i)
+                        $regdate = $regdate.toString().substring(0,10);
+
+                        if($showFlag == 0){
+                            $showFlag = '전시중'
+                        }else if($showFlag == 1){
+                            $showFlag = '전시종료'
+                        }
+
+                        if($type == 'RECIPE'){
+                            $type = '레시피'
+                        }else if($type == 'NOTE'){
+                            $type = '탐험노트'
+                        }else if($type == 'STYLE'){
+                            $type = '라이프스타일'
+                        }else if($type == ''){
+                            $type = '키친가이드'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" id="ML_check_' + k + '"name="magazine" onclick="ML_checkSelectAll()"><label for="ML_check_' + k + '"></label></td>' +
+                            '<td>' + j + '</td>' +
+                            '<td>' + $type + '</td>' +
+                            '<td>' + $title + '</td>' +
+                            '<td>' + $regdate + '</td>' +
+                            '<td class="showFlag"><input type="hidden" value=' + $showFlag + '>' + $showFlag + '</td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    tb.append('</tbody>');
+                    $('.thead').after(tb);
+
+                })
+            })
+
         }).catch(function (err) {
             console.log(err)
         })
@@ -70,141 +144,216 @@
 
     function sendit(){
         $('.list_table > tbody').remove()
-        let cateIdx = $("#Mz_cate").val();
+        let type = $("#Mz_cate").val();
         let title = $("#text").val();
-        let dateStart = $("#date_start").val();
-        let dateEnd = $("#date_end").val();
+        let page = $('.page').val();
+        let url = '/api/magazine/list?page='+ page + '&type=' + type;
 
-        console.log(cateIdx)
-        console.log(title)
-        console.log(dateStart)
-        console.log(dateEnd)
+        if(type == ""){
+            url = '/api/magazine/list?page='+ page;
+        }else if(type != ""){
+            url = url;
+        }
 
-        axios.get("/api/magazine/list?cateIdx="+cateIdx+"&title="+title+"&dateStart="+dateStart+"&dateEnd="+dateEnd, {
+        if(title == ""){
+            url = url
+        }else if(title != ""){
+            url = url + '&title=' + title;
+        }
+
+
+        axios.get(url, {
         }).then(function (response){
             let tb = $('<tbody>');
             for(let i in response.data.data) {
                 let $id = response.data.data[i].idx;
                 let $title = response.data.data[i].title;
                 let $showFlag = response.data.data[i].showFlag;
+                let $regdate = response.data.data[i].regdate;
+                let $type = response.data.data[i].type;
                 let j = parseInt(i) +1
                 let k = parseInt(i)
-                console.log($title)
+                $regdate = $regdate.toString().substring(0, 10);
+
+                if($showFlag == 0){
+                    $showFlag = '전시중'
+                }else if($showFlag == 1){
+                    $showFlag = '전시종료'
+                }
+
+                if($type == 'RECIPE'){
+                    $type = '레시피'
+                }else if($type == 'NOTE'){
+                    $type = '탐험노트'
+                }else if($type == 'STYLE'){
+                    $type = '라이프스타일'
+                }else if($type == 'GUIDE'){
+                    $type = '키친가이드'
+                }
 
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" id="ML_check_'+ k +'"name="magazine" onclick="ML_checkSelectAll()" value="' + $id + '"><label for="ML_check_'+k+'"></label></td>' +
                     '<td>' + j + '</td>' +
+                    '<td>' + $type + '</td>' +
                     '<td>' + $title + '</td>' +
+                    '<td>' + $regdate + '</td>' +
                     '<td class="showFlag"><input type="hidden" value=' + $showFlag + '>' + $showFlag + '</td></tr>'
                 )
                 tb.append(row);
             }
             tb.append('</tbody>');
             $('.thead').after(tb);
+
             alert("검색 완료")
-            let showFlag = document.querySelectorAll(".showFlag");
-            for (let i =0; showFlag.length; i++){
-                if(showFlag[i].innerText==1){
-                    showFlag[i].innerText="전시중"
-                }else{
-                    showFlag[i].innerText="전시종료"
-                }
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
             }
+
+            $('.page_num').click(function (e) {
+
+                $('.tbody').empty();
+
+                $('.page').val($(this).val())
+                let page = $('.page').val();
+
+                axios.get("/api/magazine/list?page=" + page, {}).then(function (response) {
+                    let tb = $('<tbody class="tbody">');
+
+                    for (let i in response.data.data) {
+                        let $id = response.data.data[i].idx;
+                        let $title = response.data.data[i].title;
+                        let $showFlag = response.data.data[i].showFlag;
+                        let $regdate = response.data.data[i].regdate;
+                        let $type = response.data.data[i].type;
+                        let j = parseInt(i) + 1
+                        let k = parseInt(i)
+
+                        $regdate = $regdate.toString().substring(0, 10);
+
+                        if($showFlag == 0){
+                            $showFlag = '전시중'
+                        }else if($showFlag == 1){
+                            $showFlag = '전시종료'
+                        }
+
+                        if($type == 'RECIPE'){
+                            $type = '레시피'
+                        }else if($type == 'NOTE'){
+                            $type = '탐험노트'
+                        }else if($type == 'STYLE'){
+                            $type = '라이프스타일'
+                        }else if($type == 'GUIDE'){
+                            $type = '키친가이드'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" id="ML_check_' + k + '"name="magazine" onclick="ML_checkSelectAll()" value="' + $id + '"><label for="ML_check_' + k + '"></label></td>' +
+                            '<td>' + j + '</td>' +
+                            '<td>' + $type + '</td>' +
+                            '<td>' + $title + '</td>' +
+                            '<td>' + $regdate + '</td>' +
+                            '<td class="showFlag"><input type="hidden" value=' + $showFlag + '>' + $showFlag + '</td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    tb.append('</tbody>');
+                    $('.thead').after(tb);
+                })
+            })
         }).catch(function(err){
             console.log(err)
         })
     }
+
 </script>
 <body>
-    <!--content_title 시작-->
-    <div class="content_title"><p>매거진 관리 <span>매거진 목록</span></p></div>
-    <!--content_title 끝-->
-    <!--MList 시작-->
-    <div class="MList">
-        <!--ML_c1 시작-->
-        <div class="ML_c1">
-            <!--form 시작-->
-            <form name="magazine_search" onsubmit="return sendit()">
-                <p id="ML_c1_title" class="product_title"><label>매거진 조회</label></p>
-                <!--table 시작-->
-                <table>
-                    <tr>
-                        <th width="100">분류</th>
-                        <td>
-                            <select style="height: 38px; width: 150px; margin-right: 10px;" id="Mz_cate">
-                                <option>카테고리</option    >
-                                <option value="1">탐험노트</option>
-                                <option value="2">라이프스타일</option>
-                                <option value="3">키친가이드</option>
-                                <option value="0">레시피</option>
-                            </select>
-                            <input type="text" name="text" placeholder="매거진명 입력" id="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>등록기간</th>
-                        <td>
-                            <input type="date" name="date" id="date_start"> - <input type="date" name="date" id="date_end">
-                        </td>
-                    </tr>
-                </table>
-                <!--table 끝-->
-                <div class="bottom_btn">
-                    <span><input type="reset" name="reset" value="초기화"></span>
-                    <span><input type="submit" name="submit" value="검색"></span>
-                </div>
-            </form>
-            <!--form 끝-->
-        </div>
-        <!--ML_c1 끝-->
-        <!--ML_c2 시작-->
-        <div class="ML_c2">
-            <!--ML_c2_title 시작-->
-            <div id="ML_c2_title" class="green_title">
-                <p>매거진 목록 <span>(<span>현재 등록 : 2개</span>)</span></p>
+<!--content_title 시작-->
+<div class="content_title"><p>매거진 관리 <span>매거진 목록</span></p></div>
+<!--content_title 끝-->
+<!--MList 시작-->
+<div class="MList">
+    <!--ML_c1 시작-->
+    <div class="ML_c1">
+        <!--form 시작-->
+        <form name="magazine_search">
+            <p id="ML_c1_title" class="product_title"><label>매거진 조회</label></p>
+            <!--table 시작-->
+            <table>
+                <tr>
+                    <th width="100">분류</th>
+                    <td>
+                        <select style="height: 38px; width: 150px; margin-right: 10px;" id="Mz_cate">
+                            <option>카테고리</option>
+                            <option value="NOTE">탐험노트</option>
+                            <option value="STYLE">라이프스타일</option>
+                            <option value="GUIDE">키친가이드</option>
+                            <option value="RECIPE">레시피</option>
+                        </select>
+                        <input type="text" name="text" placeholder="매거진명 입력" id="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th>등록기간</th>
+                    <td>
+                        <input type="date" name="date" id="date_start"> - <input type="date" name="date" id="date_end">
+                    </td>
+                </tr>
+            </table>
+            <!--table 끝-->
+            <div class="bottom_btn">
+                <span><input type="reset" name="reset" value="초기화"></span>
+                <span><input type="button" name="button" value="검색" onclick="sendit()"></span>
             </div>
-            <!--ML_c2_title 끝-->
-            <!--form 시작-->
-            <form name="magazine_list">
+        </form>
+        <!--form 끝-->
+    </div>
+    <!--ML_c1 끝-->
+    <!--ML_c2 시작-->
+    <div class="ML_c2">
+        <!--ML_c2_title 시작-->
+        <div id="ML_c2_title" class="green_title">
+            <p>매거진 목록 <span>(<span>현재 등록 : 2개</span>)</span></p>
+        </div>
+        <!--ML_c2_title 끝-->
+        <!--form 시작-->
+        <form name="magazine_list">
                 <span>
                     <input type="button" name="button" value="선택삭제" id="delbtn">
                 </span>
-                <span>
-                    <select class="list_select" id="MZ_display">
-                        <option value="TRUE">전시중</option>
-                        <option value="FALSE">전시종료</option>
-                    </select>
-                    <input type="button" value="적용" id="displaybtn">
-                </span>
-                <!--table 시작-->
-                <table width="100%" class="list_table">
-                    <thead class="thead">
-                    <tr>
-                        <th width="5%"><input type="checkbox" value="cou_list" id="ML_check" name="selectall" onclick="ML_selectAll(this)"><label for="ML_check"></label></th>
-                        <th width="15%">번호</th>
-                        <th width="45%">이벤트명</th>
-                        <th width="20%">전시상태</th>
-                    </tr>
-                    </thead>
-                </table>
-                <!--table 끝-->
-                <!-- pageBox 시작-->
-                <div class="pageBox">
-                    <ul>
-                        <li id="Maxprev"><a href="#"><<</a></li>
-                        <li><a href="#"><</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">></a></li>
-                        <li id="Maxnext"><a href="#">>></a></li>
-                    </ul>
-                </div>
-                <!-- pageBox 끝-->
-            </form>
-            <!--form 끝-->
-        </div>
-        <!--ML_c2 끝-->
+            <!--table 시작-->
+            <table width="100%" class="list_table">
+                <thead class="thead">
+                <tr>
+                    <th width="5%"><input type="checkbox" value="cou_list" id="ML_check" name="selectall" onclick="ML_selectAll(this)"><label for="ML_check"></label></th>
+                    <th width="10%">번호</th>
+                    <th width="15%">분류</th>
+                    <th width="25%">매거진명</th>
+                    <th width="25%">등록기간</th>
+                    <th width="20%">전시상태</th>
+                </tr>
+                </thead>
+            </table>
+            <!--table 끝-->
+            <!-- pageBox 시작-->
+            <div class="pageBox">
+                <ul>
+                    <li id="Maxprev"><a href="#"><<</a></li>
+                    <li id="prev"><</li>
+                    <li>></li>
+                    <li id="Maxnext"><a href="#">>></a></li>
+                </ul>
+                <input type="hidden" value="0" class="page">
+            </div>
+            <!-- pageBox 끝-->
+        </form>
+        <!--form 끝-->
     </div>
-    <!--MList 끝-->
+    <!--ML_c2 끝-->
+</div>
+<!--MList 끝-->
 </body>
 </html>

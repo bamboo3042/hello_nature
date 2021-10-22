@@ -12,6 +12,7 @@ import com.hellonature.hellonature_back.model.network.response.ProductQuestionLi
 import com.hellonature.hellonature_back.service.ProductQuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,10 +22,10 @@ import java.util.List;
 public class ProductQuestionApiController extends CrudController<ProductQuestionApiRequest, ProductQuestionApiResponse, ProductQuestion> {
     private final ProductQuestionService productQuestionService;
 
-    @Override
-    @PostMapping("/create")
-    public Header<ProductQuestionApiResponse> create(@RequestBody Header<ProductQuestionApiRequest> request) {
-        return productQuestionService.create(request);
+    @RequestMapping(value ="/create", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+    public Header<ProductQuestionApiResponse> create(@RequestBody Header<ProductQuestionApiRequest> request,
+                                                     @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+        return productQuestionService.create(request, fileList);
     }
 
     @Override
@@ -33,10 +34,10 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
         return productQuestionService.read(idx);
     }
 
-    @Override
-    @PutMapping("/update")
-    public Header<ProductQuestionApiResponse> update(@RequestBody Header<ProductQuestionApiRequest> request) {
-        return productQuestionService.update(request);
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data"})
+    public Header<ProductQuestionApiResponse> update(@RequestBody Header<ProductQuestionApiRequest> request,
+                                                     @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+        return productQuestionService.update(request, fileList);
     }
 
     @Override
