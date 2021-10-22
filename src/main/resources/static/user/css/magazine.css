@@ -296,7 +296,7 @@
 /* =========== User_adventure_content.html =========== */
 /* html BOX */
 .adv_cont_html { box-sizing: border-box; margin-bottom: 80px; }
-.adv_cont_html > img { box-sizing: border-box; width :100%; }
+.adv_cont_html > img { box-sizing: border-box; width :100%; height: 500px; }
 .adv_cont_html p { box-sizing: border-box; width: 100%; padding: 15px 10px; }
 /* 첫번째 문단 이미지&글 */
 .adv_cont_html01 { box-sizing: border-box; width: 100%; }
@@ -311,13 +311,15 @@
 .adv_cont_html07 { box-sizing: border-box; margin-right: 50px; }
 .adv_cont_html07 > p > span { box-sizing: border-box; font-size: 25px; font-weight: bold; }
 .adv_cont_html07, .adv_cont_html08 { box-sizing: border-box; margin-bottom: 0; }
+/* html BOX 와 관련상품 사이 간격 */
+#adv_cont_wrap { padding-top: 100px; }
 /* =========== User_adventure_content.html =========== */
 
 
 /* =========== User_lifestyle_content.html =========== */
 /* html BOX */
 .life_cont_html { box-sizing: border-box; margin-bottom: 80px; }
-.life_cont_html > img { box-sizing: border-box; width :100%; }
+.life_cont_html > img { box-sizing: border-box; width :100%; height: 500px; }
 .life_cont_html p { box-sizing: border-box; width: 100%; padding: 15px 10px; }
 /* 첫번째 문단 이미지&글 */
 .life_cont_html01 { box-sizing: border-box; width: 100%; }
@@ -332,13 +334,15 @@
 .life_cont_html07 { box-sizing: border-box; margin-right: 50px; }
 .life_cont_html07 > p > span { box-sizing: border-box; font-size: 25px; font-weight: bold; }
 .life_cont_html07, .life_cont_html08 { box-sizing: border-box; margin-bottom: 0; }
+/* html BOX 와 관련상품 사이 간격 */
+#life_cont_wrap { padding-top: 100px; }
 /* =========== User_lifestyle_content.html =========== */
 
 
 /* =========== User_kitchen_content.html =========== */
 /* html BOX */
 .kit_cont_html { box-sizing: border-box; margin-bottom: 80px; }
-.kit_cont_html > img {box-sizing: border-box; width :100%; }
+.kit_cont_html > img { box-sizing: border-box; width :100%; height: 500px; }
 .kit_cont_html p { box-sizing: border-box; width: 100%; padding: 15px 10px; }
 /* 첫번째 문단 이미지&글 */
 .kit_cont_html01 { box-sizing: border-box; width: 100%; }
@@ -353,4 +357,6 @@
 .kit_cont_html07 { box-sizing: border-box; margin-right: 50px; }
 .kit_cont_html07 > p > span { box-sizing: border-box; font-size: 25px; font-weight: bold; }
 .kit_cont_html07, .kit_cont_html08 { box-sizing: border-box; margin-bottom: 0; }
+/* html BOX 와 관련상품 사이 간격 */
+#kit_cont_wrap { padding-top: 100px; }
 /* =========== User_kitchen_content.html =========== */

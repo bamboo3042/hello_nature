@@ -57,22 +57,21 @@ $(function(){
   });
 });
 
-
 /* product_qna_board */
-$(function(){
-  var article = (".product_qna_board .product_qna_show");
-
-  $(".product_qna_board .product_qna_click td").click(function() {
-    var myArticle =$(this).parents().next("tr");
-    if($(myArticle).hasClass('product_qna_detail')) {
-      $(article).removeClass('product_qna_show').addClass('product_qna_detail');
-      $(myArticle).removeClass('product_qna_detail').addClass('product_qna_show');
-    }
-    else {
-      $(myArticle).addClass('product_qna_detail').removeClass('product_qna_show');
-    }
-  });
-});
+// $(function(){
+//   var article = (".product_qna_board .product_qna_show");
+//
+//   $(".product_qna_board .product_qna_click td").click(function() {
+//     var myArticle =$(this).parents().next("tr");
+//     if($(myArticle).hasClass('product_qna_detail')) {
+//       $(article).removeClass('product_qna_show').addClass('product_qna_detail');
+//       $(myArticle).removeClass('product_qna_detail').addClass('product_qna_show');
+//     }
+//     else {
+//       $(myArticle).addClass('product_qna_detail').removeClass('product_qna_show');
+//     }
+//   });
+// });
 
 
 
@@ -96,23 +95,23 @@ function revPage() {
 revPage();
 
 
-/* product_qna_pagination */
-var prodPageNum = document.querySelectorAll("#prod_qna_page_num");
-if (prodPageNum[0]) { prodPageNum[0].classList.add("clicked"); }
-
-function proHandleClick(event) {
-  for (var i = 0; i < prodPageNum.length; i++) {
-    prodPageNum[i].classList.remove("clicked");
-  }
-  event.target.classList.add("clicked");
-}
-
-function proPage() {
-  for (var i = 0; i < prodPageNum.length; i++) {
-    prodPageNum[i].addEventListener("click", proHandleClick);
-  }
-}
-proPage();
+// /* product_qna_pagination */
+// var prodPageNum = document.querySelectorAll("#prod_qna_page_num");
+// if (prodPageNum[0]) { prodPageNum[0].classList.add("clicked"); }
+//
+// function proHandleClick(event) {
+//   for (var i = 0; i < prodPageNum.length; i++) {
+//     prodPageNum[i].classList.remove("clicked");
+//   }
+//   event.target.classList.add("clicked");
+// }
+//
+// function proPage() {
+//   for (var i = 0; i < prodPageNum.length; i++) {
+//     prodPageNum[i].addEventListener("click", proHandleClick);
+//   }
+// }
+// proPage();
 
 
 
