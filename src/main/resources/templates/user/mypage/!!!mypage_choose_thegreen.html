@@ -23,85 +23,108 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
-        $(() => {
-            const Idx = $("#memIdx").val();
-            axios.get('/api/memberAddresses/read/'+Idx, {
-
+        $(function (){
+            let urlidx = $("#section_hidden").val()
+            axios.get('/api/membersAddresses/user/list/' + urlidx, {
             }).then(function(response) {
-                // const addressName = response.data.data.addrName;             // 배송지명
-                const name = response.data.data.name;                           // 받는 사람
-                const hp = response.data.data.hp;                               // 전화번호
-                const zipcode = response.data.data.zipcode;                     // 우편번호
-                const addr1 = response.data.data.addr1;                         // 도로명주소 + 상세주소
-                const addr2 = response.data.data.addr2;                         // 나머지주소
-                const requestType = response.data.data.requestType;             // 배송타입
-                let onString;                                                   // 배송타입 (문자열)
-                const requestMemo1 = response.data.data.requestMemo1;           // 배송요청사항
-                // const requestMemo2 = response.data.data.requestMemo2;        // 배송기사님께
-                const dawnFlag = response.data.data.dawnFlag.id;                // 새벽배송
-                const baseFlag = response.data.data.baseFlag.id;                // 기본배송지
-                const grFlag = response.data.data.grFlag.id;                    // 그린배송
-                let onStringFlag;
-                // 배송요청사항
-                switch (requestType) {
-                    case 1:
-                        onString = "문앞";
-                        $(".shipping_font:nth-child(1)").append(onString);
-                        $(".shipping_font:nth-child(2)").append(requestMemo1);
-                        break;
-                    case 2:
-                        onString = "문앞 비밀번호 없이 출입가능"
-                        $(".shipping_font:nth-child(1)").append(onString);
-                        $(".shipping_font:nth-child(2)").css("display", "none");
-                        break;
-                    case 3:
-                        onString = "경비실";
-                        $(".shipping_font:nth-child(1)").append(onString);
-                        $(".shipping_font:nth-child(2)").append(requestMemo1);
-                        break;
-                    case 4:
-                        onString = "택배함";
-                        $(".shipping_font:nth-child(1)").append(onString);
-                        $(".shipping_font:nth-child(2)").append(requestMemo1);
-                        break;
-                    case 5:
-                        onString = "기타장소";
-                        $(".shipping_font:nth-child(1)").append(onString);
-                        $(".shipping_font:nth-child(2)").append(requestMemo1);
-                        break;
-                }
-                // 배송타입
-                if(baseFlag.id == 1){
-                    onStringFlag = "기본";
-                    $(".shipping_txt:nth-child(2)").append(onStringFlag);
-                    $(".shipping_txt:nth-child(1)").css("display", "block");
-                    if(dawnFlag.id == 1){
-                        onStringFlag = "새벽";
-                        $(".shipping_txt:nth-child(3)").append(onStringFlag);
-                    }else{
-                        $(".shipping_txt:nth-child(3)").css("display", "none");
-                        $(".shipping_txt:nth-child(1)").css("display", "none");
+                for (let i in response.data.data) {
+                    let addrName = response.data.data[i].addrName;
+                    let id = response.data.data[i].idx;
+                    let name = response.data.data[i].name;                           // 받는 사람
+                    let hp = response.data.data[i].hp;                               // 전화번호
+                    let zipcode = response.data.data[i].zipcode;                     // 우편번호
+                    let addr1 = response.data.data[i].addr1;                         // 도로명주소 + 상세주소
+                    let addr2 = response.data.data[i].addr2;                         // 나머지주소
+                    let requestType = response.data.data[i].requestType;             // 배송타입
+                    let baseFlag = response.data.data[i].baseFlag;                // 기본배송지
+                    let greenFlag = response.data.data[i].greenFlag;
+                    let dawnFlag = response.data.data[i].dawnFlag;
+
+                    if (baseFlag === "TRUE") {
+                        baseFlag = "기본 배송지"
+                    } else {
+                        baseFlag = "그 외"
                     }
-                    if(grFlag.id == 1){
-                        onStringFlag = "더그린";
-                        $(".shipping_txt:nth-child(4)").append(onStringFlag);
-                    }else{
-                        $(".shipping_txt:nth-child(4)").css("display", "none");
-                        $(".shipping_txt:nth-child(1)").css("display", "none");
+
+                    let show_greenFlag;
+                    if (greenFlag == "TRUE") {
+                        greenFlag = "더그린"
+                        show_greenFlag = 'block';
+                    } else {
+                        show_greenFlag = 'none';
                     }
-                }else{
-                    $(".shipping_txt:nth-child(1)").css("display", "none");
-                    $(".shipping_txt:nth-child(2)").css("display", "none");
-                    $(".shipping_txt:nth-child(3)").css("display", "none");
-                    $(".shipping_txt:nth-child(4)").css("display", "none");
-                    $(".shipping_txt:nth-child(4)").append("")
+
+                    let show_dawnFlag;
+                    if (dawnFlag == "TRUE") {
+                        dawnFlag = "새벽"
+                        show_dawnFlag = 'block';
+                    } else {
+                        show_dawnFlag = 'none';
+                    }
+
+                    let showCSS;
+                    if(greenFlag === "더그린" || dawnFlag === "새벽"){
+                        showCSS = 'white'
+                    }else{
+                        showCSS = '#ebebeb;'
+                    }
+
+
+                    switch (requestType) {
+                        case 1:
+                            requestType = "문앞 / 공동현관 비밀번호"
+                            break;
+                        case 2:
+                            requestType = "문앞 / 비밀번호 없이 출입 가능"
+                            break;
+                        case 3:
+                            requestType = "경비실"
+                            break;
+                        case 4:
+                            requestType = "택배함"
+                            break;
+                        case 5:
+                            requestType = "기타장소"
+                            break;
+                    }
+
+                    let disabled;
+                    if(greenFlag === "더그린" || dawnFlag === "새벽"){
+                        disabled = 'able';
+                    }else{
+                        disabled = 'disabled'
+                    }
+
+                    let row = $('<div class="shipping_box1" style="background-color:'+showCSS+'">').append(
+                        '<div class="shipping_box1_line1"><input type="checkbox" name="green_choose" value="'+id+'"'+disabled+'><div class="shipping_txt"><span>'+addrName+'</span><span style="display:'+show_greenFlag+'">'+greenFlag+'</span><span style="display:'+show_dawnFlag+'">'+dawnFlag+'</span></div>' +
+                        '<div class="shipping_box1_line2"><span>'+name+'</span><span>'+hp+'</span><br>' +
+                        ' <span>['+zipcode+']' + addr1 + addr2 + '</span></div><div class="shipping_delivery_detail"><span class="shipping_font">' +
+                        requestType+'</span></div></div>'
+                    )
+
+                    $("#shipping_list").append(row)
                 }
-                // 받는사람
-                $(".shipping_box1_line2:nth-child(1)").append(name);
-                // 연락처
-                $(".shipping_box1_line2:nth-child(1)").append(hp);
-                // 우편번호
-                $(".shipping_box1_line2:nth-child(4)").append("["+zipcode+"]"+" "+addr1+" "+addr2);
+
+
+                $("input[name='green_choose']").click(function (){
+                    let count = $("input[name='green_choose']:checked").length;
+
+                    if(count > 1){
+                        $(this).prop("checked", false);
+                        alert("하나의 배송지만 선택할 수 있습니다.")
+                    }
+
+                    if(count === 1){
+                        $("#pay_hellopass").removeAttr("disabled")
+                        $("#pay_hellopass").css("background", "#5dab99");
+                        $("#pay_hellopass").css("color", "white");
+                    }else{
+                        $("#pay_hellopass").css("color", "#ddd");
+                        $("#pay_hellopass").css("background", "#f6f6f6");
+                        $("#pay_hellopass").attr("disabled", true)
+                    }
+                })
+
 
             }).then(function(err) {
                 console.log(err)
@@ -136,37 +159,13 @@
                             배송지 선택 시 보증금 결제화면으로 이동합니다.
                         </p>
                     </div>
-                    <div class="shipping_box1">
-                        <div class="shipping_box1_line1">
-                            <div class="shipping_txt">
-                                <span>기본 배송지</span>
-                                <span><!-- 기본 --></span>
-                                <span><!-- 새벽 --></span>
-                                <span><!-- 더그린 --></span>
-                            </div>
-                        </div>
-                        <div class="shipping_box1_line2">
-                            <span><!-- 홍길동 --></span>
-                            <span><!-- 010-1234-1234 --></span>
-                            <br>
-                            <span>
-                                <!-- [우편번호] 도로명 주소 + 상세주소 -->
-                                <!-- [06232] 서울특별시 강남구 강남대로 지하 396 (역삼동, 강남역) -->
-                            </span>
-                        </div>
-                        <div class="shipping_delivery_detail">
-                            <span class="shipping_font">
-                                <!-- 문앞 -->
-                            </span>
-                            <span>
-                                <!-- 비밀번호 없이 출입 가능 -->
-                            </span>
-                        </div>
+                    <div id="shipping_list">
+
                     </div>
 
                     <div class="enroll_hellopass_area2">
-                        <button type="submit" class="hellopass_button_reset" id="reset_hellopass" onClick="location.href='/mypage_addShipping'">배송지 추가</button>
-                        <button type="submit" class="hellopass_button_submit" id="pay_hellopass" onClick="location.href='/mypage_paythegreen'" disabled>더그린배송 결제</button>
+                        <button type="submit" class="hellopass_button_reset" id="reset_hellopass" onClick="location.href='/user/mypage_addShipping'">배송지 추가</button>
+                        <button type="submit" class="hellopass_button_submit" id="pay_hellopass" onClick="location.href='/user/mypage_paythegreen'" disabled>더그린배송 결제</button>
                     </div>
                 </div>             
             <!-- main 끝 -->

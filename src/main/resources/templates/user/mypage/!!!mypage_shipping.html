@@ -48,6 +48,7 @@
                 console.log(response.data.data)
 
                 for (let i in response.data.data) {
+                    let addrName = response.data.data[i].addrName;
                     let id = response.data.data[i].idx;
                     let name = response.data.data[i].name;                           // 받는 사람
                     let hp = response.data.data[i].hp;                               // 전화번호
@@ -78,13 +79,13 @@
                             requestType = "문앞 / 비밀번호 없이 출입 가능"
                             break;
                         case 3:
-                            requestType = "문앞 / 경비실"
+                            requestType = "경비실"
                             break;
                         case 4:
-                            requestType = "문앞 / 택배함"
+                            requestType = "택배함"
                             break;
                         case 5:
-                            requestType = "문앞 / 기타장소"
+                            requestType = "기타장소"
                             break;
                     }
 

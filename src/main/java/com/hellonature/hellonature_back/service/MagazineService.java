@@ -44,9 +44,8 @@ public class MagazineService {
     private final MemberRepository memberRepository;
 
 
-    public Header<MagazineApiResponse> create(Header<MagazineApiRequest> request, List<MultipartFile> multipartFiles){
+    public Header<MagazineApiResponse> create(MagazineApiRequest magazineApiRequest, List<MultipartFile> multipartFiles){
         List<String> pathList = fileService.imagesUploads(multipartFiles, "magazine");
-        MagazineApiRequest magazineApiRequest = request.getData();
 
         Magazine magazine = Magazine.builder()
                 .title(magazineApiRequest.getTitle())

@@ -47,7 +47,7 @@ public class TheGreenService {
                 .member(member)
                 .price(5000)
                 .state(1)
-                .paymentType(request.getPaymentType())
+                .paymentType(3)
                 .num(request.getMpaymNum())
                 .build();
 

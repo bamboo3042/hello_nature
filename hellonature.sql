@@ -191,6 +191,7 @@ create table tb_products_questions(
                                       proq_content clob not null,
                                       pro_idx number(10) not null,
                                       ans_flag number(1) default 0 not null,
+                                      img varchar2(100),
                                       ans_content clob,
                                       ans_date varchar2(20)
 );

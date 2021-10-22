@@ -43,6 +43,7 @@ public class HellocashService extends BaseService<HellocashApiRequest, HelloCash
     public Header<List<HelloCashApiResponse>> list(String dateStart, String dateEnd, Long memIdx){
         String jpql = "select h from Hellocash h where mem_idx = :memIdx and TO_char(regdate, 'YYYY-MM-DD') >= :dateStart and TO_char(regdate, 'YYYY-MM-DD') <= :dateEnd";
 
+        jpql += " order by idx desc";
         TypedQuery<Hellocash> query = em.createQuery(jpql, Hellocash.class)
                 .setParameter("memIdx", memIdx)
                 .setParameter("dateStart", dateStart)

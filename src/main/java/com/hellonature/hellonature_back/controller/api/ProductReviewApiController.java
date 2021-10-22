@@ -36,7 +36,7 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
-    public Header<ProductReviewApiResponse> update(@RequestBody Header<ProductReviewApiRequest> request,
+    public Header<ProductReviewApiResponse> update(@RequestPart(value = "key") ProductReviewApiRequest request,
                                                    @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
         return productReviewService.update(request, fileList);
     }
@@ -62,7 +62,7 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
     }
 
     @GetMapping("list/myPage")
-    public Header<List<MyPageOrderResponse>> myPage(@RequestParam(name = "ansFlag") Flag flag,
+    public Header<List<MyPageOrderResponse>> myPage(@RequestParam(name = "flag") Flag flag,
                                                     @RequestParam(name = "memIdx") Long idx,
                                                     @RequestParam(name = "dateStart") String dateStart,
                                                     @RequestParam(name = "dateEnd") String dateEnd){

@@ -148,6 +148,7 @@
                 // 카테고리를 for문으로 돌려서
                 for (let i=0; i<prodCate.length; i++) {
                     prodCate[i].addEventListener('click', function() {
+                        page=0;
 
                         $('#goods_list_bg').empty();
                         $(".page_num").remove();

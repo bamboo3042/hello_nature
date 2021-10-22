@@ -8,6 +8,7 @@ import com.hellonature.hellonature_back.model.network.response.OrderListResponse
 import com.hellonature.hellonature_back.repository.MemberOrderProductRepository;
 import com.hellonature.hellonature_back.repository.NonMemberOrderProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -179,7 +180,7 @@ public class OrderListService {
 
         List<MemberOrder> result = query.getResultList();
 
-        List<MemberOrderProduct> memberOrderProducts = memberOrderProductRepository.findAllByOrderIn(result);
+        List<MemberOrderProduct> memberOrderProducts = memberOrderProductRepository.findAllByOrderIn(result, Sort.by(Sort.Direction.DESC,"idx"));
 
         List<MyPageOrderResponse> list = new ArrayList<>();
 
@@ -211,4 +212,9 @@ public class OrderListService {
                 .address2(memberOrder.getAddress2())
                 .build();
     }
+
+
+
+
+
 }
