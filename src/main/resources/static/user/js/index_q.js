@@ -117,3 +117,10 @@ $(function(){
 $('#filter_btn').click(function(){
     $('#filter_box').toggle();
 });
+
+
+/*  product.html > 문의작성 toggle */
+
+$('#qna_btn').click(function (){
+   $('#qna_box').toggle();
+});
