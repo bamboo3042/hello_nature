@@ -417,6 +417,8 @@ form[name="FAQ_list"] input[type="button"] { margin-right: 5px; margin-bottom: 5
 #MCT_btnBox2 { text-align: right;}
 #MCT_btnBox2 input { width: 130px; border: 1px solid #266266; font-size: 14px; }
 .MCT_c3 .html_add .options { font-size: 14px; color: #999; margin-right: 10px; }
+.MCT_c3_p_list .tbody img { width: 100px; height: 100px; }
+.MCT_c3_prodlist .MCT_c3_proBox img { width: 100px; height: 100px;}
 
 /*QuestionList*/
 
