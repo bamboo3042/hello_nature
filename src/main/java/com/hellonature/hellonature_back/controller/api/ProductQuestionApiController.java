@@ -48,11 +48,13 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
 
     @GetMapping("/list")
     public Header<List<ProductQuestionListResponse>> list(@RequestParam(name="typeFlag", required = false) Flag typeFlag,
-                                                          @RequestParam(name="title", required = false) String title,
+                                                          @RequestParam(name="content", required = false) String content,
+                                                          @RequestParam(name="name", required = false) String name,
                                                           @RequestParam(name="dateStart", required = false) String dateStart,
                                                           @RequestParam(name="dateEnd", required = false) String dateEnd,
                                                           @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
-        return productQuestionService.list(typeFlag, title, dateStart, dateEnd, startPage);
+        return productQuestionService.list(typeFlag, content, name, dateStart, dateEnd, startPage);
+
     }
 
     @GetMapping("/detail/list")
