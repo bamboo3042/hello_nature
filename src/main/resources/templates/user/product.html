@@ -279,31 +279,226 @@
                 });
 
                 for (let i=res.data.pagination.totalPages; i>=0; i--) {
-                    let pages = $('<div id="prod_qna_page_num" class="page_num">').append(
+                    let pages = $('<div id="review_page_num" class="rev_page_num">').append(
                         (i+1)+'</div>'
                     )
                     $('#review_page_prev').after(pages);
                 }
 
-                let pages = document.querySelectorAll(".page_num");
+                let pages = document.querySelectorAll(".rev_page_num");
                 for (let i=0; i<pages.length; i++) {
                     pages[i].addEventListener('click', function () {
                         let pageNum = parseInt(pages[i].innerText);
                         let page = pageNum - 1;
-                        $("#prod_question_tbody").empty();
+
+                        $("#prod_review_tbody").empty();
+
+                        axios.get('/api/productReview/userReview/list?proIdx='+prodIdx+'&page='+page, {
+                        }).then(function(res) {
+                            for (let i in res.data.data) {
+                                let name = res.data.data[i].memName;
+                                name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
+                                let proCount = res.data.data[i].proCount;
+                                let files = res.data.data[i].files;
+                                let score = res.data.data[i].like;
+                                let like = "";
+                                switch(score) {
+                                    case 1: case 2: case 3:
+                                        like = "별로에요";
+                                        break;
+                                    case 4: case 5: case 6:
+                                        like = "괜찮아요";
+                                        break;
+                                    case 7: case 8: case 9: case 10:
+                                        like = "만족해요";
+                                        break;
+                                }
+
+                                let regdate = res.data.data[i].regdate;
+                                regdate = regdate.substr(0, 10);
+                                let content = res.data.data[i].content;
+                                let sizeWeight = $("#size_weight").text();
+
+                                $("#prod_review_tbody").append(
+                                    '<tr class="review_click">'+
+                                    '<td>'+0+'</td>'+
+                                    '<td>'+sizeWeight+' | '+proCount+'</td>'+
+                                    '<td>'+content+'</td>'+
+                                    '<td>'+like+'</td>'+
+                                    '<td>'+name+'</td>'+
+                                    '<td>'+regdate+'</td></tr>'+
+                                    '<tr class="review_detail">'+
+                                    '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                )
+                            }
+
+                            /* 구매후기 상세보기 */
+                            let article = (".review_board .review_show");
+                            $(".review_board .review_click td").click(function() {
+                                let myArticle =$(this).parents().next("tr");
+                                if($(myArticle).hasClass('review_detail')) {
+                                    $(article).removeClass('review_show').addClass('review_detail');
+                                    $(myArticle).removeClass('review_detail').addClass('review_show');
+                                } else {
+                                    $(myArticle).addClass('review_detail').removeClass('review_show');
+                                }
+                            });
+
+                        }).catch(function(err) {
+                            console.log(err);
+                        });
                     });
                 }
 
+                /* 만족도 필터 */
+                $("select[name=likeFilter]").change(function(){
+                    console.log($(this).val()); // 선택값이 바뀔 때마다 value값 가져오기
+                    let filter = $(this).val();
+                    let url = "";
+                    if (filter == "만족해요") {
+                        url = "/api/productReview/userReview/list?proIdx="+prodIdx+"&like=3";
+                    } else if (filter == "괜찮아요") {
+                        url = "/api/productReview/userReview/list?proIdx="+prodIdx+"&like=2";
+                    } else if (filter == "별로에요") {
+                        url = "/api/productReview/userReview/list?proIdx="+prodIdx+"&like=1";
+                    } else if (filter == "전체") {
+                        url = "/api/productReview/userReview/list?proIdx="+prodIdx;
+                    }
 
+                    $("#prod_review_tbody").empty();
+                    $(".rev_page_num").remove();
+
+                    axios.get(url, {
+                    }).then(function(res) {
+                        for (let i in res.data.data) {
+                            let name = res.data.data[i].memName;
+                            name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
+                            let proCount = res.data.data[i].proCount;
+                            let files = res.data.data[i].files;
+                            let score = res.data.data[i].like;
+                            let like = "";
+                            switch(score) {
+                                case 1: case 2: case 3:
+                                    like = "별로에요";
+                                    break;
+                                case 4: case 5: case 6:
+                                    like = "괜찮아요";
+                                    break;
+                                case 7: case 8: case 9: case 10:
+                                    like = "만족해요";
+                                    break;
+                            }
+
+                            let regdate = res.data.data[i].regdate;
+                            regdate = regdate.substr(0, 10);
+                            let content = res.data.data[i].content;
+                            let sizeWeight = $("#size_weight").text();
+
+                            $("#prod_review_tbody").append(
+                                '<tr class="review_click">'+
+                                '<td>'+0+'</td>'+
+                                '<td>'+sizeWeight+' | '+proCount+'</td>'+
+                                '<td>'+content+'</td>'+
+                                '<td>'+like+'</td>'+
+                                '<td>'+name+'</td>'+
+                                '<td>'+regdate+'</td></tr>'+
+                                '<tr class="review_detail">'+
+                                '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                            )
+                        }
+
+                        /* 구매후기 상세보기 */
+                        let article = (".review_board .review_show");
+                        $(".review_board .review_click td").click(function() {
+                            let myArticle =$(this).parents().next("tr");
+                            if($(myArticle).hasClass('review_detail')) {
+                                $(article).removeClass('review_show').addClass('review_detail');
+                                $(myArticle).removeClass('review_detail').addClass('review_show');
+                            } else {
+                                $(myArticle).addClass('review_detail').removeClass('review_show');
+                            }
+                        });
+
+                        for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                            let pages = $('<div id="review_page_num" class="rev_page_num">').append(
+                                (i+1)+'</div>'
+                            )
+                            $('#review_page_prev').after(pages);
+                        }
+
+                        let pages = document.querySelectorAll(".rev_page_num");
+                        for (let i=0; i<pages.length; i++) {
+                            pages[i].addEventListener('click', function () {
+                                let pageNum = parseInt(pages[i].innerText);
+                                let page = pageNum - 1;
+
+                                $("#prod_review_tbody").empty();
+
+                                axios.get(url+'&page='+page, {
+                                }).then(function(res) {
+                                    for (let i in res.data.data) {
+                                        let name = res.data.data[i].memName;
+                                        name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
+                                        let proCount = res.data.data[i].proCount;
+                                        let files = res.data.data[i].files;
+                                        let score = res.data.data[i].like;
+                                        let like = "";
+                                        switch(score) {
+                                            case 1: case 2: case 3:
+                                                like = "별로에요";
+                                                break;
+                                            case 4: case 5: case 6:
+                                                like = "괜찮아요";
+                                                break;
+                                            case 7: case 8: case 9: case 10:
+                                                like = "만족해요";
+                                                break;
+                                        }
+
+                                        let regdate = res.data.data[i].regdate;
+                                        regdate = regdate.substr(0, 10);
+                                        let content = res.data.data[i].content;
+                                        let sizeWeight = $("#size_weight").text();
+
+                                        $("#prod_review_tbody").append(
+                                            '<tr class="review_click">'+
+                                            '<td>'+0+'</td>'+
+                                            '<td>'+sizeWeight+' | '+proCount+'</td>'+
+                                            '<td>'+content+'</td>'+
+                                            '<td>'+like+'</td>'+
+                                            '<td>'+name+'</td>'+
+                                            '<td>'+regdate+'</td></tr>'+
+                                            '<tr class="review_detail">'+
+                                            '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                        )
+                                    }
+
+                                    /* 구매후기 상세보기 */
+                                    let article = (".review_board .review_show");
+                                    $(".review_board .review_click td").click(function() {
+                                        let myArticle =$(this).parents().next("tr");
+                                        if($(myArticle).hasClass('review_detail')) {
+                                            $(article).removeClass('review_show').addClass('review_detail');
+                                            $(myArticle).removeClass('review_detail').addClass('review_show');
+                                        } else {
+                                            $(myArticle).addClass('review_detail').removeClass('review_show');
+                                        }
+                                    });
+
+                                }).catch(function(err) {
+                                    console.log(err);
+                                });
+                            });
+                        }
+
+                    }).catch(function(err) {
+                        console.log(err);
+                    });
+                });
 
             }).catch(function(err) {
                 console.log(err);
             });
-
-
-
-
-
 
 
 
@@ -394,11 +589,13 @@
                     pages[i].addEventListener('click', function() {
                         let pageNum = parseInt(pages[i].innerText);
                         let page = pageNum - 1;
-                        $("#prod_question_tbody").empty();
+
+                        $('#prod_question_tbody').empty();
 
                         axios.get('/api/productquestion/detail/list?proIdx='+prodIdx+'&page='+page, {
                         }).then(function(res) {
                             for (let i in res.data.data) {
+                                console.log(res.data.data);
                                 let content = res.data.data[i].content;
                                 let name = res.data.data[i].name;
                                     name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
@@ -431,7 +628,6 @@
                                     '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.<br>'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                                 )
                             }
-                            $('#qna_box').load(location.href+' #prod_question_tbody');
 
                             /* 상품문의 상세보기 */
                             let article = (".product_qna_board .product_qna_show");
@@ -573,7 +769,7 @@
                                                         <span class="num" id="total_price"></span>
                                                         <span class="won">원</span>
                                                     </span>
-                                            </div>
+                                            </div>x
                                             <p class="txt_point">
                                                 <span class="ico">적립</span>
                                                 <span id="earn_point" style="color: #777;"></span>
@@ -789,7 +985,7 @@
                             <div class="review_tit">
                                 <p>구매후기</p>
                                 <p>
-                                    <select>
+                                    <select name="likeFilter">
                                         <option value="전체">전체</option>
                                         <option value="만족해요">만족해요</option>
                                         <option value="괜찮아요">괜찮아요</option>
@@ -800,7 +996,7 @@
                             <!-- 구매후기 타이틀 끝 -->
 
                             <!-- 구매후기 게시판 -->
-                            <div class="review_box">
+                            <div class="review_box" id="review_list_box">
                                 <table class="review_board">
                                     <colgroup>
                                         <col width="70">
@@ -861,7 +1057,7 @@
 
 
                             <!-- 상품문의 게시판 -->
-                            <div class="product_qna_box" id="qna_box">
+                            <div class="product_qna_box" id="qna_list_box">
                                 <!-- 상품문의 목록 -->
                                 <table class="product_qna_board">
                                     <colgroup>
