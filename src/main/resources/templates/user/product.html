@@ -73,7 +73,7 @@
                 let netPrice = res.data.data.netPrice;
                 let discount = res.data.data.salePrice;
                 let salePrice = res.data.data.price;
-                let earnPoint = salePrice * 0.01;
+                let earnPoint = Math.floor(salePrice * 0.01);
                 let totalPrice = salePrice; // 수량에 따라 변동될 변수
 
                 if (likeFlag === "TRUE") {
@@ -98,7 +98,7 @@
                 document.getElementById("prod_netPrice").innerText = netPrice + "원";
                 document.getElementById("prod_discount").innerText = discount + "%";
                 document.getElementById("origin").innerText = origin;
-                document.getElementById("size_weight").innerText = sizeWeight + "g";
+                document.getElementById("size_weight").innerText = sizeWeight;
                 document.getElementById("temp").innerText = tempText;
                 document.getElementById("delivery").innerText = deliveryText;
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint + "원";
@@ -192,7 +192,7 @@
                 let total = itemea * totalprice;
                 let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                let earnPoint_plus = total * 0.01;
+                let earnPoint_plus = Math.floor(total * 0.01);
                 earnPoint_plus = earnPoint_plus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_plus + "원";
 
@@ -215,7 +215,7 @@
                 let total = itemea * totalprice;
                 let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                let earnPoint_minus = total * 0.01;
+                let earnPoint_minus = Math.floor(total * 0.01);
                 console.log(earnPoint_minus)
                 earnPoint_minus = earnPoint_minus.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint_minus + "원";
