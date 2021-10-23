@@ -16,6 +16,41 @@
         .list li:nth-child(4) > a { color: #5dab99;}
     </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(function (){
+        let memIdx = $("#hidden_user").val()
+        axios.get("/api/theGreen/check/" + memIdx, {}).then(function (response){
+            let flag = response.data.data;
+
+            if(flag === "TRUE"){
+                $(".thegreen_apply_button").text("해지하기")
+                $(".thegreen_apply_button").click(function (){
+                    confirm("더그린 배송을 해지하시겠습니까?")
+                    if(confirm){
+                        alert("해지 시 철회가 불가능합니다")
+                        confirm("정말 더그린 배송을 해지하시겠습니까?")
+                        if(confirm) {
+                            axios.delete("/api/theGreen/delete/" + memIdx, {}).then(function () {
+                                alert("더 그린 배송이 해지되었습니다")
+                            })
+                        }
+                    }
+                })
+            }else if (flag === "FALSE"){
+                $(".thegreen_apply_button").text("신청하기")
+                $(".thegreen_apply_button").click(function (){
+                    location.href='/user/mypage_chooseThegreen'
+                })
+            }
+        })
+    })
+</script>
+
 <body>
     <div id="mypage-box">
         <div class="container">
@@ -88,7 +123,7 @@
                         </div>   
                     <!-- 신청방법 끝 -->                                                      
                     </div>
-                    <button type="submit" class="thegreen_apply_button" onClick="location.href='/user/mypage_chooseThegreen'">신청하기</button>
+                    <button type="submit" class="thegreen_apply_button"></button>
                     <!-- main_contents_container 끝 -->
                     </div>                   
                 <!-- main_contents 끝 -->
@@ -98,10 +133,6 @@
             <div th:replace="/user/fragment/footer::footer"></div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/script.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>
 
