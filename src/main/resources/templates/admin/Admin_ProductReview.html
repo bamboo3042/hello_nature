@@ -15,86 +15,217 @@
     </script>
     <script>
         $(function (){
-            axios.get("/api/productReview/read", {
+            let page = $('.page').val();
+            axios.get("/api/productReview/list?page=" + page, {
             }).then(function (response){
-                let tb = $('<tbody>')
+                let tb = $('<tbody class="tbody">')
                 for (let i in response.data.data){
-                    let $id = response.data.data[i].id;
-                    let $name = response.data.data[i].name;
+                    let $id = response.data.data[i].idx;
+                    let $name = response.data.data[i].proName;
                     let $proIdx = response.data.data[i].proIdx;
-                    let $userid = response.data.data[i].userid;
-                    let $hp = response.data.data[i].hp;
-                    let $regdata = response.data.data[i].regdate;
+                    let $userid = response.data.data[i].memEmail;
+                    let $hp = response.data.data[i].memHp;
+                    let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
-                    let $writer = response.data.data[i].writer;
+                    let $writer = response.data.data[i].memName;
                     let k = parseInt(i) + 1
-                    $regdata = $regdata.toString().substring(0,10);
+
+                    let ansFlag = document.querySelectorAll(".ansFlag");
+                    for (let i =0; ansFlag.length; i++){
+                        if(ansFlag[i].innerText==1){
+                            ansFlag[i].innerText="답변완료"
+                        }else{
+                            ansFlag[i].innerText="답변대기"
+                        }
+                    }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="' + $id + '"><label for="PR_check_' + k + '"></label></td>' +
+                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" ><label for="PR_check_' + k + '"></label></td>' +
                         '<td>'+$name+'</td>' +
                         '<td>'+$proIdx+'</td>' +
-                        '<td>'+ $userid + '/' + $hp +'/' + $writer +'</td>' +
-                        '<td>'+ $regdata + '</td>'+
-                        '<td class="ansFlag"><input type="hidden" value=' + $ansFlag + '>' + $ansFlag + '</td></tr>'
+                        '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
+                        '<td>'+ $regdate + '</td>'+
+                        '<td class="ansFlag"><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'" ></td></tr>'
                     )
                     tb.append(row)
                 }
                 tb.append($('</tbody>'));
                 $(".thead").after(tb)
-                let ansFlag = document.querySelectorAll(".ansFlag");
-                for (let i =0; ansFlag.length; i++){
-                    if(ansFlag[i].innerText==1){
-                        ansFlag[i].innerText="답변완료"
-                    }else{
-                        ansFlag[i].innerText="답변대기"
-                    }
+
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    sessionStorage.setItem("idx1", id);
+
+                    $("#content").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/productanswer',
+                        datatype: 'html/text',
+                        success: function (result) {
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+
+                for(let i = response.data.pagination.totalPages; i > 0; i--){
+                    let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
                 }
+                $('.page_num').click(function(e){
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+
+                    axios.get('/api/productReview/list?page=' + page, {
+
+                    }).then(function(response){
+                        let tb = $('<tbody class="tbody">')
+                        for (let i in response.data.data){
+                            let $id = response.data.data[i].idx;
+                            let $name = response.data.data[i].proName;
+                            let $proIdx = response.data.data[i].proIdx;
+                            let $userid = response.data.data[i].memEmail;
+                            let $hp = response.data.data[i].memHp;
+                            let $regdate = response.data.data[i].regdate;
+                            let $ansFlag = response.data.data[i].ansFlag;
+                            let $writer = response.data.data[i].memName;
+                            let k = parseInt(i) + 1
+
+                            let ansFlag = document.querySelectorAll(".ansFlag");
+                            for (let i =0; ansFlag.length; i++){
+                                if(ansFlag[i].innerText==1){
+                                    ansFlag[i].innerText="답변완료"
+                                }else{
+                                    ansFlag[i].innerText="답변대기"
+                                }
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
+                                '<td>'+$name+'</td>' +
+                                '<td>'+$proIdx+'</td>' +
+                                '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
+                                '<td>'+ $regdate + '</td>'+
+                                '<td class="ansFlag"><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'"></td></tr>'
+                            )
+                            tb.append(row)
+                        }
+                        tb.append($('</tbody>'));
+                        $(".thead").after(tb)
+                    })
+                })
             }).catch(function (err){
                 console.log(err)
             })
         })
 
         function sendit(){
-            $(".list_table > tbodpy").remove()
+            $('.tbody').empty();
             let ansFlag = $("#select").val()
             let search = $("#title").val()
 
-            axios.get("/api/productReview/list?ansFlag="+ansFlag+"&search=" + search, {
+            axios.get("/api/productReview/list?page="+ page + "&ansFlag="+ansFlag+"&search=" + search, {
             }).then(function (response){
-                let tb = $('<tbody>')
+
+                let tb = $('<tbody class="tbody">')
                 for (let i in response.data.data){
-                    let $id = response.data.data[i].id;
+                    let $id = response.data.data[i].idx;
                     let $name = response.data.data[i].name;
                     let $proIdx = response.data.data[i].proIdx;
                     let $userid = response.data.data[i].userid;
                     let $hp = response.data.data[i].hp;
-                    let $regdata = response.data.data[i].regdate;
+                    let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
                     let $writer = response.data.data[i].writer;
                     let k = parseInt(i) + 1
-                    $regdata = $regdata.toString().substring(0,10);
+                    let ansFlag = document.querySelectorAll(".ansFlag");
+                    for (let i =0; ansFlag.length; i++){
+                        if(ansFlag[i].innerText==1){
+                            ansFlag[i].innerText="답변완료"
+                        }else{
+                            ansFlag[i].innerText="답변대기"
+                        }
+                    }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="' + $id + '"><label for="PR_check_' + k + '"></label></td>' +
+                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
                         '<td>'+$name+'</td>' +
                         '<td>'+$proIdx+'</td>' +
-                        '<td>'+ $userid + '/' + $hp +'/' + $writer +'</td>' +
-                        '<td>'+ $regdata + '</td>'+
-                        '<td class="ansFlag"><input type="hidden" value=' + $ansFlag + '>' + $ansFlag + '</td></tr>'
+                        '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
+                        '<td>'+ $regdate + '</td>'+
+                        '<td class="ansFlag"><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'"></td></tr>'
                     )
                     tb.append(row)
                 }
                 tb.append($('</tbody>'));
                 $(".thead").after(tb)
-                let ansFlag = document.querySelectorAll(".ansFlag");
-                for (let i =0; ansFlag.length; i++){
-                    if(ansFlag[i].innerText==1){
-                        ansFlag[i].innerText="답변완료"
-                    }else{
-                        ansFlag[i].innerText="답변대기"
-                    }
+
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    sessionStorage.setItem("idx1", id);
+
+                    $("#content").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/productanswer?idx1=' + id,
+                        datatype: 'html/text',
+                        success: function (result) {
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+                for(let i = response.data.pagination.totalPages; i > 0; i--){
+                    let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
                 }
+
+                $('.page_num').click(function(e){
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+
+                    axios.get("/api/productReview/list?page="+ page + "&ansFlag="+ansFlag+"&search=" + search, {
+
+                    }).then(function(response){
+                        let tb = $('<tbody class="tbody">')
+                        for (let i in response.data.data){
+                            let $id = response.data.data[i].idx;
+                            let $name = response.data.data[i].proName;
+                            let $proIdx = response.data.data[i].proIdx;
+                            let $userid = response.data.data[i].memEmail;
+                            let $hp = response.data.data[i].memHp;
+                            let $regdate = response.data.data[i].regdate;
+                            let $ansFlag = response.data.data[i].ansFlag;
+                            let $writer = response.data.data[i].memName;
+                            let k = parseInt(i) + 1
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
+                                '<td>'+$name+'</td>' +
+                                '<td>'+$proIdx+'</td>' +
+                                '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
+                                '<td>'+ $regdate + '</td>'+
+                                '<td class="ansFlag"><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'"></td></tr>'
+                            )
+                            tb.append(row)
+                        }
+                        tb.append($('</tbody>'));
+                        $(".thead").after(tb)
+                    })
+                })
+            }).catch(function(err){
+                console.log(err);
+                alert('검색실패')
             })
         }
     </script>
@@ -161,28 +292,18 @@
                             <th width="15%">답변상태</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="checkbox" id="PR_check_2" name="review" onclick="PR_checkSelectAll()"><label for="PR_check_2"></td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                    </tr>
-                    </tbody>
                 </table>
                 <!--table 끝-->
                 <!-- pageBox 시작-->
                 <div class="pageBox">
                     <ul>
                         <li id="Maxprev"><a href="#"><<</a></li>
-                        <li><a href="#"><</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">></a></li>
+                        <li id="prev"><</li>
+                        <li>></li>
                         <li id="Maxnext"><a href="#">>></a></li>
                     </ul>
+                    <input type="hidden" id="ajax_hidden">
+                    <input type="hidden" value="0" class="page">
                 </div>
                 <!-- pageBox 끝-->
             </form>
