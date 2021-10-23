@@ -54,10 +54,11 @@
 
             $(".contents_post_box > span").click(function (e) {
 
-                $("#review_contents_box").empty();
+                $("#review_contents_box_1").empty();
                 $("#filter_period_box").css("display", "none")
 
                 if ($(this).text() === "작성 가능한 후기") {
+                    $("#review_contents_box_1").empty();
                     flag = 'FALSE';
                     axios.get("/api/productReview/list/myPage?flag=" + flag + "&memIdx=" + memIdx + "&dateStart=" + three_month_result + "&dateEnd=" + now_result, {}).then(function (response) {
                         console.log(response.data.data)
@@ -75,7 +76,7 @@
                                 '<div class="product_info_post" style="width: 800px"><div class="product_post_firstline"><p>' + proName + '</p></div>' +
                                 '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
                                 '<div class="post_button_box"><input type="button" value="후기작성" class="post_button"><input type="hidden" value="' + proIdx + '">' +
-                                '<input type="hidden" value="'+rvIdx+'" id="hidden_rvIdx"></div></div>'
+                                '<input type="hidden" value="' + rvIdx + '" id="hidden_rvIdx"></div></div>'
                             )
 
                             $("#review_contents_box_1").append(row)
@@ -101,124 +102,136 @@
                         console.log(err)
                     })
 
-                } else if($(this).text() === "작성한 후기"){
-                    flag = "TRUE";
-
-                    $("#review_contents_box").empty();
-
+                } else if ($(this).text() === "작성한 후기") {
+                    $("#review_contents_box_1").empty();
                     $("#filter_period_box").css("display", "block")
                     $("#filter_period_box").css("display", "flex")
-
-                    $(".filter_outline > div").click(function (e) {
-
-                        $("#review_contents_box").empty();
-                        const offset = new Date().getTimezoneOffset() * 60000;
-                        const now = new Date(Date.now() - offset);
-                        const now_result = now.toISOString().substring(0, 10);
-                        let date_start = '';
-                        let date_end = '';
-
-                        if ($(this).children("a").text() === "최근 1개월") {
-                            let month = new Date();
-                            month.setMonth(month.getMonth() - 1);
-                            let month_result = month.toISOString().substring(0, 10);
-                            date_end = now_result;
-                            date_start = month_result;
-                        } else if ($(this).children("a").text() === "3개월") {
-                            let three_month = new Date();
-                            three_month.setMonth(three_month.getMonth() - 3);
-                            let three_month_result = three_month.toISOString().substring(0, 10);
-                            date_end = now_result;
-                            date_start = three_month_result;
-                        } else if ($(this).children("a").text() === "6개월") {
-                            let six_month = new Date();
-                            six_month.setMonth(six_month.getMonth() - 6);
-                            let sis_month_result = six_month.toISOString().substring(0, 10);
-                            date_end = now_result;
-                            date_start = sis_month_result;
-                        } else if ($(this).children("a").text() === "기간 조회") {
-                            if (document.getElementById("mg_period").style.display === 'block') {
-                                document.getElementById("mg_period").style.display = 'none';
-                            } else document.getElementById("mg_period").style.display = 'block';
-                            return false;
-                        }
-
-                        axios.get("/api/productReview/list/myPage?flag=" + flag + "&memIdx=" + memIdx + "&dateStart=" + date_start + "&dateEnd=" + date_end, {}).then(function (response) {
-
-                            console.log(response)
-                            for (let i in response.data.data) {
-                                let rvIdx = response.data.data[i].rvIdx;
-                                let proImg = response.data.data[i].proImg;
-                                let proName = response.data.data[i].proName;
-                                let regdate = response.data.data[i].regdate;
-
-                                regdate = regdate.toString().substring(0, 10);
-
-                                let row = $('<div class="contents_box6">').append(
-                                    `<div class="product_image" style="background: url('${proImg}')"></div>` +
-                                    '<div class="product_info_post"><div class="product_post_firstline"><p>' + proName + '</p>' +
-                                    '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
-                                    '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
-                                    '<div class="post_button_box"><a class="post_delete_button" style="cursor: pointer"><input type="hidden" value="' + rvIdx + '">삭제</a>' +
-                                    '</div></div>'
-                                )
-
-                                $("#review_contents_box_1").append(row);
-                            }
-                            $(".post_delete_button").click(function (e) {
-                                let idx = $(this).children("input").val();
-                                console.log(idx)
-                                axios.delete("/api/productReview/delete" + idx, {}).then(function () {
-                                    alert("삭제에 성공하셨습니다")
-                                }).catch(function (err){
-                                    console.log(err)
-                                })
-                            })
-                        }).catch(function (err) {
-                            console.log(err)
-                        })
-                    })
-
-                    $("#mg_ol_sc").click(function () {
-                        let date_start = $("#date_start").val();
-                        let date_end = $("#date_end").val()
-
-                        axios.get("/api/productReview/list/myPage?flag=" + flag + "&memIdx=" + memIdx + "&dateStart=" + date_start + "&dateEnd=" + date_end, {}).then(function (response) {
-                            console.log(response)
-
-                            for (let i in response.data.data) {
-                                let rvIdx = response.data.data[i].rvIdx;
-                                let proImg = response.data.data[i].proImg;
-                                let proName = response.data.data[i].proName;
-                                let regdate = response.data.data[i].regdate;
-
-                                regdate = regdate.toString().substring(0, 10);
-
-                                let row = $('<div class="contents_box6">').append(
-                                    `<div class="product_image" style="background: url('${proImg}')"></div>` +
-                                    '<div class="product_info_post"><div class="product_post_firstline"><p>' + proName + '</p>' +
-                                    '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
-                                    '<div class="product_post_lastline"><p>답변여부</p><p></p></div></div>' +
-                                    '<div class="post_button_box"><a href="#" class="post_delete_button"><input type="hidden" value="' + rvIdx + '">삭제</a>' +
-                                    '</div></div>'
-                                )
-
-                                $("#review_contents_box_1").append(row);
-                            }
-                            $(".post_delete_button").click(function (e) {
-                                let idx = $(this).children("input").val();
-                                axios.delete("/api/productReview/delete/" + idx, {}).then(function () {
-                                    alert("삭제에 성공하셨습니다")
-                                })
-                            })
-                        }).catch(function (err) {
-                            console.log(err)
-                        })
-                    })
-
-
-
                 }
+
+                $(".filter_outline > div").unbind("click");
+                $(".filter_outline > div").bind("click", function (e) {
+                    flag = "TRUE";
+                    let date_start = '';
+                    let date_end = '';
+                    $("#review_contents_box_1").empty();
+                    const offset = new Date().getTimezoneOffset() * 60000;
+                    const now = new Date(Date.now() - offset);
+                    const now_result = now.toISOString().substring(0, 10);
+
+                    if ($(this).children("a").text() === "최근 1개월") {
+                        let month = new Date();
+                        month.setMonth(month.getMonth() - 1);
+                        let month_result = month.toISOString().substring(0, 10);
+                        date_end = now_result;
+                        date_start = month_result;
+                    } else if ($(this).children("a").text() === "3개월") {
+                        let three_month = new Date();
+                        three_month.setMonth(three_month.getMonth() - 3);
+                        let three_month_result = three_month.toISOString().substring(0, 10);
+                        date_end = now_result;
+                        date_start = three_month_result;
+                    } else if ($(this).children("a").text() === "6개월") {
+                        let six_month = new Date();
+                        six_month.setMonth(six_month.getMonth() - 6);
+                        let sis_month_result = six_month.toISOString().substring(0, 10);
+                        date_end = now_result;
+                        date_start = sis_month_result;
+                    } else if ($(this).children("a").text() === "기간 조회") {
+                        if (document.getElementById("mg_period").style.display === 'block') {
+                            document.getElementById("mg_period").style.display = 'none';
+                        } else document.getElementById("mg_period").style.display = 'block';
+                        return false;
+                    }
+
+                    axios.get("/api/productReview/list/myPage?flag=" + flag + "&memIdx=" + memIdx + "&dateStart=" + date_start + "&dateEnd=" + date_end, {}).then(function (response) {
+                        console.log(response.data.data)
+                        for (let i in response.data.data) {
+                            let rvIdx = response.data.data[i].rvIdx;
+                            let proImg = response.data.data[i].proImg;
+                            let proName = response.data.data[i].proName;
+                            let regdate = response.data.data[i].regdate;
+                            let ansFlag = response.data.data[i].ansFlag;
+
+                            if(ansFlag === "TRUE"){
+                                ansFlag = "답변완료";
+                            }else{
+                                ansFlag = "답변대기";
+                            }
+
+                            regdate = regdate.toString().substring(0, 10);
+
+                            row = $('<div class="contents_box6">').append(
+                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                '<div class="product_info_post"><div class="product_post_firstline"><p>' + proName + '</p>' +
+                                '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
+                                '<div class="product_post_lastline"><p>' + ansFlag + '</p><p></p></div></div>' +
+                                '<div class="post_button_box" id="rv_delbtn" style="cursor: pointer"><a class="post_delete_button"><input type="hidden" value="' + rvIdx + '">삭제</a>' +
+                                '</div></div>'
+                            )
+
+                            $("#review_contents_box_1").append(row);
+                        }
+                        $(".post_delete_button").click(function (e) {
+                            alert("삭제버튼 클릭")
+                            let idx = $(this).children("input").val();
+                            console.log(idx)
+                            axios.delete("/api/productReview/delete/" + idx, {}).then(function () {
+                                alert("삭제에 성공하셨습니다")
+                            }).catch(function (err) {
+                                console.log(err)
+                            })
+                        })
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                })
+
+
+                $("#mg_ol_sc").click(function () {
+                    flag = "TRUE"
+                    let date_start = $("#date_start").val();
+                    let date_end = $("#date_end").val()
+
+                    axios.get("/api/productReview/list/myPage?flag=" + flag + "&memIdx=" + memIdx + "&dateStart=" + date_start + "&dateEnd=" + date_end, {}).then(function (response) {
+                        console.log(response)
+
+                        for (let i in response.data.data) {
+                            let rvIdx = response.data.data[i].rvIdx;
+                            let proImg = response.data.data[i].proImg;
+                            let proName = response.data.data[i].proName;
+                            let regdate = response.data.data[i].regdate;
+                            let ansFlag = response.data.data[i].ansFlag;
+
+                            if(ansFlag === "TRUE"){
+                                ansFlag = "답변완료";
+                            }else{
+                                ansFlag = "답변대기";
+                            }
+
+                            regdate = regdate.toString().substring(0, 10);
+
+                            let row = $('<div class="contents_box6">').append(
+                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                '<div class="product_info_post"><div class="product_post_firstline"><p>' + proName + '</p>' +
+                                '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
+                                '<div class="product_post_lastline"><p>' + ansFlag + '</p><p></p></div></div>' +
+                                '<div class="post_button_box"  id="rv_delbtn"  style="cursor: pointer"><a class="post_delete_button"><input type="hidden" value="' + rvIdx + '"></a>' +
+                                '</div></div>'
+                            )
+
+                            $("#review_contents_box_1").append(row);
+                        }
+                        $(".post_delete_button").click(function (e) {
+                            let idx = $(this).next("input").val();
+                            console.log(idx)
+                            axios.delete("/api/productReview/delete/" + idx, {}).then(function () {
+                                alert("삭제에 성공하셨습니다")
+                            })
+                        })
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                })
             })
         })
     </script>
