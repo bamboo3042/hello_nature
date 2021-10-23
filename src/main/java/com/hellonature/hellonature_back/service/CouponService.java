@@ -7,15 +7,18 @@ import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.CouponApiRequest;
 import com.hellonature.hellonature_back.model.network.response.CouponApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberCouponApiResponse;
 import com.hellonature.hellonature_back.repository.CouponRepository;
 import com.hellonature.hellonature_back.repository.CouponTypeRepository;
 import com.hellonature.hellonature_back.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,20 +29,27 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
     private final CouponTypeRepository couponTypeRepository;
 
     @Override
+    @Transactional
     public Header<CouponApiResponse> create(Header<CouponApiRequest> request) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         CouponApiRequest couponApiRequest = request.getData();
         Optional<CouponType> optionalCouponType = couponTypeRepository.findById(couponApiRequest.getCtIdx());
-        Integer count = optionalCouponType.get().getCount();
+        if (optionalCouponType.isEmpty()) return Header.ERROR("쿠폰 번호가 잘못되었습니다");
+        CouponType couponType = optionalCouponType.get();
 
-        if(count == 0) return Header.ERROR("쿠폰 소진");
-        else if(count > 0) optionalCouponType.get().minusCount();
+        if (couponRepository.findByCouponType(couponType).isPresent()) return Header.ERROR("이미 등록한 쿠폰입니다");
+
+        if(couponType.getCount() == 0) return Header.ERROR("쿠폰 소진");
+        else if(couponType.getCount() > 0) couponType.minusCount();
 
         Coupon coupon = Coupon.builder()
                 .member(memberRepository.findById(couponApiRequest.getMemIdx()).get())
-                .couponType(optionalCouponType.get())
-                .dateStart(couponApiRequest.getDateStart())
-                .dateEnd(couponApiRequest.getDateEnd())
+                .couponType(couponType)
+                .dateStart(LocalDate.now().format(formatter))
+                .dateEnd(couponType.getDateEnd())
                 .build();
+
         couponRepository.save(coupon);
         return Header.OK();
     }
@@ -47,7 +57,7 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
     @Override
     public Header<CouponApiResponse> read(Long id) {
         return couponRepository.findById(id)
-                .map(coupon -> response(coupon))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(
                         () -> Header.ERROR("쿠폰 없음")
@@ -96,14 +106,28 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
         return Header.OK(couponRepository.countAllByMemberAndUsedFlag(member, Flag.FALSE));
     }
 
-    public Header<List<CouponApiResponse>> list(Long memIdx, Flag usedFlag){
-        Member member = memberRepository.findById(memIdx).get();
+    public Header<List<MemberCouponApiResponse>> list(Long memIdx, Flag usedFlag){
+        Optional<Member> optionalMember = memberRepository.findById(memIdx);
+        if (optionalMember.isEmpty()) return Header.ERROR("회원 정보가 없습니다");
+        Member member = optionalMember.get();
         List<Coupon> list = couponRepository.findAllByMemberAndUsedFlagOrderByIdxDesc(member, usedFlag);
-        List<CouponApiResponse> newList = new ArrayList<>();
-        for (Coupon coupon:
-             list) {
-            newList.add(response(coupon));
+        List<MemberCouponApiResponse> memberCouponApiResponses = new ArrayList<>();
+        for (Coupon coupon: list) {
+            memberCouponApiResponses.add(memberCouponApiResponse(coupon));
         }
-        return Header.OK(newList);
+        return Header.OK(memberCouponApiResponses);
+    }
+
+    private MemberCouponApiResponse memberCouponApiResponse(Coupon coupon){
+        return MemberCouponApiResponse.builder()
+                .idx(coupon.getIdx())
+                .usedFlag(coupon.getUsedFlag())
+                .dateStart(coupon.getDateStart())
+                .dateEnd(coupon.getDateEnd())
+                .regdate(coupon.getRegdate())
+                .title(coupon.getCouponType().getTitle())
+                .discount(coupon.getCouponType().getDiscount())
+                .minPrice(coupon.getCouponType().getMinPrice())
+                .build();
     }
 }

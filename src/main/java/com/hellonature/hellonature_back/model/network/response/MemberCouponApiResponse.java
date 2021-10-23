@@ -12,12 +12,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CouponApiResponse {
+public class MemberCouponApiResponse {
     private Long idx;
-    private Long memIdx;
-    private Long ctIdx;
     private Flag usedFlag;
     private String dateStart;
     private String dateEnd;
     private LocalDateTime regdate;
+
+    private String title;
+    private Integer discount;
+    private Integer minPrice;
 }

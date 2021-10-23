@@ -110,7 +110,7 @@ create table tb_coupons_types(
 
 create sequence coupons_types_seq
     increment by 1
-    start with 1;
+    start with 31546878;
 ----------------------------------------------------------------------------------
 create table tb_members_baskets(
                                    idx number(10) primary key,
