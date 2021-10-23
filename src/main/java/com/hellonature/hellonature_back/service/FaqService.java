@@ -88,7 +88,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
         return faqApiResponse;
     }
 
-    public Header<List<Faq>> list(Integer type, String subject, String title, String content, Integer startPage) {
+    public Header<List<FaqApiResponse>> list(Integer type, String subject, String title, String content, Integer startPage) {
         String jpql = "select f from Faq f";
         boolean check = false;
 
@@ -127,19 +127,23 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
         List<Faq> result = query.getResultList();
 
         int count = 10;
-
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
-
+        Integer start = count * startPage; // 현재 보여지는 페이지의 첫번째 element에 해당하는 result의 index
+        Integer end = Math.min(result.size(), start + count); // 그 페이지으 ㅣ마지막 element
 
         Pagination pagination = new Pagination().builder()
                 .totalPages( result.size()%count==0 ? result.size()/count : (result.size()/count)+1 ) // 리스트가 홀수일 때
-                .totalElements(faqRepository.count())
+                .totalElements((long) result.size())
                 .currentPage(startPage)
-                .currentElements(result.size())
+                .currentElements(end - start)
                 .build();
 
-        return Header.OK(result.subList(start, end), pagination);
+        List<FaqApiResponse> newList = new ArrayList<>();
+
+        for(Faq faq : result.subList(start, end)){
+            newList.add(response(faq));
+        }
+
+        return Header.OK(newList, pagination);
     }
 
 

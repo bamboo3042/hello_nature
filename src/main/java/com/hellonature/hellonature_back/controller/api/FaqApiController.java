@@ -52,7 +52,7 @@ public class FaqApiController extends CrudController<FaqApiRequest, FaqApiRespon
 
 
     @GetMapping("/list")
-    public Header<List<Faq>> list(//@RequestParam(name="idx", required = false) Long idx,
+    public Header<List<FaqApiResponse>> list(//@RequestParam(name="idx", required = false) Long idx,
                                   @RequestParam(name="type", required = false) Integer type,
                                   @RequestParam(name="subject", required = false) String subject,
                                   @RequestParam(name="title", required = false) String title,
