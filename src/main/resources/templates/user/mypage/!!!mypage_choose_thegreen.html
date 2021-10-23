@@ -129,6 +129,12 @@
             }).then(function(err) {
                 console.log(err)
             });
+
+            $("#pay_hellopass").click(function (){
+                let thegreen_idx = $("input[name='green_choose']:checked").val()
+                sessionStorage.setItem("the_green", thegreen_idx)
+                location.href='/user/mypage_paythegreen'
+            })
         });
     </script>
     <!-- axios -->
@@ -165,7 +171,7 @@
 
                     <div class="enroll_hellopass_area2">
                         <button type="submit" class="hellopass_button_reset" id="reset_hellopass" onClick="location.href='/user/mypage_addShipping'">배송지 추가</button>
-                        <button type="submit" class="hellopass_button_submit" id="pay_hellopass" onClick="location.href='/user/mypage_paythegreen'" disabled>더그린배송 결제</button>
+                        <button type="submit" class="hellopass_button_submit" id="pay_hellopass" disabled>더그린배송 결제</button>
                     </div>
                 </div>             
             <!-- main 끝 -->
