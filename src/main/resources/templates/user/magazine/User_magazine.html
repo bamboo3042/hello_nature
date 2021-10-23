@@ -10,9 +10,228 @@
     <link rel="stylesheet" th:href="@{/user/css/reset.css}">
     <link rel="stylesheet" th:href="@{/user/css/magazine.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
-    <!-- axios -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function() {
+
+            axios.get('/api/magazine/user/list?type=RECIPE&page=0', {}).then(function(res) {
+
+                let ul = $("#rec_pre_box");
+
+                for (let i in res.data.data) {
+                    let idx = res.data.data[i].idx;
+                    let img = res.data.data[i].img;
+                    let title = res.data.data[i].title;
+                    let des = res.data.data[i].des;
+
+                    let li = $('<li class="preview" id="rec_pre">').append(
+                        '<a onclick="location.href=\'/user/magazine/recipe_content?idx='+idx+'\'"><img src="'+img+'">'+
+                        '<div class="preview_info">'+
+                        '<p className="preview_title" id="rec_pre_tit">'+title+'</p>'+
+                        '<p className="preview_text" id="rec_pre_des">'+des+'</p></div></a></li>'
+                    )
+                    ul.append(li);
+                }
+
+                let recPrePrev = document.querySelector('#rec_pre_btn_prev');
+                let recPreNext = document.querySelector('#rec_pre_btn_next');
+                let recPreBox = document.querySelector('#rec_pre_box');
+                let recPre = document.querySelectorAll('#rec_pre');
+                let recPreCnt = recPre.length;
+                let recPreIdx = 0;
+                let recPreWidth = 330;
+                let recPreMargin = 30;
+
+                recPreBox.style.width = (recPreWidth + recPreMargin) * recPreCnt - recPreMargin + 'px';
+
+                function moveRecPre(num) {
+                    recPreBox.style.left = -num * (recPreWidth + recPreMargin) + 'px';
+                    recPreIdx = num;
+                }
+                recPreNext.addEventListener('click', function() {
+                    if (recPreIdx < recPreCnt - 3) {
+                        moveRecPre(recPreIdx + 1);
+                    } else {
+                        moveRecPre(0);
+                    }
+                });
+                recPrePrev.addEventListener('click', function() {
+                    if (recPreIdx > 0) {
+                        moveRecPre(recPreIdx - 1);
+                    } else {
+                        moveRecPre(recPreCnt - 3);
+                    }
+                });
+
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+            axios.get('/api/magazine/user/list?type=NOTE&page=0', {}).then(function(res) {
+
+                let ul = $("#adv_pre_box");
+
+                for (let i in res.data.data) {
+                    let idx = res.data.data[i].idx;
+                    let img = res.data.data[i].img;
+                    let title = res.data.data[i].title;
+                    let des = res.data.data[i].des;
+
+                    let li = $('<li class="preview" id="adv_pre">').append(
+                        '<a onclick="location.href=\'/user/magazine/adventure_content?idx=' + idx + '\'"><img src="' + img + '">' +
+                        '<div class="preview_info">' +
+                        '<p className="preview_title" id="adv_pre_tit">' + title + '</p>' +
+                        '<p className="preview_text" id="adv_pre_des">' + des + '</p></div></a></li>'
+                    )
+                    ul.append(li);
+                }
+
+                let advPrePrev = document.querySelector('#adv_pre_btn_prev');
+                let advPreNext = document.querySelector('#adv_pre_btn_next');
+                let advPreBox = document.querySelector('#adv_pre_box');
+                let advPre = document.querySelectorAll('#adv_pre');
+                let advPreCnt = advPre.length;
+                let advPreIdx = 0;
+                let advPreWidth = 330;
+                let advPreMargin = 30;
+
+                advPreBox.style.width = (advPreWidth + advPreMargin) * advPreCnt - advPreMargin + 'px';
+
+                function moveAdvPre(num) {
+                    advPreBox.style.left = -num * (advPreWidth + advPreMargin) + 'px';
+                    advPreIdx = num;
+                }
+
+                advPreNext.addEventListener('click', function () {
+                    if (advPreIdx < advPreCnt - 3) {
+                        moveAdvPre(advPreIdx + 1);
+                    } else {
+                        moveAdvPre(0);
+                    }
+                });
+                advPrePrev.addEventListener('click', function () {
+                    if (advPreIdx > 0) {
+                        moveAdvPre(advPreIdx - 1);
+                    } else {
+                        moveAdvPre(advPreCnt - 3);
+                    }
+                });
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+            axios.get('/api/magazine/user/list?type=STYLE&page=0', {}).then(function(res) {
+
+                let ul = $("#life_pre_box");
+
+                for (let i in res.data.data) {
+                    let idx = res.data.data[i].idx;
+                    let img = res.data.data[i].img;
+                    let title = res.data.data[i].title;
+                    let des = res.data.data[i].des;
+
+                    let li = $('<li class="preview" id="life_pre">').append(
+                        '<a onclick="location.href=\'/user/magazine/lifestyle_content?idx=' + idx + '\'"><img src="' + img + '">' +
+                        '<div class="preview_info">' +
+                        '<p className="preview_title" id="life_pre_tit">' + title + '</p>' +
+                        '<p className="preview_text" id="life_pre_des">' + des + '</p></div></a></li>'
+                    )
+                    ul.append(li);
+                }
+
+                let lifePrePrev = document.querySelector('#life_pre_btn_prev');
+                let lifePreNext = document.querySelector('#life_pre_btn_next');
+                let lifePreBox = document.querySelector('#life_pre_box');
+                let lifePre = document.querySelectorAll('#life_pre');
+                let lifePreCnt = lifePre.length;
+                let lifePreIdx = 0;
+                let lifePreWidth = 330;
+                let lifePreMargin = 30;
+
+                lifePreBox.style.width = (lifePreWidth + lifePreMargin) * lifePreCnt - lifePreMargin + 'px';
+
+                function moveLifePre(num) {
+                    lifePreBox.style.left = -num * (lifePreWidth + lifePreMargin) + 'px';
+                    lifePreIdx = num;
+                }
+                lifePreNext.addEventListener('click', function() {
+                    if (lifePreIdx < lifePreCnt - 3) {
+                        moveLifePre(lifePreIdx + 1);
+                    } else {
+                        moveLifePre(0);
+                    }
+                });
+                lifePrePrev.addEventListener('click', function() {
+                    if (lifePreIdx > 0) {
+                        moveLifePre(lifePreIdx - 1);
+                    } else {
+                        moveLifePre(lifePreCnt - 3);
+                    }
+                });
+
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+            axios.get('/api/magazine/user/list?type=GUIDE&page=0', {}).then(function(res) {
+
+                let ul = $("#kit_pre_box");
+
+                for (let i in res.data.data) {
+                    let idx = res.data.data[i].idx;
+                    let img = res.data.data[i].img;
+                    let title = res.data.data[i].title;
+                    let des = res.data.data[i].des;
+
+                    let li = $('<li class="preview" id="kit_pre">').append(
+                        '<a onclick="location.href=\'/user/magazine/kitchen_content?idx=' + idx + '\'"><img src="' + img + '">' +
+                        '<div class="preview_info">' +
+                        '<p className="preview_title" id="kit_pre_tit">' + title + '</p>' +
+                        '<p className="preview_text" id="kit_pre_des">' + des + '</p></div></a></li>'
+                    )
+                    ul.append(li);
+                }
+
+                let kitPrePrev = document.querySelector('#kit_pre_btn_prev');
+                let kitPreNext = document.querySelector('#kit_pre_btn_next');
+                let kitPreBox = document.querySelector('#kit_pre_box');
+                let kitPre = document.querySelectorAll('#kit_pre');
+                let kitPreCnt = kitPre.length;
+                let kitPreIdx = 0;
+                let kitPreWidth = 330;
+                let kitPreMargin = 30;
+
+                kitPreBox.style.width = (kitPreWidth + kitPreMargin) * kitPreCnt - kitPreMargin + 'px';
+
+                function moveKitPre(num) {
+                    kitPreBox.style.left = -num * (kitPreWidth + kitPreMargin) + 'px';
+                    kitPreIdx = num;
+                }
+                kitPreNext.addEventListener('click', function() {
+                    if (kitPreIdx < kitPreCnt - 3) {
+                        moveKitPre(kitPreIdx + 1);
+                        console.log(kitPreIdx);
+                    } else {
+                        moveKitPre(0);
+                    }
+                });
+                kitPrePrev.addEventListener('click', function() {
+                    if (kitPreIdx > 0) {
+                        moveKitPre(kitPreIdx - 1);
+                        console.log(kitPreIdx);
+                    } else {
+                        moveKitPre(kitPreCnt - 3);
+                    }
+                });
+
+            }).catch(function(err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <!-- axios -->
 </head>
 <!-- head 끝 -->
 <body>
@@ -29,11 +248,11 @@
                 <div class="prod_category_box">
                     <div class="prod_cate_tit">매거진</div>
                     <ul class="prod_cate_list">
-                        <li class="prod_cate">전체</li><!--
-                     --><li class="prod_cate">레시피</li><!--
-                     --><li class="prod_cate">탐험노트</li><!--
-                     --><li class="prod_cate">라이프스타일</li><!--
-                     --><li class="prod_cate">키친가이드</li>
+                        <li class="prod_cate" onclick="location.href='/user/magazine'" style="color: #0db081; font-weight: bold; border-bottom: 1px solid #0db081">전체</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/recipe?page=0'">레시피</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/adventure?page=0'">탐험노트</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/lifestyle?page=0'">라이프스타일</li><!--
+                     --><li class="prod_cate" onclick="location.href='/user/magazine/kitchen?page=0'">키친가이드</li>
                     </ul>
                 </div>
             </div>
@@ -50,75 +269,6 @@
                     </div>
                     <div class="preview_wrap">
                         <ul class="preview_box" id="rec_pre_box">
-                            <li class="preview" id="rec_pre">
-                                <a th:href="@{'/magazine/recipe_content/'+${id}}">
-                                    <img src="/user/images/magazine/recipe_main/20200514120304710.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title" id="rec_pre_tit">레시피 제목</p>
-                                        <p class="preview_text" id="rec_pre_des">레시피 설명</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="rec_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/recipe_main/20200520135123113.jpg" alt="">
-                                    <!-- item_info -->
-                                    <div class="preview_info">
-                                        <p class="preview_title">레시피 이름</p>
-                                        <p class="preview_text">레시피 한줄 설명</p>
-                                        <!-- # item_info -->
-                                    </div>
-                                    <!-- # item -->
-                                </a>
-                            </li>
-                            <li class="preview" id="rec_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/recipe_main/20200527154140448.jpg" alt="">
-                                    <!-- item_info -->
-                                    <div class="preview_info">
-                                        <p class="preview_title">레시피 이름</p>
-                                        <p class="preview_text">레시피 한줄 설명</p>
-                                        <!-- # item_info -->
-                                    </div>
-                                    <!-- # item -->
-                                </a>
-                            </li>
-                            <li class="preview" id="rec_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/recipe_main/20200707171216305.jpg" alt="">
-                                    <!-- item_info -->
-                                    <div class="preview_info">
-                                        <p class="preview_title">레시피 이름</p>
-                                        <p class="preview_text">레시피 한줄 설명</p>
-                                        <!-- # item_info -->
-                                    </div>
-                                    <!-- # item -->
-                                </a>
-                            </li>
-                            <li class="preview" id="rec_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/recipe_main/20200714105556596.jpg" alt="">
-                                    <!-- item_info -->
-                                    <div class="preview_info">
-                                        <p class="preview_title">레시피 이름</p>
-                                        <p class="preview_text">레시피 한줄 설명</p>
-                                        <!-- # item_info -->
-                                    </div>
-                                    <!-- # item -->
-                                </a>
-                            </li>
-                            <li class="preview" id="rec_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/recipe_main/20200812115927534.jpg" alt="">
-                                    <!-- item_info -->
-                                    <div class="preview_info">
-                                        <p class="preview_title">레시피 이름</p>
-                                        <p class="preview_text">레시피 한줄 설명</p>
-                                        <!-- # item_info -->
-                                    </div>
-                                    <!-- # item -->
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -133,51 +283,6 @@
                     </div>
                     <div class="preview_wrap">
                         <ul class="preview_box" id="adv_pre_box">
-                            <li class="preview" id="adv_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/adventure_main/20201201145950652.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">우보 씨와 토종쌀</p>
-                                        <p class="preview_text">우보농장 이근이 농부가 전하는 토종쌀, 아롱이다롱이의 이야기</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="adv_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/adventure_main/20200907174611726.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">무던히 모던하게 테일러커피</p>
-                                        <p class="preview_text">완벽한 원두와 로스팅에 대한 고집 있는 선택. 오늘, 가장 모던한 테일러커피를 만났습니다.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="adv_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/adventure_main/20200730180255492.gif" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">헬로네이처 간편생활백서</p>
-                                        <p class="preview_text">주문부터 배송까지 즐겁고 편리할 수 있도록. 고민은 헬로네이처가 할게요. 즐기기만 하세요.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="adv_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/adventure_main/20210628173831876.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">탐험노트 제목</p>
-                                        <p class="preview_text">탐험노트 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="adv_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/adventure_main/20210121181354732.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">탐험노트 제목</p>
-                                        <p class="preview_text">탐험노트 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -192,51 +297,6 @@
                     </div>
                     <div class="preview_wrap">
                         <ul class="preview_box" id="life_pre_box">
-                            <li class="preview" id="life_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/lifestyle_main/20200617163559599.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">워킹맘의 장바구니</p>
-                                        <p class="preview_text">아이를 위한 먹거리를 깐깐하게 골라 담은 워킹맘의 장바구니를 엿봅니다.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="life_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/lifestyle_main/20200807150315570.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">비거니즘 베이커리 더브레드블루</p>
-                                        <p class="preview_text">'인생 첫 비건 빵'이 누군가의 '인생 빵'이 되길 바라며 더브레드블루는 오늘도 가장 맛있는 비건 빵을 만듭니다.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="life_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/lifestyle_main/20201208152325914.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">크리스마스에 꼭 먹어야 해요</p>
-                                        <p class="preview_text">독일, 이탈리아에서는 크리스마스에 이 것들을 먹는 전통이 있대요.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="life_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/lifestyle_main/20201022171036997.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">라이프스타일 제목</p>
-                                        <p class="preview_text">라이프스타일 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="life_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/lifestyle_main/20200908112422192.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">라이프스타일 제목</p>
-                                        <p class="preview_text">라이프스타일 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -251,51 +311,6 @@
                     </div>
                     <div class="preview_wrap">
                         <ul class="preview_box" id="kit_pre_box">
-                            <li class="preview" id="kit_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/kitchenguide_main/20200520150707413.gif" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">2분만에 수란 완성</p>
-                                        <p class="preview_text">매끈하고 탐스런 수란을 만들어보세요. 휘리릭 손짓 한 번이면 충분합니다.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="kit_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/kitchenguide_main/20200717094852451.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">샐러드 드레싱 맛있는 공식</p>
-                                        <p class="preview_text">육류, 해산물, 견과류, 과일 등 샐러드의 메인 재료별로 딱 맞는 드레싱을 제안합니다.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="kit_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/kitchenguide_main/20201022102815792.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">이게 다 토마토소스</p>
-                                        <p class="preview_text">공통점은 토마토가 주재료란 사실 뿐! 맛도 텍스쳐도 활용법도 다 달라요</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="kit_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/kitchenguide_main/20201204122411703.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">키친가이드 제목</p>
-                                        <p class="preview_text">키친가이드 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="preview" id="kit_pre">
-                                <a href="">
-                                    <img src="/user/images/magazine/kitchenguide_main/20201015145738281.jpg" alt="">
-                                    <div class="preview_info">
-                                        <p class="preview_title">키친가이드 제목</p>
-                                        <p class="preview_text">키친가이드 한줄 설명</p>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -311,15 +326,11 @@
         </main>
         <!-- main 끝 -->
 
-        <!--footer thymeleaf-->
-        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
         <div th:replace="/user/fragment/footer::footer"></div>
 
     </div>
     <!-- container 끝 -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/magazine.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>

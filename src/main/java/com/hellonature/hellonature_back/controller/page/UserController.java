@@ -50,6 +50,11 @@ public class UserController {
     public String kitchenMain() {
         return "/user/magazine/User_kitchen_main.html";
     }
+    // 키친가이드 상세페이지
+    @GetMapping("/magazine/kitchen_content")
+    public String kitchenContent() {
+        return "/user/magazine/User_kitchen_content.html";
+    }
     // 더신선 페이지
     @GetMapping("/recommend/fresh")
     public String fresh() {

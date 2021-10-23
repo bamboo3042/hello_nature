@@ -10,14 +10,200 @@
     <link rel="stylesheet" th:href="@{/user/css/reset.css}">
     <link rel="stylesheet" th:href="@{/user/css/magazine.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function() {
+
+            const currUrl = new URL(location.href);
+            const searchParams = currUrl.searchParams;
+            const idx = searchParams.get("idx");
+
+            let memIdx = $("#hidden_user").val();
+
+            let url;
+            if (memIdx == "" || memIdx == null) { url = "/api/magazine/detail?idx="+idx; }
+            else { url = "/api/magazine/detail?idx="+idx+"&memIdx="+memIdx; }
+
+            axios.get(url, {
+
+            }).then(function(res) {
+                console.log(res.data.data);
+                let title = res.data.data.title;
+                let content = res.data.data.content;
+                let likeCnt = res.data.data.like;
+                let likeFlag = res.data.data.likeFlag;
+
+                document.getElementById("adv_title").innerText = title;          // 제목
+                document.getElementById("adv_cont_box").innerHTML = content;     // 상세내용
+                document.getElementById("likeCount").innerText = likeCnt;        // 좋아요수
+
+                /* 좋아요 */
+                let likeBtn = document.querySelector('#likeBtn');
+                if (likeFlag === "TRUE") { likeBtn.classList.add('spec_like_clicked'); }
+
+                likeBtn.addEventListener('click', function () {
+                    if (memIdx == "" || memIdx == null) {
+                        alert('로그인 후 이용 가능합니다');
+                        location.href = "/user/mypage_userLogin";
+                    } else {
+                        if (likeBtn.classList.contains('spec_like_clicked')) {
+                            axios.delete('/api/memberslikes/delete?memIdx=' + memIdx + '&magIdx=' + idx, {}).then(function () {
+                                alert('좋아요 취소 완료!');
+                                location.reload();
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        } else {
+                            axios.post('/api/memberslikes/create', {
+                                data: {
+                                    memIdx: memIdx,
+                                    mgIdx: idx
+                                }
+                            }).then(function () {
+                                alert('좋아요 등록 성공!');
+                                location.reload();
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        }
+                    }
+                });
+
+                /* 관련상품 (relList) */
+                if (res.data.data.relList.length == 0) {                                             // 상품이 존재하지 않으면
+                    document.querySelector('.cont_item_btn_prev').style.display = "none";            // 이전 슬라이드 버튼 비활성화
+                    document.querySelector('.cont_item_btn_next').style.display = "none";            // 다음 슬라이드 버튼 비활성화
+                    document.querySelector('.cont_item_wrap').innerHTML = "상품이 존재하지 않습니다."    // 빈칸에 문구 넣기
+                }
+
+                let relul = $(".adv_item_box");
+                for (let i=0; i<res.data.data.relList.length; i++) {
+                    let proIdx = res.data.data.relList[i].idx;
+                    let img = res.data.data.relList[i].img;
+                    let name = res.data.data.relList[i].name;
+                    let netPrice = res.data.data.relList[i].netPrice;
+                    let discount = res.data.data.relList[i].salePrice;
+                    let style, icon;
+                    if (discount == 0 || discount == null) { style = "none"; icon = "none"; }
+                    else { style = "inline"; icon = "inline-block"; }
+
+                    let temp = discount * 0.01;       // 10 * 0.01 = 0.1
+                    let salePrice = netPrice * temp;  // 30000 * 0.1 = 3000
+                    let price = netPrice - salePrice; // 30000 - 3000 = 27000
+
+                    netPrice = netPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                    let bestFlag = res.data.data.relList[i].bestFlag;
+                    if (bestFlag == "FALSE") { bestFlag = "none"; }
+                    else { bestFlag = "inline-block"; }
+
+                    let relli = $('<li class="cont_item">').append(
+                        '<div class="cont_item_ico">'+
+                        '<span class="cont_item_best" style="display:'+bestFlag+'">Best</span>'+
+                        '<span class="cont_item_dc" style="display:'+icon+'">'+discount+'%</span></div>'+
+                        '<div class="cont_item_item">'+
+                        '<div class="cont_item_img" style="cursor: pointer">>'+
+                        '<a onclick="location.href=\'/user/product?prodIdx=' + proIdx + '\'">'+
+                        '<img src="'+img+'"></a></div>'+
+                        '<div class="cont_item_info">'+
+                        '<div class="cont_item_title" style="cursor: pointer">>'+
+                        '<a onclick="location.href=\'/user/product?prodIdx=' + proIdx + '\'">'+
+                        '<span class="cont_item_name">'+name+'</span></a></div>'+
+                        '<div class="cont_item_basket">'+
+                        '<p class="cont_item_price"><span class="price_comma">'+price+'</span>원<span class="cont_item_sale" style="display:'+style+'"><span class="price_comma">'+netPrice+'</span>원</span></p>'+
+                        '<p class="cont_item_cart"><input type="hidden" value="' + proIdx + '"><button id="cont_item_btn"><img src="/user/images/magazine/main/price_cart.png"></button></p></div></div></div></li>'
+                    )
+                    relul.append(relli);
+
+                    /* 장바구니 */
+                    let cartBtn = document.querySelectorAll("#cont_item_btn");
+                    for (let i = 0; i < cartBtn.length; i++) {
+                        cartBtn[i].addEventListener('click', function () {
+                            console.log(cartBtn[i])
+                            let itemEl = cartBtn[i].previousSibling;
+                            let proIdx = itemEl.value;
+                            if (memIdx !== "") {
+                                axios.post('/api/basket/create', {
+                                    data: {
+                                        memIdx: memIdx,
+                                        proIdx: proIdx,
+                                        proCount: 1
+                                    }
+                                }).then(function () {
+                                    alert('장바구니에 등록되었습니다');
+                                    location.reload();
+                                }).catch(function (err) {
+                                    console.log(err);
+                                });
+                            } else {
+                                alert('비회원입니다.');
+                                let proIdx_list = [];
+                                sessionStorage.setItem("noMem", proIdx)
+                            }
+                        });
+                    }
+
+                    let contItemPrev = document.querySelector('.cont_item_btn_prev');
+                    let contItemNext = document.querySelector('.cont_item_btn_next');
+                    let contItemBox = document.querySelector('.cont_item_box');
+                    let contItem = document.querySelectorAll('.cont_item');
+                    let contItemCnt = contItem.length;
+                    let contItemIdx = 0;
+                    let contItemWidth = 250;
+                    let contItemMargin = 16.7;
+
+                    let last_item_li = document.querySelector('.cont_item:last-child');
+
+                    // last_item_li.style.marginRight = -contItemMargin + 'px';
+                    contItemBox.style.width = (contItemWidth + contItemMargin) * contItemCnt - contItemMargin + 'px';
+
+                    if (contItemCnt <= 4) {                                 // 총 길이가 4 와 같거나 넘지 않는다면
+                        contItemPrev.classList.add("disabled");             // 이전버튼 비활성화
+                    } else {                                                // 그렇지 않으면 (총 길이가 4를 넘는다면)
+                        contItemPrev.classList.remove("disabled");          // 이전버튼 활성화 (무한슬라이드하기 위해)
+                    }
+
+                    if (contItemIdx >= contItemCnt - 4) {                   // 현재 위치가 총 길이보다 높다면
+                        contItemNext.classList.add("disabled");             // 다음버튼 비활성화
+                    } else {                                                // 그렇지 않으면 (현재 위치가 총 길이보다 높지 않다면)
+                        contItemNext.classList.remove("disabled");          // 다음버튼 활성화
+                    }
+
+                    function moveContItem(num) {
+                        contItemBox.style.left = -num * (contItemWidth + contItemMargin) + 'px';
+                        contItemIdx = num;
+                    }
+
+                    contItemNext.addEventListener('click', function() {
+                        if (contItemIdx < contItemCnt - 4) {
+                            moveContItem(contItemIdx + 1);
+                        } else {
+                            moveContItem(0);
+                        }
+                    });
+
+                    contItemPrev.addEventListener('click', function() {
+                        if (contItemIdx > 0) {
+                            moveContItem(contItemIdx - 1);
+                        } else {
+                            moveContItem(contItemCnt - 4);
+                        }
+                    });
+                };
+
+            }).catch(function(err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <!-- axios -->
 </head>
 <!-- head 끝 -->
-
-<!-- axios -->
-<script>
-
-</script>
-<!-- axios -->
 
 <body>
     <!-- container -->
@@ -30,11 +216,11 @@
         <main>
             <!-- magazine_content -->
             <section id="magazine_content" class="clearfix" >
-                <div id="adv_title" class="mg_cont_tit width clearfix">탐험노트</div>
+                <div id="adv_title" class="mg_cont_tit width clearfix"></div>
 
                 <!-- html box -->
                 <div id="adv_cont_box" class="width">
-                    <!-- HTML 이미지/글 -->
+                    <!-- HTML 이미지/글 (어드민에서 등록할떄 코드 이부분부터 시작) -->
                     <div class="adv_cont_html01 adv_cont_html">
                         <img src="/user/images/magazine/adventure_content/note0.png" alt="">
                         <p><span>친구 추천으로 함께하는<br><span>더그린 라이프!</span></span><br><br>한 명의 더그리너가 친구에게, 또 다른 친구에게. 더그린 친구 추천으로 친구 모두 더그린 라이프를 누립니다. 쓰고 또 쓰는 더그린박스로 환경에 대한 부담 없이 더 빠르고 편리한 새벽배송 생활을요. 더그리너 네 친구의 캠핑 이야기.<br>
@@ -110,154 +296,14 @@
                 <!-- html box 끝 -->
 
                 <!-- 관련상품 (4 column slide) -->
-                <div class="content_item width clearfix">
+                <div class="content_item width clearfix" id="adv_cont_wrap">
                     <p>관련상품</p>
                     <div class="cont_item_controls">
                         <div class="cont_item_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
                         <div class="cont_item_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
                     </div>
                     <div class="cont_item_wrap">
-                        <ul class="cont_item_box">
-                            <li class="cont_item">
-                                <div class="cont_item_ico">
-                                    <span class="cont_item_dc">10%</span>
-                                </div>
-                                <!-- item -->
-                                <div class="cont_item_item">
-                                    <div class="cont_item_img">
-                                        <a href="/product">
-                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- item_info -->
-                                    <div class="cont_item_info">
-                                        <div class="cont_item_title">
-                                            <a href="/product">
-                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
-                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
-                                            </a>
-                                        </div>
-                                        <div class="cont_item_basket">
-                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
-                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
-                                        </div>
-                                    </div>
-                                    <!-- # item_info -->
-                                </div>
-                                <!-- # item -->
-                            </li>
-                            <li class="cont_item">
-                                <div class="cont_item_ico">
-                                    <span class="cont_item_dc">10%</span>
-                                </div>
-                                <!-- item -->
-                                <div class="cont_item_item">
-                                    <div class="cont_item_img">
-                                        <a href="/product">
-                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- item_info -->
-                                    <div class="cont_item_info">
-                                        <div class="cont_item_title">
-                                            <a href="/product">
-                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
-                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
-                                            </a>
-                                        </div>
-                                        <div class="cont_item_basket">
-                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
-                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
-                                        </div>
-                                    </div>
-                                    <!-- # item_info -->
-                                </div>
-                                <!-- # item -->
-                            </li>
-                            <li class="cont_item">
-                                <div class="cont_item_ico">
-                                    <span class="cont_item_dc">10%</span>
-                                </div>
-                                <!-- item -->
-                                <div class="cont_item_item">
-                                    <div class="cont_item_img">
-                                        <a href="/product">
-                                            <img src="./images/repice_content/채끝스테이크솥밥/관련상품04.png" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- item_info -->
-                                    <div class="cont_item_info">
-                                        <div class="cont_item_title">
-                                            <a href="/product">
-                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
-                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
-                                            </a>
-                                        </div>
-                                        <div class="cont_item_basket">
-                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
-                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
-                                        </div>
-                                    </div>
-                                    <!-- # item_info -->
-                                </div>
-                                <!-- # item -->
-                            </li>
-                            <li class="cont_item">
-                                <div class="cont_item_ico">
-                                    <span class="cont_item_dc">10%</span>
-                                </div>
-                                <!-- item -->
-                                <div class="cont_item_item">
-                                    <div class="cont_item_img">
-                                        <a href="/product">
-                                            <img src="./images/recipe_content/채끝스테이크솥밥/관련상품04.png" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- item_info -->
-                                    <div class="cont_item_info">
-                                        <div class="cont_item_title">
-                                            <a href="/product">
-                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
-                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
-                                            </a>
-                                        </div>
-                                        <div class="cont_item_basket">
-                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
-                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
-                                        </div>
-                                    </div>
-                                    <!-- # item_info -->
-                                </div>
-                                <!-- # item -->
-                            </li>
-                            <li class="cont_item">
-                                <div class="cont_item_ico">
-                                    <span class="cont_item_dc">10%</span>
-                                </div>
-                                <!-- item -->
-                                <div class="cont_item_item">
-                                    <div class="cont_item_img">
-                                        <a href="/product">
-                                            <img src="./images/recipe_content/채끝스테이크솥밥/관련상품04.png" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- item_info -->
-                                    <div class="cont_item_info">
-                                        <div class="cont_item_title">
-                                            <a href="/product">
-                                                <span class="cont_item_brand">[허챠밍X마이셰프]</span>
-                                                <span class="cont_item_name">매콤 로제 스테이크 1-2인분 540g</span>
-                                            </a>
-                                        </div>
-                                        <div class="cont_item_basket">
-                                            <p class="cont_item_price"><span class="price_comma">3200</span>원<span class="cont_item_sale"><span class="price_comma">5000</span>원</span></p>
-                                            <p class="cont_item_cart"><button><img src="/user/images/magazine/main/price_cart.png" alt=""></button></p>
-                                        </div>
-                                    </div>
-                                    <!-- # item_info -->
-                                </div>
-                                <!-- # item -->
-                            </li>
+                        <ul class="cont_item_box" id="adv_item_box">
                         </ul>
                     </div>
                 </div>
@@ -265,8 +311,8 @@
 
                 <!-- 좋아요 -->
                 <div class="cont_like width">
-                    <p class="cont_like_img"></p>
-                    <p class="cont_like_cnt">0</p>
+                    <p class="cont_like_img" id="likeBtn"></p>
+                    <p class="cont_like_cnt" id="likeCount"></p>
                     <p>어떠셨나요?</p>
                     <p>마음에 드셨다면 좋아요로 모아볼 수 있어요!</p>
                 </div>
@@ -274,7 +320,7 @@
 
                 <!-- 목록버튼 -->
                 <div class="board_page_btn width">
-                    <input type="button" value="목록" id="backBtn">
+                    <input type="button" onclick="location.href='/user/magazine/adventure?page=0'" value="목록" id="backBtn">
                 </div>
                 <!-- 목록버튼 끝 -->
             </section>
@@ -282,15 +328,12 @@
         </main>
         <!-- main 끝 -->
 
-        <!--footer thymeleaf-->
-        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
         <div th:replace="/user/fragment/footer::footer"></div>
 
     </div>
     <!-- container 끝 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/content.js}"></script>
+    <!-- <script type="text/javascript" th:src="@{/user/js/content.js}"></script> -->
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>

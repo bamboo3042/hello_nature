@@ -227,8 +227,8 @@ form[name="order_search"] select  { height: 38px; margin-right: 8px;}
 .Pro_question { margin: 11px; }
 .PQ_c1 { margin-bottom: 11px; padding: 25px 80px; background-color: white; box-sizing: border-box; }
 form[name="pro_question"] { margin-top: 25px;}
-form #pro_question tr th { font-size: 14px; text-align: center; border: 1px solid #999; }
-form #pro_question tr td { padding: 14px 10px; border: 1px solid #999; font-size: 14px; background-color: rgb(240, 240, 240);}
+form #pro_question tr th { font-size: 14px; text-align: center; border: 1px solid #999; width: 140px; }
+form #pro_question tr td { padding: 14px 10px; border: 1px solid #999; font-size: 14px; background-color: rgb(240, 240, 240); width: 300px;}
 form #pro_question input[type="text"] { width: 322px;}
 form #pro_question input[type="date"] { width: 155px;}
 form #pro_question span  { font-size: 13px;}
@@ -541,6 +541,8 @@ form[name="coupon_search"] table input[type="date"] { width: 220px;}
 #RC_c1_btnBox { margin: 40px 0 0; padding-bottom: 40px;}
 #RC_btnBox { text-align: right; }
 #RC_btnBox input { width: 130px; border: 1px solid #266266; font-size: 14px;}
+#RC_btnBox2 { text-align: right; }
+#RC_btnBox2 input { width: 130px; border: 1px solid #266266; font-size: 14px;}
 .RC_c3_editlist > p { font-size: 15px; font-weight: bold; padding: 20px 0;}
 .RC_c3_editlist { width:80%; margin: 0 auto; border-top: 2px dotted #266266;}
 

@@ -10,6 +10,61 @@
     <link rel="stylesheet" th:href="@{/user/css/reset.css}">
     <link rel="stylesheet" th:href="@{/user/css/magazine.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function() {
+            const currUrl = new URL(location.href);
+            const searchParams = currUrl.searchParams;
+            const page = searchParams.get("page");
+
+            axios.get('/api/magazine/user/list?type=STYLE&page='+page, {
+
+            }).then(function(res) {
+
+                let ul = $(".board_box");
+
+                for (let i in res.data.data) {
+                    let idx = res.data.data[i].idx;
+                    let img = res.data.data[i].img;
+                    let title = res.data.data[i].title;
+                    let des = res.data.data[i].des;
+
+                    let li = $('<li class="life_brd_list board_list">').append(
+                        '<label>'+
+                        '<div class="life_image board_image" onclick="location.href=\'/user/magazine/lifestyle_content?idx='+idx+'\'"><img src="'+img+'"></div>'+
+                        '<div class="life_brd_info board_info">'+
+                        '<div class="life_brd_name board_name">'+title+'</div>'+
+                        '<div class="life_brd_txt board_text clearfix">'+des+'</div></div></label></li>'
+                    )
+                    ul.append(li);
+                };
+
+                for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                    let pageNumbering = $('<div class="page_num" value="'+i+'">').append(
+                        (i+1) +'</div>'
+                    )
+                    $(".page_prev").after(pageNumbering);
+                }
+
+                let pageNum = document.querySelectorAll(".page_num");
+                for(let i=0; i<pageNum.length; i++) {
+                    pageNum[i].addEventListener('click', function() {
+                        let num = pageNum[i].innerText;
+                        let k = parseInt(num);
+                        searchParams.set('page', String(k-1));
+                        let newParam = searchParams.toString();
+                        location.href = location.pathname+'?'+newParam, '_self';
+                        console.log(String(k-1));
+                    });
+                }
+            }).catch(function(err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <!-- axios -->
 </head>
 <!-- head 끝 -->
 
@@ -29,11 +84,11 @@
                     <div class="prod_category_box">
                         <div class="prod_cate_tit">매거진</div>
                         <ul class="prod_cate_list">
-                            <li class="prod_cate">전체</li><!--
-                         --><li class="prod_cate">레시피</li><!--
-                         --><li class="prod_cate">탐험노트</li><!--
-                         --><li class="prod_cate">라이프스타일</li><!--
-                         --><li class="prod_cate">키친가이드</li>
+                            <li class="prod_cate" onclick="location.href='/user/magazine'">전체</li><!--
+                             --><li class="prod_cate" onclick="location.href='/user/magazine/recipe?page=0'">레시피</li><!--
+                             --><li class="prod_cate" onclick="location.href='/user/magazine/adventure?page=0'">탐험노트</li><!--
+                             --><li class="prod_cate" onclick="location.href='/user/magazine/lifestyle?page=0'" style="color: #0db081; font-weight: bold; border-bottom: 1px solid #0db081">라이프스타일</li><!--
+                             --><li class="prod_cate" onclick="location.href='/user/magazine/kitchen?page=0'">키친가이드</li>
                         </ul>
                     </div>
                 </div>
@@ -42,174 +97,6 @@
                 <!-- 라이프스타일 게시판 (2 column layout) -->
                 <div class="board_wrap clearfix width">
                     <ul class="life_brd_box board_box">
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20201022171036997.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200908112422192.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 레시피 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200901115821751.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200811185847738.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200807150315570.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200617163559599.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20200519150448839.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
-                        <li class="life_brd_list board_list">
-                            <label>
-                                <!-- 라이프스타일 대표 이미지 -->
-                                <div class="life_image board_image">
-                                    <a th:href="@{'/magazine/lifestyle_content/'+${idx}}">
-                                        <img src="./images/lifestyle_main/20210330105141896.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!-- # 라이프스타일 대표 이미지 -->
-                                <!-- 라이프스타일 정보 -->
-                                <div class="life_brd_info board_info">
-                                    <div class="life_brd_name board_name">라이프스타일 제목</div>
-                                    <div class="life_brd_like board_like">
-                                        <div class="board_like_img"></div>
-                                        <div class="board_like_cnt">0</div>
-                                    </div>
-                                    <div class="life_brd_txt board_text clearfix">라이프스타일 설명</div>
-                                </div>
-                                <!-- # 라이프스타일 정보 -->
-                            </label>
-                        </li>
                     </ul>
                 </div>
                 <!-- 라이프스타일 게시판 (2 column layout) 끝 -->
@@ -218,13 +105,6 @@
                 <div class="pagination">
                     <div class="page_first"><img src="/user/images/magazine/main/pagination_first.png"></div>
                     <div class="page_prev"><img src="/user/images/magazine/main/pagination_prev.png"></div>
-                    <div class="page_num">1</div>
-                    <div class="page_num">2</div>
-                    <div class="page_num">3</div>
-                    <div class="page_num">4</div>
-                    <div class="page_num">5</div>
-                    <div class="page_num">6</div>
-                    <div class="page_num">7</div>
                     <div class="page_next"><img src="/user/images/magazine/main/pagination_next.png"></div>
                     <div class="page_last"><img src="/user/images/magazine/main/pagination_last.png"></div>
                 </div>
@@ -234,15 +114,11 @@
         </main>
         <!-- main 끝 -->
 
-        <!--footer thymeleaf-->
-        <!--    <div th:replace="/user/fragment/footer::footer"></div>-->
         <div th:replace="/user/fragment/footer::footer"></div>
 
     </div>
     <!-- container 끝 -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/magazine.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
