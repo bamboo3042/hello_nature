@@ -8,6 +8,70 @@
     <link rel="stylesheet" href="/admin/css/style2.css">
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
 </head>
+<script>
+    $(function(){
+        let id = sessionStorage.getItem("idx1");
+        console.log(id)
+
+        axios.get('/api/productReview/read/'+ id, {
+
+        }).then(function(response){
+            let name = response.data.data.memName;
+            let proName = response.data.data.proName;
+            let regdate = response.data.data.regdate;
+            regdate = regdate.toString().substring(0, 10);
+            let proIdx = response.data.data.proIdx;
+            let content = response.data.data.content;
+            let ansFlag = response.data.data.ansFlag;
+            let ansContent = response.data.data.ansContent;
+            console.log(name)
+            console.log(regdate)
+            console.log(proIdx)
+            console.log(ansFlag)
+
+            $('#name').text(name);
+            $('#regdate').text(regdate);
+            $('#pro_name').text(proName)
+            $('#proIdx').text(proIdx);
+            $('#review_content').text(content);
+            $('input:radio[name="answer"][value="' + ansFlag + '"]').prop("checked", true);
+            $('#PA_editor').val(ansContent);
+
+        }).catch(function(err){
+            console.log(err)
+        })
+    })
+
+    function sendit(){
+        let id = sessionStorage.getItem("idx1");
+        console.log(id)
+        let data = {
+            idx: id,
+            ansContent: CKEDITOR.instances.PA_editor.getData(),
+            ansFlag: $('input:radio[name="answer"]:checked').val()
+        }
+        console.log(data.ansContent)
+        console.log(data.ansFlag)
+        let files = ($('input[name="file"]'));
+        let fileList = [];
+        let formData = new FormData;
+
+        for(let i = 0; i < files.length; i++){
+            fileList.push(files[i].files[0]);
+            formData.append('files', files[i].files[0]);
+            console.log(formData)
+        }
+        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
+        axios.put('/api/productReview/update', formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        }).then(function (){
+            alert('답변상태가 수정되었습니다');
+            location.reload();
+        })
+    }
+
+</script>
 <body>
     <!--content_title 시작-->
     <div class="content_title">
@@ -25,25 +89,25 @@
                 <table id="pro_review">
                     <tr>
                         <th width="140">작성자</th>
-                        <td width="300">김사과</td>
+                        <td width="300" id="name"></td>
                         <th width="140">작성일시</th>
-                        <td width="300">2021-08-01 11:13:45</td>
+                        <td width="300" id="regdate"></td>
                     </tr>
                     <tr>
                         <th>구매상품</th>
-                        <td>자숙 손질 문어</td>
+                        <td id="pro_name"></td>
                         <th>상품코드</th>
-                        <td>G1000001</td>
+                        <td id="proIdx">G1000001</td>
                     </tr>
                     <tr>
                         <th>만족도</th>
-                        <td>최고에요</td>
+                        <td id="like">최고에요</td>
                         <th>첨부파일</th>
-                        <td>Phone.png</td>
+                        <td id="files">Phone.png</td>
                     </tr>
                     <tr>
                         <th>구매후기</th>
-                        <td colspan="3">맛있어용</td>
+                        <td colspan="3" id="review_content">맛있어용</td>
                     </tr>
                 </table>
                 <!--table 끝-->
@@ -53,8 +117,8 @@
                     <tr>
                         <th width="120">답변 상태</th>
                         <td>
-                            <span><input type="radio" name="answer" value="답변대기">답변대기</span>
-                            <span><input type="radio" name="answer" value="답변완료">답변완료</span>
+                            <span><input type="radio" name="answer" value="0">답변대기</span>
+                            <span><input type="radio" name="answer" value="1">답변완료</span>
                         </td>
                     </tr>
                     <tr>
@@ -74,8 +138,7 @@
                 <!--table 끝-->
                 <!--PA_c1_btnBox 시작-->
                 <div id="PA_c1_btnBox" class="bottom_btn">
-                    <input type="reset" name="reset" value="초기화">
-                    <input type="submit" name="submit" value="등록">
+                    <input type="button" name="submit" value="수정" onclick="sendit()">
                 </div>
             <!--PA_c1_btnBox 끝-->
             </form>

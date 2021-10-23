@@ -59,7 +59,52 @@
                 document.getElementById("cook_level").innerText = level;            // 난이도
                 document.getElementById("cook_kcal").innerText = kcal + "Kcal";     // 칼로리
                 document.getElementById("cook_like").innerText = likeCnt;           // 좋아요수
-                // document.getElementById("rec_content_wrap").innerHTML = content;    // 만드는법 (ul 태그 통쨰로 db에 담으면 됨!)
+                document.getElementById("rec_content_wrap").innerHTML = content;    // 만드는법 (ul 태그 통쨰로 db에 담으면 됨!)
+
+                /* 만드는법 */
+                let recCookPrev = document.querySelector('.rec_cook_btn_prev');
+                let recCookNext = document.querySelector('.rec_cook_btn_next');
+                let recCookBox = document.querySelector('.rec_cook_box');
+                let recCook = document.querySelectorAll('.rec_cook');
+                let recCookCnt = recCook.length;
+                let recCookIdx = 0;
+                let recCookWidth = 510;
+                let recCookMargin = 30;
+                let last_li = document.querySelector('.rec_cook:last-child');
+
+                last_li.style.marginRight = -recCookMargin + 'px';
+                recCookBox.style.width = (recCookWidth + recCookMargin) * recCookCnt - recCookMargin + 'px';
+
+                function moveRecCook(num) {
+                    recCookBox.style.left = -num * (recCookWidth + recCookMargin) + 'px';
+                    recCookIdx = num;
+                }
+
+                if (recCookIdx == 0) {                                      // 현재 위치가 0 이라면
+                    recCookPrev.classList.add("disabled");                  // 이전버튼을 비활성화
+                }
+
+                recCookNext.addEventListener('click', function() {          // 다음버튼 클릭 시
+                    if (recCookIdx < recCookCnt - 2) {                      // 현재 위치가 총 길이보다 낮다면
+                        moveRecCook(recCookIdx + 1);                        // 한칸 앞으로 이동하고
+                        recCookPrev.classList.remove("disabled");           // 이전버튼을 활성화하면서
+                        if (recCookIdx == recCookCnt - 2) {                 // 현재 인덱스가 총 길이와 같다면
+                            recCookNext.classList.add("disabled");          // 다음버튼을 비활성화
+                        }
+                    }
+                });
+
+                recCookPrev.addEventListener('click', function() {           // 이전버튼 클릭 시
+                    if (recCookIdx > 0) {                                    // 현재 위치가 0 보다 높으면
+                        moveRecCook(recCookIdx - 1);                         // 한칸 뒤로 이동하고
+                        recCookNext.classList.remove("disabled");            // 다음버튼을 활성화하면서
+                        if (recCookIdx == 0) {                               // 현재 위치가 0 이라면
+                            recCookPrev.classList.add("disabled");           // 이전버튼을 비활성화
+                        }
+                    }
+                });
+
+
 
                 /* 필요한 재료 */
                 let ingreArr = [];
@@ -121,7 +166,7 @@
                     let netPrice = res.data.data.ingreList[i].netPrice;
                     let discount = res.data.data.ingreList[i].salePrice;
                     let ingrestyle, ingreicon;
-                    if (discount == 0) { ingrestyle = "none"; ingreicon = "none"; }
+                    if (discount == 0 || discount == null) { ingrestyle = "none"; ingreicon = "none"; }
                     else { ingrestyle = "inline"; ingreicon = "inline-block"; }
 
                     let temp = discount * 0.01;       // 10 * 0.01 = 0.1
