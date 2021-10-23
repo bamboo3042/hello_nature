@@ -184,9 +184,9 @@ public class ProductReviewService  {
 
         if (like != null){
             jpql += " where";
-            if(like < 4) jpql += " rv_like < 4";
-            else if(like < 7) jpql += " rv_like > 3 and rv_like < 7";
-            else jpql += " rv_like > 6";
+            if(like == 1) jpql += " rv_like < 4";
+            else if(like == 2) jpql += " rv_like > 3 and rv_like < 7";
+            else if(like == 3) jpql += " rv_like > 6";
         }
 
         jpql += " order by idx desc";
