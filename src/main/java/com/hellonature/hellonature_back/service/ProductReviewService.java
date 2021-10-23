@@ -227,6 +227,7 @@ public class ProductReviewService  {
                 .ansContent(productReview.getAnsContent())
                 .files(productReview.getFiles())
                 .ansDate(productReview.getAnsDate())
+                .regdate(productReview.getRegdate())
                 .build();
     }
 

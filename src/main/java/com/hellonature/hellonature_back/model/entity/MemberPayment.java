@@ -3,6 +3,7 @@ package com.hellonature.hellonature_back.model.entity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -28,6 +29,7 @@ public class MemberPayment extends DateEntity{
 
     @OneToOne(targetEntity = MemberOrder.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "mord_idx")
+    @Nullable
     private MemberOrder order;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
