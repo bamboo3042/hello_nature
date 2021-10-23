@@ -20,7 +20,7 @@ public class CardApiController extends CrudController<CardApiRequest, CardApiRes
     private final CardService cardService;
 
     @Override
-    @PutMapping("/create")
+    @PostMapping("/create")
     public Header<CardApiResponse> create(@RequestBody Header<CardApiRequest> request) {
         return cardService.create(request);
     }
