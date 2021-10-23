@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -264,5 +266,26 @@ public class ProductReviewService  {
                 .rvIdx(productReview.getIdx())
                 .ansFlag(productReview.getAnsFlag())
                 .build();
+    }
+
+    public Header updateAns(Long idx, String ansContent){
+        Optional<ProductReview> optionalProductReview = productReviewRepository.findById(idx);
+        if (optionalProductReview.isEmpty()) return Header.ERROR("리뷰 idx가 잘못되었습니다");
+        ProductReview productReview = optionalProductReview.get();
+
+        if (ansContent == null || ansContent.isEmpty()){
+            productReview.setAnsContent(null);
+            productReview.setAnsFlag(Flag.FALSE);
+            productReview.setAnsDate(null);
+        }
+        else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            productReview.setAnsContent(ansContent);
+            productReview.setAnsFlag(Flag.TRUE);
+            productReview.setAnsDate(LocalDate.now().format(formatter));
+        }
+
+        return Header.OK();
     }
 }

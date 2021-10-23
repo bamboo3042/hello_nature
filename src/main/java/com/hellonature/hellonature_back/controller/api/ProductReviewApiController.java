@@ -68,4 +68,10 @@ public class ProductReviewApiController extends CrudController<ProductReviewApiR
                                                     @RequestParam(name = "dateEnd") String dateEnd){
         return productReviewService.myPage(flag, idx, dateStart, dateEnd);
     }
+
+    @GetMapping("ansContent/update")
+    public Header updateAns(@RequestParam(name = "idx") Long idx,
+                            @RequestParam(name = "ansContent", required = false) String ansContent){
+        return productReviewService.updateAns(idx, ansContent);
+    }
 }
