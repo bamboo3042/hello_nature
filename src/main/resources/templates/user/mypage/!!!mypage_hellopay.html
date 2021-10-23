@@ -8,163 +8,210 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
-        #mypage-box { overflow: hidden; height: 100%;}
-        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
-        .list li:nth-child(3) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
-        .list li:nth-child(3) > a { color: #5dab99;}
+        #mypage-box {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .container {
+            min-width: 1050px;
+            margin: 0 auto;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .list li:nth-child(3) {
+            background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%;
+            background-size: 6px 11px;
+            font-weight: 700;
+            color: #5dab99;
+        }
+
+        .list li:nth-child(3) > a {
+            color: #5dab99;
+        }
     </style>
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
     </script>
+    <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        const Idx = $("#memIdx").val();
+        $(function () {
+            let memIdx = $("#hidden_user").val();
+            axios.get('/api/card/list/' + memIdx, {}).then(function (response) {
+                    console.log(response.data.data)
+                for (let i in response.data.data) {
+                    let numList = response.data.data[i].num;
+                    let bankType = response.data.data[i].bank;
+                    let cardIdx = response.data.data[i].idx;
+                    let name = response.data.data[i].name;
+                    let baseFlag = response.data.data[i].baseFlag;
+                    let busiFlag = response.data.data[i].busiFlag;
 
-        axios.get('/api/card/read/'+Idx, {
+                    if(baseFlag === "TRUE"){
+                        $("input[name='radio_id']").prop("checked", true)
+                    }
 
-        }).then((response) => {
-            let numList = response.data.data.num;               // 카드번호
-            let bankType = response.data.data.bankType;         // 은행타입
-            // let bankType = ["KB", "SINHAN", "CITY", "IBK", "KEB", "BNK", "SC", "GWANGJU", "WOORI"];
-            let cardIdx = response.data.data.idx;               // Primary key
+                    let show_busiFlag;
+                    if(busiFlag === "TRUE"){
+                        busiFlag = "법인"
+                        show_busiFlag ="block"
+                    }else{
+                        show_busiFlag ="none"
+                    }
 
-            if(cardIdx == null){
-                $(".ifHasCard").css('display', 'none');
-                $("#contents_hellopay_h5").innerText("카드를 등록해주세요.");
-                return false;
-            }else{
-                $(".ifHasCard").css('display', 'show');
-                $("#contents_hellopay_h5").innerText("등록된 카드");
-            }
+                    let num = numList.split("-");
+                    let splitNum = num[3];
+                    let lastNum = splitNum;
 
-            // 카드번호 마지막 4자리
-            let num = numList.split("-");    // 1234-1234-1234-1234
-            let splitNum = num[3];           //                ---- num[3]
-            let lastNum = splitNum;          // 카드번호 마지막 4자리
+                    let bank;
+                    switch (bankType) {
+                        case "KB":
+                            bank = "국민은헹";
+                            break;
+                        case "SINHAN":
+                            bank = "신한은행";
+                            break;
+                        case "CITY":
+                            bank = "한국씨티은행";
+                            break;
+                        case "IBK":
+                            bank = "IBK기업은행";
+                            break;
+                        case "KEB":
+                            bank = "KEB하나은행";
+                            break;
+                        case "BNK":
+                            bank = "부산은행";
+                            break;
+                        case "SC":
+                            bank = "SC제일은행";
+                            break;
+                        case "GWANGJU":
+                            bank = "광주은행";
+                            break;
+                        case "WOORI":
+                            bank = "우리은행";
+                            break;
+                    }
 
-            // 은행종류 (영어 -> 한국어)
-            let bank;
-            switch(bankType){
-                case "KB":
-                    bank = "국민은헹";
-                    break;
-                case "SINHAN":
-                    bank = "신한은행";
-                    break;
-                case "CITY":
-                    bank = "한국씨티은행";
-                    break;
-                case "IBK":
-                    bank = "IBK기업은행";
-                    break;
-                case "KEB":
-                    bank = "KEB하나은행";
-                    break;
-                case "BNK":
-                    bank = "부산은행";
-                    break;
-                case "SC":
-                    bank = "SC제일은행";
-                    break;
-                case "GWANGJU":
-                    bank = "광주은행";
-                    break;
-                case "WOORI":
-                    bank = "우리은행";
-                    break;
-            }
+                    let row = $('<div class="contents_hellopay_inputcard">').append(
+                        '<div class="hellopay_radio_box"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="'+cardIdx+'"/>' +
+                        '<label for="hellopay_radio"></label></div><div class="hellopay_card_edit_del"><p id="hellopayEditNickname">별칭수정</p><div class="hellopay_line"></div>' +
+                        '<p id="hellopayDelete">삭제</p><input type="hidden" value="'+cardIdx+'"></div>' +
+                        '</div><div class="hellopay_cardname"><input type="text" id="cardname" maxlength="10" readonly></div>' +
+                        '<div class="hellopay_card_info"><span class="hellopay_bankname">'+name+'</span><span style="display:'+show_busiFlag+'">'+busiFlag+'</span></div>' +
+                        '<div class="hellopay_card_info"><span class="hellopay_bankname">'+bank+'</span>' +
+                        '<span class="hellopay_star"><i>**** **** ****</i><span>'+lastNum+'</span></span></div></div>'
+                    )
+                    $(".ifHasCard").append(row);
+                }
 
-            // id가 card_name인 input[type="text"]에 value값으로 bank를 삽입
-            $("#card_name").attr('value', bank);
+                $("#hellopayDelete").click(function (){
+                    let idx = $(this).next("input").val()
+                    axios.delete("/api/card/delete/" + idx, {}).then(function (){
+                        alert("삭제에 성공하셨습니다")
+                    })
+                })
 
-            $(".hellopay_bankname").append(bank);
-            $(".hellopay_star:nth-child(2)").append(lastNum);
-        });
+                $("input[name='radio_id']").click(function (e){
+                    console.log($(this).val())
+                    console.log(memIdx)
+                    let baseFlagidx = $("input[name='radio_id']:checked").val();
 
-        // 헬로페이 삭제
-        function deleteHellopay() {
-            const Idx = $("#memIdx").val();
+                    axios.put("/api/card/update", {
+                        data:{
+                            idx: $(this).val(),
+                            memIdx: memIdx,
+                            baseFlag: "TRUE",
+                            baseFlagidx: baseFlagidx
+                        }
+                    }).then(function (){
+                        alert("기본 카드가 변경되었습니다")
+                    }).catch(function (err){
+                        console.log(err)
+                    })
+                })
 
-            axios.delete('/api/card/delete/'+Idx, {
-
-            }).then((response) => {
-                alert("카드 정보를 삭제하였습니다.");
-            })
-
-        }
+            }).catch(function (err){
+                console.log(err)
+            });
+        })
     </script>
     <!-- axios -->
 </head>
 <body>
-    <div id="mypage-box">
-        <div class="container">
-            <div th:replace="/user/fragment/header::header"></div>
-            <div class="contents">
-                <div th:replace="/user/fragment/section::section"></div>
-            </div>
-            <div class="main">
-                <!-- tb_members id -->
-                <input type="hidden" id="memIdx" class="memIdx" th:value="${idx}" />
-                <!-- main_leftaside 시작 -->
-                <div class="main_leftaside3">
-                    <div th:replace="/user/fragment/sidebar3::sidebar3"></div>
-                <!-- main_leftaside 끝 -->
-                </div>
-                <!-- main_contents 시작 -->
-                <div class="main_contents">
-                    <div class="contents_box1">
-                        <h2 class="contents_name">헬로페이</h2>                        
-                    </div> 
-                    <h5 id="contents_hellopay_h5">
-                        <!-- 등록된 카드 -->
-                    </h5>
-                    <!-- 카드 -->
-                    <div class="ifHasCard">
-                        <div class="contents_hellopay_inputcard">
-                            <div class="hellopay_radio_box">
-                                <div class="hellopay_radio_box_inner">
-                                    <input type="radio" name="radio_id" id="hellopay_radio"/>
-                                    <label for="hellopay_radio"></label>
-                                </div>
-                                <div class="hellopay_card_edit_del">
-                                    <p id="hellopayEditNickname">별칭수정</p>
-                                    <div class="hellopay_line"></div>
-                                    <p id="hellopayDelete" onClick="deleteHellopay()">삭제</p>
-                                </div>
-                            </div>
-                            <div class="hellopay_cardname">
-                                <input type="text" id="cardname" maxlength="10" readonly>
-                            </div>
-                            <div class="hellopay_card_info">
-                                <span class="hellopay_bankname">
-                                    <!-- KB국민카드 -->
-                                </span>
-                                <span class="hellopay_star">
-                                    <i>**** **** ****</i>
-                                    <span><!-- 1234 --></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 카드 -->
-                    <div class="hellopay_button_area">
-                        <button type="submit" onClick="location.href='/user/mypage_enrollHellopay'"class="hellopay_inputcard_submit" id="regist_card">카드 등록</button>
-                    </div>
-                <!-- main_contents 끝 -->        
-                </div>
-            <!-- main 끝 -->
-            </div>
-            <div th:replace="/user/fragment/footer::footer"></div>
+<div id="mypage-box">
+    <div class="container">
+        <div th:replace="/user/fragment/header::header"></div>
+        <div class="contents">
+            <div th:replace="/user/fragment/section::section"></div>
         </div>
+        <div class="main">
+            <!-- tb_members id -->
+            <input type="hidden" id="memIdx" class="memIdx" th:value="${idx}"/>
+            <!-- main_leftaside 시작 -->
+            <div class="main_leftaside3">
+                <div th:replace="/user/fragment/sidebar3::sidebar3"></div>
+                <!-- main_leftaside 끝 -->
+            </div>
+            <!-- main_contents 시작 -->
+            <div class="main_contents">
+                <div class="contents_box1">
+                    <h2 class="contents_name">헬로페이</h2>
+                </div>
+                <h5 id="contents_hellopay_h5">
+                    등록된 카드
+                </h5>
+                <!-- 카드 -->
+                <div class="ifHasCard">
+<!--                    <div class="contents_hellopay_inputcard">-->
+<!--                        <div class="hellopay_radio_box">-->
+<!--                            <div class="hellopay_radio_box_inner">-->
+<!--                                <input type="radio" name="radio_id" id="hellopay_radio"/>-->
+<!--                                <label for="hellopay_radio"></label>-->
+<!--                            </div>-->
+<!--                            <div class="hellopay_card_edit_del">-->
+<!--                                <p id="hellopayEditNickname">별칭수정</p>-->
+<!--                                <div class="hellopay_line"></div>-->
+<!--                                <p id="hellopayDelete" onClick="deleteHellopay()">삭제</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="hellopay_cardname">-->
+<!--                            <input type="text" id="cardname" maxlength="10" readonly>-->
+<!--                        </div>-->
+<!--                        <div class="hellopay_card_info">-->
+<!--                                <span class="hellopay_bankname">-->
+<!--                                     KB국민카드-->
+<!--                                </span>-->
+<!--                            <span class="hellopay_star">-->
+<!--                                    <i>**** **** ****</i>-->
+<!--                                    <span><1234</span>-->
+<!--                                </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <!-- 카드 -->
+                <div class="hellopay_button_area">
+                    <button type="submit" onClick="location.href='/user/mypage_enrollHellopay'"
+                            class="hellopay_inputcard_submit" id="regist_card">카드 등록
+                    </button>
+                </div>
+                <!-- main_contents 끝 -->
+            </div>
+            <!-- main 끝 -->
+        </div>
+        <div th:replace="/user/fragment/footer::footer"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</div>
 </body>
 </html>
 
