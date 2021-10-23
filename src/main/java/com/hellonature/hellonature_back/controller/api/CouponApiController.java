@@ -6,6 +6,7 @@ import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.CouponApiRequest;
 import com.hellonature.hellonature_back.model.network.response.CouponApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberCouponApiResponse;
 import com.hellonature.hellonature_back.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +50,8 @@ public class CouponApiController extends CrudController<CouponApiRequest, Coupon
     }
 
     @GetMapping("/list")
-    public Header<List<CouponApiResponse>> list(@RequestParam(name = "memIdx") Long memIdx,
-                                                @RequestParam(name = "usedFlag")Flag usedFlag){
+    public Header<List<MemberCouponApiResponse>> list(@RequestParam(name = "memIdx") Long memIdx,
+                                                      @RequestParam(name = "usedFlag")Flag usedFlag){
         return couponService.list(memIdx, usedFlag);
     }
 }

@@ -14,7 +14,7 @@ import javax.persistence.*;
 @SequenceGenerator(
         name = "coupons_types_seq",
         sequenceName = "coupons_types_seq",
-        initialValue = 1,
+        initialValue = 31546878,
         allocationSize = 1
 )
 @Builder
