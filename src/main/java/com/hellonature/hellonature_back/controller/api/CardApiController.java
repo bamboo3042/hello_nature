@@ -39,7 +39,7 @@ public class CardApiController extends CrudController<CardApiRequest, CardApiRes
 
     @Override
     @DeleteMapping("/delete/{idx}")
-    public Header<CardApiResponse> delete(@PathVariable(name = "idx") Long idx) {
+    public Header delete(@PathVariable(name = "idx") Long idx) {
         return cardService.delete(idx);
     }
 
@@ -53,5 +53,17 @@ public class CardApiController extends CrudController<CardApiRequest, CardApiRes
                                  @RequestParam(name = "type") Integer type,
                                  @RequestParam(name = "flag") Flag flag){
         return cardService.flagController(idx, type, flag);
+    }
+
+    @GetMapping("changeName")
+    public Header changeName(@RequestParam(name = "idx") Long idx,
+                             @RequestParam(name = "name") String name){
+        return cardService.changeName(idx, name);
+    }
+
+    @GetMapping("changeBaseCard")
+    public Header changeBaseCard(@RequestParam(name = "idx") Long idx,
+                                 @RequestParam(name = "baseIdx") Long baseIdx){
+        return cardService.changeBaseCard(idx, baseIdx);
     }
 }
