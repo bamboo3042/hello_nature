@@ -18,6 +18,7 @@ public class ProductQuestionApiResponse {
     private Long memIdx;
     private String memName;
     private Long proIdx;
+    private String proName;
 
     private String content;
 

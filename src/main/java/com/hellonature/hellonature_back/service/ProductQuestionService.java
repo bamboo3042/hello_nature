@@ -96,6 +96,7 @@ public class ProductQuestionService  {
                 .memIdx(productQuestion.getMember().getIdx())
                 .memName(productQuestion.getMember().getName())
                 .proIdx(productQuestion.getProduct().getIdx())
+                .proName(productQuestion.getProduct().getProName())
                 .content(productQuestion.getContent())
                 .ansFlag(productQuestion.getAnsFlag())
                 .ansContent(productQuestion.getAnsContent())
