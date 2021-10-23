@@ -493,8 +493,13 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 #item_list_brand .item_img {background: white; background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
-/* 추천 페이지 시작 */
+/* brand goods list ---------------------------------------------------------- */
+/* 아이템 공통 랩 */
+#item_list_brand .brand_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
+#item_list_brand .brand_item_wrap:nth-child(3), #item_list_brand .brand_item_wrap:nth-child(7), #item_list_brand .brand_item_wrap:nth-child(11),#item_list_brand .brand_item_wrap:nth-child(15),#item_list_brand .brand_item_wrap:nth-child(19),#item_list_brand .brand_item_wrap:nth-child(23),#item_list_brand .brand_item_wrap:nth-child(27),#item_list_brand .brand_item_wrap:nth-child(31),#item_list_brand .brand_item_wrap:nth-child(35),#item_list_brand .brand_item_wrap:nth-child(39) {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin: 0;}
 
+
+/* 추천 페이지 시작 */
 #main_tit_list .list li { float: left; font-weight: 400; font-size: 14px;}
 #main_tit_list .list li a {overflow: hidden; float: left; padding: 10px 13px 7px 12px; border-bottom: 1px solid var(--hello_main_1); line-height: 20px; font-size: 12px; color: var(--hello_main_1); letter-spacing: 0.3px; cursor: pointer;}
 
@@ -801,7 +806,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .brand_slidebox:not(:last-child) { margin-right: 5px; }
 .brand_item { width: 505px; height: 505px; display: flex; flex-wrap: wrap; justify-content: space-around; align-items: stretch; position: relative; }
 .brand_item div { width: 158px; height: 158px;}
-.brand_item a { width: 158px; height: 158px; cursor: pointer; border: 0.5px solid #e3e3e3; }
+.brand_item a { width: 158px; height: 158px; cursor: pointer; }
+
 
 
 .brand_section02 input[id="brand_slide01"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(0%); }
@@ -830,6 +836,9 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 .prod_filter { font-size: 12px; }
 .prod_filter li::after { content: ''; display: inline-block; width: 10px; height: 10px; margin-left: 6px; background: url('../images/product/ico_arrow_right_20x20.png') center no-repeat; background-size: cover; transform: rotate(90deg); cursor: pointer; }
+.filter_cursor {cursor: pointer;}
+#item_list_brand .item_img, #item_list_brand .item_name {cursor: pointer;}
+
 
 .prod_cate.prod_cate_clicked { border-bottom: 1px solid #00B081; font-weight: bold; color: #00B081; }
 
