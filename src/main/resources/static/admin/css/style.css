@@ -61,6 +61,11 @@
 .RC_p_list th { background-color: rgb(247, 247, 247);}
 .RC_p_list th, .RC_p_list td { border: 1px solid rgb(192, 191, 191);}
 .RC_prodTitle { font-size: 17px; font-weight: bold; padding: 20px 0;}
+/*.RC_p_list .tbody img { width: 100px; height: 100px; }*/
+.RC_prodlist img {width: 100px; height: 100px;}
+.RC_proBox img { width: 100px; height: 100px;}
+.RC_proBox2 img { width: 100px; height: 100px;}
+
 
 .textarea {width: 100%;}
 

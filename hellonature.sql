@@ -440,7 +440,7 @@ create sequence nonmembers_orders_seq
 ------------------------------------------------------------------------------------------------------
 create table tb_members_payments(
                                     idx number(10) primary key,
-                                    mord_idx number(10) not null,
+                                    mord_idx number(10),
                                     price number(8) not null,
                                     mpaym_state number(1) not null,
                                     payment_type number(1) not null,
@@ -448,6 +448,8 @@ create table tb_members_payments(
                                     regdate date default sysdate,
                                     mem_idx number(10)
 );
+ALTER TABLE tb_members_payments MODIFY (mord_idx null);
+
 
 create sequence members_payments_seq
     increment by 1
