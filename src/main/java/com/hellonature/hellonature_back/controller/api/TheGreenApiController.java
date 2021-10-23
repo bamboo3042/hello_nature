@@ -19,7 +19,7 @@ public class TheGreenApiController {
         return theGreenService.create(theGreenApiRequest);
     }
 
-    @GetMapping("delete/{memIdx}")
+    @DeleteMapping("delete/{memIdx}")
     public Header delete(@PathVariable(name = "memIdx") Long memIdx){
         return theGreenService.delete(memIdx);
     }

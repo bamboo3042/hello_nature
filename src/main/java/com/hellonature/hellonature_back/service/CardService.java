@@ -45,11 +45,9 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
     @Override
     public Header<CardApiResponse> read(Long id) {
         return cardRepository.findById(id)
-                .map(card -> response(card))
+                .map(this::response)
                 .map(Header::OK)
-                .orElseGet(
-                        () -> Header.ERROR("데이터 없음")
-                );
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
@@ -68,8 +66,8 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
             card.setBaseFlag(cardApiRequest.getBaseFlag());
             card.setFavFlag(cardApiRequest.getFavFlag());
             return card;
-        }).map(card -> cardRepository.save(card))
-                .map(card -> response(card))
+        }).map(cardRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("수정 실패"));
     }
@@ -84,10 +82,11 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
     }
 
     public CardApiResponse response(Card card){
-        CardApiResponse cardApiResponse = CardApiResponse.builder()
+        return CardApiResponse.builder()
                 .idx(card.getIdx())
                 .memIdx(card.getMember().getIdx())
                 .num(card.getNum())
+                .name(card.getName())
                 .date(card.getDate())
                 .cvc(card.getCvc())
                 .bank(card.getBank())
@@ -97,8 +96,6 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
                 .favFlag(card.getFavFlag())
                 .regdate(card.getRegdate())
                 .build();
-
-        return cardApiResponse;
     }
 
     public Header<List<CardApiResponse>> list(Long memIdx){
@@ -129,6 +126,28 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
                 break;
         }
         cardRepository.save(card);
+
+        return Header.OK();
+    }
+
+    public Header changeName(Long idx, String name){
+        Optional<Card> optionalCard = cardRepository.findById(idx);
+        if (optionalCard.isEmpty()) return Header.ERROR("카드 정보가 잘못되었습니다");
+        Card card = optionalCard.get();
+        card.setName(name);
+        return Header.OK();
+    }
+
+    public Header changeBaseCard(Long idx, Long baseIdx){
+        Optional<Card> optionalCard = cardRepository.findById(idx);
+        Optional<Card> optionalBaseCard = cardRepository.findById(baseIdx);
+        if (optionalCard.isEmpty() || optionalBaseCard.isEmpty()) return Header.ERROR("카드 정보가 잘못되었습니다");
+
+        Card card = optionalCard.get();
+        Card baseCard = optionalBaseCard.get();
+
+        baseCard.setBaseFlag(Flag.FALSE);
+        card.setBaseFlag(Flag.TRUE);
 
         return Header.OK();
     }
