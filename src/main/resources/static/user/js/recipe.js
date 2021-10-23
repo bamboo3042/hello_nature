@@ -9,50 +9,50 @@
 //     }
 // });
 
-
-/* 만드는법 */
-let recCookPrev = document.querySelector('.rec_cook_btn_prev');
-let recCookNext = document.querySelector('.rec_cook_btn_next');
-let recCookBox = document.querySelector('.rec_cook_box');
-let recCook = document.querySelectorAll('.rec_cook');
-let recCookCnt = recCook.length;
-let recCookIdx = 0;
-let recCookWidth = 510;
-let recCookMargin = 30;
-let last_li = document.querySelector('.rec_cook:last-child');
-
-last_li.style.marginRight = -recCookMargin + 'px';
-recCookBox.style.width = (recCookWidth + recCookMargin) * recCookCnt - recCookMargin + 'px';
-
-function moveRecCook(num) {
-    recCookBox.style.left = -num * (recCookWidth + recCookMargin) + 'px';
-    recCookIdx = num;
-}
-
-if (recCookIdx == 0) {                        // 현재 위치가 0 이라면
-    recCookPrev.classList.add("disabled");    // 이전버튼을 비활성화
-}
-
-recCookNext.addEventListener('click', function() {    // 다음버튼 클릭 시
-    if (recCookIdx < recCookCnt - 2) {                            // 현재 위치가 총 길이보다 낮다면
-        moveRecCook(recCookIdx + 1);                         // 한칸 앞으로 이동하고
-        recCookPrev.classList.remove("disabled");          // 이전버튼을 활성화하면서
-        if (recCookIdx == recCookCnt - 2) {                       // 현재 인덱스가 총 길이와 같다면
-            recCookNext.classList.add("disabled");                // 다음버튼을 비활성화
-        }
-    }
-});
-
-recCookPrev.addEventListener('click', function() {    // 이전버튼 클릭 시
-    if (recCookIdx > 0) {                                         // 현재 위치가 0 보다 높으면
-        moveRecCook(recCookIdx - 1);                         // 한칸 뒤로 이동하고
-        recCookNext.classList.remove("disabled");          // 다음버튼을 활성화하면서
-        if (recCookIdx == 0) {                                    // 현재 위치가 0 이라면
-            recCookPrev.classList.add("disabled");                // 이전버튼을 비활성화
-        }
-    }
-});
-
+//
+// /* 만드는법 */
+// let recCookPrev = document.querySelector('.rec_cook_btn_prev');
+// let recCookNext = document.querySelector('.rec_cook_btn_next');
+// let recCookBox = document.querySelector('.rec_cook_box');
+// let recCook = document.querySelectorAll('.rec_cook');
+// let recCookCnt = recCook.length;
+// let recCookIdx = 0;
+// let recCookWidth = 510;
+// let recCookMargin = 30;
+// let last_li = document.querySelector('.rec_cook:last-child');
+//
+// last_li.style.marginRight = -recCookMargin + 'px';
+// recCookBox.style.width = (recCookWidth + recCookMargin) * recCookCnt - recCookMargin + 'px';
+//
+// function moveRecCook(num) {
+//     recCookBox.style.left = -num * (recCookWidth + recCookMargin) + 'px';
+//     recCookIdx = num;
+// }
+//
+// if (recCookIdx == 0) {                        // 현재 위치가 0 이라면
+//     recCookPrev.classList.add("disabled");    // 이전버튼을 비활성화
+// }
+//
+// recCookNext.addEventListener('click', function() {    // 다음버튼 클릭 시
+//     if (recCookIdx < recCookCnt - 2) {                            // 현재 위치가 총 길이보다 낮다면
+//         moveRecCook(recCookIdx + 1);                         // 한칸 앞으로 이동하고
+//         recCookPrev.classList.remove("disabled");          // 이전버튼을 활성화하면서
+//         if (recCookIdx == recCookCnt - 2) {                       // 현재 인덱스가 총 길이와 같다면
+//             recCookNext.classList.add("disabled");                // 다음버튼을 비활성화
+//         }
+//     }
+// });
+//
+// recCookPrev.addEventListener('click', function() {    // 이전버튼 클릭 시
+//     if (recCookIdx > 0) {                                         // 현재 위치가 0 보다 높으면
+//         moveRecCook(recCookIdx - 1);                         // 한칸 뒤로 이동하고
+//         recCookNext.classList.remove("disabled");          // 다음버튼을 활성화하면서
+//         if (recCookIdx == 0) {                                    // 현재 위치가 0 이라면
+//             recCookPrev.classList.add("disabled");                // 이전버튼을 비활성화
+//         }
+//     }
+// });
+//
 
 /* 재료담기 */
 // let recProdPrev = document.querySelector('.rec_prod_btn_prev');

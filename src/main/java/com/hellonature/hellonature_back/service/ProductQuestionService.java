@@ -96,6 +96,7 @@ public class ProductQuestionService  {
                 .memIdx(productQuestion.getMember().getIdx())
                 .memName(productQuestion.getMember().getName())
                 .proIdx(productQuestion.getProduct().getIdx())
+                .proName(productQuestion.getProduct().getProName())
                 .content(productQuestion.getContent())
                 .ansFlag(productQuestion.getAnsFlag())
                 .ansContent(productQuestion.getAnsContent())
@@ -105,20 +106,24 @@ public class ProductQuestionService  {
                 .build();
     }
 
-    public Header<List<ProductQuestionListResponse>> list(Flag ansFlag, String title, String dateStart, String dateEnd, Integer startPage){
+    public Header<List<ProductQuestionListResponse>> list(Flag ansFlag, String content, String name, String dateStart, String dateEnd, Integer startPage){
         String jpql = "select pq from ProductQuestion pq";
         boolean check = false;
 
-        if(ansFlag!= null ||title != null || dateStart != null || dateEnd != null){
+        if(ansFlag!= null || content != null || name != null || dateStart != null || dateEnd != null){
             jpql += " where";
             if(ansFlag != null){
                 jpql += " ans_flag = :ansFlag";
                 check = true;
             }
-
-            if (title != null){
+            if (content != null){
                 if (check) jpql += " and";
-                jpql += " title like :title";
+                jpql += " content like :content";
+                check = true;
+            }
+            if (name != null){
+                if (check) jpql += " and";
+                jpql += " name = :name";
                 check = true;
             }
             if (dateStart != null){
@@ -136,7 +141,8 @@ public class ProductQuestionService  {
         TypedQuery<ProductQuestion> query = em.createQuery(jpql, ProductQuestion.class);
 
         if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
-        if (title != null) query = query.setParameter("title", "%"+title+"%");
+        if (content != null) query = query.setParameter("content", "%"+content+"%");
+        if (name != null) query = query.setParameter("name", name);
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
 
@@ -156,7 +162,9 @@ public class ProductQuestionService  {
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
+                .totalElements((long) result.size())
                 .currentPage(startPage)
+                .currentElements(end - start)
                 .build();
 
         return Header.OK(list, pagination);
@@ -173,7 +181,7 @@ public class ProductQuestionService  {
                 .build();
     }
 
-    public Header<List<ProductQuestionApiResponse>> search(Pageable pageable){
+    /*public Header<List<ProductQuestionApiResponse>> search(Pageable pageable){
         Page<ProductQuestion> productQuestion = productQuestionRepository.findAll(pageable);
         List<ProductQuestionApiResponse> productQuestionApiResponseList = productQuestion.stream()
                 .map(this::response)
@@ -185,7 +193,7 @@ public class ProductQuestionService  {
                 .currentElements(productQuestion.getNumberOfElements())
                 .build();
         return Header.OK(productQuestionApiResponseList, pagination);
-    }
+    }*/
 
     public Header<List<ProductQuestionListResponse>> productDetailList(Long proIdx, Integer page){
         List<ProductQuestion> productQuestions = productQuestionRepository.findAllByProduct(productRepository.findById(proIdx).get());

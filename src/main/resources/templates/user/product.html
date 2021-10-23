@@ -15,12 +15,9 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         function shareTwitter() {
-            let sendText = "개발새발";
-            let sendUrl = "devpad.tistory.com/";
-            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+            window.open("https://twitter.com/?lang=ko");
         }
     </script>
-
     <!-- axios -->
     <script>
         $(function () {
@@ -101,7 +98,7 @@
                 document.getElementById("prod_netPrice").innerText = netPrice + "원";
                 document.getElementById("prod_discount").innerText = discount + "%";
                 document.getElementById("origin").innerText = origin;
-                document.getElementById("size_weight").innerText = sizeWeight;
+                document.getElementById("size_weight").innerText = sizeWeight + "g";
                 document.getElementById("temp").innerText = tempText;
                 document.getElementById("delivery").innerText = deliveryText;
                 document.getElementById("earn_point").innerText = "1% 적립 " + earnPoint + "원";
@@ -120,7 +117,7 @@
 
             }).catch(function (err) {
                 console.log(err);
-            })
+            });
 
             $("#like_button").click(function (e) {
                 if (this.classList.contains("likeClicked")) {
@@ -142,12 +139,12 @@
                             proIdx: prodIdx
                         }
                     }).then(function () {
-                        alert("해당 상품을 좋아합니다")
+                        alert("해당 상품을 좋아합니다.")
                         location.reload()
                     }).catch(function (err) {
                         console.log(err)
-                        alert("로그인을 해주세요")
-                        location.href("/user/mypage_userLogin");
+                        alert("로그인 후 이용 가능합니다.")
+                        location.href = "/user/mypage_userLogin";
                     })
                 }
             })
@@ -209,7 +206,7 @@
                 let minusNum = parseInt(stat, 10);
                 minusNum--;
                 if (minusNum < 1) {
-                    alert('더이상 줄일수 없습니다.');
+                    alert('더이상 줄일 수 없습니다.');
                     minusNum = 1;
                 }
                 $('.item_ea').text(minusNum);
@@ -226,6 +223,93 @@
                 document.getElementById("total_price").innerText = total_1;
 
             });
+
+
+            /* 구매후기 리스트 */
+            axios.get('/api/productReview/userReview/list?proIdx='+prodIdx+'&page=0', {
+            }).then(function(res) {
+                console.log(res.data.data);
+                for (let i in res.data.data) {
+                    let name = res.data.data[i].memName;
+                        name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
+                    let proCount = res.data.data[i].proCount;
+                    let files = res.data.data[i].files;
+                    let score = res.data.data[i].like;
+                    let like = "";
+                    switch(score) {
+                        case 1: case 2: case 3:
+                            like = "별로에요";
+                            break;
+                        case 4: case 5: case 6:
+                            like = "괜찮아요";
+                            break;
+                        case 7: case 8: case 9: case 10:
+                            like = "만족해요";
+                            break;
+                    }
+
+                    let regdate = res.data.data[i].regdate;
+                        regdate = regdate.substr(0, 10);
+                    let content = res.data.data[i].content;
+                    let sizeWeight = $("#size_weight").text();
+
+                    $("#prod_review_tbody").append(
+                        '<tr class="review_click">'+
+                        '<td>'+0+'</td>'+
+                        '<td>'+sizeWeight+' | '+proCount+'</td>'+
+                        '<td>'+content+'</td>'+
+                        '<td>'+like+'</td>'+
+                        '<td>'+name+'</td>'+
+                        '<td>'+regdate+'</td></tr>'+
+                        '<tr class="review_detail">'+
+                        '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                    )
+                }
+
+                /* 구매후기 상세보기 */
+                let article = (".review_board .review_show");
+                $(".review_board .review_click td").click(function() {
+                    let myArticle =$(this).parents().next("tr");
+                    if($(myArticle).hasClass('review_detail')) {
+                        $(article).removeClass('review_show').addClass('review_detail');
+                        $(myArticle).removeClass('review_detail').addClass('review_show');
+                    } else {
+                        $(myArticle).addClass('review_detail').removeClass('review_show');
+                    }
+                });
+
+                for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                    let pages = $('<div id="prod_qna_page_num" class="page_num">').append(
+                        (i+1)+'</div>'
+                    )
+                    $('#review_page_prev').after(pages);
+                }
+
+                let pages = document.querySelectorAll(".page_num");
+                for (let i=0; i<pages.length; i++) {
+                    pages[i].addEventListener('click', function () {
+                        let pageNum = parseInt(pages[i].innerText);
+                        let page = pageNum - 1;
+                        $("#prod_question_tbody").empty();
+                    });
+                }
+
+
+
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+
+
+
+
+
+
+
+
+
+
 
             /* 상품문의 */
             $("#prod_question_btn").on('click', function() {
@@ -736,26 +820,7 @@
                                         <th>날짜</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="prod_review_tbody">
-                                    <!-- 예시로 2개 넣어놨어요 -->
-
-                                    <tr class="review_click">
-                                        <td>예시</td>
-                                        <td>예시</td>
-                                        <td>예시</td>
-                                        <td>예시</td>
-                                        <td>예시</td>
-                                        <td>예시</td>
-                                    </tr>
-                                    <!-- 후기 내용-->
-                                    <tr class="review_detail">
-                                        <td clospan="6">
-                                            <div>
-                                                <p>예시</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- 예시로 2개 넣어놨어요 (끝) -->
+                                    <tbody id="prod_review_tbody" style="font-size: 13px;">
                                     </tbody>
                                 </table>
                             </div>

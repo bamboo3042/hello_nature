@@ -19,4 +19,5 @@ public class ProductQuestionListResponse {
     private String content;
     private String name;
     private LocalDateTime regdate;
+
 }
