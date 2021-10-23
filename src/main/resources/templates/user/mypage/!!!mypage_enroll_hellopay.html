@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
@@ -27,11 +28,14 @@
             let busiFlag;
             // 법인카드 체크여부
             if($('#check_business_credit_card').is(':checked')){
-                busiFlag = true;        // 법인카드 o
+                busiFlag = "TRUE"        // 법인카드 o
+                $(".form_title").text("사업자번호")
+                $(".form_title").attr("placeholder", "사업자 번호 10자리")
             }else{
-                busiFlag = false;       // 법인카드 x
+                busiFlag = "FALSE"       // 법인카드 x
             }
 
+            let memIdx = $("#hidden_user").val();
             let name = $('#card_nickname').val();               // 카드별칭
             let num1 = $("#card_num1").val();                   // 카드번호 4자리-1
             let num2 = $("#card_num2").val();                   // 카드번호 4자리-2
@@ -42,8 +46,7 @@
             let cvc = $('#card_cvc').val();                     // 카드 cvc 3자리
             let birth = $('#birth_sixnum').val();               // 생년월일
             let password = $('#card_pw').val();                 // 카드 비밀번호 앞 2자리
-            let check;                                          // 개인정보 이용동의 체크 여부
-            let bank;                                           // 은행
+            let check;                                          // 개인정보 이용동의 체크 여부// 은행
             // KB국민은행, 신한은행, 한국씨티은행, 신한은행, IBK기업은행, KEB하나은행, BNK부산은행, SC제일은행, 광주은행, 우리은행
             let bankType = ["KB", "SINHAN", "CITY", "IBK", "KEB", "BNK", "SC", "GWANGJU", "WOORI"];
 
@@ -54,47 +57,61 @@
             }else{
                 check = false;
                 alert("개인정보 이용동의에 체크해주세요.");
-                location.href="/mypage_enrollHellopay";
+                location.href="/user/mypage_enrollHellopay";
                 return false;
             }
 
             // 은행
             let distinctCvc = cvc.split("");
+            let bank;
+            let cvcFirst = distinctCvc[0]
             // cvc 첫번째 숫자로 은행 분류
-            switch(distinctCvc[0]){
-                case 1:
+            switch(cvcFirst){
+                case "1":
                     bank = bankType[0];     // 국민은행
                     break;
-                case 2:
+                case "2":
                     bank = bankType[1];     // 신한은행
                     break;
-                case 3:
+                case "3":
                     bank = bankType[2];     // 한국씨티은행
                     break;
-                case 4:
+                case "4":
                     bank = bankType[3];     // 기업은행
                     break;
-                case 5:
+                case "5":
                     bank = bankType[4];     // 하나은행
                     break;
-                case 6:
+                case "6":
                     bank = bankType[5];     // 부산은행
                     break;
-                case 7:
+                case "7":
                     bank = bankType[6];     // 제일은행
                     break;
-                case 8:
+                case "8":
                     bank = bankType[7];     // 광주은행
                     break;
-                case 9:
+                case "9":
                     bank = bankType[8];     // 우리은행
                     break;
             }
 
-            // create
+
+            console.log(memIdx)
+            console.log(busiFlag)
+            console.log(name)
+            console.log(num)
+            console.log(memIdx)
+            console.log(date)
+            console.log(cvc)
+            console.log(birth)
+            console.log(password)
+            console.log(bank)
+
             axios.post('/api/card/create', {
                 headers: {'Content-type': 'application/json'},
                 data: {
+                    memIdx: memIdx,
                     busiFlag: busiFlag,
                     name: name,
                     num: num,
@@ -106,7 +123,7 @@
                 }
             }).then(function (response){
                 alert("헬로페이가 정상적으로 등록되었습니다.");
-                location.href="/mypage_hellopay";
+                location.href="/user/mypage_hellopay";
             })
         }
     </script>
@@ -134,8 +151,7 @@
                     <h2 class="contents_name">헬로페이 카드 등록</h2>                        
                 </div>
                 <!-- form 시작 -->
-                <form action="" method="POST" onsubmit="return sendit()">
-                    <input type="hidden" id="memIdx" name="memIdx" th:value="${idx}">
+                <div>
                     <!-- 법인카드 확인 체크박스 시작 -->
                     <div class="enrollpay_box_check">
                         <div class="enrollhellopay_box_check_inner">
@@ -234,10 +250,10 @@
                     <!-- 개인 정보 수집 및 이용 동의 끝 -->
                     <!-- 카드 등록 버튼 시작 -->
                     <div class="hellopay_button_area">
-                        <button type="submit" class="hellopay_inputcard_submit" id="regist_card">카드 등록</button>
+                        <button type="submit" class="hellopay_inputcard_submit" id="regist_card" onclick="sendit()">카드 등록</button>
                     </div>
                     <!-- 카드 등록 버튼 끝 -->
-                </form>
+                </div>
                 <!-- form 끝 -->
             <!-- main_contents 끝 -->        
             </div>
