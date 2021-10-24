@@ -51,13 +51,6 @@
             let like = $("#rv_like").val();
             let content = $("#post_review").val()
 
-            alert("소민이바보")
-
-            console.log(memIdx)
-            console.log(like)
-            console.log(content)
-            console.log(proIdx)
-
             let data = {
                 idx: rvIdx,
                 memIdx: memIdx,
@@ -80,7 +73,8 @@
             axios.put("/api/productReview/update/", formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
             }).then(function (){
-                alert("리뷰후기 등록 완료오!!")
+                alert("후기가 등록되었습니다!")
+                location.reload();
             }).catch(function (err){
                 console.log(err)
             })
