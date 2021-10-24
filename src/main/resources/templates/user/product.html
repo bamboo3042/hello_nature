@@ -119,6 +119,7 @@
                 document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx;
                 document.getElementById("proDes").innerHTML = proDes;
                 document.getElementById("pro_score").innerText = star + "점";
+
                 $("#pro_star").rate(parseInt(star));
 
             }).catch(function (err) {
@@ -230,11 +231,13 @@
 
             });
 
-
             /* 구매후기 리스트 */
             axios.get('/api/productReview/userReview/list?proIdx='+prodIdx+'&page=0', {
             }).then(function(res) {
                 console.log(res.data.data);
+                let totalReview = res.data.data.length;
+                document.getElementById("review_total").innerText = "("+totalReview+")";
+
                 for (let i in res.data.data) {
                     let name = res.data.data[i].memName;
                         name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
@@ -823,7 +826,7 @@
                             </li>
                             <li class="goods-view-infomation-tab goods-view-review-tab">
                                 <a href="#goods-review" class="goods-view-infomation-tab-anchor">후기
-                                    <span class="count_review" id="review_total">(2366)</span>
+                                    <span class="count_review" id="review_total"></span>
                                 </a>
                             </li>
                             <li class="goods-view-infomation-tab qna-show">
