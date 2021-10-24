@@ -52,9 +52,10 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
                                                  @RequestParam(name = "cateIdx", required = false) Long cateIdx,
                                                  @RequestParam(name = "name", required = false) String name,
                                                  @RequestParam(name = "idx", required = false) Long idx,
+                                                 @RequestParam(name = "brIdx", required = false) Long brIdx,
                                                  @RequestParam(name = "order", defaultValue = "1") Integer order,
                                                  @RequestParam(name = "page", defaultValue = "0") Integer page){
-        return productService.list(state, cateIdx, name, idx, order, page);
+        return productService.list(state, cateIdx, name, idx, brIdx, order, page);
     }
 
     @GetMapping("magazineProduct")

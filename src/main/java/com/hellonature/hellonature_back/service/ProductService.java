@@ -170,12 +170,12 @@ public class ProductService{
                 .build();
     }
 
-    public Header<List<ProductApiResponse>> list(Integer state, Long cateIdx, String name, Long id, Integer order, Integer page){
+    public Header<List<ProductApiResponse>> list(Integer state, Long cateIdx, String name, Long id, Long brIdx, Integer order, Integer page){
         String jpql = "select p from Product p";
         boolean check = false;
         List<Category> categories = new ArrayList<>();
 
-        if(state != null || cateIdx != null || name != null || id != null){
+        if(state != null || cateIdx != null || name != null || id != null || brIdx != null){
             jpql += " where";
             if (cateIdx != null){
                 categories = searchCategories(cateIdx);
@@ -202,6 +202,10 @@ public class ProductService{
                 jpql += " idx = :id";
                 check = true;
             }
+            if (brIdx != null){
+                if (check) jpql += " and";
+                jpql += " br_idx = :brIdx";
+            }
         }
 
         switch (order){
@@ -226,6 +230,7 @@ public class ProductService{
         for (int i = 0; i < categories.size(); i++){
             query = query.setParameter("cateIdx"+i, categories.get(i).getIdx());
         }
+        if (brIdx != null) query = query.setParameter("brIdx", brIdx);
 
         List<Product> result = query.getResultList();
         List<ProductApiResponse> list = new ArrayList<>();
