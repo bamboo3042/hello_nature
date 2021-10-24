@@ -135,6 +135,7 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
         if (optionalCard.isEmpty()) return Header.ERROR("카드 정보가 잘못되었습니다");
         Card card = optionalCard.get();
         card.setName(name);
+        cardRepository.save(card);
         return Header.OK();
     }
 
@@ -148,7 +149,7 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
 
         baseCard.setBaseFlag(Flag.FALSE);
         card.setBaseFlag(Flag.TRUE);
-
+        cardRepository.save(card);
         return Header.OK();
     }
 }
