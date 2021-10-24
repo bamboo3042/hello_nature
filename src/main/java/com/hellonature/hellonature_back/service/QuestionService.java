@@ -105,7 +105,6 @@ public class QuestionService{
 
 
     public Header<List<QuestionApiResponse>> list(String dateStart, String dateEnd, Flag ansFlag, Integer type, String memEmail, Integer startPage){
-
         String jpql = "select q from Question q";
         boolean check = false;
 
@@ -132,29 +131,20 @@ public class QuestionService{
 
             if (memEmail != null){
                 if (check) jpql += " and";
-                jpql += " email = :memEmail";
-                check = true;
+                jpql += " email like :memEmail";
             }
-
         }
 
         jpql += " order by q.idx desc";
-        System.out.println(jpql);
         TypedQuery<Question> query = em.createQuery(jpql, Question.class);
 
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
         if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
         if (type != null) query = query.setParameter("type", type);
-        if (memEmail != null) query = query.setParameter("memEmail", memEmail);
+        if (memEmail != null) query = query.setParameter("memEmail", "%" + memEmail + "%");
 
         List<Question> result = query.getResultList();
-        System.out.println(result);
-        System.out.println(result.stream().map(question -> {
-                    System.out.println(question.getMember());
-                    return question;
-                })
-        );
 
         int count = 10;
 
@@ -203,5 +193,4 @@ public class QuestionService{
         }
         return Header.OK(questionApiResponses);
     }
-
 }

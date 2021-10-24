@@ -17,7 +17,9 @@ public class ProductReviewApiResponse {
     private Long idx;
 
     private Long memIdx;
+    private String memName;
     private Long proIdx;
+    private String proName;
 
     private Integer like;
     private String content;

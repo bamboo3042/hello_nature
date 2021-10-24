@@ -30,7 +30,7 @@ public class MemberOrderApiController extends CrudController<MemberOrderApiReque
 
     @Override
     @PutMapping("/update")
-    public Header<MemberOrderApiResponse> update(Header<MemberOrderApiRequest> request) {
+    public Header<MemberOrderApiResponse> update(@RequestBody Header<MemberOrderApiRequest> request) {
         return memberOrderService.update(request);
     }
 
@@ -43,5 +43,11 @@ public class MemberOrderApiController extends CrudController<MemberOrderApiReque
     @GetMapping("load/{memIdx}")
     public Header<MemberOrderLoadResponse> load(@PathVariable(name = "memIdx") Long memIdx){
         return memberOrderService.load(memIdx);
+    }
+
+    @GetMapping("update/state")
+    public Header updateState(@RequestParam(name = "idx") Long idx,
+                              @RequestParam(name = "state") Integer state){
+        return memberOrderService.updateState(idx, state);
     }
 }

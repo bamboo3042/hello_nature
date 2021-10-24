@@ -260,4 +260,13 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         return Header.OK(memberOrderLoadResponse);
     }
+
+    public Header updateState(Long idx, Integer state){
+        Optional<MemberOrder> optional = memberOrderRepository.findById(idx);
+        if (optional.isEmpty()) return Header.ERROR("주문 정보가 없습니다");
+        MemberOrder memberOrder = optional.get();
+
+        memberOrder.setState(state);
+        return Header.OK();
+    }
 }
