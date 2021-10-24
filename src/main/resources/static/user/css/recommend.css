@@ -26,8 +26,8 @@ img { border: none; vertical-align: top; }
 .page_article { width: 1050px; margin: 0 auto; }
 
 /* 헬로네이처 추천 카테고리 */
-.recommend_top_menu { box-sizing: border-box; width: 965px; margin: 0 auto; }
-.recommend_category { display: flex; justify-content: space-between; }
+.recommend_top_menu { box-sizing: border-box; width: 965px; margin: 0 auto; padding-top: 40px; }
+.recommend_category { display: flex; justify-content: space-between; width: 100%; margin: 0 auto; }
 .recommend_category li { position: relative; width: 230px; height: 150px; cursor: pointer; }
 .recommend_category li img { width: 230px; }
 .recommend_category li:not(:last-child) { padding-right: 10px; }
@@ -37,7 +37,7 @@ img { border: none; vertical-align: top; }
 .recommend_category li span:last-child { font-size: 14px; }
 
 /* 더신선 컨텐츠 */
-.fresh_content { width: 1050px; margin: 0 auto; margin-top: 40px }
+.fresh_content { width: 1050px; margin: 0 auto; margin-top: 40px; }
 .fresh_content .fresh_text{
     font-size: 32px;
     font-weight: 600;

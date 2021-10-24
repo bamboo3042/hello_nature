@@ -140,7 +140,7 @@ function moveSlideA(numA){
 /* ---------------------------------------------------------------------------- */
 // 아이템 4단 배열 슬라이드 index.html > #item_list_4
 
-var slidesB = document.querySelector('#item_list_4 .list_mold'),
+/*var slidesB = document.querySelector('#item_list_4 .list_mold'),
     slideB = document.querySelectorAll('#item_list_4 .list_mold li'),
     currentIdxB = 0,
     slideCountB = slideB.length,
@@ -206,7 +206,7 @@ function moveSlideB(numB){
         }, 600);
 
     }
-}
+}*/
 
 
 /* ---------------------------------------------------------------------------- */

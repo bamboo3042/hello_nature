@@ -28,7 +28,7 @@
             console.log(memIdx)
 
             axios.get('/api/product/detail?proIdx=' + prodIdx + '&memIdx=' + memIdx, {}).then(function (res) {
-                console.log(res.data.data)
+                console.log(res.data.data);
                 let name = res.data.data.name;
                 let brIdx = res.data.data.brIdx;
                 let brLogo = res.data.data.brLogo;
@@ -72,6 +72,10 @@
                 }
                 let netPrice = res.data.data.netPrice;
                 let discount = res.data.data.salePrice;
+                if (discount == null || discount == 0) {
+                    $("#discount_box").css("display", "none");
+                    $("#prod_netPrice").css("display", "none");
+                }
                 let salePrice = res.data.data.price;
                 let earnPoint = Math.floor(salePrice * 0.01);
                 let totalPrice = salePrice; // 수량에 따라 변동될 변수
@@ -114,6 +118,8 @@
                 document.getElementById("brand_img").style.bacgkroundImage = "url:(" + brLogo + ")";
                 document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx;
                 document.getElementById("proDes").innerHTML = proDes;
+                document.getElementById("pro_score").innerText = star + "점";
+                $("#pro_star").rate(parseInt(star));
 
             }).catch(function (err) {
                 console.log(err);
@@ -679,8 +685,8 @@
                         <!-- 상품정보(1) -->
                         <p class="goods_name" id="prod_name"></p>
                         <div class="goods_star">
-                            <span class="item_star review">4.5점</span>
-                            <div class="rating" data-rate="4.5">
+                            <span class="item_star review" id="pro_score"></span>
+                            <div class="rating" id="pro_star" data-rate="4.5">
                                 <div class="star-wrap">
                                     <div class="star"><i class="fas fa-star"></i></div>
                                 </div>
@@ -718,7 +724,7 @@
                                 <dt class="tit">보관온도</dt>
                                 <dd class="desc" id="temp"></dd>
                             </dl>
-                            <dl class="list">
+                            <dl class="list" id="discount_box">
                                 <dt class="tit">혜택</dt>
                                 <dd class="desc" id="prod_discount"></dd>
                             </dl>
