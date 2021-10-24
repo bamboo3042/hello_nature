@@ -198,6 +198,11 @@ public class MypageController {
     public String mypageEnrollReview(){
         return "user/mypage/!!!mypage_enroll_review.html";
     }
+    // 구매후기 상세
+    @GetMapping("/mypage_detaillReview")
+    public String mypageDetailReview(){
+        return "user/mypage/!!!mypage_detail_review.html";
+    }
     // 더그린배송
     @GetMapping("/mypage_thegreen")
     public String mypageThegreen(){
