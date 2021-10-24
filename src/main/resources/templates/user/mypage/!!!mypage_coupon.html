@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
@@ -43,10 +44,33 @@
 
             $(".contents_coupon_box2 > a").click(function () {
                 if ($(this).text() === "사용가능한 쿠폰") {
+                    $(".coupon_box").empty()
                     useFlag = "FALSE"
 
                     axios.get("/api/memberCoupon/list?memIdx=" + memIdx + "&usedFlag=" + useFlag, {}).then(function (response) {
-                        console.log(response.data.data)
+                        for (let i in response.data.data){
+                            let dateStart = response.data.data[i].dateStart
+                            let dateEnd = response.data.data[i].dateEnd
+                            let title = response.data.data[i].title
+                            let discount = response.data.data[i].discount
+                            let minPrice = response.data.data[i].minPrice + "원 이상 구매 시"
+                            let discount_color;
+                            if(discount >= 100){
+                                discount += "원"
+                                discount_color = "#ff4a43"
+                            }else{
+                                discount += "%"
+                                discount_color = "#11b082"
+                            }
+
+                            let row = $('<div class="coupon_list" id="available_coupon_box">').append(
+                                '<div class="coupon_available_image" style="background-color: '+discount_color+'">'+discount+'</div><div class="coupon_info">' +
+                                '<p>'+title+'</p><p>'+minPrice+'</p><p>'+dateStart+'-'+dateEnd+'</p></div></div>'
+                            )
+
+                            $(".coupon_box").append(row)
+
+                        }
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -54,9 +78,33 @@
 
                 } else {
                     useFlag = "TRUE"
+                    $(".coupon_box").empty()
 
                     axios.get("/api/memberCoupon/list?memIdx=" + memIdx + "&usedFlag=" + useFlag, {}).then(function (response) {
-                        console.log(response.data.data)
+                        for (let i in response.data.data){
+                            let dateStart = response.data.data[i].dateStart
+                            let dateEnd = response.data.data[i].dateEnd
+                            let title = response.data.data[i].title
+                            let discount = response.data.data[i].discount
+                            let minPrice = response.data.data[i].minPrice + "원 이상 구매 시"
+
+                            let discount_color;
+                            if(discount >= 100){
+                                discount += "원"
+                                discount_color = "#ff4a43"
+                            }else{
+                                discount += "%"
+                                discount_color = "#11b082"
+                            }
+
+                            let row = $('<div class="coupon_list" id="available_coupon_box">').append(
+                                '<div class="coupon_available_image">'+discount+'</div><div class="coupon_info">' +
+                                '<p>'+title+'</p><p>'+minPrice+'</p><p>'+dateStart+'-'+dateEnd+'</p></div></div>'
+                            )
+
+                            $(".coupon_box").append(row)
+
+                        }
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -64,26 +112,11 @@
             })
 
             $(".contents_coupon_submit").click(function (){
-
                 let ctIdx = $("#coupon_number").val()
-
-                axios.get("/api/memberCouponType/read/" + ctIdx, {}).then(function (response){
-                    let dateStart = response.data.data.dateStart;
-                    let dateEnd = response.data.data.dateEnd;
-
-                    $("#cp_dateStart").val(dateStart)
-                    $("#cp_dateEnd").val(dateEnd)
-                }).catch(function (err){
-                    console.log(err)
-                })
-
                 axios.post("/api/memberCoupon/create", {
                     data:{
                         memIdx: memIdx,
-                        ctIdx: ctIdx,
-                        usedFlag: "FALSE",
-                        dateStart: $("#cp_dateStart").val(),
-                        dateEnd: $("#cp_dateEnd").val()
+                        ctIdx: ctIdx
                     }
                 }).then(function (){
                     alert("쿠폰 등록에 성공하셨습니다")
@@ -126,7 +159,14 @@
                     <a href="#" id="coupon_filter_used">사용한 쿠폰</a>
                 </div>
                 <div class="coupon_box">
-                    <!-- coupon.box ajax -->
+                    <div class="coupon_list" id="available_coupon_box">
+                        <div class="coupon_available_image">9000원</div>
+                        <div class="coupon_info">
+                            <p>첫 구매감사 9,000원 할인쿠폰</p>
+                            <p>30,000원 이상 구매 시</p>
+                            <p>2021.08.16-2021.08.27 23:59</p>
+                        </div>
+                    </div>
                 </div>
                 <!-- main_cotents 끝 -->
             </div>
