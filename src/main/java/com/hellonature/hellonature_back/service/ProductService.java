@@ -329,22 +329,28 @@ public class ProductService{
         List<Category> categoryList = searchCategories(cateIdx);
 
         String jpql = "select p from Product p";
-        jpql += " where (";
-        if (categoryList.get(0).getLifeFlag() == Flag.TRUE){
-            jpql += " eve_cate_idx = :cateIdx" + 0;
-            for (int i = 1; i < categoryList.size(); i++){
-                jpql += " or eve_cate_idx = :cateIdx"+i;
+        if (cateIdx != null || brIdx != null){
+            jpql += " where";
+            if (cateIdx != null){
+                jpql += " (";
+                if (categoryList.get(0).getLifeFlag() == Flag.TRUE){
+                    jpql += " eve_cate_idx = :cateIdx" + 0;
+                    for (int i = 1; i < categoryList.size(); i++){
+                        jpql += " or eve_cate_idx = :cateIdx"+i;
+                    }
+                }
+                else{
+                    jpql += " cate_idx = :cateIdx" + 0;
+                    for (int i = 1; i < categoryList.size(); i++){
+                        jpql += " or cate_idx = :cateIdx"+i;
+                    }
+                }
+                jpql += ")";
+            }
+            if (brIdx != null){
+                jpql += " br_idx = :brIdx";
             }
         }
-        else{
-            jpql += " cate_idx = :cateIdx" + 0;
-            for (int i = 1; i < categoryList.size(); i++){
-                jpql += " or cate_idx = :cateIdx"+i;
-            }
-        }
-        jpql += ")";
-
-        if (brIdx != null) jpql += " and br_idx = :brIdx";
 
         switch (order){
             case 2:

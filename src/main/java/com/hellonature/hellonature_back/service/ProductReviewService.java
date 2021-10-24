@@ -106,6 +106,7 @@ public class ProductReviewService  {
                 .ansContent(productReview.getAnsContent())
                 .ansDate(productReview.getAnsDate())
                 .files(productReview.getFiles())
+                .regdate(productReview.getRegdate())
                 .build();
     }
 
@@ -164,6 +165,7 @@ public class ProductReviewService  {
                 .memEmail(productReview.getMember().getEmail())
                 .regdate(productReview.getRegdate())
                 .ansDate(productReview.getAnsDate())
+                .ansFlag(productReview.getAnsFlag())
                 .build();
     }
 
