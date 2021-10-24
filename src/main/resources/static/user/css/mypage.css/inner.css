@@ -209,9 +209,9 @@ a:focus { color: #444;}
 #order_item_list{ padding: 10px 10px; font-size: 16px; width: 880px; display: table; float: left; border-bottom: 1px solid #f4f4f4; vertical-align: middle; }
 #order_item_list div { float: left; display: table-cell;}
 #order_item_list .item_image { padding: 0 100px 0 10px;}
-#order_item_list .item_name { width: 540px;}
-#order_item_list .item_count{width: 40px; }
-#order_item_list .item_price { width: 100px; text-align: right;}
+#order_item_list .item_name { width: 300px;}
+#order_item_list .item_count_k{width: 40px; margin-right: 80px; padding-top: 9px; margin-top: 5px;}
+#order_item_list .item_price_k { width: 150px; text-align: right;}
 
 /* 주문자 정보 */
 .ordererinfo_table { width:100%; border-collapse: collapse; text-align: left;margin-top: 10px;}
@@ -373,7 +373,7 @@ a:focus { color: #444;}
 .goods_cart_item { padding: 20px 10px; border-bottom: 1px solid #CCC; }
 .inner_goods_cart_item { display: flex; justify-content: space-between; align-items: center; }
 .inner_goods_cart_item div:nth-child(1) > img { width: 70px; height: 70px; }
-.inner_goods_cart_item div:nth-child(2) { box-sizing: border-box; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px 0 0; }
+.inner_goods_cart_item div:nth-child(2) { box-sizing: border-box; width: 230px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px 0 0; }
 .inner_goods_cart_item div:nth-child(3) { display: flex; justify-content: space-between; border: 1px solid #CCC; border-radius: 4px; width: 100px; height: 25px; }
 .inner_goods_cart_item div:nth-child(3) button { cursor: pointer; border: none; background: none; }
 .inner_goods_cart_item div:nth-child(3) button:first-child { width: 150px; background: center no-repeat; background-size: contain; }
