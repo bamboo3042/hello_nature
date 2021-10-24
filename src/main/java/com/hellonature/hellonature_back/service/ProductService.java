@@ -515,7 +515,6 @@ public class ProductService{
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("상품이 없습니다"));
     }
-
     private ProductDetailResponse detailResponse(Product product, List<ProductReview> productReviews, Optional<Like> like){
         Float star = (float) 0;
 
