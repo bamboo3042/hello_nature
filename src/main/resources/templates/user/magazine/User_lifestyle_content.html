@@ -79,7 +79,7 @@
                     document.querySelector('.cont_item_wrap').innerHTML = "상품이 존재하지 않습니다."    // 빈칸에 문구 넣기
                 }
 
-                let relul = $(".life_item_box");
+                let relul = $("#life_item_box");
                 for (let i=0; i<res.data.data.relList.length; i++) {
                     let proIdx = res.data.data.relList[i].proIdx;
                     let img = res.data.data.relList[i].img;
@@ -102,10 +102,10 @@
                     else { bestFlag = "inline-block"; }
 
                     let relli = $('<li class="cont_item">').append(
+                        '<div class="cont_item_item">'+
                         '<div class="cont_item_ico">'+
                         '<span class="cont_item_best" style="display:'+bestFlag+'">Best</span>'+
                         '<span class="cont_item_dc" style="display:'+icon+'">'+discount+'%</span></div>'+
-                        '<div class="cont_item_item">'+
                         '<div class="cont_item_img" style="cursor: pointer">'+
                         '<a onclick="location.href=\'/user/product?prodIdx=' + proIdx + '\'">'+
                         '<img src="'+img+'"></a></div>'+
@@ -302,7 +302,7 @@
                         <div class="cont_item_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
                     </div>
                     <div class="cont_item_wrap">
-                        <ul class="cont_item_box">
+                        <ul class="cont_item_box" id="life_item_box">
                         </ul>
                     </div>
                 </div>
