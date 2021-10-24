@@ -160,19 +160,18 @@
 
                             regdate = regdate.toString().substring(0, 10);
 
-                            row = $('<div class="contents_box6">').append(
+                            let row = $('<div class="contents_box6">').append(
                                 `<div class="product_image" style="background: url('${proImg}')"></div>` +
                                 '<div class="product_info_post"><div class="product_post_firstline"><p>' + proName + '</p>' +
                                 '<div class="contents_box6_inner"><p>구매일자' + regdate + '</p></div>' +
-                                '<div class="product_post_lastline"><p>' + ansFlag + '</p><p></p></div></div>' +
-                                '<div class="post_button_box" id="rv_delbtn" style="cursor: pointer"><a class="post_delete_button"><input type="hidden" value="' + rvIdx + '">삭제</a>' +
+                                '<div class="product_post_lastline"><p>' + ansFlag + '</p><p class="reviw_detail" style="cursor: pointer">상세보기</p></div></div>' +
+                                '<div class="post_button_box" id="rv_delbtn" style="cursor: pointer"><a class="post_delete_button"><input type="hidden" value="' + rvIdx + '"></a>' +
                                 '</div></div>'
                             )
 
                             $("#review_contents_box_1").append(row);
                         }
                         $(".post_delete_button").click(function (e) {
-                            alert("삭제버튼 클릭")
                             let idx = $(this).children("input").val();
                             console.log(idx)
                             axios.delete("/api/productReview/delete/" + idx, {}).then(function () {
@@ -181,6 +180,14 @@
                                 console.log(err)
                             })
                         })
+
+                        $(".reviw_detail").click(function (e){
+                            let review_detail = $(this).parents(".product_post_firstline").siblings(".post_button_box").children("a").children("input").val()
+                            sessionStorage.setItem("review_detail", review_detail)
+                            location.href = '/user/mypage_detaillReview/'
+                        })
+
+
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -188,6 +195,7 @@
 
 
                 $("#mg_ol_sc").click(function () {
+                    $("#review_contents_box_1").empty();
                     flag = "TRUE"
                     let date_start = $("#date_start").val();
                     let date_end = $("#date_end").val()
