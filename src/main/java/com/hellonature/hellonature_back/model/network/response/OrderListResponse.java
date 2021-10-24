@@ -16,6 +16,7 @@ public class OrderListResponse {
     private Long idx;
     private String name;
     private String proList;
+    private Long proIdx;
     private Integer price;
     private LocalDateTime regdate;
     private Integer state;

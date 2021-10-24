@@ -114,7 +114,9 @@ public class OrderListService {
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
+                .totalElements((long) result.size())
                 .currentPage(startPage)
+                .currentElements(end - start)
                 .build();
 
         List<OrderListResponse> orderListResponses = new ArrayList<>();
@@ -143,6 +145,7 @@ public class OrderListService {
                 .regdate(memberOrder.getRegdate())
                 .state(memberOrder.getState())
                 .proList(temp)
+                .proIdx(memberOrder.getPayment().getIdx())
                 .build();
     }
 
@@ -162,6 +165,7 @@ public class OrderListService {
                 .regdate(nonMemberOrder.getRegdate())
                 .state(nonMemberOrder.getState())
                 .proList(temp)
+                .proIdx(nonMemberOrder.getPayment().getIdx())
                 .build();
     }
 
