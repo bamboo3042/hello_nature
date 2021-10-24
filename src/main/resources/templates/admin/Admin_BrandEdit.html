@@ -44,6 +44,7 @@
 
         }).catch(function (err){
             console.log(err);
+            alert('불러오기 실패')
         })
     })
 
@@ -69,17 +70,7 @@
         formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
 
         axios.put('/api/brand/update', formData, {
-            headers: {'Content-Type': 'multipart/form-data'},
-            data: {
-                "idx": 56,
-                "name": data.name,
-                "des": data.des,
-                "logo": data.logo,
-                "state": data.state,
-                "dateStart": data.dateStart,
-                "dateEnd": data.dateEnd,
-                "banner": data.banner
-            }
+            headers: {'Content-Type': 'multipart/form-data'}
 
         }).then(function (){
             alert("브랜드 정보가 수정되었습니다.")

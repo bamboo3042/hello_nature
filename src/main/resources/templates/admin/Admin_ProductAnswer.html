@@ -19,23 +19,26 @@
             let name = response.data.data.memName;
             let proName = response.data.data.proName;
             let regdate = response.data.data.regdate;
-            regdate = regdate.toString().substring(0, 10);
             let proIdx = response.data.data.proIdx;
             let content = response.data.data.content;
-            let ansFlag = response.data.data.ansFlag;
             let ansContent = response.data.data.ansContent;
+            let like = response.data.data.like;
+            let files = response.data.data.files;
+
+
             console.log(name)
             console.log(regdate)
             console.log(proIdx)
-            console.log(ansFlag)
+            console.log(like)
 
             $('#name').text(name);
             $('#regdate').text(regdate);
             $('#pro_name').text(proName)
             $('#proIdx').text(proIdx);
             $('#review_content').text(content);
-            $('input:radio[name="answer"][value="' + ansFlag + '"]').prop("checked", true);
-            $('#PA_editor').val(ansContent);
+            $('#PA_editor').text(ansContent);
+            $('#like').text(like);
+            $("#img").attr("src", files);
 
         }).catch(function(err){
             console.log(err)
@@ -47,11 +50,9 @@
         console.log(id)
         let data = {
             idx: id,
-            ansContent: CKEDITOR.instances.PA_editor.getData(),
-            ansFlag: $('input:radio[name="answer"]:checked').val()
+            ansContent: CKEDITOR.instances.PA_editor.getData()
         }
         console.log(data.ansContent)
-        console.log(data.ansFlag)
         let files = ($('input[name="file"]'));
         let fileList = [];
         let formData = new FormData;
@@ -63,7 +64,7 @@
         }
         formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
 
-        axios.put('/api/productReview/update', formData, {
+        axios.put('/api/productReview/ansContent/update', formData, {
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(function (){
             alert('답변상태가 수정되었습니다');
@@ -97,13 +98,13 @@
                         <th>구매상품</th>
                         <td id="pro_name"></td>
                         <th>상품코드</th>
-                        <td id="proIdx">G1000001</td>
+                        <td id="proIdx"></td>
                     </tr>
                     <tr>
                         <th>만족도</th>
-                        <td id="like">최고에요</td>
+                        <td id="like"></td>
                         <th>첨부파일</th>
-                        <td id="files">Phone.png</td>
+                        <td id="files"><img src="" id="img"></td>
                     </tr>
                     <tr>
                         <th>구매후기</th>
@@ -115,14 +116,7 @@
                 <!--table 시작-->
                 <table id="review_answer">
                     <tr>
-                        <th width="120">답변 상태</th>
-                        <td>
-                            <span><input type="radio" name="answer" value="0">답변대기</span>
-                            <span><input type="radio" name="answer" value="1">답변완료</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>답변 내용</th>
+                        <th width="120">답변 내용</th>
                         <td width="1000px">
                             <textarea name="productText" id="PA_editor" cols="30" rows="10"></textarea>
                             <!-- CKEditor 시작-->

@@ -193,6 +193,11 @@ public class Admin_pageController {
         return "admin/Admin_AddressEdit.html";
     }
 
+    @GetMapping("/admin/OrderDetail")
+    public String OrderDetail(){
+        return "admin/Admin_OrderDetail.html";
+    }
+
     @GetMapping("/admin/fresh")
     public String fresh(){
         return "admin/Admin_Fresh";

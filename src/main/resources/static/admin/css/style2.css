@@ -709,6 +709,19 @@ form #Lquestion span input[type="checkbox"] { margin-right: 7px; }
 #Qanswer tr th { padding: 10px 0;}
 .Question textarea { height: 200px; width: 700px;}
 
+/* Admin_Question.html */
+.Order { margin: 11px; }
+.Order_c1 { margin-bottom: 11px; padding: 25px 80px; background-color: white; box-sizing: border-box; }
+#O_title2 { margin-top: 60px;}
+form[name="OrderForm"] table { margin-top: 40px; }
+form[name="OrderForm"] { margin-top: 25px;}
+form #orderDetail tr th { font-size: 14px; text-align: center; border: 1px solid #999; width: 200px }
+form #orderDetail tr td { padding: 14px 10px; border: 1px solid #999; font-size: 14px; background-color: rgb(240, 240, 240); width: 680px; height: 55px;}
+form #orderDetail span  { font-size: 13px;}
+form #orderDetail span input[type="checkbox"] { margin-right: 7px; }
+#order_answer { margin: 30px 60px; text-align: left; font-size: 15px;}
+#order_answer tr th { padding: 10px 0;}
+
 /* Admin_ProductList.html */
 .PL_c1, .PL_c2 { background-color: white; box-sizing: border-box; }
 .PL_c1 form { margin-bottom: 11px; padding: 25px 80px 15px; }

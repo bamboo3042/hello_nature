@@ -7,7 +7,433 @@
     <title>고객센터 | 1:1 문의</title>
     <link rel="stylesheet" href="/admin/css/style.css">
     <script src="/admin/js/checkbox.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+<script>
+    $(function(){
+        let page = $('.page').val();
+
+        axios.get('/api/question/list?startPage=' + page, {
+
+        }).then(function(response){
+            let tb = $('<tbody class="tbody">');
+
+            for(let i in response.data.data) {
+                let $id  = response.data.data[i].idx;
+                let $email = response.data.data[i].email;
+                let $hp = response.data.data[i].hp;
+                let $type = response.data.data[i].type;
+                let $regdate = response.data.data[i].regdate;
+                let $ansDate = response.data.data[i].ansDate;
+                $regdate = $regdate.toString().substring(0, 10);
+                let $ansFlag = response.data.data[i].ansFlag;
+                let k = parseInt(i) + 1
+
+                if($ansFlag === 1) {
+                    $ansFlag = '답변완료'
+                }else if($ansFlag === 0){
+                    $ansFlag = '답변대기'
+                }
+
+                if($type === 1) {
+                    $type = '취소/환불'
+                }else if($type === 2){
+                    $type = '반품/교환'
+                }else if($type === 3){
+                    $type = '배송관련'
+                }else if($type === 4){
+                    $type = '상품문의'
+                }else if($type === 5){
+                    $type = '쿠폰/이벤트'
+                }else if($type === 6){
+                    $type = '헬로패스'
+                }else if($type === 7){
+                    $type = '더그린배송'
+                }else if($type === 8){
+                    $type = '회원정보'
+                }else if($type === 9){
+                    $type = '사이트/앱 오류'
+                }else if($type === 10){
+                    $type = '상품제안'
+                }else if($type === 11){
+                    $type = '기타'
+                }
+
+                let row = $('<tr>').append(
+                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
+                    '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
+                    '<td align="center"><p>'+ $type +'</p></td>' +
+                    '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
+                    '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="'+ $id +'"></p></td></tr>'
+                )
+                tb.append(row);
+            }
+            $('.thead').after(tb);
+
+            $(".detail").click(function (e) {
+                alert("뭘봐")
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+                console.log(id)
+
+                sessionStorage.setItem("idx3", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/question',
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function (e) {
+
+                $('.tbody').empty();
+
+                $('.page').val($(this).val())
+                let page = $('.page').val()
+
+                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                    let tb = $('<tbody class="tbody">');
+
+                    for (let i in response.data.data) {
+                        let $id = response.data.data[i].idx;
+                        let $email = response.data.data[i].email;
+                        let $hp = response.data.data[i].hp;
+                        let $type = response.data.data[i].type;
+                        let $regdate = response.data.data[i].regdate;
+                        let $ansDate = response.data.data[i].ansDate;
+                        $regdate = $regdate.toString().substring(0, 10);
+                        let $ansFlag = response.data.data[i].ansFlag;
+                        let k = parseInt(i) + 1
+
+                        if ($ansFlag === 1) {
+                            $ansFlag = '답변완료'
+                        } else if ($ansFlag === 0) {
+                            $ansFlag = '답변대기'
+                        }
+
+                        if ($type === 1) {
+                            $type = '취소/환불'
+                        } else if ($type === 2) {
+                            $type = '반품/교환'
+                        } else if ($type === 3) {
+                            $type = '배송관련'
+                        } else if ($type === 4) {
+                            $type = '상품문의'
+                        } else if ($type === 5) {
+                            $type = '쿠폰/이벤트'
+                        } else if ($type === 6) {
+                            $type = '헬로패스'
+                        } else if ($type === 7) {
+                            $type = '더그린배송'
+                        } else if ($type === 8) {
+                            $type = '회원정보'
+                        } else if ($type === 9) {
+                            $type = '사이트/앱 오류'
+                        } else if ($type === 10) {
+                            $type = '상품제안'
+                        } else if ($type === 11) {
+                            $type = '기타'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
+                            '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
+                            '<td align="center"><p>' + $type + '</p></td>' +
+                            '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
+                            '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="' + $id + '"></p></td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    $('.thead').after(tb);
+
+                    $(".detail").click(function (e) {
+                        alert("뭘봐")
+                        $("#ajax_hidden").val($(this).next().val());
+                        let id = $("#ajax_hidden").val();
+                        console.log(id)
+
+                        sessionStorage.setItem("idx3", id);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/admin/question',
+                            datatype: 'html/text',
+                            success: function (result) {
+                                console.log(result)
+                                $("#content").html(result).trigger("create");
+                            }
+                        })
+                        $("#content").empty();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/admin/question?idx3=' + id,
+                            datatype: 'html/text',
+                            success: function (result) {
+                                $("#content").html(result).trigger("create");
+                            }
+                        })
+                    })
+                })
+            }).catch(function(err){
+                console.log(err)
+                alert('실패')
+            })
+        })
+    })
+
+    $(function () {
+        let now = new Date();
+        let now_result = now.toISOString().substring(0, 10);
+
+        document.getElementById("weekbtn").addEventListener("click", function () {
+            let week = new Date();
+            week.setDate(week.getDate() - 7);
+            var week_result = week.toISOString().substring(0, 10);
+
+            document.getElementById("date_start").value = week_result;
+            document.getElementById("date_end").value = now_result;
+        })
+
+        document.getElementById("monthbtn").addEventListener("click", function () {
+
+            let month = new Date();
+            month.setMonth(month.getMonth() - 1);
+            var month_result = month.toISOString().substring(0, 10);
+
+
+            document.getElementById("date_start").value = month_result;
+            document.getElementById("date_end").value = now_result;
+        })
+
+        document.getElementById("three_monthbtn").addEventListener("click", function () {
+
+            let three_month = new Date();
+            three_month.setMonth(three_month.getMonth() - 3);
+            var three_month_result = three_month.toISOString().substring(0, 10);
+
+
+            document.getElementById("date_start").value = three_month_result;
+            document.getElementById("date_end").value = now_result;
+        })
+    })
+    $('#schbtn').click(function(){
+        $('.tbody').empty();
+
+        let page = $('.page').val();
+        let dateStart = $('#date_start').val();
+        let dateEnd = $('#date_end').val();
+        let ansFlag = $('#QL_c1_sel_1').val();
+        let type = $('#QL_c1_sel_3').val();
+        let email = $('#email').val();
+        let url = '/api/question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+
+        if(dateStart == "" && dateEnd == ""){
+            url = '/api/question/list?startPage=' + page;
+        }else if(dateStart == "" && dateEnd != ""){
+            url = '/api/question/list?startPage=' + page + '&dateEnd=' + dateEnd;
+        }else if(dateStart != "" && dateEnd == ""){
+            url = '/api/question/list?startPage=' + page + '&dateStart=' + dateStart;
+        }else if(dateStart != "" && dateEnd != ""){
+            url = url + '&startPage=' + page;
+        }
+
+        if(ansFlag == ""){
+            url = url;
+        }else if(ansFlag != ""){
+            url = url + '&ansFlag=' + ansFlag;
+        }
+
+        if(type == ""){
+            url = url;
+        }else if(type != ""){
+            url = url + '&type=' + type;
+        }
+        if(email == ""){
+            url = url;
+        }else if(email != ""){
+            url = url + '&email=' + email;
+        }
+
+        axios.get(url, {
+
+        }).then(function(response){
+            let tb = $('<tbody class="tbody">');
+
+            for(let i in response.data.data) {
+                let $id  = response.data.data[i].idx;
+                let $email = response.data.data[i].email;
+                let $hp = response.data.data[i].hp;
+                let $type = response.data.data[i].type;
+                let $regdate = response.data.data[i].regdate;
+                let $ansDate = response.data.data[i].ansDate;
+                $regdate = $regdate.toString().substring(0, 10);
+                let $ansFlag = response.data.data[i].ansFlag;
+                let k = parseInt(i) + 1
+
+                if($ansFlag === 1) {
+                    $ansFlag = '답변완료'
+                }else if($ansFlag === 0){
+                    $ansFlag = '답변대기'
+                }
+
+                if($type === 1) {
+                    $type = '취소/환불'
+                }else if($type === 2){
+                    $type = '반품/교환'
+                }else if($type === 3){
+                    $type = '배송관련'
+                }else if($type === 4){
+                    $type = '상품문의'
+                }else if($type === 5){
+                    $type = '쿠폰/이벤트'
+                }else if($type === 6){
+                    $type = '헬로패스'
+                }else if($type === 7){
+                    $type = '더그린배송'
+                }else if($type === 8){
+                    $type = '회원정보'
+                }else if($type === 9){
+                    $type = '사이트/앱 오류'
+                }else if($type === 10){
+                    $type = '상품제안'
+                }else if($type === 11){
+                    $type = '기타'
+                }
+
+                let row = $('<tr>').append(
+                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
+                    '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
+                    '<td align="center"><p>'+ $type +'</p></td>' +
+                    '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
+                    '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="'+ $id +'"></p></td></tr>'
+                )
+                tb.append(row);
+            }
+            $('.thead').after(tb);
+
+            $(".detail").click(function (e) {
+                alert("뭘봐")
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+                console.log(id)
+
+                sessionStorage.setItem("idx3", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/question',
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function (e) {
+
+                $('.tbody').empty();
+
+                $('.page').val($(this).val())
+                let page = $('.page').val()
+
+                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                    let tb = $('<tbody class="tbody">');
+
+                    for (let i in response.data.data) {
+                        let $id = response.data.data[i].idx;
+                        let $email = response.data.data[i].email;
+                        let $hp = response.data.data[i].hp;
+                        let $type = response.data.data[i].type;
+                        let $regdate = response.data.data[i].regdate;
+                        let $ansDate = response.data.data[i].ansDate;
+                        $regdate = $regdate.toString().substring(0, 10);
+                        let $ansFlag = response.data.data[i].ansFlag;
+                        let k = parseInt(i) + 1
+
+                        if ($ansFlag === 1) {
+                            $ansFlag = '답변완료'
+                        } else if ($ansFlag === 0) {
+                            $ansFlag = '답변대기'
+                        }
+
+                        if ($type === 1) {
+                            $type = '취소/환불'
+                        } else if ($type === 2) {
+                            $type = '반품/교환'
+                        } else if ($type === 3) {
+                            $type = '배송관련'
+                        } else if ($type === 4) {
+                            $type = '상품문의'
+                        } else if ($type === 5) {
+                            $type = '쿠폰/이벤트'
+                        } else if ($type === 6) {
+                            $type = '헬로패스'
+                        } else if ($type === 7) {
+                            $type = '더그린배송'
+                        } else if ($type === 8) {
+                            $type = '회원정보'
+                        } else if ($type === 9) {
+                            $type = '사이트/앱 오류'
+                        } else if ($type === 10) {
+                            $type = '상품제안'
+                        } else if ($type === 11) {
+                            $type = '기타'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
+                            '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
+                            '<td align="center"><p>' + $type + '</p></td>' +
+                            '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
+                            '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="' + $id + '"></p></td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    $('.thead').after(tb);
+
+                    })
+                })
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    sessionStorage.setItem("idx3", id);
+
+                    $("#content").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/question?idx3=' + id,
+                        datatype: 'html/text',
+                        success: function (result) {
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+        })
+    })
+</script>
 <body>
     <!--content_title 시작-->
     <div class="content_title"><p>고객센터<span>1:1 문의 내역</span></p></div>
@@ -19,35 +445,42 @@
             <p id="PQ_title1" class="product_title_s"><label>1:1 문의 검색</label></p>
             <div class="QL_c1_searchBox">
                 <p><span>등록일 기준</span>
-                    <input type="date" format yyyy-mm-dd> - <input type="date">
+                    <input type="date" format yyyy-mm-dd id="date_start"> - <input type="date" id="date_end">
                     <span class="datebtn">
-                        <input type="button" value="최근 1주일">
-                        <input type="button" value="최근 1개월">
-                        <input type="button" value="최근 3개월">
+                        <input type="button" name="button" value="최근 1주일" id="weekbtn">
+                        <input type="button" name="button" value="최근 1개월" id="monthbtn">
+                        <input type="button" name="button" value="최근 3개월" id="three_monthbtn">
                     </span>
                 </p>
             </div>
             <div class="QL_c1_searchBox">
                 <p>
                     <select class="QL_c1_sel" id="QL_c1_sel_1">
-                        <option>답변상태</option>
-                        <option>답변대기</option>
-                        <option>답변완료</option>
+                        <option value="">답변상태</option>
+                        <option value="0">답변대기</option>
+                        <option value="1">답변완료</option>
                     </select>
                     <select class="QL_c1_sel" id="QL_c1_sel_3">
-                        <option>문의유형</option>
-                        <option>전체</option>
-                        <option>취소/환불</option>
-                        <option>배송전환</option>
-                        <option>상품문의</option>
-                        <option>기타</option>
+                        <option value="">문의유형</option>
+                        <option value="0">전체</option>
+                        <option value="1">취소/환불</option>
+                        <option value="2">반품/교환</option>
+                        <option value="3">배송관련</option>
+                        <option value="4">상품문의</option>
+                        <option value="5">쿠폰/이벤트</option>
+                        <option value="6">헬로패스</option>
+                        <option value="7">더그린배송</option>
+                        <option value="8">회원정보</option>
+                        <option value="9">사이트/앱 오류</option>
+                        <option value="10">상품제안</option>
+                        <option value="11">기타</option>
                     </select>
-                    <input type="text" placeholder="아이디를 입력하세요">
+                    <input type="text" placeholder="아이디를 입력하세요" id="email">
                 </p>
             </div>
             <div class="bottom_btn" id="QL_c1_btnBox">
                 <span><input type="reset" name="reset" value="초기화"></span>
-                <span><input type="submit" name="submit" value="검색"></span>
+                <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
         </div>
         <!--QL_c1 끝-->
@@ -59,36 +492,27 @@
             <form name="Question_list">
                 <input type="button" id="Q1_c2_delbtn" name="delete" value="선택삭제">
                 <table border="1" class="QL_c2_listTable" width="100%">
-                    <tr>
-                        <th height="40px"><input type="checkbox" id="QL_check" name="selectall" onclick="QL_selectAll(this)"><label for="QL_check"></th>
-                        <th>아이디 / 연락처 / 이메일</th>
-                        <th>문의유형</th>
-                        <th>문의 / 답변내용</th>
-                        <th>발송수단</th>
-                        <th>등록 / 처리날짜</th>
-                        <th>답변상태</th>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;"><input type="checkbox" id="QL_check_2" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_2"></td>
-                        <td class="QL_c2_ListUser"><p>예시</p><p>010-예시</p><p>예시@.com</p></td>
-                        <td align="center"><p>배송관련</p></td>
-                        <td align="center"><p>문의내용 확인</p><p>답변내용 확인</a></p></td>
-                        <td align="center"><p>이메일</p></td>
-                        <td align="center"><p>2021-07-27 10:11:10</p></td>
-                        <td align="center"><p><input type="button" onclick="QL_location_1()" value="답변대기">
-                    </tr>
+                    <thead class="thead">
+                        <tr>
+                            <th height="40px"><input type="checkbox" id="QL_check" name="selectall" onclick="QL_selectAll(this)"><label for="QL_check"></th>
+                            <th>아이디 / 연락처</th>
+                            <th>문의유형</th>
+                            <th>등록 / 처리날짜</th>
+                            <th>답변상태</th>
+                        </tr>
+                    </thead>
                 </table>
                 <!--QL_c2_ListTable 끝-->
                 <!--QL_c2_pageBox 시작-->
                 <div class="pageBox" id="QL_c2_pageBox">
                     <ul>
                         <li id="Maxprev"><a href="#"><<</a></li>
-                        <li><a href="#"><</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">></a></li>
+                        <li id="prev"><</li>
+                        <li>></li>
                         <li id="Maxnext"><a href="#">>></a></li>
                     </ul>
+                    <input type="hidden" value="0" class="page">
+                    <input type="hidden" id="ajax_hidden">
                 </div>
                 <!--QL_c2_pageBox 끝-->
             </form>

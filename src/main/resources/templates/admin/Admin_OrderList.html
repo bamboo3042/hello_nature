@@ -15,130 +15,405 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
-    $(function (){
-        axios.get('/api/orderlist/list', {
-        }).then(function (response){
-            let tb = $('<tbody>');
+    $(function(){
+
+        let page = $('.page').val()
+        axios.get('/api/orderList?page=' + page, {
+
+        }).then(function(response){
+            let tb = $('<tbody class="tbody">');
 
             for(let i in response.data.data){
-                let $customer = response.data.data[i].memidx.getName();
-                let $memFlag = response.data.data[i].memFlag;
-                let $orderInfo = response.data.data[i].orderInfo;
-                let $pay = response.data.data[i].pay;
-                let $date = response.data.data[i].date;
-                let $orderState = response.data.data[i].orderState;
-                let k = parseInt(i);
+                let id = response.data.data[i].idx;
+                let name = response.data.data[i].name;
+                let member = response.data.data[i].member;
+                let proList = response.data.data[i].proList;
+                let price = response.data.data[i].price;
+                let regdate = response.data.data[i].regdate;
+                let state = response.data.data[i].state;
+                let k = parseInt(i + 6);
+
+                regdate = regdate.toString().substring(0, 10);
+
+                if(state == 1){
+                    state = '입금완료'
+                }else if(state == 2){
+                    state = '상품준비중'
+                }else if(state == 3){
+                    state = '배송준비중'
+                }else if(state == 4){
+                    state = '배송중'
+                }else if(state == 5){
+                    state = '배송완료'
+                }else if(state == 6){
+                    state = '취소'
+                }else if(state == 7){
+                    state = '반품요청'
+                }else if(state == 8){
+                    state = '반품'
+                }else if(state == 9){
+                    state = '환불요청'
+                }else if(state == 0) {
+                    state = '환불'
+                }
+
+                if(member == 1){
+                    member = '회원'
+                }else if(member == 2){
+                    member = '비회원'
+                }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox"  id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
-                    '<td>' + $customer + '</td>' +
-                    '<td>' + $memFlag + '</td>' +
-                    '<td>' + $orderInfo + '</td>' +
-                    '<td>' + $pay + '</td>' +
-                    '<td>' + $date + '</td>' +
-                    '<td>' + $orderState + '</td>'
+                    '<td><input type="checkbox" value="cou_list" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
+                    '<td>'+ name +'</td>' +
+                    '<td>'+ member +'</td>' +
+                    '<td>'+ proList +'</td>' +
+                    '<td>'+ price +' 원</td>' +
+                    '<td>'+ regdate +'</td>' +
+                    '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
                 )
                 tb.append(row);
             }
-            tb.append('</body>');
-            // tb.append('</body>').empty();
             $('.thead').after(tb);
-        }).catch(function (err){
-            console.log(err)
+
+            $(".detail").click(function (e) {
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+
+                sessionStorage.setItem("idx4", id);
+                console.log(id)
+
+                $("#content").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/OrderDetail',
+                    datatype: 'html/text',
+                    success: function (result) {
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--) {
+                let pages = $('<li class="page_num" value="' + (i - 1) + '">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+                $('.page_num').click(function (e){
+
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val())
+                    let page = $('.page').val()
+
+                    axios.get('/api/orderList?page=' + page, {
+
+                    }).then(function(response) {
+                        let tb = $('<tbody class="tbody">');
+
+                        for (let i in response.data.data) {
+                            let id = response.data.data[i].idx;
+                            let name = response.data.data[i].name;
+                            let member = response.data.data[i].member;
+                            let proList = response.data.data[i].proList;
+                            let price = response.data.data[i].price;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let k = parseInt(i + 6);
+
+                            regdate = regdate.toString().substring(0, 10);
+
+                            if(state == 1){
+                                state = '입금완료'
+                            }else if(state == 2){
+                                state = '상품준비중'
+                            }else if(state == 3){
+                                state = '배송준비중'
+                            }else if(state == 4){
+                                state = '배송중'
+                            }else if(state == 5){
+                                state = '배송완료'
+                            }else if(state == 6){
+                                state = '취소'
+                            }else if(state == 7){
+                                state = '반품요청'
+                            }else if(state == 8){
+                                state = '반품'
+                            }else if(state == 9){
+                                state = '환불요청'
+                            }else if(state == 0) {
+                                state = '환불'
+                            }
+
+                            if (member == 1) {
+                                member = '회원'
+                            } else if (member == 2) {
+                                member = '비회원'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" value="cou_list" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_' + k + '"></td>' +
+                                '<td>' + name + '</td>' +
+                                '<td>' + member + '</td>' +
+                                '<td>' + proList + '</td>' +
+                                '<td>' + price + ' 원</td>' +
+                                '<td>'+ regdate +'</td>' +
+                                '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
+                            )
+                            tb.append(row);
+                        }
+                        $('.thead').after(tb);
+                    })
+                })
+        }).catch(function(err){
+            alert('업로드 실패')
+            console.log(err);
         })
     })
 
-    $(function () {
+    $(function(){
         let now = new Date();
-        let now_result = now.toISOString().substring(0, 10);
+        let now_result = now.toISOString().substring(0,10);
 
-        document.getElementById("weekbtn").addEventListener("click", function () {
+        document.getElementById("weekbtn").addEventListener("click", function (){
+
             let week = new Date();
-            week.setDate(week.getDate() - 7);
+            week.setDate(week.getDate()- 7);
             var week_result = week.toISOString().substring(0, 10);
 
             document.getElementById("date_start").value = week_result;
             document.getElementById("date_end").value = now_result;
         })
 
-        document.getElementById("monthbtn").addEventListener("click", function () {
+        document.getElementById("monthbtn").addEventListener("click", function (){
 
             let month = new Date();
-            month.setMonth(month.getMonth() - 1);
-            var month_result = month.toISOString().substring(0, 10);
+            month.setMonth(month.getMonth()- 1);
+            var month_result =month.toISOString().substring(0, 10);
 
 
             document.getElementById("date_start").value = month_result;
             document.getElementById("date_end").value = now_result;
         })
 
-        document.getElementById("three_monthbtn").addEventListener("click", function () {
+        document.getElementById("three_monthbtn").addEventListener("click", function (){
 
             let three_month = new Date();
-            three_month.setMonth(three_month.getMonth() - 3);
-            var three_month_result = three_month.toISOString().substring(0, 10);
+            three_month.setMonth(three_month.getMonth()- 3);
+            var three_month_result =three_month.toISOString().substring(0, 10);
+
 
             document.getElementById("date_start").value = three_month_result;
             document.getElementById("date_end").value = now_result;
         })
-    })
 
-    $(function () {
-        $('#delbtn').click(function (){
-            let id = [];
-            ($("input:checkbox[name='order']:checked").each(function (e){
-                id.push($(this).val())
-            }));
-            console.log(id)
+        $('#schbtn').click(function(e){
+            $('.tbody').empty();
+            let page = $('.page').val();
+            let dateStart = $('#date_start').val();
+            let dateEnd = $('#date_end').val()
+            let state = $('input:checkbox[name="order_state"]:checked').val();
+            let member = $('#member').val();
+            let orderIdx = $('#orderIdx').val();
+            let url = '/api/orderList?page=' + page;
 
-            axios.delete("/api/orderlist/delete", {
-                data:{
-                    id: id,
-                }
-            }).then(function (){
-                alert("선택된 주문목록 삭제 성공")
-            })
-        }).catch(function (err){
-            console.log(err)
-        })
-    })
-
-    $("#schbtn").click(function (){
-        let dateStart = $("#date_start").val();
-        let dateEnd = $("#date_end").val();
-        let orderState = $("#order_state").val();
-        let memFlag = $("#mem_flag").val();
-        let orderNum = $("#order_num").val();
-
-        axios.get('/api/orderlist/list?&dataStart=' + dateStart + '&dataEnd=' + dateEnd + '&orderState=' + orderState + '&memFlag=' + memFlag + '&orderNum=' + orderNum, {
-
-        }).then(function (response){
-            for(let i in response.data.data){
-                let $customer = response.data.data[i].memidx.getName();
-                let $memFlag = response.data.data[i].memFlag;
-                let $orderInfo = response.data.data[i].orderInfo;
-                let $pay = response.data.data[i].pay;
-                let $date = response.data.data[i].date;
-                let $orderState = response.data.data[i].orderState;
-                let k = parseInt(i);
-
-                let row = $('<tr>').append(
-                    '<td><input type="checkbox"  id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
-                    '<td>' + $customer + '</td>' +
-                    '<td>' + $memFlag + '</td>' +
-                    '<td>' + $orderInfo + '</td>' +
-                    '<td>' + $pay + '</td>' +
-                    '<td>' + $date + '</td>' +
-                    '<td>' + $orderState + '</td>'
-                )
-                tb.append(row);
+            if(dateStart == "" && dateEnd == ""){
+                url = url;
+            }else if(dateStart == "" && dateEnd != ""){
+                url = url + '&dateEnd=' + dateEnd;
+            }else if(dateStart != "" && dateEnd == ""){
+                url = url + '&dateStart=' + dateStart;
+            }else if(dateStart != "" && dateEnd != ""){
+                url = url + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
             }
-            tb.append('</tbody>');
-            $('.thead').after(tb);
-        }).catch(function (err){
-            console.log(err);
+
+            if(state == ""){
+                url = url;
+            }else if(state != ""){
+                url = url + '&state=' + state;
+            }
+            if(member == ""){
+                url = url;
+            }else if(member != ""){
+                url = url + '&member=' + member;
+            }
+            if(orderIdx == ""){
+                url = url;
+            }else if(orderIdx != ""){
+                url = url + '&orderIdx=' + orderIdx;
+            }
+
+            console.log(url);
+            axios.get(url, {
+
+            }).then(function (response){
+                let tb = $('<tbody class="tbody">');
+
+                for(let i in response.data.data){
+                    let id = response.data.data[i].idx;
+                    let name = response.data.data[i].name;
+                    let member = response.data.data[i].member;
+                    let proList = response.data.data[i].proList;
+                    let price = response.data.data[i].price;
+                    let state = response.data.data[i].state;
+                    let regdate = response.data.data[i].regdate;
+                    let k = parseInt(i + 6);
+
+                    regdate = regdate.toString().substring(0, 10)
+
+                    if(state == 1){
+                        state = '입금완료'
+                    }else if(state == 2){
+                        state = '상품준비중'
+                    }else if(state == 3){
+                        state = '배송준비중'
+                    }else if(state == 4){
+                        state = '배송중'
+                    }else if(state == 5){
+                        state = '배송완료'
+                    }else if(state == 6){
+                        state = '취소'
+                    }else if(state == 7){
+                        state = '반품요청'
+                    }else if(state == 8){
+                        state = '반품'
+                    }else if(state == 9){
+                        state = '환불요청'
+                    }else if(state == 0) {
+                        state = '환불'
+                    }
+
+                    if(member == 1){
+                        member = '회원'
+                    }else if(member == 2){
+                        member = '비회원'
+                    }
+
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" value="cou_list" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
+                        '<td>'+ name +'</td>' +
+                        '<td>'+ member +'</td>' +
+                        '<td>'+ proList +'</td>' +
+                        '<td>'+ price +' 원</td>' +
+                        '<td>'+ regdate +'</td>' +
+                        '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
+                    )
+                    tb.append(row);
+                }
+                $('.thead').after(tb);
+
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    sessionStorage.setItem("idx4", id);
+
+                    $("#content").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/productanswer?idx4=' + id,
+                        datatype: 'html/text',
+                        success: function (result) {
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+                for(let i = response.data.pagination.totalPages; i > 0; i--) {
+                    let pages = $('<li class="page_num" value="' + (i - 1) + '">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
+                }
+
+                $('.page_num').click(function (e) {
+
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val())
+                    let page = $('.page').val()
+
+                    axios.get('/api/orderList?page=' + page, {}).then(function (response) {
+                        let tb = $('<tbody class="tbody">');
+
+                        for (let i in response.data.data) {
+                            let id = response.data.data[i].idx;
+                            let name = response.data.data[i].name;
+                            let member = response.data.data[i].member;
+                            let proList = response.data.data[i].proList;
+                            let price = response.data.data[i].price;
+                            let state = response.data.data[i].state;
+                            let regdate = response.data.data[i].regdate;
+                            let k = parseInt(i + 6);
+
+                            regdate = regdate.toString().substring(0, 10);
+
+                            if (state == 1) {
+                                state = '입금완료'
+                            } else if (state == 2) {
+                                state = '상품준비중'
+                            } else if (state == 3) {
+                                state = '배송준비중'
+                            } else if (state == 4) {
+                                state = '배송중'
+                            } else if (state == 5) {
+                                state = '배송완료'
+                            } else if (state == 6) {
+                                state = '취소'
+                            } else if (state == 7) {
+                                state = '반품요청'
+                            } else if (state == 8) {
+                                state = '반품'
+                            } else if (state == 9) {
+                                state = '환불요청'
+                            } else if (state == 0) {
+                                state = '환불'
+                            }
+
+                            if (member == 1) {
+                                member = '회원'
+                            } else if (member == 2) {
+                                member = '비회원'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" value="cou_list" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_' + k + '"></td>' +
+                                '<td>' + name + '</td>' +
+                                '<td>' + member + '</td>' +
+                                '<td>' + proList + '</td>' +
+                                '<td>' + price + ' 원</td>' +
+                                '<td>' + regdate + '</td>' +
+                                '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="' + id + '" ></td></tr>'
+                            )
+                            tb.append(row);
+                        }
+                        $('.thead').after(tb);
+                    })
+                })
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    sessionStorage.setItem("idx4", id);
+                    $("#content").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/OrderDetail?idx4=' + id,
+                        datatype: 'html/text',
+                        success: function (result) {
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+
+            })
+        }).catch(function(err){
+            console.log(err)
+            alert('업로드 실패')
         })
     })
+
 </script>
 <body>
 <!--content_title 시작-->
@@ -156,34 +431,39 @@
             <!--table 시작-->
             <table>
                 <tr>
-                    <th width="100">주문일자</th>
+                    <th width="100">구매일자</th>
                     <td>
                         <input type="date" name="date" value="기간필터" id="date_start"> - <input type="date" name="date" value="기간필터" id="date_end">
                         <span class="datebtn">
                                 <input type="button" name="button" value="최근 1주일" id="weekbtn">
                                 <input type="button" name="button" value="최근 1개월" id="monthbtn">
                                 <input type="button" name="button" value="최근 3개월" id="three_monthbtn">
-                            </span>
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <th>주문상태</th>
                     <td>
-                        <span><input type="checkbox" name="order_state" value="결제완료" id="OL_check_1"><label for="OL_check_1">결제완료</label></span>
-                        <span><input type="checkbox" name="order_state" value="배송준비중"  id="OL_check_2"><label for="OL_check_2">배송준비중</label></span>
-                        <span><input type="checkbox" name="order_state" value="배송중"  id="OL_check_3"><label for="OL_check_3">배송중</label></span>
-                        <span><input type="checkbox" name="order_state" value="배송완료"  id="OL_check_4"><label for="OL_check_4">배송완료</label></span>
-                        <span><input type="checkbox" name="order_state" value="주문취소"  id="OL_check_5"><label for="OL_check_5">주문취소</label></span>
+                        <span><input type="checkbox" name="order_state" value="1" id="OL_check_1"><label for="OL_check_1">입금완료</label></span>
+                        <span><input type="checkbox" name="order_state" value="2"  id="OL_check_2"><label for="OL_check_2">상품준비중</label></span>
+                        <span><input type="checkbox" name="order_state" value="3"  id="OL_check_3"><label for="OL_check_3">배송준비중</label></span>
+                        <span><input type="checkbox" name="order_state" value="4"  id="OL_check_4"><label for="OL_check_4">배송중</label></span>
+                        <span><input type="checkbox" name="order_state" value="5"  id="OL_check_5"><label for="OL_check_5">배송완료</label></span><br>
+                        <span><input type="checkbox" name="order_state" value="6"  id="OL_check_6"><label for="OL_check_6">취소</label></span>
+                        <span><input type="checkbox" name="order_state" value="7"  id="OL_check_7"><label for="OL_check_7">반품요청</label></span>
+                        <span><input type="checkbox" name="order_state" value="8"  id="OL_check_8"><label for="OL_check_8">반품</label></span>
+                        <span><input type="checkbox" name="order_state" value="9"  id="OL_check_9"><label for="OL_check_9">환불요청</label></span>
+                        <span><input type="checkbox" name="order_state" value="0"  id="OL_check_10"><label for="OL_check_10">환불</label></span>
                     </td>
                 </tr>
                 <tr>
                     <th>검색어</th>
                     <td>
-                        <select style="width: 155px; padding-left: 10px;">
-                            <option value="회원">회원</option>
-                            <option value="비회원">비회원</option>
+                        <select style="width: 155px; padding-left: 10px;" id="member">
+                            <option value="1">회원</option>
+                            <option value="2">비회원</option>
                         </select>
-                        <input type="text" name="text" placeholder="주문번호를 입력하세요">
+                        <input type="text" name="text" placeholder="주문번호를 입력하세요" id="orderIdx">
                     </td>
                 </tr>
             </table>
@@ -191,7 +471,7 @@
             <!--OL_c1_btnBox 시작-->
             <div class="bottom_btn" id="OL_c1_btnBox">
                 <span><input type="reset" name="reset" value="초기화"></span>
-                <span><input type="submit" name="submit" value="검색" id="schbtn"></span>
+                <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
             <!--OL_c1_btnBox 끝-->
         </form>
@@ -212,36 +492,29 @@
                 </span>
             <!--table 시작-->
             <table width="100%" class="list_table">
-                <tr>
-                    <th width="5%"><input type="checkbox" value="cou_list" id="OL_check" name="selectall" onclick="OL_selectAll(this)"><label for="OL_check"></th>
-                    <th width="14%">구매자</th>
-                    <th width="10%">회원여부</th>
-                    <th width="22%">주문정보</th>
-                    <th width="14%">결제금액</th>
-                    <th width="20%">구매일자</th>
-                    <th width="15%">주문상태</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" value="cou_list" id="OL_check_7" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_7"></td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                </tr>
+                <thead class="thead">
+                    <tr>
+                        <th width="5%"><input type="checkbox" value="cou_list" id="OL_check" name="selectall" onclick="OL_selectAll(this)"><label for="OL_check"></th>
+                        <th width="14%">구매자</th>
+                        <th width="10%">회원여부</th>
+                        <th width="22%">주문정보</th>
+                        <th width="14%">결제금액</th>
+                        <th width="20%">구매일자</th>
+                        <th width="15%">주문상태</th>
+                    </tr>
+                </thead>
             </table>
             <!--table 끝-->
             <!-- pageBox 시작-->
             <div class="pageBox">
                 <ul>
                     <li id="Maxprev"><a href="#"><<</a></li>
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">></a></li>
+                    <li id="prev"><</li>
+                    <li>></li>
                     <li id="Maxnext"><a href="#">>></a></li>
                 </ul>
+                <input type="hidden" value="0" class="page">
+                <input type="hidden" id="ajax_hidden">
             </div>
             <!-- pageBox 끝-->
         </form>

@@ -128,8 +128,21 @@
             $('.tbody').empty();
             let ansFlag = $("#select").val()
             let search = $("#title").val()
+            let page = $('.page').val()
+            let url = '/api/productReview/list?ansFlag='+ansFlag;
 
-            axios.get("/api/productReview/list?page="+ page + "&ansFlag="+ansFlag+"&search=" + search, {
+            if(ansFlag == ""){
+                url = '/api/productReview/list?page='+ page;
+            }else if(ansFlag != ""){
+                url = url + '&page=' + page;
+            }
+            if(search == ""){
+                url = url;
+            }else if(search != ""){
+                url = url + '&name=' + search;
+            }
+            console.log(url);
+            axios.get(url, {
             }).then(function (response){
 
                 let tb = $('<tbody class="tbody">')
@@ -194,7 +207,7 @@
                     $('.page').val($(this).val());
                     let page = $('.page').val();
 
-                    axios.get("/api/productReview/list?page="+ page + "&ansFlag="+ansFlag+"&search=" + search, {
+                    axios.get("/api/productReview/list?page="+ page, {
 
                     }).then(function(response){
                         let tb = $('<tbody class="tbody">')
@@ -261,7 +274,7 @@
                 <!--PR_c1_btnBox 시작-->
                 <div class="bottom_btn" id="PR_c1_btnBox">
                     <span><input type="button" name="button" value="초기화"></span>
-                    <span><input type="button" name="button" value="검색"></span>
+                    <span><input type="button" name="button" value="검색" onclick="sendit()"></span>
                 </div>
                 <!--PR_c1_btnBox 끝-->
             </form>

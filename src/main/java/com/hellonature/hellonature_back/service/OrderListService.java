@@ -69,7 +69,7 @@ public class OrderListService {
         List<OrderListResponse> orderListResponses = new ArrayList<>();
 
         for (MemberOrder memberOrder:
-             result.subList(start, end)) {
+                result.subList(start, end)) {
             orderListResponses.add(response(memberOrder));
         }
 
@@ -132,7 +132,7 @@ public class OrderListService {
         String temp = "";
 
         for (MemberOrderProduct memberOrderProduct:
-             memberOrderProducts) {
+                memberOrderProducts) {
             temp += memberOrderProduct.getProduct().getName() + " " + memberOrderProduct.getProCount();
         }
 

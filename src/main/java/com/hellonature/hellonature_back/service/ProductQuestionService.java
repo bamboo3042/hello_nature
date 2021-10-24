@@ -156,7 +156,7 @@ public class ProductQuestionService  {
         List<ProductQuestionListResponse> list = new ArrayList<>();
 
         for (ProductQuestion productQuestion:
-             result.subList(start, end)) {
+                result.subList(start, end)) {
             list.add(responseList(productQuestion));
         }
 
