@@ -938,7 +938,9 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 
 
-/* index.html - 가을에만 만날 수 있는 과일 이미지 */
+/* index.html 상품 이미지 ------------------------------------------------------------------------- */
+
+/* index.html - 가을에만 만날 수 있는 과일 */
 .item_img_fruit_1 { background: url(../../uploads/product/2021-10-20-17-07-25_026076_003_22.png); }
 .item_img_fruit_2 { background: url(../../uploads/product/2021-10-20-04-46-22_028209_001_22.jpg); }
 .item_img_fruit_3 { background: url(../../uploads/product/2021-10-20-04-38-57_016653_001_22.jpg); }
@@ -947,3 +949,113 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .item_img_fruit_6 { background: url(../../uploads/product/2021-10-20-04-05-42_img11_main.jpg); }
 .item_img_fruit_7 { background: url(../../uploads/product/2021-10-20-03-59-40_img10_main.png); }
 .item_img_fruit_8 { background: url(../../uploads/product/2021-10-20-03-39-08_img7_main.png); }
+
+/* index.html - 전체 상품 - 과일 */
+.total_img_fruit_1 { background: url(../../uploads/product/2021-10-20-10-21-35_105414_001_22.png); }
+.total_img_fruit_2 { background: url(../../uploads/product/2021-10-20-11-03-35_107036_001_22.png); }
+.total_img_fruit_3 { background: url(../../uploads/product/2021-10-20-11-10-53_026176_001_22.jpg); }
+.total_img_fruit_4 { background: url(../../uploads/product/2021-10-20-11-19-56_021541_001_22.jpg); }
+.total_img_fruit_5 { background: url(../../uploads/product/2021-10-20-11-36-34_026712_001_22.jpg); }
+.total_img_fruit_6 { background: url(../../uploads/product/2021-10-20-11-46-57_024058_001_22.jpg); }
+.total_img_fruit_7 { background: url(../../uploads/product/2021-10-20-11-53-46_024057_001_22.jpg); }
+.total_img_fruit_8 { background: url(../../uploads/product/2021-10-20-12-17-01_023137_001_22.jpg); }
+
+/* index.html - 전체 상품 - 채소 */
+.total_img_vege_1 { background: url(../../uploads/product/2021-10-19-17-48-00_106147_001_22.png); }
+.total_img_vege_2 { background: url(../../uploads/product/2021-10-19-18-09-39_022203_001_22.jpg); }
+.total_img_vege_3 { background: url(../../uploads/product/2021-10-20-01-39-04_106432_003_22.png); }
+.total_img_vege_4 { background: url(../../uploads/product/2021-10-20-01-50-49_106404_001_22.png); }
+.total_img_vege_5 { background: url(../../uploads/product/2021-10-20-02-05-12_024440_003_22.png); }
+.total_img_vege_6 { background: url(../../uploads/product/2021-10-20-02-15-08_024625_001_22.jpg); }
+.total_img_vege_7 { background: url(../../uploads/product/2021-10-20-02-23-55_028912_001_22.png); }
+.total_img_vege_8 { background: url(../../uploads/product/2021-10-20-02-30-18_103048_001_22.png); }
+
+/* index.html - 전체 상품 - 잡곡 */
+.total_img_cereal_1 { background: url(../../uploads/product/2021-10-20-22-42-40_104948_001_22.png); }
+.total_img_cereal_2 { background: url(../../uploads/product/2021-10-20-22-47-00_021733_001_22.jpg); }
+.total_img_cereal_3 { background: url(../../uploads/product/2021-10-20-22-53-22_101606_001_22.png); }
+.total_img_cereal_4 { background: url(../../uploads/product/2021-10-20-22-59-53_20200917100730239.jpg); }
+.total_img_cereal_5 { background: url(../../uploads/product/2021-10-21-00-00-57_027283_001_22.jpg); }
+.total_img_cereal_6 { background: url(../../uploads/product/2021-10-21-00-05-03_019011_001_22.jpg); }
+.total_img_cereal_7 { background: url(../../uploads/product/2021-10-21-00-13-58_014564_003_22.png); }
+.total_img_cereal_8 { background: url(../../uploads/product/2021-10-21-00-19-26_20210504143756936.jpg); }
+
+/* index.html - 전체 상품 - 정육 */
+.total_img_meat_1 { background: url(../../uploads/product/2021-10-23-04-14-10_102411_001_22.png); }
+.total_img_meat_2 { background: url(../../uploads/product/2021-10-21-04-38-49_101792_001_22.png); }
+.total_img_meat_3 { background: url(../../uploads/product/2021-10-21-04-35-11_101793_001_22.png); }
+.total_img_meat_4 { background: url(../../uploads/product/2021-10-21-04-27-27_022005_001_22.jpg); }
+.total_img_meat_5 { background: url(../../uploads/product/2021-10-21-04-24-18_022006_001_22.jpg); }
+.total_img_meat_6 { background: url(../../uploads/product/2021-10-21-03-53-56_022007_001_22.jpg); }
+.total_img_meat_7 { background: url(../../uploads/product/2021-10-21-03-49-56_022008_001_22.jpg); }
+.total_img_meat_8 { background: url(../../uploads/product/2021-10-21-03-39-46_100423_001_22.png); }
+
+/* index.html - 전체 상품 - 수산 */
+.total_img_fish_1 { background: url(../../uploads/product/2021-10-22-00-37-09_101946_001_22.png); }
+.total_img_fish_2 { background: url(../../uploads/product/2021-10-22-00-24-39_102708_001_22.png); }
+.total_img_fish_3 { background: url(../../uploads/product/2021-10-22-00-15-03_028816_001_22.jpg); }
+.total_img_fish_4 { background: url(../../uploads/product/2021-10-22-00-10-19_023335_001_22.jpg); }
+.total_img_fish_5 { background: url(../../uploads/product/2021-10-22-00-04-38_028814_001_22.jpg); }
+.total_img_fish_6 { background: url(../../uploads/product/2021-10-22-00-00-33_028818_001_22.jpg); }
+.total_img_fish_7 { background: url(../../uploads/product/2021-10-21-22-50-04_022233_001_22.jpg); }
+.total_img_fish_8 { background: url(../../uploads/product/2021-10-21-22-39-59_101064_001_22.png); }
+
+/* index.html - 전체 상품 - 요리 */
+.total_img_cook_1 { background: url(../../uploads/product/2021-10-24-04-44-57_027376_001_22.jpg); }
+.total_img_cook_2 { background: url(../../uploads/product/2021-10-24-04-41-41_027377_001_22.jpg); }
+.total_img_cook_3 { background: url(../../uploads/product/2021-10-23-04-18-51_026084_001_22.jpg); }
+.total_img_cook_4 { background: url(../../uploads/product/2021-10-22-10-28-01_104164_001_22.png); }
+.total_img_cook_5 { background: url(../../uploads/product/2021-10-22-06-45-21_104170_001_22.png); }
+.total_img_cook_6 { background: url(../../uploads/product/2021-10-22-06-42-55_027592_001_22.jpg); }
+.total_img_cook_7 { background: url(../../uploads/product/2021-10-22-06-35-46_100730_001_22.png); }
+.total_img_cook_8 { background: url(../../uploads/product/2021-10-22-06-33-09_027982_001_22.jpg); }
+
+/* index.html - 전체 상품 - 샐러드 */
+.total_img_salad_1 { background: url(../../uploads/product/2021-10-22-15-38-52_105646_001_22.png); }
+.total_img_salad_2 { background: url(../../uploads/product/2021-10-22-15-36-10_105648_001_22.png); }
+.total_img_salad_3 { background: url(../../uploads/product/2021-10-22-15-33-32_105649_001_22.png); }
+.total_img_salad_4 { background: url(../../uploads/product/2021-10-22-15-24-20_105354_001_22.png); }
+.total_img_salad_5 { background: url(../../uploads/product/2021-10-22-15-13-16_105590_001_22.png); }
+.total_img_salad_6 { background: url(../../uploads/product/2021-10-22-15-10-33_106462_001_22.png); }
+.total_img_salad_7 { background: url(../../uploads/product/2021-10-22-15-06-53_106463_001_22.png); }
+.total_img_salad_8 { background: url(../../uploads/product/2021-10-22-14-17-38_105706_001_22.png); }
+
+/* index.html - 전체 상품 - 양념 */
+.total_img_sauce_1 { background: url(../../uploads/product/2021-10-24-01-58-30_102384_001_22.png); }
+.total_img_sauce_2 { background: url(../../uploads/product/2021-10-24-01-53-49_104383_001_22.png); }
+.total_img_sauce_3 { background: url(../../uploads/product/2021-10-24-01-44-57_028394_003_22.png); }
+.total_img_sauce_4 { background: url(../../uploads/product/2021-10-22-14-10-38_106249_001_22.png); }
+.total_img_sauce_5 { background: url(../../uploads/product/2021-10-22-14-08-11_027572_005_22.png); }
+.total_img_sauce_6 { background: url(../../uploads/product/2021-10-22-14-05-50_027574_005_22.png); }
+.total_img_sauce_7 { background: url(../../uploads/product/2021-10-22-14-03-07_106250_001_22.png); }
+.total_img_sauce_8 { background: url(../../uploads/product/2021-10-22-13-42-44_027577_003_22.png); }
+
+/* index.html - 전체 상품 - 베이커리 */
+.total_img_bake_1 { background: url(../../uploads/product/2021-10-24-20-46-42_20210823181242487.jpg); }
+.total_img_bake_2 { background: url(../../uploads/product/2021-10-24-20-39-08_20210714143446135.jpg); }
+.total_img_bake_3 { background: url(../../uploads/product/2021-10-24-20-32-59_20210714140539634.jpg); }
+.total_img_bake_4 { background: url(../../uploads/product/2021-10-24-20-27-01_106412_001_22.png); }
+.total_img_bake_5 { background: url(../../uploads/product/2021-10-24-20-18-16_104396_001_22.png); }
+.total_img_bake_6 { background: url(../../uploads/product/2021-10-24-20-15-52_104395_001_22.png); }
+.total_img_bake_7 { background: url(../../uploads/product/2021-10-24-20-12-39_104394_001_22.png); }
+.total_img_bake_8 { background: url(../../uploads/product/2021-10-24-20-09-26_104388_001_22.png); }
+
+/* index.html - 전체 상품 - 음료 */
+.total_img_drink_1 { background: url(../../uploads/product/2021-10-24-21-28-22_106987_001_22.png); }
+.total_img_drink_2 { background: url(../../uploads/product/2021-10-24-21-24-42_106988_002_22.png); }
+.total_img_drink_3 { background: url(../../uploads/product/2021-10-24-21-21-38_107052_001_22.png); }
+.total_img_drink_4 { background: url(../../uploads/product/2021-10-24-21-18-56_107051_001_22.png); }
+.total_img_drink_5 { background: url(../../uploads/product/2021-10-24-21-11-33_104369_001_22.png); }
+.total_img_drink_6 { background: url(../../uploads/product/2021-10-24-21-08-47_104373_001_22.png); }
+.total_img_drink_7 { background: url(../../uploads/product/2021-10-24-21-06-00_104375_001_22.png); }
+.total_img_drink_8 { background: url(../../uploads/product/2021-10-24-21-02-28_104376_001_22.png); }
+
+/* index.html - 전체 상품 - 생활 */
+.total_img_daily_1 { background: url(../../user/images/product/2021-10-24-22-41-51_106009_001_22.png); }
+.total_img_daily_2 { background: url(../../uploads/product/2021-10-24-22-38-34_20210726165226222.jpg); }
+.total_img_daily_3 { background: url(../../uploads/product/2021-10-24-22-36-20_104077_001_22.png); }
+.total_img_daily_4 { background: url(../../uploads/product/2021-10-24-22-32-23_104041_001_22.png); }
+.total_img_daily_5 { background: url(../../uploads/product/2021-10-24-22-29-08_20210329145940823.jpg); }
+.total_img_daily_6 { background: url(../../uploads/product/2021-10-24-22-26-12_104051_001_22.png); }
+.total_img_daily_7 { background: url(../../uploads/product/2021-10-24-22-20-49_104045_001_22.png); }
+.total_img_daily_8 { background: url(../../uploads/product/2021-10-24-22-17-52_20210329153050787.jpg); }
