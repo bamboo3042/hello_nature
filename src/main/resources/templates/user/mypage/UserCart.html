@@ -62,7 +62,7 @@
                         '<span class="item_ea">' + count + '</span>' +
                         '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg"></button>' +
                         '</div>' +
-                        '<div id="totalPrice" class="totalPrice">' + netPrice + '원</div>' +
+                        '<div id="totalPrice" class="totalPrice"><del class="total_net">' + netPrice + '원</del><p class="total_real">'+price+'원</p></div>' +
                         '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
                         '<input type="hidden" id="hidden_totalPrice" value="' + netPrice + '">'+        // 할인가 총금액
                             '<input type="hidden" id="hidden_netPrice" value="' + netPrice + '">'+          // 정상가
@@ -97,14 +97,19 @@
                 document.getElementById("sale_price").innerText = String(sum_2);
                 document.getElementById("final_price").innerText = String(sum_1 - sum_2 + 2000);
 
+                $(".emph").text("구매 시" + parseInt($("#final_price").text())*0.01 + "원 적립")
+
 
                 $(".plus_btn").click(function (e){
                     let count = parseInt($(this).siblings("span").text()) + 1;
                     if( count <= 10) {
                         $(this).siblings("span").text(count)
                         let hidden_totalPrice = $(this).parent().parent().children("#hidden_totalPrice").val();
-                        let totalPrice = $(this).parent().parent().children("#totalPrice");
+                        let hidden_Price = $(this).parent().parent().children("#hidden_price").val();
+                        let totalPrice = $(this).parent().parent().children(".totalPrice").children(".total_net");
+                        let Price = $(this).parent().parent().children(".totalPrice").children(".total_real");
                         totalPrice.text(count*hidden_totalPrice + "원")
+                        Price.text(count*hidden_Price +"원")
 
                         let hidden_discount = $(this).parent().parent().children("#hidden_salePrice").val()
                         $(this).parent().parent().children("#hidden_saleTotPrice").val(count * hidden_discount)
@@ -137,8 +142,12 @@
                     if( count >= 1) {
                         $(this).siblings("span").text(count)
                         let hidden_totalPrice = $(this).parent().parent().children("#hidden_totalPrice").val();
-                        let totalPrice = $(this).parent().parent().children("#totalPrice");
+                        let hidden_Price = $(this).parent().parent().children("#hidden_price").val();
+                        let totalPrice = $(this).parent().parent().children(".totalPrice").children(".total_net");
+                        let Price = $(this).parent().parent().children(".totalPrice").children(".total_real");
                         totalPrice.text(count*hidden_totalPrice + "원")
+                        Price.text(count*hidden_Price +"원")
+
 
                         let hidden_discount = $(this).parent().parent().children("#hidden_salePrice").val()
                         $(this).parent().parent().children("#hidden_saleTotPrice").val(count * hidden_discount)
@@ -200,18 +209,24 @@
                 let netPrice = document.getElementById("net_price").innerText;
                 let salePrice = document.getElementById("sale_price").innerText;
                 let num = document.getElementById("num").innerText;
-                let hello
+                let totalPrice = document.querySelectorAll(".total_net");
+                let realPrice = document.querySelectorAll(".total_real");
 
                 let prodIdx = [];
                 let prodName = [];
                 let proEA = [];
                 let proIMG =[];
+                let totalList = [];
+                let realPriceList = [];
                 for(let i =0; i< hidden_proIdx.length; i++){
                     prodIdx.push(hidden_proIdx[i].value)
                     prodName.push(prod_name[i].innerText)
                     proEA.push(itemEA[i].innerText)
                     proIMG.push(pro_img[i].src)
+                    totalList.push(totalPrice[i].innerText)
+                    realPriceList.push(realPrice[i].innerText)
                 }
+
 
                 sessionStorage.setItem("prodIdx", prodIdx)
                 sessionStorage.setItem("prodName", prodName)
@@ -220,7 +235,8 @@
                 sessionStorage.setItem("netPrice", netPrice)
                 sessionStorage.setItem("salePrice", salePrice)
                 sessionStorage.setItem("num", num)
-                sessionStorage.setItem("hello", hello)
+                sessionStorage.setItem("totalPrice", totalList)
+                sessionStorage.setItem("realPriceList", realPriceList)
 
                 location.href="/user/mypage_userOrdersheet"
             }

@@ -94,6 +94,10 @@
                 $("#order_hello").text($(".input_hcash").val());
                 if ($(".input_hcash").val() === "") {
                     $(".input_hcash").val(0)
+                    $("#order_hello").text($(".input_hcash").val());
+                    $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                        - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                    $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
                 }
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
@@ -101,6 +105,20 @@
             } else {
                 alert("가지고 있는 헬로캐쉬보다 많은 캐쉬를 사용할 수 없습니다")
                 $(".input_hcash").val(0)
+                $("#order_hello").text($(".input_hcash").val());
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+            }
+
+            if($(".input_hcash").val() >= parseInt($("#total_price").text())){
+                alert("상품금액 보다 많은 헬로캐쉬를 사용할 수 없습니다")
+                $(".input_hcash").val(0)
+                $("#order_hello").text($(".input_hcash").val());
+            }else{
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
             }
         }
 
@@ -147,6 +165,8 @@
             let proName = sessionStorage.getItem("prodName").split(",");
             let proEA = sessionStorage.getItem("proEA").split(",");
             let proImg = sessionStorage.getItem("proIMG").split(",");
+            let totalPrice = sessionStorage.getItem("totalPrice").split(",");
+            let realPriceList = sessionStorage.getItem("realPriceList").split(",")
             let netPrice = sessionStorage.getItem("netPrice");
             let salePrice = sessionStorage.getItem("salePrice");
             let num = sessionStorage.getItem("num");
@@ -154,8 +174,9 @@
             for (let i = 0; i < prodIdx.length; i++) {
                 let row = $('<div id="order_item_list">').append(
                     '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '"></div>' +
-                    ' <div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
-                    '<div class="item_count"><span>' + proEA[i] + '개' + '</span></div></div>'
+                    '<div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
+                    '<div class="item_count_k">' + proEA[i] + '개' + '</div>' +
+                    '<div class="item_price_k"><del>'+totalPrice[i]+'</del><p>'+realPriceList[i]+'</p></div></div>'
                 )
                 $("#order_item_box").append(row)
             }
