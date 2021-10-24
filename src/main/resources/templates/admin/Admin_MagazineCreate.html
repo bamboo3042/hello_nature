@@ -139,29 +139,31 @@
             let cateIdx = $('#PL_sel_2').val();
             let page = $('.page').val();
             let state = $('input:checkbox[name="d_status2"]:checked').val();
+            console.log(state)
             let order = $('input:checkbox[name="filter"]:checked').val();
             let name = $('#MCT_c3_scName').val();
-            let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
-            if(cateIdx == ""){
+            let url = '/api/product/list?page=' + page;
+
+            if(cateIdx == null){
                 cateIdx = $('#PL_sel_1').val();
+                url = url + "&cateIdx=" + cateIdx;
+                if(cateIdx == null){
+                    url = url;
+                }
+            }else if(cateIdx != null){
+                url = url + "&cateIdx=" + cateIdx;
             }
 
-            if(cateIdx == ""){
-                url = '/api/product/list?page=' + page;
-            }else if(cateIdx != ""){
+            if(state == undefined){
                 url = url;
-            }
-
-            if(state == ""){
-                url = url;
-            } else if(state != ""){
+            } else if(state != undefined){
                 url = url + '&state=' + state;
             }
 
-            if(order == ""){
+            if(order == undefined){
                 url = url;
-            }else if(order != ""){
+            }else if(order != undefined){
                 url = url + '&order=' + order;
             }
 
@@ -331,27 +333,26 @@
             let state = $('input:checkbox[name="status2"]:checked').val();
             let order = $('input:checkbox[name="filter2"]:checked').val();
             let name = $('#MCT_c3_Name').val();
-            let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
+            let url = '/api/product/list?page=' + page;
 
-            if(cateIdx == ""){
+            if(cateIdx == null){
                 cateIdx = $('#MC_sel_1').val();
+                if(cateIdx == null){
+                    url = url;
+                }
+            }else if(cateIdx != null){
+                url = url + "&cateIdx=" + cateIdx;
             }
 
-            if(cateIdx == ""){
-                url = '/api/product/list?page=' + page;
-            }else if(cateIdx != ""){
+            if(state == undefined){
                 url = url;
-            }
-
-            if(state == ""){
-                url = url;
-            } else if(state != ""){
+            } else if(state != undefined){
                 url = url + '&state=' + state;
             }
 
-            if(order == ""){
+            if(order == undefined){
                 url = url;
-            }else if(order != ""){
+            }else if(order != undefined){
                 url = url + '&order=' + order;
             }
 
@@ -586,10 +587,10 @@
                                 <th width="150">상품분류</th>
                                 <td>
                                     <select onchange="categoryChange(this)" id="Pl_sel_1">
-                                        <option value="대분류">대분류</option>
+                                        <option>대분류</option>
                                     </select>
                                     <select id="PL_sel_2">
-                                        <option value="중분류">중분류</option>
+                                        <option id="PL_sel_stand">중분류</option>
                                     </select>
                                 </td>
                             </tr>
@@ -662,7 +663,7 @@
                                         <option value="대분류">대분류</option>
                                     </select>
                                     <select id="MC_sel_2">
-                                        <option value="중분류">중분류</option>
+                                        <option id="MC_sel_stand">중분류</option>
                                     </select>
                                 </td>
                             </tr>

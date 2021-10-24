@@ -239,9 +239,9 @@
                 url = url + '&startPage=' + page;
             }
 
-            if(answer == ""){
+            if(answer == undefined){
                 url = url;
-            }else if(answer != ""){
+            }else if(answer != undefined){
                 url = url +'&ansFlag=' + answer;
             }
             console.log(answer);
