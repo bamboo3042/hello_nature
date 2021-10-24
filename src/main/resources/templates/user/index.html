@@ -5,15 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈페이지 메인 1-1</title>
-    <!--    <link rel="stylesheet" href="./style/index_style.css">-->
+    <!--<link rel="stylesheet" href="./style/index_style.css">-->
     <link rel="stylesheet" th:href="@{/user/css/index_style.css}">
     <link rel="stylesheet" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/resource/css/bootstrap.css">
 </head>
-<script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous">
-</script>
 <script>
     $(function (){
         sessionStorage.removeItem("ship_id");
@@ -85,15 +82,10 @@
                 <div class="list_slide_wrapper">
                     <ul class="list_mold">
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/product" target="" class="item_img"><p>몇 개 안 남았어요 :)</p></a>
-                            <a href="/product" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=102" target="" class="item_img item_img_fruit_1"></a>
+                            <a href="/user/product?prodIdx=102" class="item_name">제주 레드키위</a>
+                            <div class="item_price"><span class="price_comma">5,900</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">
@@ -120,14 +112,13 @@
                         </li>
                         <li class="item_wrap">
                             <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
+                                <span class="item_sale">17%</span>
                             </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=64" target="" class="item_img item_img_fruit_2"></a>
+                            <a href="/user/product?prodIdx=64" target="" class="item_name">찰 토마토 2kg</a>
+                            <div class="item_price"><span class="price_comma">9,960</span>원</div>
+                            <del><span class="price_comma">12,000</span>원</del>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="3.3">
@@ -153,15 +144,10 @@
                             </div>
                         </li>
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=63" target="" class="item_img item_img_fruit_3"></a>
+                            <a href="/user/product?prodIdx=63" target="" class="item_name">최덕현님의 아삭 달콤 경산 사과대추</a>
+                            <div class="item_price"><span class="price_comma">9,800</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="2.3">
@@ -189,13 +175,11 @@
                         <li class="item_wrap">
                             <div class="item_info">
                                 <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
                             </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=61" target="" class="item_img item_img_fruit_4"></a>
+                            <a href="/user/product?prodIdx=61" target="" class="item_name">[더신선] 추성엽님의 샤인머스켓</a>
+                            <div class="item_price"><span class="price_comma">39,800</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">
@@ -221,15 +205,10 @@
                             </div>
                         </li>
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=59" target="" class="item_img item_img_fruit_5"></a>
+                            <a href="/user/product?prodIdx=59" target="" class="item_name">진한 달콤함 감홍 사과 4입</a>
+                            <div class="item_price"><span class="price_comma">17,500</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">
@@ -255,15 +234,10 @@
                             </div>
                         </li>
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=54" target="" class="item_img item_img_fruit_6"></a>
+                            <a href="/user/product?prodIdx=54" target="" class="item_name">3색 대추 방울 토마토 600g</a>
+                            <div class="item_price"><span class="price_comma">8,000</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">
@@ -289,15 +263,10 @@
                             </div>
                         </li>
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product?prodIdx=51" target="" class="item_img item_img_fruit_7"></a>
+                            <a href="/user/product?prodIdx=51" target="" class="item_name">황금빛 노란 사과 시나노 골드</a>
+                            <div class="item_price"><span class="price_comma">12,000</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">
@@ -323,15 +292,10 @@
                             </div>
                         </li>
                         <li class="item_wrap">
-                            <div class="item_info">
-                                <span class="item_sale">10%</span>
-                                <span class="item_best">Best</span>
-                            </div>
-                            <a href="/user/product" target="" class="item_img"></a>
-                            <a href="/user/product" target="" class="item_name">[풀무원] 탱글뽀득 핫도그 500g</a>
-                            <div class="item_price"><span class="price_comma">5900000</span>원</div>
-                            <del><span class="price_comma">8480000</span>원</del>
-                            <div class="item_storage"><span>냉동</span></div>
+                            <a href="/user/product" target="" class="item_img item_img_fruit_8"></a>
+                            <a href="/user/product" target="" class="item_name">[새벽배송한정] 영암 무화과 600g</a>
+                            <div class="item_price"><span class="price_comma">12,500</span>원</div>
+                            <div class="item_storage"><span>냉장</span></div>
                             <div class="like_area">
                                 <span class="item_star review">4.2점</span>
                                 <div class="rating" data-rate="4.2">

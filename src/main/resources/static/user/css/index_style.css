@@ -81,7 +81,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 508px; margin-right: 18px;}
 .item_end_wrap {float: left; list-style: none; position: relative; width: 249px; height: 508px; }
 
-#item_list_1 .item_img, #total_list .item_img, #item_list_4 .item_img, #item_list_5 .item_img, #item_list_6 .item_img {background: url(../images/item1.png); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+#item_list_1 .item_img, #total_list .item_img, #item_list_4 .item_img, #item_list_5 .item_img, #item_list_6 .item_img {background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
 .item_img p{position: absolute; width: 100%; height: 24.5px; text-align: center;  background-color: rgba(92, 92, 92, 0.26); font-size: 13px; color: #fff; margin-top: 218.5px; padding-top: 2px; border-radius: 0 0 8px 8px / 0 0 8px 8px;}
 .item_info{position: absolute; width: 100%; height: 0;}
@@ -935,3 +935,15 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .qna_box ul li {font-size: 12.5px;}
 .qna_box ul li span {color: var(--hello_main_1); font-weight: 600;}
 .qna_box .qna_button {float: right;width: 100px;height: 30px; font-size: 14px; border: 1px solid rgb(190, 190, 190); border-radius: 5px;}
+
+
+
+/* index.html - 가을에만 만날 수 있는 과일 이미지 */
+.item_img_fruit_1 { background: url(../../uploads/product/2021-10-20-17-07-25_026076_003_22.png); }
+.item_img_fruit_2 { background: url(../../uploads/product/2021-10-20-04-46-22_028209_001_22.jpg); }
+.item_img_fruit_3 { background: url(../../uploads/product/2021-10-20-04-38-57_016653_001_22.jpg); }
+.item_img_fruit_4 { background: url(../../uploads/product/2021-10-20-04-30-42_021678_001_22.png); }
+.item_img_fruit_5 { background: url(../../uploads/product/2021-10-20-04-23-20_101156_001_22.png); }
+.item_img_fruit_6 { background: url(../../uploads/product/2021-10-20-04-05-42_img11_main.jpg); }
+.item_img_fruit_7 { background: url(../../uploads/product/2021-10-20-03-59-40_img10_main.png); }
+.item_img_fruit_8 { background: url(../../uploads/product/2021-10-20-03-39-08_img7_main.png); }
