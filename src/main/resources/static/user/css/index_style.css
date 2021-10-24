@@ -821,6 +821,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .brand_section02 input[id="brand_slide03"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-1019px); }
 .brand_section02 input[id="brand_slide04"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-1527px); }
 .brand_section02 input[id="brand_slide05"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-2035px); }
+.brand_section02 input[id="brand_slide06"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-2543px); }
+.brand_section02 input[id="brand_slide07"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-3051px); }
 
 .brand_slide_pagelist { text-align: center; padding: 5px; margin-top: 8px;}
 .brand_slide_pagelist > li { display: inline-block; vertical-align: middle; }
@@ -830,6 +832,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .brand_section02 input[id="brand_slide03"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(3) > label { background: #999; }
 .brand_section02 input[id="brand_slide04"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(4) > label { background: #999; }
 .brand_section02 input[id="brand_slide05"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(5) > label { background: #999; }
+.brand_section02 input[id="brand_slide06"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(6) > label { background: #999; }
+.brand_section02 input[id="brand_slide07"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(7) > label { background: #999; }
 
 
 /* 세부 카테고리 */
