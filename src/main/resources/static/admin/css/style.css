@@ -38,6 +38,9 @@
 .MCT_c3_p_list th { background-color: rgb(247, 247, 247);}
 .MCT_c3_p_list th, .MCT_c3_p_list td { border: 1px solid rgb(192, 191, 191);}
 .MCT_c3_prodTitle { font-size: 17px; font-weight: bold; padding: 20px 0;}
+.MCT_c3_proBox2 img { width: 100px; height: 100px;}
+.MCT_c3_p_list #tbody img  { width: 100px; height: 100px;}
+
 
 /*레시피 등록 HTML 상품 코드*/
 .RC_prodTitle{width: 100%;}
