@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈페이지 메인 1-1</title>
-    <!--<link rel="stylesheet" href="./style/index_style.css">-->
+    <link rel="stylesheet" href="/resource/css/bootstrap.css">
     <link rel="stylesheet" th:href="@{/user/css/index_style.css}">
     <link rel="stylesheet" th:href="@{/user/css/layout.css}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/resource/css/bootstrap.css">
 </head>
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+</script>
 <script>
     $(function (){
         sessionStorage.removeItem("ship_id");
@@ -33,36 +36,25 @@
         <!-- 두번째 배너 -->
         <div class="main_sec_bnr_wrap" id="main_sec_slider">
             <div class="main_sec_bnr" id="main_slider">
-                <!-- <input type="radio" name="slide-radios" class="slide-radio"  id="slide-radio-1">
-                    <input type="radio" name="slide-radios" class="slide-radio"  id="slide-radio-2">
-                    <input type="radio" name="slide-radios" class="slide-radio"  id="slide-radio-3">
-                    <input type="radio" name="slide-radios" class="slide-radio"  id="slide-radio-4">
-
-                    <div class="pagination">
-                        <label for="slide-radio-1"></label>
-                        <label for="slide-radio-2"></label>
-                        <label for="slide-radio-3"></label>
-                        <label for="slide-radio-4"></label>
-                    </div> -->
 
                 <div class="sec_bnr_slide" id="slide-1">
                     <a href="#">
-                        <img src="/user/images/banner/main_second_bnr.jpg" alt="배너1">
+                        <img src="/user/images/banner/main_second_bnr_4.jpg" alt="배너1">
                     </a>
                 </div>
                 <div class="sec_bnr_slide" id="slide-2">
                     <a href="#">
-                        <img src="/user/images/banner/main_second_bnr.jpg" alt="배너2">
+                        <img src="/user/images/banner/main_second_bnr_2.jpg" alt="배너2">
                     </a>
                 </div>
                 <div class="sec_bnr_slide" id="slide-3">
                     <a href="#">
-                        <img src="/user/images/banner/main_second_bnr.jpg" alt="배너3">
+                        <img src="/user/images/banner/main_second_bnr_3.jpg" alt="배너3">
                     </a>
                 </div>
                 <div class="sec_bnr_slide" id="slide-4">
                     <a href="#">
-                        <img src="/user/images/banner/main_second_bnr.jpg" alt="배너4">
+                        <img src="/user/images/banner/main_second_bnr_1.jpg" alt="배너4">
                     </a>
                 </div>
             </div>

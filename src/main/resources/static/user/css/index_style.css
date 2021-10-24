@@ -37,10 +37,10 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .sec_bnr_slide {height:175px; width:100%; position:absolute; left:0; top:0; transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1); display: flex; flex-direction: column; align-items:center; text-align:center;}
 .main_sec_bnr input {display: none;}
 
-#slide-1 {background-color: #fde0d5; left: 0;}
-#slide-2 {background-color: #fde0d5; left: 100%;}
-#slide-3 {background-color: #fde0d5; left: 200%;}
-#slide-4 {background-color: #fde0d5; left: 300%;}
+#slide-1 {background-color: #ffd4c2; left: 0;}
+#slide-2 {background-color: #ecf8ff; left: 100%;}
+#slide-3 {background-color: #fffed4; left: 200%;}
+#slide-4 {background-color: #ffd2a2; left: 300%;}
 
 #slide-radio-1:checked ~ .sec_bnr_slide {transform: translateX(0);}
 #slide-radio-2:checked ~ .sec_bnr_slide {transform: translateX(-100%);}
@@ -584,7 +584,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 #cartPut .cart_option .list .btn { overflow: hidden; float: left; width: 28px; height: 28px; border: 0; font-size: 0; line-height: 0; text-indent: -9999px; }
 #cartPut .cart_option .list .inp { float: left; width: 30px; height: 30px; margin-right: -1px; padding: 0 0 4px; border: 0; background-color: #fff; font-size: 14px; color: #000; line-height: 18px; text-align: center; }
 #cartPut .cart_option .list .up.on { background-image: url(../images/ico_plus_on.svg);}
-#cartPut .cart_option .list .up { float: right; margin-left: -1px; background: #fff url(h../images/ico_plus.svg) no-repeat 50% 50%; background-size: 30px 30px;}
+#cartPut .cart_option .list .up { float: right; margin-left: -1px; background: #fff url(../images/ico_plus.svg) no-repeat 50% 50%; background-size: 30px 30px;}
 #cartPut .cart_type2 .list .price { float: right; padding: 5px 4px 0; font-size: 12px; line-height: 20px; letter-spacing: -.6px; }
 #cartPut .cart_type2 .list_nopackage .price, #cartPut .cart_type2 .list_nopackage .name, #cartPut .cart_type2 .list_nopackage .btn_position { display: none; }
 #cartPut .cart_option .list .price { font-weight: 700; text-align: right; }
