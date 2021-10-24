@@ -31,7 +31,7 @@
             dateEnd: $('#date_end').val()
         }
 
-        console.log(data.title);
+        console.log(data);
 
         let files = ($('input[name="file"]'));
         let fileList = [];
@@ -82,6 +82,7 @@
         axios.get('/api/popupstore/read/6', {
 
         }).then(function(response){
+
             let img = response.data.data.img;
             let title = response.data.data.title;
             let des = response.data.data.des;
@@ -89,6 +90,7 @@
             let dateStart = response.data.data.dateStart;
             let dateEnd = response.data.data.dateEnd;
             let content = response.data.data.content;
+
 
             $('#img').val(img);
             $('#title').val(title);

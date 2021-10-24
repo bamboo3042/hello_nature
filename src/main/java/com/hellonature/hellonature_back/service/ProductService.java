@@ -580,7 +580,7 @@ public class ProductService{
                 .count(product.getCount())
                 .temp(product.getTemp())
                 .bestFlag(product.getBestFlag())
-                .star(star / productReviews.size())
+                .star(star == 0? star : star/ productReviews.size())
                 .regdate(product.getRegdate())
                 .build();
     }
