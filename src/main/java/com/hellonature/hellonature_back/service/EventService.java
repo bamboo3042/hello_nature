@@ -100,11 +100,11 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
         return eventApiResponse;
     }
 
-    public Header<List<EventApiResponse>> list(Flag typeFlag, String title, String dateStart, String dateEnd, Integer page){
+    public Header<List<EventApiResponse>> list(Flag typeFlag, String title, String dateStart, String dateEnd, Flag ingFlag, Integer page){
         String jpql = "select e from Event e";
         boolean check = false;
 
-        if(typeFlag != null ||title != null || dateStart != null || dateEnd != null){
+        if(typeFlag != null ||title != null || dateStart != null || dateEnd != null || ingFlag != null){
             jpql += " where";
             if(typeFlag != null){
                 jpql += " type_flag = :typeFlag";
@@ -123,6 +123,11 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
             if(dateEnd != null){
                 if (check) jpql += " and";
                 jpql += " TO_char(regdate, 'YYYY-MM-DD') <= :dateEnd";
+                check = true;
+            }
+            if (ingFlag != null){
+                if (check) jpql += " and";
+                jpql += " ing_flag = :ingFlag";
             }
         }
 
@@ -133,6 +138,7 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
         if (title != null) query = query.setParameter("title", "%"+title+"%");
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
+        if (ingFlag != null) query = query.setParameter("ingFlag", ingFlag.getId());
 
         List<Event> result = query.getResultList();
 

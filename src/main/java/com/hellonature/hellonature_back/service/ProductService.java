@@ -324,7 +324,7 @@ public class ProductService{
     }
 
     @Transactional
-    public Header<List<ProductUserListResponse>> userList(Long cateIdx, Integer page, Integer order){
+    public Header<List<ProductUserListResponse>> userList(Long cateIdx, Long brIdx, Integer page, Integer order){
 
         List<Category> categoryList = searchCategories(cateIdx);
 
@@ -343,6 +343,8 @@ public class ProductService{
             }
         }
         jpql += ")";
+
+        if (brIdx != null) jpql += " and br_idx = :brIdx";
 
         switch (order){
             case 2:
@@ -366,6 +368,7 @@ public class ProductService{
         for (int i = 0; i < categoryList.size(); i++){
             query.setParameter("cateIdx"+i, categoryList.get(i).getIdx());
         }
+        if (brIdx != null) query.setParameter("brIdx", brIdx);
 
         List<Product> products = query.getResultList();
 

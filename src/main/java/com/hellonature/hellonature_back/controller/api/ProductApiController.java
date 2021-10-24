@@ -71,9 +71,10 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
 
     @GetMapping("user/list")
     public Header<List<ProductUserListResponse>> userList(@RequestParam(name = "cateIdx") Long cateIdx,
+                                                          @RequestParam(name = "brIdx", required = false) Long brIdx,
                                                           @RequestParam(name = "page", defaultValue = "0") Integer page,
                                                           @RequestParam(name = "order", defaultValue = "1") Integer order){
-        return productService.userList(cateIdx, page, order);
+        return productService.userList(cateIdx, brIdx, page, order);
     }
 
     @GetMapping("user/list/newProduct")

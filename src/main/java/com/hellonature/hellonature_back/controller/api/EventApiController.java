@@ -48,11 +48,12 @@ public class EventApiController extends CrudController<EventApiRequest, EventApi
 
     @GetMapping("/list")
     public Header<List<EventApiResponse>> list(@RequestParam(name="eventFlag", required = false) Flag typeFlag,
-                                    @RequestParam(name="title", required = false) String title,
-                                    @RequestParam(name="dateStart", required = false) String dateStart,
-                                    @RequestParam(name="dateEnd", required = false) String dateEnd,
-                                    @RequestParam(name="startPage", defaultValue = "0") Integer page){
-        return eventService.list(typeFlag, title, dateStart, dateEnd, page);
+                                               @RequestParam(name="title", required = false) String title,
+                                               @RequestParam(name="dateStart", required = false) String dateStart,
+                                               @RequestParam(name="dateEnd", required = false) String dateEnd,
+                                               @RequestParam(name = "ingFlag", required = false) Flag ingFlag,
+                                               @RequestParam(name="startPage", defaultValue = "0") Integer page){
+        return eventService.list(typeFlag, title, dateStart, dateEnd, ingFlag, page);
     }
 
     @GetMapping("/")
