@@ -178,21 +178,21 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .list_event_bg {margin-top: 36px; width: 100%; height: 625px;}
 .list_event_mold {width: 1050px; height: 635px; margin: 0 auto;}
 
-#event_list_1 .event1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #fff; border-radius: 8px;}
-#event_list_1 .event2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #80ae40; border-radius: 8px;}
+#event_list_1 .event1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #23160A; color: #fff; border-radius: 8px;}
+#event_list_1 .event2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #c67a12; border-radius: 8px;}
 #event_list_1 .event3_wrap {float: left; width: 338px; height: 538px; background-color: #ec5958; border-radius: 8px;}
 
-#event_list_1 .event1_img {background: url(../images/event1_img.jpg); height: 100%; height: 338px;
+#event_list_1 .event1_img {background: url(../images/born.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#event_list_1 .event2_img {background: url(../images/event2_img.jpg); height: 100%; height: 338px;
+#event_list_1 .event2_img {background: url(../images/recommend/store/20210910122744964.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#event_list_1 .event3_img {background: url(../images/event3_img.png); height: 100%; height: 338px;
+#event_list_1 .event3_img {background: url(../images/recommend/event/ing/20210127174258717.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
 
 .event1_img img, .event2_img img, .event3_img img {width: 106.5px; height: 106.5px; margin-top: 13.7px; margin-left: 13.7px;}
 .event1_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
-.event1_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
-.event1_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
+.event1_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 400; letter-spacing: 0.5px;}
+.event1_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; color: #fff; border-top: 0.1px solid rgba(255, 255, 255, 0.39);}
 
 .event2_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; color: #fff; letter-spacing: 0.5px;}
 .event2_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 300; letter-spacing: 0.5px;}
@@ -237,15 +237,16 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /* -------------------------------------------------------------------------- */
 
 /* main 매거진 시작 */
-#magazine_list_1 .magezine1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
-#magazine_list_1 .magezine2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
-#magazine_list_1 .magezine3_wrap {float: left; width: 338px; height: 538px; background-color: #468feb; border-radius: 8px;}
+.list_event_mold { display: flex; justify-content: space-between; }
+#magazine_list_1 .magezine1_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
+#magazine_list_1 .magezine2_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
+#magazine_list_1 .magezine3_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
 
-#magazine_list_1 .magezine1_img {background: url(../images/magazine1.jpg); height: 100%; height: 338px;
+#magazine_list_1 .magezine1_img {background: url(../../uploads/magazine/2021-10-24-03-29-49_20210628173831876.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#magazine_list_1 .magezine2_img {background: url(../images/magazine2.jpg); height: 100%; height: 338px;
+#magazine_list_1 .magezine2_img {background: url(../../uploads/magazine/2021-10-24-04-13-49_20210521141526310.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#magazine_list_1 .magezine3_img {background: url(../images/magazine3.jpg); height: 100%; height: 404px;
+#magazine_list_1 .magezine3_img {background: url(../../uploads/magazine/2021-10-24-22-33-24_20200907174611726.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
 
 .magezine1_img img, .magezine2_img img, .magezine3_img img {width: 106.5px; height: 106.5px; margin-top: 13.7px; margin-left: 13.7px;}
@@ -257,8 +258,9 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .magezine2_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
 .magezine2_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
 
-.magezine3_img + p  {margin-top: 16.5px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 300; letter-spacing: 0.5px;}
-.magezine3_img + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; color: #fff; border-top: 0.1px solid rgba(255, 255, 255, 0.39);}
+.magezine3_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
+.magezine3_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
+.magezine3_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
 /* main 매거진 끝 */
 /* -------------------------------------------------------------------------- */
 
@@ -269,8 +271,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .recipe1_wrap, .recipe2_wrap, .recipe3_wrap  { margin-top: 40px; float: left; list-style: none; position: relative; width: 249px; height: 415px; margin-right: 18px; background-color: var(--hello_bg_1);}
 .recipe4_wrap {margin-top: 40px; float: left; list-style: none; position: relative; width: 249px; height: 415px; background-color: var(--hello_bg_1);}
 
-#recipe_list_1 div div .recipe1_img {position: relative; background: url(../images/recipe1.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
-#recipe_list_1 div div .recipe2_img {position: relative; background: url(../images/recipe2.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe1_img {position: relative; background: url(../../uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe2_img {position: relative; background: url(../../uploads/magazine/2021-10-24-02-44-41_20210702104659946.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 #recipe_list_1 div div .recipe3_img {position: relative; background: url(../images/recipe3.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 #recipe_list_1 div div .recipe4_img {position: relative; background: url(../images/recipe4.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 
@@ -1063,3 +1065,23 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .total_img_daily_6 { background: url(../../uploads/product/2021-10-24-22-26-12_104051_001_22.png); }
 .total_img_daily_7 { background: url(../../uploads/product/2021-10-24-22-20-49_104045_001_22.png); }
 .total_img_daily_8 { background: url(../../uploads/product/2021-10-24-22-17-52_20210329153050787.jpg); }
+
+/* index.html - 스테이크의 모든 것 */
+.item_img_steak_1 { background: url(../../uploads/product/2021-10-21-01-33-59_023955_001_22.jpg); }
+.item_img_steak_2 { background: url(../../uploads/product/2021-10-21-01-28-34_023965_001_22.jpg); }
+.item_img_steak_3 { background: url(../../uploads/product/2021-10-21-01-24-34_023967_001_22.jpg); }
+.item_img_steak_4 { background: url(../../uploads/product/2021-10-21-01-19-08_027147_001_22.jpg); }
+.item_img_steak_5 { background: url(../../uploads/product/2021-10-21-01-08-15_029026_001_22.jpg); }
+.item_img_steak_6 { background: url(../../uploads/product/2021-10-20-20-00-21_023958_001_22.jpg); }
+.item_img_steak_7 { background: url(../../uploads/product/2021-10-20-19-51-56_027152_001_22.jpg); }
+.item_img_steak_8 { background: url(../../uploads/product/2021-10-20-19-27-53_026469_001_22.jpg); }
+
+/* index.html - MD 추천 */
+.item_img_md_1 { background: url(../../uploads/product/2021-10-21-02-49-00_014788_001_22.jpg); }
+.item_img_md_2 { background: url(../../uploads/product/2021-10-24-19-49-53_107094_001_22.png); }
+.item_img_md_3 { background: url(../../uploads/product/2021-10-24-04-51-05_027458_001_22.jpg); }
+.item_img_md_4 { background: url(../../uploads/product/2021-10-24-04-47-40_027457_001_22.jpg); }
+.item_img_md_5 { background: url(../../uploads/product/2021-10-20-10-11-54_100934_003_22.png); }
+.item_img_md_6 { background: url(../../uploads/product/2021-10-24-21-57-46_027964_003_22.png); }
+.item_img_md_7 { background: url(../../uploads/product/2021-10-24-20-15-52_104395_001_22.png); }
+.item_img_md_8 { background: url(../../uploads/product/2021-10-20-03-12-10_026013_001_22.jpg); }
