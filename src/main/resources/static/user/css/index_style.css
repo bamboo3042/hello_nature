@@ -64,7 +64,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 /* -------------------------------------------------------------------------- */
 /* main 배경색 */
-#item_list_1, #item_list_2, #item_list_3, #magazine_list_1, #item_list_5{background-color:#fff; clear: both;}
+#item_list_1, #item_list_2, #item_list_7, #magazine_list_1, #item_list_5{background-color:#fff; clear: both;}
 #event_list_1, #item_list_4, #item_list_6 {background-color: var(--hello_bg_1); clear: both;}
 
 /* -------------------------------------------------------------------------- */
@@ -206,8 +206,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 /* main 신상품 아이템 리스트(3단) 시작 */
 .new_item_wrap {float: left; list-style: none; position: relative; width: 516px; height: 100%; margin-right: 18px;}
-#item_list_2 .new_img, #item_list_3 .new_img {background: url(../images/new_banner.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px 8px 0 0  / 8px 8px 0 0 ;}
-#item_list_2 .item_img, #item_list_3 .item_img {background: url(../images/new_item1.png); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+#item_list_2 .new_img, #item_list_7 .new_img, #item_list_8 .new_img {background: url(../images/new_banner.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px 8px 0 0  / 8px 8px 0 0 ;}
+#item_list_2 .item_img, #item_list_7 .item_img, #item_list_8 .item_img {background: url(../images/new_item1.png); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
 .new_banner {background-color: var(--hello_bg_1); height: 185px; border-radius: 0 0 8px 8px / 0 0 8px 8px ;}
 .new_banner p {padding-top: 18px; padding-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
