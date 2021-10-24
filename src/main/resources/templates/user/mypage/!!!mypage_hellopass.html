@@ -19,12 +19,16 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
     </script>
+    <script src="/user/js/script.js"></script>
+    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
     $(function (){
+        let memIdx = $("#hidden_user").val()
 
-        axios.get('/api/hellopass/read/1', {
+        axios.get('/api/hellopass/read/' + memIdx, {
 
         }).then(function (response){
             let $type = response.data.data.type;
@@ -132,10 +136,6 @@
             <div th:replace="/user/fragment/footer::footer"></div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>
 
