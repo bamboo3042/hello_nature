@@ -95,7 +95,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 /* ---------------------------------------------------------------- mypage_orderlist1 ~ 4 시작 ----------------------------------------------------------------*/
 /* mypage_orderlist1.html > 1:1문의 버튼 */
-.mantoman_button_box { padding-left: 400px;}
+.mantoman_button_box { padding-left: 600px;}
 .mantoman_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer;}
 /* mypage_orderlist2.html >주문취소 버튼 */
 .ordercancel_button_box { padding-left: 420px;}
@@ -171,14 +171,18 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 
 /* ---------------------------------------------------------------- mypage_hellopay 시작 ---------------------------------------------------------------- */
 #contents_hellopay_h5 { display: block; margin-block-start: 1.67em; margin-block-end: 1.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-size: 16px; color: #333; font-weight: 700; line-height: 1.44; letter-spacing: -0.8px; margin-bottom: 20px; padding-left: 20px;}
-.contents_hellopay_inputcard { padding: 20px 20px 20px; background-color: #f6f6f6; width: 100%; margin-right: 0; border-radius: 10px; box-sizing: border-box; margin-bottom: 100px;}
+.contents_hellopay_inputcard { padding: 20px 20px 20px; background-color: #f6f6f6; width: 100%; margin-right: 0; border-radius: 10px; box-sizing: border-box; margin-bottom: 10px;}
+.contents_hellopay_inputcard_h  { padding: 20px 20px 20px; background-color: #f6f6f6; width: 100%; margin-right: 0; border-radius: 10px; box-sizing: border-box; margin-bottom: 10px;}
+.contents_hellopay_inputcard_h:hover {background-color: #ebebeb}
+
 /* 라디오 버튼 기능 삭제 */
 #hellopay_radio { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; box-shadow:none; border: none;}
 /* (라디오 커스터마이징) 체크되기 전 */
 #hellopay_radio + label:before { background: url("/user/images/mypage.img/hellopay_radio_unchecked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
 /* (라디오 커스터마이징) 체크된 후 */
 #hellopay_radio:checked + label:before { background: url("/user/images/mypage.img/hellopay_radio_checked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
-.hellopay_radio_box { width: 780px; display: flex; justify-content:space-between; margin-bottom: 5px;}
+.hellopay_radio_box_h { width: 650px; display: flex; justify-content:space-between; margin-bottom: 5px;}
+
 .hellopay_card_edit_del { display: flex; align-items: center; justify-self: center;}
 .hellopay_card_edit_del > p { cursor: pointer;}
 .hellopay_line { border-right: 1px solid #ccc; margin: 10px; width: 1px; height: 11px;}
@@ -186,6 +190,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 #cardname { width: 100%; margin-bottom: 3px; padding-left: 5px; border: none; background-color: transparent; font-size: 18px; color: #333; font-weight: 700; line-height: 1.44; letter-spacing: -0.67px; caret-color: #1d988e; outline: none;}
 #cardname:focus { border: 2px solid #5dab99; width: 150px; border-radius: 5px; background-color: #fff;}
 .hellopay_bankname { margin-right: 10px; font-size: 14px; color: #333; line-height: 1.57; letter-spacing: -0.6px; padding-left: 5px;}
+.hellopay_cardname { margin-right: 10px; font-size: 14px; color: #333; line-height: 1.57; letter-spacing: -0.6px; padding-left: 5px;}
 .hellopay_star { font-size: 13.2px; color: #888; line-height: 1.58; letter-spacing: 0.6px; vertical-align: middle;}
 .hellopay_star > i { display: inline-block; font-style: normal; font-size: 15px; vertical-align: middle; margin-bottom: -4px;}
 .hellopay_inputcard_submit { display: block; width: 100%; background-color: #5dab99; color: #fff; height: 60px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; line-height: 60px; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer;}
@@ -434,7 +439,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 #post_filter_used, #post_filter_available { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 1px solid #cccccc;}
 .post_filter_available2 { color: #00B081 !important; font-weight: bold !important; padding: 7px 0 11px !important; font-size: 14px !important; background-color: #fff !important; text-align: center !important; box-sizing: border-box !important; letter-spacing: -0.6px !important; line-height: 1.73 !important; width: 410px !important; height: 46px !important; border-bottom: 3px solid #155c65 !important;}
 #post_filter_used:hover, #post_filter_available:hover { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 3px solid #155c65;}
-.post_button_box { padding-left: 600px;}
+.post_button_box { margin-left: 600px;}
 .post_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer; margin-top: 30px;}
 .post_button:hover {background: #0db081}
 .product_post_line { border-right: 1px solid #888; height: 8px; margin: 5px; margin: 7px;}

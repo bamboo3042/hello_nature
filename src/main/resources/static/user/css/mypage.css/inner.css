@@ -398,14 +398,26 @@ a:focus { color: #444;}
 /* 팝업창 css */
 .mw { position:fixed; top:0; left:0; width:100%; height:100%; display:none;}
 .mw .bg {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50)}
-.mw .fg {position:absolute; top:50%; left:50%; width:600px; height: 320px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff;}
+.mw .fg {position:absolute; top:50%; left:50%; width:600px; height: 320px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
 
 .mw_p { position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index: 101}
 .mw_p .bg_p {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50); z-index: 100;}
 .mw_p .fg_p {position:absolute; top:50%; left:50%; width:650px; height: 800px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
 
+.mw_h { position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index: 101}
+.mw_h .bg_h {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50); z-index: 100;}
+.mw_h .fg_h {position:absolute; top:50%; left:50%; width:650px; height: 800px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
+
+.mw_h { position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index: 101}
+.mw_h .bg_h {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50); z-index: 100;}
+.mw_h .fg_h {position:absolute; top:50%; left:50%; width:650px; height: 800px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
+
+.mw_c { position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index: 101}
+.mw_c .bg_c {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50); z-index: 100;}
+.mw_c .fg_c {position:absolute; top:50%; left:50%; width:650px; height: 550px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
 
 .Modal { margin: 30px auto; background-color: white;}
+.Modal_h { margin: 30px auto; background-color: white;}
 .modal_list {  display: flex; margin-top: 30px; margin-left: 60px;}
 .modal_list span { font-size: 16px; font-weight: bold; margin-left: 20px; margin-right: 34px; color: #777; }
 .modal_search span { font-size: 16px; font-weight: bold; margin-right: 20px; margin-left: 33px; color: #777;}
