@@ -34,9 +34,8 @@
             }else{
                 busiFlag = "FALSE"       // 법인카드 x
             }
-
             let memIdx = $("#hidden_user").val();
-            let name = $('#card_nickname').val();               // 카드별칭
+            let name1 = $('#card_nickname').val();               // 카드별칭
             let num1 = $("#card_num1").val();                   // 카드번호 4자리-1
             let num2 = $("#card_num2").val();                   // 카드번호 4자리-2
             let num3 = $("#card_num3").val();                   // 카드번호 4자리-3
@@ -95,11 +94,9 @@
                     bank = bankType[8];     // 우리은행
                     break;
             }
-
-
             console.log(memIdx)
             console.log(busiFlag)
-            console.log(name)
+            console.log(name1)
             console.log(num)
             console.log(memIdx)
             console.log(date)
@@ -113,7 +110,7 @@
                 data: {
                     memIdx: memIdx,
                     busiFlag: busiFlag,
-                    name: name,
+                    name: name1,
                     num: num,
                     date: date,
                     cvc: cvc,
@@ -123,7 +120,7 @@
                 }
             }).then(function (response){
                 alert("헬로페이가 정상적으로 등록되었습니다.");
-                location.href="/user/mypage_hellopay";
+                // location.href="/user/mypage_hellopay";
             })
         }
     </script>
