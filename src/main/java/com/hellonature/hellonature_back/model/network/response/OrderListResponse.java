@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderListResponse {
+    private Long idx;
     private String name;
     private String proList;
     private Integer price;

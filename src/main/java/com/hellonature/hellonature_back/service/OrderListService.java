@@ -137,6 +137,7 @@ public class OrderListService {
         }
 
         return OrderListResponse.builder()
+                .idx(memberOrder.getIdx())
                 .name(memberOrder.getMember().getName())
                 .price(memberOrder.getPayment().getPrice())
                 .regdate(memberOrder.getRegdate())
@@ -155,6 +156,7 @@ public class OrderListService {
         }
 
         return OrderListResponse.builder()
+                .idx(nonMemberOrder.getIdx())
                 .name(nonMemberOrder.getName())
                 .price(nonMemberOrder.getPayment().getPrice())
                 .regdate(nonMemberOrder.getRegdate())
