@@ -1,8 +1,12 @@
 $(function () {
     let page = $('.page').val()
-    axios.get('/api/brand/list?startPage='+ page, {}).then(function (response) {
-        let tb = $('<tbody>');
+
+    axios.get('/api/brand/list?startPage='+ page, {
+
+    }).then(function (response) {
+        let tb = $('<tbody class="tbody">');
         for (let i in response.data.data) {
+            let $id = response.data.data[i].idx;
             let $name = response.data.data[i].name;
             let $proCount = response.data.data[i].proCount;
             let $dateStart = response.data.data[i].dateStart;
@@ -19,17 +23,41 @@ $(function () {
             }else{
                 $state = ""
             }
+            console.log($name);
+            console.log($proCount);
+            console.log($dateStart);
+            console.log($dateEnd);
+            console.log($state);
 
             let row = $('<tr>').append(
                 '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
-                ' <td><a onclick="BL_location_3()">' + $name + '</a></td>' +
+                '<td>' + $name + '</td>' +
                 '<td>' + $proCount + '</td>' +
                 '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
-                '<td>' + $state + '</td>'
+                '<td><input type="button" class="edit" value="'+ $state +'"><input type="hidden" value="'+ $id +'"></td></tr>'
             )
             tb.append(row);
         }
         $('.thead').after(tb);
+
+        $(".edit").click(function (e) {
+            $("#ajax_hidden").val($(this).next().val());
+            let id = $("#ajax_hidden").val();
+
+            console.log(id)
+
+            sessionStorage.setItem("brIdx", id);
+            $.ajax({
+                type: 'GET',
+                url: '/admin/BrandEdit?brIdx=' + id,
+                datatype: 'html/text',
+                success: function (result) {
+                    console.log(result)
+                    $("#content").html(result).trigger("create");
+                }
+            })
+        })
+
         for (let i = response.data.pagination.totalPages; i > 0; i--) {
             let pages = $('<li class="page_num" style="cursor: pointer" value="' + (i - 1) + '">').append(
                 i + '</li>'
@@ -38,13 +66,15 @@ $(function () {
         }
         $('.page_num').click(function (e) {
 
-            $('tbody').empty();
+            $('.tbody').empty();
 
             $(".page").val($(this).val())
             let page = $('.page').val()
-            axios.get('/api/brand/list?startPage='+page, {}).then(function (response) {
-                let tb = $('<tbody>');
+
+            axios.get('/api/brand/list?startPage=' + page, {}).then(function (response) {
+                let tb = $('<tbody class="tbody">');
                 for (let i in response.data.data) {
+                    let $id = response.data.data[i].idx;
                     let $name = response.data.data[i].name;
                     let $proCount = response.data.data[i].proCount;
                     let $dateStart = response.data.data[i].dateStart;
@@ -63,14 +93,32 @@ $(function () {
                     }
                     let row = $('<tr>').append(
                         '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
-                        ' <td><a onclick="BL_location_3()">' + $name + '</a></td>' +
+                        '<td>' + $name + '</td>' +
                         '<td>' + $proCount + '</td>' +
                         '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
-                        '<td>' + $state + '</td>'
+                        '<td><input type="button" class="edit" value="'+ $state +'"><input type="hidden" value="'+ $id +'"></td></tr>'
                     )
                     tb.append(row);
                 }
                 $('.thead').after(tb);
+
+                $(".edit").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    console.log(id)
+
+                    sessionStorage.setItem("brIdx", id);
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/BrandEdit?brIdx=' + id,
+                        datatype: 'html/text',
+                        success: function (result) {
+                            console.log(result)
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
             })
         })
 
@@ -164,12 +212,13 @@ $(function () {
         console.log(url);
 
         alert('눌럿다')
-        $('tbody').empty();
+        $('.tbody').empty();
 
         axios.get(url, {}).then(function (response) {
 
-            let tb = $('<tbody>');
+            let tb = $('<tbody class="tbody">');
             for (let i in response.data.data) {
+                let $id = response.data.data[i].idx;
                 let $name = response.data.data[i].name;
                 let $proCount = response.data.data[i].proCount;
                 let $dateStart = response.data.data[i].dateStart;
@@ -189,15 +238,33 @@ $(function () {
 
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
-                    ' <td><a onclick="BL_location_3()">' + $name + '</a></td>' +
+                    '<td>' + $name + '</td>' +
                     '<td>' + $proCount + '</td>' +
                     '<td>' + $dateStart + ' - ' + $dateEnd + '</td>' +
-                    '<td>' + $state + '</td>'
+                    '<td><input type="button" class="edit" value="'+ $state +'"><input type="hidden" value="'+ $id +'"></td></tr>'
                 )
                 tb.append(row);
             }
             $('.thead').after(tb);
-            $('.page_num').remove();
+
+            $(".edit").click(function (e) {
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+
+                console.log(id)
+
+                sessionStorage.setItem("brIdx", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/BrandEdit?brIdx=' + id,
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
             for (let i = response.data.pagination.totalPages; i > 0; i--) {
                 let pages = $('<li class="page_num" style="cursor:pointer" value="'+ (i - 1) +'">').append(
                     i + '</li>'
@@ -206,7 +273,7 @@ $(function () {
             }
             $('.page_num').click(function (e) {
 
-                $('tbody').empty();
+                $('.tbody').empty();
 
                 $(".page").val($(this).val())
                 let page = $('.page').val()
@@ -219,6 +286,7 @@ $(function () {
                 axios.get('/api/brand/list?startPage='+ page + '&name=' + name, {}).then(function (response) {
                     let tb = $('<tbody>');
                     for (let i in response.data.data) {
+                        let $id = response.data.data[i].idx;
                         let $name = response.data.data[i].name;
                         let $proCount = response.data.data[i].proCount;
                         let $dateStart = response.data.data[i].dateStart;
@@ -238,14 +306,30 @@ $(function () {
 
                         let row = $('<tr>').append(
                             '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
-                            ' <td><a onclick="BL_location_3()">' + $name + '</a></td>' +
+                            '<td>' + $name + '</td>' +
                             '<td>' + $proCount + '</td>' +
                             '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
-                            '<td>' + $state + '</td>'
+                            '<td><input type="button" class="edit" value="'+ $state +'"><input type="hidden" value="'+ $id +'"></td></tr>'
                         )
                         tb.append(row);
                     }
                     $('.thead').after(tb);
+
+                    $(".edit").click(function (e) {
+                        $("#ajax_hidden").val($(this).next().val());
+                        let id = $("#ajax_hidden").val();
+
+                        sessionStorage.setItem("brIdx", id);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/admin/BrandEdit?brIdx=' + id,
+                            datatype: 'html/text',
+                            success: function (result) {
+                                console.log(result)
+                                $("#content").html(result).trigger("create");
+                            }
+                        })
+                    })
                 })
             })
 

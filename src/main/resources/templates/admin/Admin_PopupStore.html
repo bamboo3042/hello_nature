@@ -25,7 +25,7 @@
             img: $('#img').val(),
             title: $('#title').val(),
             des: $('#des').val(),
-            brIdx : $('#brand').val(),
+            brIdx: $("#br_id_hidden").val(),
             content: CKEDITOR.instances.PS_editor.getData(),
             dateStart: $('#date_start').val(),
             dateEnd: $('#date_end').val()
@@ -96,7 +96,8 @@
             $('#brand').val(brIdx);
             $('#date_start').val(dateStart);
             $('#date_end').val(dateEnd);
-            $('#PS_editor').val(content)
+            CKEDITOR.instances.PS_editor.setData(content);
+
         })
     })
 
@@ -107,7 +108,7 @@
             img: $('#img').val(),
             title: $('#title').val(),
             des: $('#des').val(),
-            brIdx : $('#brand').val(),
+            brIdx : $('#br_id_hidden').val(),
             content: CKEDITOR.instances.PS_editor.getData(),
             dateStart: $('#date_start').val(),
             dateEnd: $('#date_end').val()
