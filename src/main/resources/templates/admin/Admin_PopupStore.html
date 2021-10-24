@@ -6,94 +6,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>헬로네이처 추천 관리 | 팝업스토어</title>
     <link rel="stylesheet" href="/admin/css/style2.css">
-    <script src='/admin/js/popup.js'></script>
-    <script src='/admin/js/Admin.imeage.js'></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="/admin/js/popup.js"></script>
+    <script src="/admin/js/Admin.imeage.js"></script>
+    <script src="/admin/js/Admin.cate.js"></script>
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
     function sendit(){
-        alert("소민이바보")
-        let img = $("#img").val();
-        let title = $("#title").val();
-        let des = $("#des").val();
-        let brIdx = $("#br_idx").val();
-        let content = CKEDITOR.instances.PS_editor.getData();
-        let dateStart = $("#date_start").val();
-        let dateEnd = $("#date_end").val();
 
-        axios.post('/api/popupstore/create', {
+        alert("소민이바보")
+        let data = {
+            img: $('#img').val(),
+            title: $('#title').val(),
+            des: $('#des').val(),
+            brIdx : $('#brand').val(),
+            content: CKEDITOR.instances.PS_editor.getData(),
+            dateStart: $('#date_start').val(),
+            dateEnd: $('#date_end').val()
+        }
+
+        console.log(data.title);
+
+        let files = ($('input[name="file"]'));
+        let fileList = [];
+        let formData = new FormData();
+
+        for (let i = 0; i < files.length; i++) {
+            fileList.push(files[i].files[0]);
+            formData.append('files', files[i].files[0]);
+            console.log(fileList)
+        }
+        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
+        axios.post('/api/popupstore/create', formData, {
             headers: {'Content-type': 'application/json'},
-            data: {
-                img: "uploads/예시",
-                title: title,
-                des: des,
-                brIdx: 1,
-                content: content,
-                dateStart: dateStart,
-                dateEnd: dateEnd
-            }
         }).then(function (response){
             alert("팝업스토어 등록완료")
         }).catch(function (err){
             console.log(err)
         })
-    };
+    }
 
-    $(function (){
-        const id = $("#id").val();
-        axios.get('/api/popupstore/list' + id, {
+    axios.get("/api/brand/list", {}).then(function (response) {
+        console.log(response.data.data)
+        for (let i in response.data.data) {
+            let $id = response.data.data[i].idx;
+            let $name = response.data.data[i].name;
 
-        }).then(function (response){
-            const img = response.data.data.img;
-            const title = response.data.data.title;
-            const des = response.data.data.des;
-            const brIdx = response.data.data.brIdx;
-            const content = response.data.data.content;
+            let row = $('<li value="' + $id + '" class="brlist">').append(
+                $name + '</li>'
+            )
 
-            document.getElementById("img").value = img;
-            document.getElementById("title").value = title;
-            document.getElementById("des").value = des;
-            document.getElementById("brIdx").value = brIdx;
-            document.getElementById("content").value = content;
-        }).catch(function (err){
-            console.log(err)
+            $('.brand_list').append(row)
+        }
+        $('.brand_list > li').click(function (e) {
+            $(this).add(".brand_list > li").addClass("on")
+            $(".brand_list > li").not($(this)).removeClass("on")
+
+            $('#br_name_hidden').val($(this).text());
+            $('#br_id_hidden').val($(this).val());
+        })
+    }).catch(function (err) {
+
+        console.log(err)
+    })
+
+    $(function(){
+
+        axios.get('/api/popupstore/read/6', {
+
+        }).then(function(response){
+            let img = response.data.data.img;
+            let title = response.data.data.title;
+            let des = response.data.data.des;
+            let brIdx = response.data.data.brIdx;
+            let dateStart = response.data.data.dateStart;
+            let dateEnd = response.data.data.dateEnd;
+            let content = response.data.data.content;
+
+            $('#img').val(img);
+            $('#title').val(title);
+            $('#des').val(des);
+            $('#brand').val(brIdx);
+            $('#date_start').val(dateStart);
+            $('#date_end').val(dateEnd);
+            $('#PS_editor').val(content)
         })
     })
 
     function edit(){
-        let id = $("#id").val();
-        let title = $("#title").val();
-        let des = $("#des").val();
-        let brIdx = $("#brIdx").val();
-        let content = $("#content").val();
+        alert('클릭');
+        let data = {
+            idx: 6,
+            img: $('#img').val(),
+            title: $('#title').val(),
+            des: $('#des').val(),
+            brIdx : $('#brand').val(),
+            content: CKEDITOR.instances.PS_editor.getData(),
+            dateStart: $('#date_start').val(),
+            dateEnd: $('#date_end').val()
+        }
 
-        axios.put('/api/popupstore/update', {
+        let files = ($('input[name="file"]'));
+        let fileList = [];
+        let formData = new FormData();
+
+        for (let i = 0; i < files.length; i++) {
+            fileList.push(files[i].files[0]);
+            formData.append('files', files[i].files[0]);
+            console.log(fileList)
+        }
+        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
+        axios.put('/api/popupstore/update', formData, {
             headers: {'Content-type': 'application/json'},
-            data: {
-                "id": id,
-                "title": title,
-                "des": des,
-                "brIdx": brIdx,
-                "content": content
-            }
-        }).then(function (err){
+        }).then(function (response){
+            alert("팝업스토어 수정완료")
+        }).catch(function (err){
             console.log(err)
         })
     }
+
+    function brsc() {
+        $('.brand_list').empty();
+        let name = $("#brname").val();
+        axios.get("/api/brand/list?name=" + name, {}).then(function (response) {
+            for (let i in response.data.data) {
+                let $id = response.data.data[i].idx;
+                let $name = response.data.data[i].name;
+
+                let row = $('<li value="' + $id + '" class="brlist">').append(
+                    $name + '</li>'
+                )
+                $('.brand_list').append(row)
+            }
+            $('.brand_list > li').click(function (e) {
+                alert("소민이바보")
+                $(this).add(".brand_list > li").addClass("on")
+                $(".brand_list > li").not($(this)).removeClass("on")
+
+                $('#br_name_hidden').val($(this).text());
+                $('#br_id_hidden').val($(this).val());
+            })
+        })
+    }
+
+    function modal_submit() {
+        document.getElementById('mw_temp').style.display = 'none'
+        $('#br_name').val($('#br_name_hidden').val());
+    }
+
+
 </script>
 <body>
 <!--content_title 시작-->
 <div class="content_title">
     <p>헬로네이처 추천 관리 <span>팝업스토어</span></p>
 </div>
+<input type="hidden" id="br_name_hidden">
+<input type="hidden" id="br_id_hidden">
 <!--content_title 끝-->
 <!--Pstore 시작-->
 <div class="Pstore">
     <!--PS_c1 시작-->
     <div class="PS_c1">
         <!--form 시작-->
-        <form name="pop_enter">
+        <form name="pop_enter" enctype="multipart/form-data">
             <p id="PS_c1_title" class="product_title"><label>팝업스토어 등록/수정</label></p>
             <table>
                 <tr>
@@ -102,7 +186,7 @@
                         <img src=" " id="PS_c1_img">
                         <div class="file_input_div_p">
                             <input type="button" value="파일 등록" class="file_input_button_p">
-                            <input type="file" class="file_input_hidden_p" id="PS_c1_imgbtn">
+                            <input type="file" class="file_input_hidden_p" id="PS_c1_imgbtn" name="file">
                         </div>
                     </td>
                 </tr>
@@ -118,7 +202,7 @@
                     <th>브랜드명</th>
                     <td>
                         <!--팝업창 부분 시작 -->
-                        <input type="text" name="brand"><button class="pop_btn" type="button" onclick="modal_open()"><img src="/admin/img/search_icon.png" alt="" style="width: 30px; border: 1px solid #266266;"></button>
+                        <input type="text" name="brand" id="br_name"><button class="pop_btn" type="button" onclick="modal_open()"><img src="/admin/img/search_icon.png" alt="" style="width: 30px; border: 1px solid #266266;"></button>
                         <div id="mw_temp" class="mw">
                             <div class="bg"><!--이란에는 내용을 넣지 마십시오.--></div>
                             <div class="fg">
@@ -127,20 +211,14 @@
                                 </div>
                                 <div class="Modal">
                                     <div class="modal_cateBox" method="" action="#" id="modal_form">
-                                        <div class="modal_search"><span>브랜드명</span><input type="text"><input type="button" value="검색"></div>
+                                        <div class="modal_search"><span>브랜드명</span><input type="text"><input type="button" value="검색" onclick="brsc()"></div>
                                         <div class="modal_list">
                                             <span>목록</span>
-                                            <ul>
-                                                <li>경복궁</li>
-                                                <li>계절밥상</li>
-                                                <li>고래감자탕</li>
-                                                <li>고려감자탕</li>
-                                                <li>고메공방</li>
-                                                <li>곰표</li>
+                                            <ul class="brand_list">
                                             </ul>
                                         </div>
                                         <div class="modal_btn">
-                                            <button onclick="modal_submit()" type="submit">확인</button>
+                                            <input th:type="button" onclick="modal_submit()" value="확인">
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +246,7 @@
             <!--PS_c2_btnBox 시작-->
             <div id="PS_c1_btnBox" class="bottom_btn">
                 <span><input type="button" name="submit" value="등록" onclick="sendit()"></span>
-                <span><input type="button" name="button" value="수정"></span>
+                <span><input type="button" name="submit" value="수정" onclick="edit()"></span>
             </div>
             <!--PS_c1_btnBox 끝-->
         </form>
