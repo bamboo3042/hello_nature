@@ -153,6 +153,9 @@ public class Admin_pageController {
         return "admin/Admin_EventList.html";
     }
 
+    @GetMapping("/admin/EventEdit")
+    public String EventEdit(){return "admin/Admin_EventEdit.html";}
+
     @GetMapping("/admin/EventCreate")
     public String EventCreate(){
         return "admin/Admin_EventCreate.html";
