@@ -64,9 +64,8 @@ public class BrandService {
     }
 
 
-    public Header<BrandApiResponse> update(Header<BrandApiRequest> request,  List<MultipartFile> multipartFiles) {
+    public Header<BrandApiResponse> update(BrandApiRequest brandApiRequest,  List<MultipartFile> multipartFiles) {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "brand");
-        BrandApiRequest brandApiRequest = request.getData();
         Optional<Brand> optional = brandRepository.findById(brandApiRequest.getIdx());
 
         return optional.map(brand -> {

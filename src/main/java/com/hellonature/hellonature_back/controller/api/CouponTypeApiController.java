@@ -9,6 +9,8 @@ import com.hellonature.hellonature_back.service.CouponTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/memberCouponType")
 @RequiredArgsConstructor
@@ -38,5 +40,13 @@ public class CouponTypeApiController extends CrudController<CouponTypeApiRequest
     @DeleteMapping("delete/{idx}")
     public Header delete(@PathVariable(name = "idx") Long idx) {
         return couponTypeService.delete(idx);
+    }
+
+    @GetMapping("list")
+    public Header<List<CouponTypeApiResponse>> list(@RequestParam(name = "title", required = false) String title,
+                                                    @RequestParam(name = "dateStart", required = false) String dateStart,
+                                                    @RequestParam(name = "dateEnd", required = false) String dateEnd,
+                                                    @RequestParam(name = "page", defaultValue = "0") Integer page){
+        return couponTypeService.list(title, dateStart, dateEnd, page);
     }
 }
