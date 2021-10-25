@@ -1,6 +1,7 @@
 package com.hellonature.hellonature_back.service;
 
 import com.hellonature.hellonature_back.model.entity.Card;
+import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.CardApiRequest;
@@ -10,6 +11,7 @@ import com.hellonature.hellonature_back.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +24,18 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
     private final MemberRepository memberRepository;
 
     @Override
+    @Transactional
     public Header<CardApiResponse> create(Header<CardApiRequest> request) {
 
         CardApiRequest cardApiRequest = request.getData();
+        Optional<Member> optional = memberRepository.findById(cardApiRequest.getMemIdx());
+        if (optional.isEmpty()) return Header.ERROR("회원 정보가 잘못되었습니다");
+
+        Member member = optional.get();
+        List<Card> cards = cardRepository.findAllByMember(member);
 
         Card card = Card.builder()
-                .member(memberRepository.findById(cardApiRequest.getMemIdx()).get())
+                .member(member)
                 .num(cardApiRequest.getNum())
                 .date(cardApiRequest.getDate())
                 .cvc(cardApiRequest.getCvc())
@@ -36,6 +44,7 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
                 .bank(cardApiRequest.getBank())
                 .busiFlag(cardApiRequest.getBusiFlag())
                 .birth(cardApiRequest.getBirth())
+                .baseFlag(cards.isEmpty() ? Flag.TRUE : Flag.FALSE)
                 .build();
         cardRepository.save(card);
 

@@ -14,6 +14,6 @@ import java.util.List;
 public class MemberOrderLoadResponse {
 
     private AddressApiResponse address;
-    private List<CouponApiResponse> couponList;
+    private List<MemberCouponApiResponse> couponList;
     private Integer hellocash;
 }
