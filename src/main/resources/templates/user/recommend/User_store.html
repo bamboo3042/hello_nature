@@ -11,6 +11,36 @@
     <title>HelloNature-Recommend-fresh</title>
     <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function (){
+            axios.get('/api/popupstore/read/1',{
+
+            }).then(function (res){
+
+                let idx = res.data.data.idx;
+                let title = res.data.data.title;
+                let content = res.data.data.content;
+                let dateStart = res.data.data.dateStart;
+                let dateEnd = res.data.data.dateEnd;
+
+                dateStart = dateStart.substr(5, 10);
+                dateEnd = dateEnd.substr(5, 10);
+
+                document.getElementsByClassName("popup_idx")[0].innerText = "no. " + idx;
+                document.getElementsByClassName("popup_dday")[0].innerText = dateStart + "~" + dateEnd;
+                document.getElementsByClassName("popup_title")[0].innerText = title;
+                document.getElementsByClassName("popup_content")[0].innerHtml = content;
+
+
+            }).catch(function (err){
+                console.log(err);
+            })
+        });
+    </script>
+    <!-- axios  -->
 </head>
 <!-- head 끝 -->
 <body>

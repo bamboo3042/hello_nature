@@ -98,8 +98,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .like_area .item_star {position: relative; display: inline-block; height: 15px; padding: 4px 3px 11px 3px; box-sizing: content-box; font-size: 12px; line-height: 15px; letter-spacing: -0.5px; color: var(--hello_main_1); vertical-align: middle;}
 .like_area .price_cart {float: right; width: 36px; height: 28px; border-radius: 12px; background: #e8f6f3 url(../images/icon/icon_cart_g.png) no-repeat center / 20px auto; color: transparent; outline: none; overflow: hidden; border: none; margin-top: -32px;}
 
-.item_star_1, .item_star_2, .item_star_3, .item_star_4, .item_star_5 {margin-top: 12px; display: inline-block;}
-.item_star_1 span, .item_star_2 span, .item_star_3 span, .item_star_4 span, .item_star_5 span{font-size: 15.3px; color: var(--hello_main_1);}
+/*.item_star_1, .item_star_2, .item_star_3, .item_star_4, .item_star_5 {margin-top: 12px; display: inline-block;}
+.item_star_1 span, .item_star_2 span, .item_star_3 span, .item_star_4 span, .item_star_5 span{font-size: 15.3px; color: var(--hello_main_1);}*/
 
 /* main 좌우 버튼 시작 */
 .item_slide_btn { position: relative; width: 1050px; margin: 0 auto;}
@@ -945,6 +945,40 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .qna_box ul li {font-size: 12.5px;}
 .qna_box ul li span {color: var(--hello_main_1); font-weight: 600;}
 .qna_box .qna_button {float: right;width: 100px;height: 30px; font-size: 14px; border: 1px solid rgb(190, 190, 190); border-radius: 5px;}
+
+/* funstaurant --------------------------------------------------------------- */
+.fun_main_bg {width: 100%; height: 1900px; margin-top: 20px;}
+.fun_main_mold {width: 720px; height: 100%; margin: 0 auto;}
+.fun_main_img {margin: 0 auto; height: 1217px; display: flex; justify-content: center; }
+.fun_main_mold .txt {margin: 20px 10px 80px; color: var(--hello_font_1);}
+
+
+.fun_sub_bg {position: relative; width: 100%; height: 470px;}
+.fun_sub_mold{border: 1px solid #e3e3e3; width: 430px; height: 430px; border-radius: 8px;}
+.fun_sub_img {height: 256px; background-image: url(../images/funstr_2.jpg);background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
+.fun_sub_mold p:nth-child(2){font-weight: 700; margin: 20px 10px 0 10px; font-size: 20px; color: var(--hello_font_1);}
+.fun_sub_mold p:nth-child(3){margin: 10px; color: var(--hello_font_1);}
+
+
+.fun_wrap {float: right; list-style: none; position: absolute; width: 249px; height: 508px; margin: -470px 0 0 470px;}
+.fun_item_img {background-image: url("../../uploads/product/2021-10-24-19-49-53_107094_001_22.png"); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+
+.fun_item_info {position: absolute; width: 100%; height: 0;}
+.fun_item_sale {width: 40px; height: 22.5px; background-color: #f05c4f; text-align: center; border-radius: 5px; display: inline-block; margin-top: 48px; margin-left: 10px; margin-right: -6px; color: #fff; font-weight: 500; letter-spacing: -0.5px; font-size: 14.5px; }
+.fun_item_best {width: 40px; height: 22.5px; background-color: #fbe380; text-align: center; border-radius: 5px; display: inline-block; margin-top: 48px; margin-left: 8px; color: #155c65; font-weight: 600; letter-spacing: -0.5px; font-size: 14.5px;}
+.fun_item_name {font-size: 16px; font-weight: 400; margin-top: 17px; color: var(--hello_font_1); letter-spacing: -0.2px; line-height: 22px;}
+.fun_item_price {margin-top: 5px; display: inline-block; padding-top: 9px; font-weight: 600; font-size: 20px; line-height: 20px; color: var(--hello_font_1);}
+.fun_item_price + del {margin-left: 5px; color: #767676; font-size: 13px;}
+
+.fun_item_storage {margin-top: 10px;}
+.fun_item_storage span {float: left; height: 20px; padding: 0 10px; margin-right: 2px; border-radius: 5px; background-color: #f4f6f6; font-size: 11px; line-height: 20px; letter-spacing: -0.6px; color: #666; display: block;}
+
+.fun_like_area {margin-top: 60px; height: 28px; font-size: 14px; }
+.fun_like_area .item_star {position: relative; display: inline-block; height: 15px; padding: 4px 3px 11px 3px; box-sizing: content-box; font-size: 12px; line-height: 15px; letter-spacing: -0.5px; color: var(--hello_main_1); vertical-align: middle;}
+.fun_like_area .price_cart {float: right; width: 36px; height: 28px; border-radius: 12px; background: #e8f6f3 url(../images/icon/icon_cart_g.png) no-repeat center / 20px auto; color: transparent; outline: none; overflow: hidden; border: none; margin-top: -32px;}
+
+
+
 
 
 
