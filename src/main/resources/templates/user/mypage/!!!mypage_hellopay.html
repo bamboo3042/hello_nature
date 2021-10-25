@@ -57,7 +57,9 @@
                     let busiFlag = response.data.data[i].busiFlag;
 
                     if(baseFlag === "TRUE"){
-                        $("input[name='radio_id']").prop("checked", true)
+                        baseFlag = 'checked'
+                    }else{
+                        baseFlag ='';
                     }
 
                     let show_busiFlag;
@@ -104,7 +106,7 @@
                     }
 
                     let row = $('<div class="contents_hellopay_inputcard">').append(
-                        '<div class="hellopay_radio_box"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="'+cardIdx+'"/>' +
+                        '<div class="hellopay_radio_box"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="'+cardIdx+'"'+baseFlag+'/>' +
                         '<label for="hellopay_radio"></label></div><div class="hellopay_card_edit_del"><p id="hellopayEditNickname">별칭수정</p><div class="hellopay_line"></div>' +
                         '<p id="hellopayDelete">삭제</p><input type="hidden" value="'+cardIdx+'"></div>' +
                         '</div><div class="hellopay_cardname"><input type="text" id="cardname_1" placeholder="바꿀 별칭 이름을 입력하세요" style="display: none"></div>' +
@@ -145,13 +147,12 @@
                     })
                 })
 
+                let baseIdx = $("input[name='radio_id']:checked").val();
                 $("input[name='radio_id']").click(function (e){
 
                     let idx = $(this).val()
-                    let baseIdx = $("input[name='radio_id']:checked").val();
 
                     console.log(idx)
-                    console.log(baseIdx)
 
                     axios.get("/api/card/changeBaseCard?idx="+idx+"&baseIdx="+baseIdx, {
                     }).then(function (){

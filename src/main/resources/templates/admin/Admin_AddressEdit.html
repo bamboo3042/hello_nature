@@ -73,6 +73,7 @@
                 let dawnFlag = response.data.data.dawnFlag;
                 let baseFlag = response.data.data.baseFlag;
                 let greenFlag = response.data.data.greenFlag;
+                let requestType = response.data.data.requestType;
 
                 if(dawnFlag === "TRUE"){
                     dawnFlag = 1;
@@ -102,6 +103,7 @@
                 $("input[name=dawn][value='"+dawnFlag+"']").prop("checked", true);
                 $("input[name=green][value='"+greenFlag+"']").prop("checked", true);
                 $("input[name=base][value='"+baseFlag+"']").prop("checked", true);
+                $("input[name=type][value='"+requestType+"']").prop("checked", true);
             })
         })
 
@@ -123,13 +125,15 @@
             let address = $("#sample6_address").val();                  // 도로명 주소
             let detailAddress = $("#sample6_detailAddress").val();      // 상세 주소
             let postcode = $("#sample6_postcode").val();                // 우편번호
-            let requestMemo2 = $("#remark_sir").val();                  // 배송기사님께
+            let requestMemo2 = $("#requestMemo2").val();                  // 배송기사님께
             let dawnFlag = $("input[name='dawn']:checked").val()
             let greenFlag = $("input[name='green']:checked").val()
             let baseFlag = $("input[name='base']:checked").val()
+            let requestType =  $("input[name='type']:checked").val()
             let idx = sessionStorage.getItem("address_idx")
             let memIdx = sessionStorage.getItem("addrmem_idx")
 
+            console.log(dawnFlag)
             axios.put('/api/membersAddresses/update', {
                 headers: {'Content-type': 'application/json'},
                 data: {
@@ -139,9 +143,9 @@
                     name: name,
                     hp: hp,
                     zipcode: postcode,
+                    requestType: requestType,
                     addr1: address,
                     addr2: detailAddress,
-                    requestType: 1,
                     requestMemo2: requestMemo2,
                     baseFlag: baseFlag,
                     dawnFlag: dawnFlag,
@@ -214,6 +218,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>참고항목<span>(주소)</span></th>
+                    <td>
+                        <input type="text" id="sample6_extraAddress" placeholder="주소 참고항목을 입력하세요.">
+                    </td>
+                </tr>
+                <tr>
                     <th>새벽 배송지 여부</th>
                     <td>
                         <input type="radio" name="dawn" value="1"><label style="margin-right: 10px">가능</label>
@@ -232,6 +242,16 @@
                     <td>
                         <input type="radio" name="green" value="1"><label style="margin-right: 10px">더그린 배송지</label>
                         <input type="radio" name="green" value="0"><label>그외</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>배송 타입</th>
+                    <td>
+                        <input type="radio" name="type" value="1"><label style="margin-right: 10px">문앞 / 공동현관</label>
+                        <input type="radio" name="type" value="2"><label style="margin-right: 10px">문앞 / 비밀번호</label>
+                        <input type="radio" name="type" value="3"><label style="margin-right: 10px">경비실</label>
+                        <input type="radio" name="type" value="4"><label style="margin-right: 10px">택배함</label>
+                        <input type="radio" name="type" value="5"><label style="margin-right: 10px">기타장소</label>
                     </td>
                 </tr>
                 <tr>
