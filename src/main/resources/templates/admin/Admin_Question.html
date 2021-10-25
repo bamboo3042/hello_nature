@@ -18,7 +18,7 @@
         axios.get('/api/Question/read/'+ id, {
 
         }).then(function(response){
-            // let name = response.data.data.memName;
+            let name = response.data.data.name;
             let email = response.data.data.email;
             let hp = response.data.data.hp;
             let type = response.data.data.type;
@@ -59,7 +59,7 @@
                 ansFlag = '답변대기'
             }
 
-            // console.log(name)
+            console.log(name)
             console.log(regdate)
             console.log(hp)
             console.log(type)
@@ -67,7 +67,7 @@
             console.log(ansFlag)
 
 
-            // $('#name').text(name);
+            $('#name').text(name);
             $('#regdate').text(regdate);
             $('#email').text(email);
             $('#hp').text(hp);
