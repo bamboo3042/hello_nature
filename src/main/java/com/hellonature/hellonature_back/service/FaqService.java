@@ -45,7 +45,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
     @Override
     public Header<FaqApiResponse> read(Long id) {
         return faqRepository.findById(id)
-                .map(faq -> response(faq))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -60,8 +60,8 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
                     faq.setTitle(faqApiRequest.getTitle());
                     faq.setContent(faqApiRequest.getContent());
                     return faq;
-                }).map(faq -> faqRepository.save(faq))
-                .map(faq -> response(faq))
+                }).map(faqRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -69,7 +69,6 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
     @Override
     public Header delete(Long id) {
         Optional<Faq> optional = faqRepository.findById(id);
-
         return optional.map(faq -> {
             faqRepository.delete(faq);
             return Header.OK();
@@ -78,21 +77,20 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
     }
 
     private FaqApiResponse response(Faq faq){
-        FaqApiResponse faqApiResponse = FaqApiResponse.builder()
+        return FaqApiResponse.builder()
                 .idx(faq.getIdx())
                 .type(faq.getType())
                 .subject(faq.getSubject())
                 .title(faq.getTitle())
                 .content(faq.getContent())
                 .build();
-        return faqApiResponse;
     }
 
     public Header<List<FaqApiResponse>> list(Integer type, String subject, String title, String content, Integer startPage) {
         String jpql = "select f from Faq f";
         boolean check = false;
 
-        if ( type != null || title != null ) {
+        if ( type != null || title != null || content != null) {
             jpql += " where";
             if (type != null) {
                 jpql += " faq_type = :type";
@@ -111,9 +109,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
             if(content != null) {
                 if (check) jpql += " and";
                 jpql += " content like :content";
-                check = true;
             }
-
         }
 
         jpql += " order by idx desc";
@@ -127,11 +123,11 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
         List<Faq> result = query.getResultList();
 
         int count = 10;
-        Integer start = count * startPage; // 현재 보여지는 페이지의 첫번째 element에 해당하는 result의 index
-        Integer end = Math.min(result.size(), start + count); // 그 페이지으 ㅣ마지막 element
+        int start = count * startPage; // 현재 보여지는 페이지의 첫번째 element에 해당하는 result의 index
+        int end = Math.min(result.size(), start + count); // 그 페이지으 ㅣ마지막 element
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()%count==0 ? result.size()/count : (result.size()/count)+1 ) // 리스트가 홀수일 때
+                .totalPages( result.size()%count==0 ? result.size()/count : (result.size()/count) - 1) // 리스트가 홀수일 때
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)
@@ -150,7 +146,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
     public Header<List<FaqApiResponse>> search(Pageable pageable){
         Page<Faq> faq = faqRepository.findAll(pageable);
         List<FaqApiResponse> faqApiResponseList = faq.stream()
-                .map(faqs -> response(faqs))
+                .map(this::response)
                 .collect(Collectors.toList());
         Pagination pagination = Pagination.builder()
                 .totalPages(faq.getTotalPages()-1)
