@@ -106,7 +106,7 @@
                 <div class="nav_mold">
                     <div class="nav_userMenu">
                         <!-- 더그린배송 버튼 시작 -->
-                        <label>
+                        <label  sec:authorize="isAuthenticated()">
                             <a href="/mypage_thegreen" target="">
                                 <img src="/user/images/icon/nav_theGreenDeli.png" alt="더그린배송 아이콘"
                                      class="nav_theGreenDeli"></a>
