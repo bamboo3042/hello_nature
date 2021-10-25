@@ -152,6 +152,7 @@ public class ProductReviewService  {
                 .totalPages(result.size() / count)
                 .totalElements((long) result.size())
                 .currentPage(page)
+                .currentElements(end - start)
                 .build();
 
         return Header.OK(list, pagination);

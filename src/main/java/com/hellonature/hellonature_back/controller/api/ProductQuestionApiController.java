@@ -22,10 +22,9 @@ import java.util.List;
 public class ProductQuestionApiController extends CrudController<ProductQuestionApiRequest, ProductQuestionApiResponse, ProductQuestion> {
     private final ProductQuestionService productQuestionService;
 
-    @RequestMapping(value ="/create", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public Header<ProductQuestionApiResponse> create(@RequestBody Header<ProductQuestionApiRequest> request,
-                                                     @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
-        return productQuestionService.create(request, fileList);
+    @PostMapping("create")
+    public Header<ProductQuestionApiResponse> create(@RequestBody Header<ProductQuestionApiRequest> request){
+        return productQuestionService.create(request);
     }
 
     @Override
@@ -34,10 +33,9 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
         return productQuestionService.read(idx);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data"})
-    public Header<ProductQuestionApiResponse> update(@RequestBody Header<ProductQuestionApiRequest> request,
-                                                     @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
-        return productQuestionService.update(request, fileList);
+    @PutMapping("update")
+    public Header<ProductQuestionApiResponse> update(@RequestBody Header<ProductQuestionApiRequest> request){
+        return productQuestionService.update(request);
     }
 
     @Override
