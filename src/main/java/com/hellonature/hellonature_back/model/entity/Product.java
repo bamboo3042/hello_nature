@@ -33,7 +33,8 @@ public class Product extends DateEntity{
     private String des;
     private Integer netPrice;
     @Nullable
-    private Integer salePrice;
+    @Builder.Default
+    private Integer salePrice = 0;
     private Integer price;
 
     @Column(name = "pro_state")

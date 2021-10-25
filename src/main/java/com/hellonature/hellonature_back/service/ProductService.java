@@ -329,14 +329,16 @@ public class ProductService{
     }
 
     @Transactional
-    public Header<List<ProductUserListResponse>> userList(Long cateIdx, Long brIdx, Integer page, Integer order){
+    public Header<List<ProductUserListResponse>> userList(Long cateIdx, Long brIdx, Flag saleFlag, Integer page, Integer order){
 
-        List<Category> categoryList = searchCategories(cateIdx);
+        List<Category> categoryList = new ArrayList<>();
+        boolean check = false;
 
         String jpql = "select p from Product p";
-        if (cateIdx != null || brIdx != null){
+        if (cateIdx != null || brIdx != null || saleFlag != null){
             jpql += " where";
             if (cateIdx != null){
+                categoryList = searchCategories(cateIdx);
                 jpql += " (";
                 if (categoryList.get(0).getLifeFlag() == Flag.TRUE){
                     jpql += " eve_cate_idx = :cateIdx" + 0;
@@ -351,9 +353,20 @@ public class ProductService{
                     }
                 }
                 jpql += ")";
+                check = true;
             }
             if (brIdx != null){
+                if (check) jpql += " and";
                 jpql += " br_idx = :brIdx";
+                check = true;
+            }
+            if (saleFlag != null){
+                if (check) jpql += " and";
+                if (saleFlag == Flag.TRUE){
+                    jpql += " sale_price != 0";
+                }else{
+                    jpql += " sale_price = 0";
+                }
             }
         }
 
