@@ -49,7 +49,6 @@ public class PopupstoreService {
 
 
     public Header<PopupstoreApiResponse> read(Long id) {
-
         return popupstoreRepository.findById(id)
                 .map(this::response)
                 .map(Header::OK)

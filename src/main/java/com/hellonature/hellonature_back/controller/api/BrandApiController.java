@@ -39,7 +39,7 @@ public class BrandApiController extends CrudController<BrandApiRequest, BrandApi
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
-    public Header<BrandApiResponse> update(@RequestBody Header<BrandApiRequest> request,
+    public Header<BrandApiResponse> update(@RequestPart(value = "key") BrandApiRequest request,
                                            @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
         return brandService.update(request, fileList);
     }

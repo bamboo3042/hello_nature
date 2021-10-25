@@ -150,7 +150,6 @@ public class QuestionService{
         List<Question> result = query.getResultList();
 
         int count = 10;
-
         int start = count * startPage;
         int end = Math.min(result.size(), start + count);
 
@@ -161,7 +160,7 @@ public class QuestionService{
         }
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size() / count  )
+                .totalPages(result.size() / count)
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)
