@@ -7,6 +7,8 @@
     <title>고객센터 | 공지사항 관리</title>
     <link rel="stylesheet" href="/admin/css/style2.css">
     <script src="/admin/js/checkbox.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
     $(function(){
@@ -41,7 +43,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                    '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td>'+ title +'</td>' +
                     '<td>' + content + '</td>' +
@@ -112,7 +114,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                            '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
                             '<td>' + j + '</td>' +
                             '<td>'+ title +'</td>' +
                             '<td>' + content + '</td>' +
@@ -264,7 +266,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                        '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
                         '<td>' + j + '</td>' +
                         '<td>'+ title +'</td>' +
                         '<td>' + content + '</td>' +
@@ -348,7 +350,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                                '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
                                 '<td>' + j + '</td>' +
                                 '<td>'+ title +'</td>' +
                                 '<td>' + content + '</td>' +
