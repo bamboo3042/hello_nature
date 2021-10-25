@@ -291,6 +291,8 @@ public class ProductReviewService  {
             productReview.setAnsDate(LocalDate.now().format(formatter));
         }
 
+        productReviewRepository.save(productReview);
+
         return Header.OK();
     }
 }
