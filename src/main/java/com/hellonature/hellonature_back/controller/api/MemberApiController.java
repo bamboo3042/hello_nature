@@ -77,7 +77,7 @@ public class MemberApiController extends CrudController<MemberApiRequest, Member
 
     @GetMapping("editPassword")
     public Header passwordCheck(@RequestParam(name = "email") String email,
-                                      @RequestParam(name = "password") String password){
+                                @RequestParam(name = "password") String password){
         return memberService.editPassword(email, password);
     }
 }
