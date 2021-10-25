@@ -143,21 +143,19 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
         return temp[0].equals("서울시");
     }
 
-    public Header<List<AddressApiResponse>> list(String memEmail, Integer startPage){
+    public Header<List<AddressApiResponse>> list(String name, Integer startPage){
         String jpql = "select a from Address a";
-        boolean check = false;
 
-        if(memEmail != null ) {
+        if(name != null ) {
             jpql += " where";
-            if (memEmail != null) {
-                jpql += " memEmail = :memEmail";
-                check = true;
+            if (name != null) {
+                jpql += " maddr_name = :name";
             }
         }
 
         jpql += " order by a.idx desc";System.out.println(jpql);
         TypedQuery<Address> query = em.createQuery(jpql, Address.class);
-        if (memEmail != null) query = query.setParameter("memEmail", memEmail);
+        if (name != null) query = query.setParameter("name", name);
 
         List<Address> result = query.getResultList();
         System.out.println(result);
@@ -169,8 +167,8 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
 
         int count = 10;
 
-        Integer start = (count * startPage);
-        Integer end = Math.min(result.size(), start + count);
+        int start = (count * startPage);
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
                 .totalPages( result.size()>=10 ? (result.size()/count)+1 : 1  )
@@ -179,7 +177,7 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
                 .currentElements(result.size())
                 .build();
         
-        return Header.OK(result.subList(start, end).stream().map(address -> response(address)).collect(Collectors.toList()), pagination);
+        return Header.OK(result.subList(start, end).stream().map(this::response).collect(Collectors.toList()), pagination);
     }
 
     @Transactional
