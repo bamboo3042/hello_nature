@@ -198,34 +198,6 @@
                     )
                     ingreul.append(ingreli);
 
-                    /* 장바구니 */
-                    let cartBtn = document.querySelectorAll("#rec_prod_btn");
-                    for (let i=0; i<cartBtn.length; i++) {
-                        cartBtn[i].addEventListener('click', function () {
-                            console.log(cartBtn[i])
-                            let itemEl = cartBtn[i].previousSibling;
-                            let proIdx = itemEl.value;
-                            if (memIdx !== "") {
-                                axios.post('/api/basket/create', {
-                                    data: {
-                                        memIdx: memIdx,
-                                        proIdx: proIdx,
-                                        proCount: 1
-                                    }
-                                }).then(function () {
-                                    alert('장바구니에 등록되었습니다');
-                                    location.reload();
-                                }).catch(function (err) {
-                                    console.log(err);
-                                });
-                            } else {
-                                alert('비회원입니다.');
-                                let proIdx_list = [];
-                                sessionStorage.setItem("noMem", proIdx)
-                            }
-                        });
-                    }
-
                     let recProdPrev = document.querySelector('.rec_prod_btn_prev');
                     let recProdNext = document.querySelector('.rec_prod_btn_next');
                     let recProdBox = document.querySelector('.rec_prod_box');
@@ -271,6 +243,34 @@
                         }
                     });
                 };
+
+                /* 장바구니 */
+                let cartBtn1 = document.querySelectorAll("#rec_prod_btn");
+                for (let i=0; i<cartBtn1.length; i++) {
+                    cartBtn1[i].addEventListener('click', function () {
+                        console.log(cartBtn1[i])
+                        let itemEl = cartBtn1[i].previousSibling; // <input type="hidden" value="'+proIdx+'">
+                        let proIdx = itemEl.value; // proIdx
+                        if (memIdx !== "") {
+                            axios.post('/api/basket/create', {
+                                data: {
+                                    memIdx: memIdx,
+                                    proIdx: proIdx,
+                                    proCount: 1
+                                }
+                            }).then(function () {
+                                alert('장바구니에 등록되었습니다');
+                                location.reload();
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        } else {
+                            alert('비회원입니다.');
+                            let proIdx_list = [];
+                            sessionStorage.setItem("noMem", proIdx)
+                        }
+                    });
+                }
 
 
 
@@ -324,34 +324,6 @@
                     )
                     relul.append(relli);
 
-                    /* 장바구니 */
-                    let cartBtn = document.querySelectorAll("#rec_item_btn");
-                    for (let i = 0; i < cartBtn.length; i++) {
-                        cartBtn[i].addEventListener('click', function () {
-                            console.log(cartBtn[i])
-                            let itemEl = cartBtn[i].previousSibling;
-                            let proIdx = itemEl.value;
-                            if (memIdx !== "") {
-                                axios.post('/api/basket/create', {
-                                    data: {
-                                        memIdx: memIdx,
-                                        proIdx: proIdx,
-                                        proCount: 1
-                                    }
-                                }).then(function () {
-                                    alert('장바구니에 등록되었습니다');
-                                    location.reload();
-                                }).catch(function (err) {
-                                    console.log(err);
-                                });
-                            } else {
-                                alert('비회원입니다.');
-                                let proIdx_list = [];
-                                sessionStorage.setItem("noMem", proIdx)
-                            }
-                        });
-                    }
-
                     let recItemPrev = document.querySelector('.rec_item_btn_prev');
                     let recItemNext = document.querySelector('.rec_item_btn_next');
                     let recItemBox = document.querySelector('.rec_item_box');
@@ -398,6 +370,35 @@
                         }
                     });
                 }
+
+                /* 장바구니 */
+                let cartBtn2 = document.querySelectorAll("#rec_item_btn");
+                for (let i = 0; i < cartBtn2.length; i++) {
+                    cartBtn2[i].addEventListener('click', function () {
+                        console.log(cartBtn2[i])
+                        let itemEl = cartBtn2[i].previousSibling;
+                        let proIdx = itemEl.value;
+                        if (memIdx !== "") {
+                            axios.post('/api/basket/create', {
+                                data: {
+                                    memIdx: memIdx,
+                                    proIdx: proIdx,
+                                    proCount: 1
+                                }
+                            }).then(function () {
+                                alert('장바구니에 등록되었습니다');
+                                location.reload();
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        } else {
+                            alert('비회원입니다.');
+                            let proIdx_list = [];
+                            sessionStorage.setItem("noMem", proIdx)
+                        }
+                    });
+                }
+
             }).catch(function(err) {
                 console.log(err);
             });
@@ -524,7 +525,7 @@
 
                     <!-- 비슷한 레시피 (3 column slide) -->
                     <div class="recipe_another width clearfix">
-                        <p>비슷한 레시피</p>
+                        <p>추천 레시피</p>
                         <div class="rec_ano_controls">
                             <div class="rec_ano_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
                             <div class="rec_ano_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
@@ -532,37 +533,37 @@
                         <div class="rec_ano_wrap">
                             <ul class="rec_ano_box">
                                 <li class="rec_ano">
-                                    <a href="/magazine/recipe_content">
-                                        <img src="/user/images/magazine/repice_content/채끝스테이크솥밥/비슷한레시피01.jpg" alt="">
+                                    <a href="/user/magazine/recipe_content?idx=1">
+                                        <img src="/uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg" alt="">
                                         <div class="rec_ano_info">
-                                            <p class="rec_ano_title">감자옥수수솥밥</p>
-                                            <p class="rec_ano_spec">
-                                                <span class="rec_ano_grade">초급</span>
-                                                <span class="rec_ano_time">50분</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="rec_ano">
-                                    <a href="/magazine/recipe_content">
-                                        <img src="/user/images/magazine/repice_content/채끝스테이크솥밥/비슷한레시피02.jpg" alt="">
-                                        <div class="rec_ano_info">
-                                            <p class="rec_ano_title">모둠해산물솥밥</p>
+                                            <p class="rec_ano_title">치즈왕계란말이</p>
                                             <p class="rec_ano_spec">
                                                 <span class="rec_ano_grade">중급</span>
-                                                <span class="rec_ano_time">50분</span>
+                                                <span class="rec_ano_time">30분</span>
                                             </p>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="rec_ano">
-                                    <a href="/magazine/recipe_content">
-                                        <img src="/user/images/magazine/repice_content/채끝스테이크솥밥/비슷한레시피01.jpg" alt="">
+                                    <a href="/user/magazine/recipe_content?idx=35">
+                                        <img src="/uploads/magazine/2021-10-25-15-01-09_20210604155322678.jpg" alt="">
                                         <div class="rec_ano_info">
-                                            <p class="rec_ano_title">감자옥수수솥밥</p>
+                                            <p class="rec_ano_title">레몬 딜 버터</p>
                                             <p class="rec_ano_spec">
                                                 <span class="rec_ano_grade">초급</span>
-                                                <span class="rec_ano_time">50분</span>
+                                                <span class="rec_ano_time">5분</span>
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rec_ano">
+                                    <a href="/user/magazine/recipe_content?idx=36">
+                                        <img src="/uploads/magazine/2021-10-25-15-34-36_20210610101620753.jpg" alt="">
+                                        <div class="rec_ano_info">
+                                            <p class="rec_ano_title">만두 그라탕</p>
+                                            <p class="rec_ano_spec">
+                                                <span class="rec_ano_grade">초급</span>
+                                                <span class="rec_ano_time">30분</span>
                                             </p>
                                         </div>
                                     </a>

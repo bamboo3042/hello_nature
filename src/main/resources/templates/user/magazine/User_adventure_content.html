@@ -120,34 +120,6 @@
                     )
                     relul.append(relli);
 
-                    /* 장바구니 */
-                    let cartBtn = document.querySelectorAll("#cont_item_btn");
-                    for (let i = 0; i < cartBtn.length; i++) {
-                        cartBtn[i].addEventListener('click', function () {
-                            console.log(cartBtn[i])
-                            let itemEl = cartBtn[i].previousSibling;
-                            let proIdx = itemEl.value;
-                            if (memIdx !== "") {
-                                axios.post('/api/basket/create', {
-                                    data: {
-                                        memIdx: memIdx,
-                                        proIdx: proIdx,
-                                        proCount: 1
-                                    }
-                                }).then(function () {
-                                    alert('장바구니에 등록되었습니다');
-                                    location.reload();
-                                }).catch(function (err) {
-                                    console.log(err);
-                                });
-                            } else {
-                                alert('비회원입니다.');
-                                let proIdx_list = [];
-                                sessionStorage.setItem("noMem", proIdx)
-                            }
-                        });
-                    }
-
                     let contItemPrev = document.querySelector('.cont_item_btn_prev');
                     let contItemNext = document.querySelector('.cont_item_btn_next');
                     let contItemBox = document.querySelector('.cont_item_box');
@@ -195,6 +167,34 @@
                         }
                     });
                 };
+
+                /* 장바구니 */
+                let cartBtn = document.querySelectorAll("#cont_item_btn");
+                for (let i = 0; i < cartBtn.length; i++) {
+                    cartBtn[i].addEventListener('click', function () {
+                        console.log(cartBtn[i])
+                        let itemEl = cartBtn[i].previousSibling;
+                        let proIdx = itemEl.value;
+                        if (memIdx !== "") {
+                            axios.post('/api/basket/create', {
+                                data: {
+                                    memIdx: memIdx,
+                                    proIdx: proIdx,
+                                    proCount: 1
+                                }
+                            }).then(function () {
+                                alert('장바구니에 등록되었습니다');
+                                location.reload();
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        } else {
+                            alert('비회원입니다.');
+                            let proIdx_list = [];
+                            sessionStorage.setItem("noMem", proIdx)
+                        }
+                    });
+                }
 
             }).catch(function(err) {
                 console.log(err);

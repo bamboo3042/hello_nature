@@ -273,8 +273,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 #recipe_list_1 div div .recipe1_img {position: relative; background: url(../../uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 #recipe_list_1 div div .recipe2_img {position: relative; background: url(../../uploads/magazine/2021-10-24-02-44-41_20210702104659946.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
-#recipe_list_1 div div .recipe3_img {position: relative; background: url(../images/recipe3.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
-#recipe_list_1 div div .recipe4_img {position: relative; background: url(../images/recipe4.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe3_img {position: relative; background: url(../../uploads/magazine/2021-10-25-15-01-09_20210604155322678.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe4_img {position: relative; background: url(../../uploads/magazine/2021-10-25-15-34-36_20210610101620753.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 
 #recipe_list_1 .level {background: url(../images/icon/hat.png)no-repeat; background-size: 55% 55%; background-position-y: 3px; background-position-x: center; position: absolute; margin-top: 5px; margin-left: 190px; padding-top: 29px; text-align: center; width: 50px; height: 21px; background-color: rgba(255, 255, 255, 0.788); border-radius: 30px; font-size: 12px; font-weight: 500; color: #727272;}
 #recipe_list_1 .time {background: url(../images/icon/time.png)no-repeat; background-size: 52% 52%; background-position-y: 4.5px; background-position-x: center; position: absolute; margin-top: 60px; margin-left: 190px; padding-top: 29px; text-align: center; width: 50px; height: 21px; background-color: rgba(255, 255, 255, 0.788); border-radius: 30px; font-size: 12px; font-weight: 500; color: #727272;}
@@ -1122,8 +1122,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 /* recommend_goods_list.html - 헬로윈 홈파티-1 */
 .halloween_img_1 { background: url(../../user/images/halloween1.jpg); }
-.halloween_img_2 { background: url(../../user/images/halloween2.jpg); }
-.halloween_img_3 { background: url(../../user/images/halloween3.jpg); }
+.halloween_img_2 { background: url(../../user/images/halloween3.jpg); }
+.halloween_img_3 { background: url(../../user/images/halloween2.jpg); }
 
 /* recommend_goods_list.html - 헬로윈 홈파티-1 */
 .halloween_img_1_1 { background: url(../../uploads/product/2021-10-25-14-19-00_KakaoTalk_20211025_140951806_01.jpg); }

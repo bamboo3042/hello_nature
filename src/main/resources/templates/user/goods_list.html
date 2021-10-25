@@ -20,6 +20,9 @@
             let page = searchParams.get("page");
             let paramUrl, cateIdx, tempUrl, newParam;
 
+            let memIdx = $("#hidden_user").val();
+
+
             // 1차 카테고리 이름 띄우기
             axios.get('/api/category/read/' + rootIdxParam, {
             }).then(function(res) {
@@ -109,7 +112,8 @@
                             '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
                             '</div>' +
                             '<a href="#">' +
-                            '<button class="price_cart" value="' + prodIdx + '">카트에 담기</button></a>' +
+                            '<input type="hidden" value="'+prodIdx+'">'+
+                            '<button class="price_cart cartBtn_1" value="' + prodIdx + '">카트에 담기</button></a>' +
                             '</div></li>'
                         )
                         ul.append(li);
@@ -135,9 +139,35 @@
                             console.log(String(k-1));
                         });
                     }
-
                     // 만약 axios가 실행되면 tempUrl에 실행한 api주소를 담는다.
                     tempUrl = paramUrl;
+
+                    let cartBtn_1 = document.querySelectorAll(".cartBtn_1");
+                    for (let i=0; i<cartBtn_1.length; i++) {
+                        cartBtn_1[i].addEventListener('click', function () {
+                            let el = cartBtn_1[i].previousSibling;
+                            let proIdx = el.value;
+                            if (memIdx !== "") {
+                                axios.post('/api/basket/create', {
+                                    data: {
+                                        memIdx: memIdx,
+                                        proIdx: proIdx,
+                                        proCount: 1,
+                                    }
+                                }).then(function () {
+                                    alert('장바구니에 등록되었습니다.');
+                                    location.reload();
+                                }).catch(function (err) {
+                                    console.log(err);
+                                });
+                            } else {
+                                alert("비회원입니다.")
+                                let proidx_list = [];
+                                sessionStorage.setItem("noMem", proIdx);
+                            }
+                        });
+                    }
+
                 }).catch(function(err) {
                     console.log(err);
                 });
@@ -211,7 +241,8 @@
                                     '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
                                     '</div>' +
                                     '<a href="#">' +
-                                    '<button class="price_cart" value="' + prodIdx + '">카트에 담기</button></a>' +
+                                    '<input type="hidden" value="'+prodIdx+'">'+
+                                    '<button class="price_cart cartBtn_2" value="' + prodIdx + '">카트에 담기</button></a>' +
                                     '</div></li>'
                                 )
                                 ul.append(li);
@@ -238,9 +269,35 @@
                                     console.log(String(k-1));
                                 });
                             }
-
                             // 만약 axios가 실행되면 tempUrl에 실행한 api주소를 담는다.
                             tempUrl = "/api/product/user/list?cateIdx=" + cateIdxValue +"&lifeFlag=FALSE";
+
+
+                            let cartBtn_2 = document.querySelectorAll(".cartBtn_2");
+                            for (let i=0; i<cartBtn_2.length; i++) {
+                                cartBtn_2[i].addEventListener('click', function () {
+                                    let el = cartBtn_2[i].previousSibling;
+                                    let proIdx = el.value;
+                                    if (memIdx !== "") {
+                                        axios.post('/api/basket/create', {
+                                            data: {
+                                                memIdx: memIdx,
+                                                proIdx: proIdx,
+                                                proCount: 1,
+                                            }
+                                        }).then(function () {
+                                            alert('장바구니에 등록되었습니다.');
+                                            location.reload();
+                                        }).catch(function (err) {
+                                            console.log(err);
+                                        });
+                                    } else {
+                                        alert("비회원입니다.")
+                                        let proidx_list = [];
+                                        sessionStorage.setItem("noMem", proIdx);
+                                    }
+                                });
+                            }
 
                         }).catch(function(err) {
                             console.log(err);
@@ -335,13 +392,40 @@
                                         '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
                                         '</div>' +
                                         '<a href="#">' +
-                                        '<button class="price_cart" value="' + prodIdx + '">카트에 담기</button></a>' +
+                                        '<input type="hidden" value="'+prodIdx+'">'+
+                                        '<button class="price_cart cartBtn_3" value="' + prodIdx + '">카트에 담기</button></a>' +
                                         '</div></li>'
                                     )
                                     ul.append(li);
                                 }
                                 ul.append($('</ul>'));
                                 $('#goods_list_bg').append(ul);
+
+                                let cartBtn_3 = document.querySelectorAll(".cartBtn_3");
+                                for (let i=0; i<cartBtn_3.length; i++) {
+                                    cartBtn_3[i].addEventListener('click', function () {
+                                        let el = cartBtn_3[i].previousSibling;
+                                        let proIdx = el.value;
+                                        if (memIdx !== "") {
+                                            axios.post('/api/basket/create', {
+                                                data: {
+                                                    memIdx: memIdx,
+                                                    proIdx: proIdx,
+                                                    proCount: 1,
+                                                }
+                                            }).then(function () {
+                                                alert('장바구니에 등록되었습니다.');
+                                                location.reload();
+                                            }).catch(function (err) {
+                                                console.log(err);
+                                            });
+                                        } else {
+                                            alert("비회원입니다.")
+                                            let proidx_list = [];
+                                            sessionStorage.setItem("noMem", proIdx);
+                                        }
+                                    });
+                                }
 
                             }).catch(function(err) {
                                 console.log(err);
