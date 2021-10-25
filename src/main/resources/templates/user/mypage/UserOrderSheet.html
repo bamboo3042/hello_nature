@@ -75,6 +75,11 @@
         }
 
         $(function () {
+            let netPrice = parseInt(sessionStorage.getItem("netPrice"));
+            let salePrice = parseInt(sessionStorage.getItem("salePrice"));
+            $("#realPrice").val(netPrice-salePrice)
+
+
             $("input[name='detail_addr']").on('click', function () {
                 if ($("input[name='detail_addr']:checked").val() === "문앞") {
                     $(".select_detail_radio_1").css("display", "block")
@@ -83,6 +88,29 @@
                 }
             })
         });
+
+
+        function coponuse(e){
+            let coponDiscount = $("#select_coupon option:selected").attr("name")
+
+            if(coponDiscount>100){
+                $("#order_coupon").text(coponDiscount)
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+            }else if(coponDiscount<=100){
+                let row = parseInt($("#realPrice").val());
+                $("#order_coupon").text(row * coponDiscount/100);
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+            }else{
+                $("#order_coupon").text(0)
+                $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                    - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+            }
+        }
 
         /* 포인트 입력 (숫자 제한) */
         function maxLengthCheck(object) {
@@ -226,12 +254,20 @@
 
 
                 for (let i in response.data.data.couponList) {
-                    // let couponTtile = response.data.data.couponList[i].title;
-                    // let couponDiscount = response.data.data.couponList[i].discount;
+                    let couponTtile = response.data.data.couponList[i].title;
+                    let couponDiscount = response.data.data.couponList[i].discount;
                     let couponEnd = response.data.data.couponList[i].dateEnd;
                     let ctIdx = response.data.data.couponList[i].ctIdx;
-                    let row = $('<option value="' + ctIdx + '">').append(
-                        '쿠폰종료 날짜' + couponEnd + '</option>'
+
+                    let discount_val;
+                    if(couponDiscount > 100){
+                        discount_val = couponDiscount + "원 할인"
+                    }else{
+                        discount_val = couponDiscount + "% 할인"
+                    }
+
+                    let row = $('<option value="' + ctIdx + '" name="'+couponDiscount+'">').append(
+                        couponTtile + ' ' + discount_val + '(쿠폰종료 날짜' + couponEnd + ')</option>'
                     )
 
                     $("#choice_coupon").after(row)
@@ -701,6 +737,7 @@
 </head>
 <body>
 <div id="mypage-box">
+    <input type="hidden" id="realPrice">
     <div class="container">
         <div th:replace="/user/fragment/header::header"></div>
         <div class="main">
@@ -1118,7 +1155,7 @@
                             <ul class="hello_coupon_line">
                                 <li>
                                     <h5 class="hello_coupon_cash_tit">쿠폰</h5>
-                                    <select id="select_coupon">
+                                    <select id="select_coupon" onchange="coponuse(this)">
                                         <option id="choice_coupon">쿠폰을 선택하세요</option>
                                     </select>
                                 </li>
