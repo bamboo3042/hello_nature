@@ -91,7 +91,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .product_info_line { border-right: 1px solid #000; height: 13px; margin: 10px;}
 .product_info { padding-left: 10px;}
 .product_info > p { font-size: 14px; line-height: 1.6;}
-.product_image { width: 60px; height: 60px; background: #fafafa url("/user/images/mypage.img/product_image.png") center center no-repeat; background-size: contain; border-radius: 10px;}
+.product_image { width: 60px; height: 60px; background-size: contain; border-radius: 10px;}
 .contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 /* ---------------------------------------------------------------- mypage_orderlist1 ~ 4 시작 ----------------------------------------------------------------*/
 /* mypage_orderlist1.html > 1:1문의 버튼 */
@@ -689,7 +689,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .check_password_form > h3 { font-size: 16px; color: #333; font-weight: 700; line-height: 1.44; letter-spacing: -.8px;}
 .check_password_form { display: block; padding: 24px 20px 20px 20px; box-sizing: border-box;}
 .form_list { margin-top: 19px; display: block; box-sizing: border-box;}
-.list_title { font-size: 14px; color: #333; font-weight: 700; line-height: 1.57; letter-spacing: -.6px;}
+.list_title_e { font-size: 14px; color: #333; font-weight: 700; line-height: 1.57; letter-spacing: -.6px;}
 .form_list li .edit1_email_data { margin-top: 8px; font-size: 15px; line-height: 1.6; color: #888;}
 .form_list li:not(:first-child) { margin-top: 24px;}
 .form_list li input[type="password"] { width: 100%; height: 50px; padding: 0 10px; border: 2px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; background-color: #f6f6f6; letter-spacing: -.3px; color: #555; caret-color: #1d988e; outline: none; margin-top: 6px;}
