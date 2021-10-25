@@ -110,7 +110,7 @@ public class ProductService{
             product.setImg4(pathList.get(3));
             product.setProDes(productApiRequest.getProDes());
             product.setCategory(categoryRepository.findById(productApiRequest.getCateIdx()).get());
-            product.setEveCategory(categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
+            product.setEveCategory(productApiRequest.getEveCateIdx() == null? null : categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
             product.setProType(productApiRequest.getProType());
             product.setProName(productApiRequest.getProName());
             product.setFoodType(productApiRequest.getFoodType());
