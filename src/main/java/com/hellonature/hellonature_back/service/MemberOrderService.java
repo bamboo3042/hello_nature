@@ -4,10 +4,7 @@ import com.hellonature.hellonature_back.model.entity.*;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.MemberOrderApiRequest;
-import com.hellonature.hellonature_back.model.network.response.AddressApiResponse;
-import com.hellonature.hellonature_back.model.network.response.CouponApiResponse;
-import com.hellonature.hellonature_back.model.network.response.MemberOrderApiResponse;
-import com.hellonature.hellonature_back.model.network.response.MemberOrderLoadResponse;
+import com.hellonature.hellonature_back.model.network.response.*;
 import com.hellonature.hellonature_back.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -239,22 +236,24 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .build();
 
         List<Coupon> coupons = couponRepository.findAllByMemberAndUsedFlagOrderByIdxDesc(member, Flag.FALSE);
-        List<CouponApiResponse> couponApiResponses = new ArrayList<>();
+        List<MemberCouponApiResponse> memberCouponApiResponses = new ArrayList<>();
 
         for (Coupon coupon: coupons){
-            couponApiResponses.add(CouponApiResponse.builder()
-                    .idx(coupon.getIdx())
-                    .memIdx(coupon.getMember().getIdx())
-                    .ctIdx(coupon.getCouponType().getIdx())
-                    .usedFlag(coupon.getUsedFlag())
-                    .dateStart(coupon.getDateStart())
-                    .dateEnd(coupon.getDateEnd())
+            memberCouponApiResponses.add(MemberCouponApiResponse.builder()
+                            .idx(coupon.getIdx())
+                            .usedFlag(coupon.getUsedFlag())
+                            .dateStart(coupon.getDateStart())
+                            .dateEnd(coupon.getDateEnd())
+                            .regdate(coupon.getRegdate())
+                            .title(coupon.getCouponType().getTitle())
+                            .discount(coupon.getCouponType().getDiscount())
+                            .minPrice(coupon.getCouponType().getMinPrice())
                     .build());
         }
 
         MemberOrderLoadResponse memberOrderLoadResponse = MemberOrderLoadResponse.builder()
                 .address(addressApiResponse)
-                .couponList(couponApiResponses)
+                .couponList(memberCouponApiResponses)
                 .hellocash(member.getHellocash())
                 .build();
 
@@ -267,6 +266,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         MemberOrder memberOrder = optional.get();
 
         memberOrder.setState(state);
+        memberOrderRepository.save(memberOrder);
         return Header.OK();
     }
 }

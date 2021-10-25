@@ -2,6 +2,7 @@ package com.hellonature.hellonature_back.controller.api;
 
 import com.hellonature.hellonature_back.controller.CrudController;
 import com.hellonature.hellonature_back.model.entity.Product;
+import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.ProductApiRequest;
 import com.hellonature.hellonature_back.model.network.response.ProductApiResponse;
@@ -73,9 +74,10 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
     @GetMapping("user/list")
     public Header<List<ProductUserListResponse>> userList(@RequestParam(name = "cateIdx", required = false) Long cateIdx,
                                                           @RequestParam(name = "brIdx", required = false) Long brIdx,
+                                                          @RequestParam(name = "saleFlag", required = false) Flag saleFlag,
                                                           @RequestParam(name = "page", defaultValue = "0") Integer page,
                                                           @RequestParam(name = "order", defaultValue = "1") Integer order){
-        return productService.userList(cateIdx, brIdx, page, order);
+        return productService.userList(cateIdx, brIdx,saleFlag, page, order);
     }
 
     @GetMapping("user/list/newProduct")

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class LoginService {
@@ -35,12 +37,12 @@ public class LoginService {
 
         String id = request.getId();
         String password = request.getPassword();
-        System.out.println("id : " + id);
-        System.out.println("password : " + password);
-        System.out.println("password encode : " + passwordEncoder.encode(password));
-        return memberRepository.findByEmailAndPassword(id, passwordEncoder.encode(password))
-                .map(member -> Header.OK(Flag.TRUE))
-                .orElseGet(() -> Header.ERROR(Flag.FALSE));
+
+        Optional<Member> optional = memberRepository.findByEmailAndPassword(id, passwordEncoder.encode(password));
+
+        if (optional.isPresent()) return Header.OK(Flag.TRUE);
+        else return Header.ERROR(Flag.FALSE);
+
     }
 
     public Header<Flag> adminLogin(String id, String password){

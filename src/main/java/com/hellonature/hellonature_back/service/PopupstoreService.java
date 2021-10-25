@@ -38,7 +38,7 @@ public class PopupstoreService {
                 .img(pathList.get(0))
                 .title(request.getTitle())
                 .des(request.getDes())
-                .brand(brandRepository.findById(request.getIdx()).get())
+                .brand(brandRepository.findById(request.getBrIdx()).get())
                 .content(request.getContent())
                 .dateStart(request.getDateStart())
                 .dateEnd(request.getDateEnd())
@@ -51,7 +51,7 @@ public class PopupstoreService {
     public Header<PopupstoreApiResponse> read(Long id) {
 
         return popupstoreRepository.findById(id)
-                .map(popupstore -> response(popupstore))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
@@ -65,14 +65,14 @@ public class PopupstoreService {
                     popupstore.setImg(pathList.get(0));
                     popupstore.setTitle(popupstoreApiRequest.getTitle());
                     popupstore.setDes(popupstoreApiRequest.getDes());
-                    popupstore.setBrand(brandRepository.findById(popupstoreApiRequest.getIdx()).get());
+                    popupstore.setBrand(brandRepository.findById(popupstoreApiRequest.getBrIdx()).get());
                     popupstore.setContent(popupstoreApiRequest.getContent());
                     popupstore.setDateStart(popupstoreApiRequest.getDateStart());
                     popupstore.setDateEnd(popupstoreApiRequest.getDateEnd());
 
                     return popupstore;
-                }).map(popupstore -> popupstoreRepository.save(popupstore))
-                .map(popupstore -> response(popupstore))
+                }).map(popupstoreRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("수정 실패"));
     }
@@ -88,7 +88,7 @@ public class PopupstoreService {
     }
 
     private PopupstoreApiResponse response(Popupstore popupstore){
-        PopupstoreApiResponse popupstoreApiResponse = PopupstoreApiResponse.builder()
+        return PopupstoreApiResponse.builder()
                 .idx(popupstore.getIdx())
                 .img(popupstore.getImg())
                 .title(popupstore.getTitle())
@@ -98,7 +98,6 @@ public class PopupstoreService {
                 .dateStart(popupstore.getDateStart())
                 .dateEnd(popupstore.getDateEnd())
                 .build();
-        return popupstoreApiResponse;
     }
 
     // 번호 제목 내용 전시상태 등록일
@@ -165,12 +164,14 @@ public class PopupstoreService {
 
         int count = 10;
 
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * startPage;
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
                 .totalPages(result.size() / count)
+                .totalElements((long) result.size())
                 .currentPage(startPage)
+                .currentElements(end - start)
                 .build();
 
         return Header.OK(result.subList(start, end), pagination);
