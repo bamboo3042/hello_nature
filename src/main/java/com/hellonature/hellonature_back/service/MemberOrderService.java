@@ -39,6 +39,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Hellocash hellocash;
 
         MemberOrderApiRequest memberOrderApiRequest = request.getData();
         System.out.println(memberOrderApiRequest);
@@ -113,9 +114,8 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .num(memberOrderApiRequest.getCardNum())
                 .build();
 
-        memberPaymentRepository.save(memberPayment);
-
-        Hellocash hellocash;
+        MemberPayment newMemberPayment = memberPaymentRepository.save(memberPayment);
+        newMemberOrder.setPayment(newMemberPayment);
 
         if (memberOrderApiRequest.getHellocash() != 0){
             int point = memberOrderApiRequest.getHellocash();
