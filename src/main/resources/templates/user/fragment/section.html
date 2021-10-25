@@ -1,6 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body th:fragment="section">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<body th:fragment="section" sec:authorize="isAuthenticated()">
 <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/section.css}">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -9,19 +11,20 @@
         let urlidx = $("#section_hidden").val()
 
         axios.get("/api/member/myPage/" + urlidx, {}).then(function (response){
+            console.log(response.data.data)
             let idx = response.data.data.idx;
             let name = response.data.data.name;
             let hellocash = response.data.data.hellocash;
             let couponCount = response.data.data.couponCount;
             let hellopayFlag = response.data.data.hellopayFlag;
-            let hellpayFlag = response.data.data.hellopassFlag;
+            let theGreenFlag = response.data.data.theGreenFlag;
             if(hellopayFlag != null){
                 $("#hellopay_value").val("이용중")
             }else{
                 $("#hellopay_value").val("미가입")
             }
 
-            if(hellpayFlag === "FALSE"){
+            if(theGreenFlag === "FALSE"){
                 $("#mem_helloPass").val("미가입")
             }else{
                 $("#mem_helloPass").val("이용중")
@@ -33,7 +36,7 @@
     })
 </script>
     <!-- section 시작 -->
-    <div class="section" id="section_article">
+    <div class="section" id="section_article" >
         <div class="section_mypage">
             <input type="hidden" th:value="${session['idx']}" id="section_hidden">
             <div class="section_mypage_div">
