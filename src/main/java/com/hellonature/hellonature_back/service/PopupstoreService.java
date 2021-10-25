@@ -56,9 +56,8 @@ public class PopupstoreService {
     }
 
 
-    public Header<PopupstoreApiResponse> update(Header<PopupstoreApiRequest> request, List<MultipartFile> multipartFiles) {
+    public Header<PopupstoreApiResponse> update(PopupstoreApiRequest popupstoreApiRequest, List<MultipartFile> multipartFiles) {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "popupstore");
-        PopupstoreApiRequest popupstoreApiRequest = request.getData();
         Optional<Popupstore> optional = popupstoreRepository.findById(popupstoreApiRequest.getIdx());
         return optional.map(popupstore -> {
                     popupstore.setImg(pathList.get(0));

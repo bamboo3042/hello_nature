@@ -34,7 +34,7 @@ public class PopupstoreApiController extends CrudController<PopupstoreApiRequest
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
-    public Header<PopupstoreApiResponse> update(@RequestBody Header<PopupstoreApiRequest> request,
+    public Header<PopupstoreApiResponse> update(@RequestPart(value = "key") PopupstoreApiRequest request,
                                                 @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
         return popupstoreService.update(request, fileList);
     }
