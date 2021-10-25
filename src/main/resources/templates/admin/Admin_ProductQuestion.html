@@ -21,6 +21,7 @@
             let name = response.data.data.memName;
             let regdate = response.data.data.regdate;
             regdate = regdate.toString().substring(0, 10);
+            let proName = response.data.data.proName;
             let proIdx = response.data.data.proIdx;
             let content = response.data.data.content;
             let ansContent = response.data.data.ansContent;
@@ -31,6 +32,7 @@
 
             $('#PQ_writer').text(name);
             $('#PQ_regdate').text(regdate);
+            $('#PQ_prodName').text(proName);
             $('#PQ_proIdx').text(proIdx);
             $('#PQ_content').text(content);
             $('#PQ_editor').val(ansContent);
@@ -42,32 +44,20 @@
     })
 
     function sendit(){
-        alert('클릭')
         let id = sessionStorage.getItem("idx2");
+        let ansContent = CKEDITOR.instances.PQ_editor.getData();
         console.log(id)
-        let data = {
-            idx : id,
-            ansContent: CKEDITOR.instances.PQ_editor.getData()
-        }
-        console.log(data.ansContent)
-        let files = ($('input[name="file"]'));
-        let fileList = [];
-        let formData = new FormData;
-
-        for(let i = 0; i < files.length; i++){
-            fileList.push(files[i].files[0]);
-            formData.append('files', files[i].files[0]);
-            console.log(formData)
-        }
-        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
-
-        axios.put('/api/productquestion/ansContent/update', formData, {
-            headers: {'Content-Type': 'multipart/form-data'},
+        axios.put('/api/productquestion/ansContent/update', {
+            data: {
+                idx: id,
+                ansContent: ansContent
+            }
         }).then(function (){
             alert('답변상태가 수정되었습니다');
             location.reload();
         })
     }
+
 
 
 
@@ -83,7 +73,7 @@
         <!--PQ_c1 시작-->
         <div class="PQ_c1">
             <!--form 시작-->
-            <form name="pro_question" enctype="multipart/form-data">
+            <form name="pro_question">
                 <p id="Pt_title1" class="product_title"><label>문의 상세</label></p>
                 <!--table 시작-->
                 <table id="pro_question">
@@ -95,7 +85,7 @@
                     </tr>
                     <tr>
                         <th>문의상품</th>
-                        <td id="PQ_prodName">자숙 손질 문어</td>
+                        <td id="PQ_prodName"></td>
                         <th>상품코드</th>
                         <td id="PQ_proIdx"></td>
                     </tr>

@@ -97,7 +97,8 @@
         if ($("input[id='switch_check5']:checkbox").is(":checked") == true) { smsFlagInt = 1; }
         else if ($("input[id='switch_check5']:checkbox").is(":checked") == false) { smsFlagInt = 0; }
 
-        if (password == null) {
+
+        if (password === null || password === undefined || password ==='') {
             axios.put("/api/member/update",{
                 data: {
                     idx: memIdx,
@@ -109,12 +110,12 @@
                 }
             }).then(function (res){
                 alert("회원정보가 수정되었습니다.");
-                location.href = '/user/mypage_editMyinfo';
-                location.reload();
+                location.href = '/user/logout';
+                location.href = '/user/index';
             }).catch(function (err){
                 console.log(err)
             });
-        } else if (password !== null) {
+        } else if (password !== null || password !== undefined || password !=='' ) {
             axios.put("/api/member/update",{
                 data: {
                     idx: memIdx,
@@ -127,7 +128,8 @@
                 }
             }).then(function (res){
                 alert("회원정보가 수정되었습니다.");
-                location.href = '/user/mypage_editMyinfo';
+                location.href = '/user/logout';
+                location.href = '/user/index';
                 location.reload();
             }).catch(function (err){
                 console.log(err)
@@ -138,11 +140,21 @@
     function delInfo(){
 
         let memIdx = $("#hidden_user").val();
-
-        axios.delete('/api/member/delete/' + memIdx, {
-        }).then(function (){
-            alert("정상적으로 탈퇴되었습니다.")
-        });
+        confirm("회원 탈퇴를 진행하시겠습니까?")
+        if(confirm){
+            alert("탈퇴 시 철회가 불가능합니다")
+            confirm("정말 탈퇴하시겠습니까?")
+            if(confirm) {
+                axios.delete('/api/member/delete/' + memIdx, {
+                }).then(function (){
+                    alert("정상적으로 탈퇴되었습니다.")
+                });
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 </script>
 <body>
@@ -193,7 +205,7 @@
                             <dl>
                                 <dt>비밀번호</dt>
                                 <dd id="userPassword">
-                                    <input type="text" id="password">
+                                    <input type="password" id="password">
                                     <!--<input type="button" value="비밀번호 보기" id="pass_check">-->
                                 </dd>
                                 <!--                                        <dd class="edit2_form_list_button">-->
@@ -202,39 +214,17 @@
                             </dl>
                         </li>
                     </ul>
-                    <ul class="edit2_form_list2">
-                        <li>
-                            <h5 class="edit2_form_title">간편 로그인</h5>
-                            <dl>
-                                <dt>카카오로 로그인</dt>
-                                <dd>
-                                    <label class="switch" id="switch_label1">
-                                        <input type="checkbox" id="switch_check1" class="check_slider">
-                                        <!-- <span class="slider round"></span> -->
-                                    </label>
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>
                     <ul class="edit2_form_list3">
                         <li>
                             <h5 class="edit2_form_title">광고 정보 수신</h5>
                             <div class="edit2_form_ad">
                                 <p>쿠폰, 특가상품 이벤트 등 혜택/정보 수신</p>
-                                <!--                                        <p>-->
-                                <!--                                            이메일/SMS 모두 최초 동의 시 <strong>헬로캐시 1,000원</strong>이 즉시 지급됩니다.-->
-                                <!--                                        </p>-->
                             </div>
                             <dl>
                                 <dt>이메일 수신동의</dt>
                                 <dd>
                                     <label for="switch_check4" class="switch" id="switch_label4">
                                         <input type="checkbox" id="switch_check4" class="check_slider" name="switch_check4">
-                                        <!-- <span class="slider round"></span> -->
-                                        <!--                                                <div class="slide_checkbox">-->
-                                        <!--                                                    <input type="checkbox" id="switch_check4" class="radio_hide">-->
-                                        <!--                                                </div>-->
-                                        <!--                                                <div class="slider"></div>-->
                                     </label>
                                 </dd>
                             </dl>

@@ -24,6 +24,7 @@
         const content = CKEDITOR.instances.textarea.getData()
 
         let data = {
+            idx: sessionStorage.getItem("brand_idx"),
             typeFlag: typeFlag,
             dateStart: dateStart,
             dateEnd: dateEnd,
@@ -32,7 +33,6 @@
             ingFlag: $("input[name='ing']:checked").val(),
             content: content
         }
-
         console.log(data)
 
         let files = ($('input[name="file"]'));
@@ -46,21 +46,35 @@
         }
         formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
 
-        axios.post('/api/event/create', formData, {
+        axios.put('/api/event/update/', formData, {
             headers: {'Content-Type': 'multipart/form-data'},
         }).then(function () {
-            alert("기획전/이벤트가 등록되었습니다")
+            alert("기획전/이벤트가 수정되었습니다")
         }).catch(function (err) {
             console.log(err)
         })
     }
 
     $(function () {
-        if ($("input[name='radio']:checked").val() === "설정한함") {
-            $("#event_period").css("display", 'none');
-        } else {
-            $("#event_period").css("display", 'block');
-        }
+
+        let idx = sessionStorage.getItem("brand_idx");
+        axios.get("/api/event/read/" + idx, {}).then(function (response){
+            let id = response.data.data.id;
+            let eventFlag  = response.data.data.eventFlag;
+            let title = response.data.data.title;
+            let ingFlag = response.data.data.ingFlag;
+            let dateStart = response.data.data.dateStart;
+            let dateEnd = response.data.data.dateEnd;
+            let content = response.data.data.content;
+
+            $("#brand_idx_hidden").val(id)
+            $("input[name='ing'][value='"+ingFlag+"']").prop("checked", true);
+            $("#typeFlag").val(eventFlag);
+            $("#dateStart").val(dateStart);
+            $("#dateEnd").val(dateEnd);
+            $("#title").val(title);
+            CKEDITOR.instances.textarea.setData(content)
+        })
     })
 </script>
 <body>
@@ -69,19 +83,14 @@
     <p>헬로네이처 추천 관리<span>기획전/이벤트</span></p>
 </div>
 <!--content_title 끝-->
-<!--content_title_click 시작-->
-<div class="content_title_click">
-    <a onclick="EL_location_1()">기획전/이벤트 목록</a>
-    <a onclick="EL_location_2()" id="EL_click_2">기획전/이벤트 등록</a>
-</div>
-<!--content_title_click 끝-->
 <!--Ecreate 시작-->
 <div class="Ecreate">
     <!--EC_c1 시작-->
     <div class="EC_c1">
         <!--form 시작-->
         <form name="create_event">
-            <p id="EC_c1_title" class="product_title"><label>기획전/이벤트 등록</label></p>
+            <input type="hidden" id="brand_idx_hidden">
+            <p id="EC_c1_title" class="product_title"><label>기획전/이벤트 수정</label></p>
             <table class="EC_table">
                 <tr>
                     <th>분류</th>
@@ -134,7 +143,7 @@
                 <!--EC_c1_btnBox 시작-->
                 <div id="EC_c1_btnBox" class="bottom_btn">
                     <span><input type="reset" name="초기화" value="초기화"></span>
-                    <span><input type="button" name="등록" value="등록" onclick="sendit()"></span>
+                    <span><input type="button" name="등록" value="수정" onclick="sendit()"></span>
                 </div>
             </div>
             <!--EC_c1_btnBox 끝-->

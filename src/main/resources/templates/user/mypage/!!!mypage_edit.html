@@ -8,9 +8,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
-        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
+        .container { min-width: 1050px; margin: 0s auto; height: 100%; overflow-y: scroll;}
         .list li:nth-child(7) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
         .list li:nth-child(7) > a { color: #5dab99;}
     </style>
@@ -35,9 +36,6 @@
             let userpw = $("#pwd").val();
             let useremail = $(".edit1_email_data").text();
 
-            console.log("email"+useremail);
-            console.log("password"+userpw);
-
             axios.post('/api/login/user', {
                 data : {
                     id : useremail,
@@ -47,16 +45,10 @@
                 console.log(res);
                 alert('확인되었습니다.');
                 location.href = '/user/mypage_editMyinfo';
-
-                // if (res.data.data == null) {
-                //     alert('비밀번호가 맞지 않습니다.');
-                //     location.href = '/user/mypage_edit';
-                //     location.reload();
-                // } else {
-                //     alert('확인되었습니다.');
-                //     location.href = '/user/mypage_editMyinfo';
-                // }
-            });
+            }).catch(function (err){
+                alert('비밀번호를 한번 더 확인해주세요')
+                console.log(err)
+            })
         });
     });
 
@@ -87,12 +79,12 @@
                     </h3>
                     <ul class="form_list">
                         <li>
-                            <h5 class="list_title">이메일</h5>
+                            <h5 class="list_title_e">이메일</h5>
                             <p class="edit1_email_data"></p>
                             <input type="hidden" readonly="readonly">
                         </li>
                         <li>
-                            <h5 class="list_title">비밀번호</h5>
+                            <h5 class="list_title_e">비밀번호</h5>
                             <input type="password" name="pwd" id="pwd" placeholder="영문+숫자 10자 이상으로 입력해주세요.">
                             <div class="caution_not_input">
                                 비밀번호를 입력해 주세요.

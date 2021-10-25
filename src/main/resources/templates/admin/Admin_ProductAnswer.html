@@ -47,30 +47,19 @@
 
     function sendit(){
         let id = sessionStorage.getItem("idx1");
+        let ansContent = CKEDITOR.instances.PA_editor.getData();
         console.log(id)
-        let data = {
-            idx: id,
-            ansContent: CKEDITOR.instances.PA_editor.getData()
-        }
-        console.log(data.ansContent)
-        let files = ($('input[name="file"]'));
-        let fileList = [];
-        let formData = new FormData;
-
-        for(let i = 0; i < files.length; i++){
-            fileList.push(files[i].files[0]);
-            formData.append('files', files[i].files[0]);
-            console.log(formData)
-        }
-        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
-
-        axios.put('/api/productReview/ansContent/update', formData, {
-            headers: {'Content-Type': 'multipart/form-data'}
+        axios.put('/api/productReview/ansContent/update', {
+            data: {
+                idx: id,
+                ansContent: ansContent
+            }
         }).then(function (){
             alert('답변상태가 수정되었습니다');
             location.reload();
         })
     }
+
 
 </script>
 <body>

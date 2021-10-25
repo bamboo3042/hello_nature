@@ -92,7 +92,6 @@ $(function () {
             let $name = response.data.data[i].name;
             let $email = response.data.data[i].email;
             let $hp = response.data.data[i].hp;
-            let $mhpIdx = response.data.data[i].mhpIdx;
             let $greenFlag = response.data.data[i].greenFlag;
             let $smsFlag = response.data.data[i].smsFlag;
             let $regdate = response.data.data[i].regdate;
@@ -101,12 +100,6 @@ $(function () {
                 $smsFlag = "미동의"
             } else {
                 $smsFlag = "동의"
-            }
-
-            if ($mhpIdx != null) {
-                $mhpIdx = "헬로패스"
-            } else {
-                $mhpIdx = "미가입"
             }
 
             if ($greenFlag == "FALSE") {
@@ -122,7 +115,7 @@ $(function () {
                 '<td height="80px"><input type="checkbox" id="Ul_check_' + k + '" name="user" onClick="checkSelectAll()"><label For="Ul_check_' + k + '"></td>' +
                 '<td><p>이름 : ' + $name + '</p><p>이메일 : ' + $email + '</p></td>' +
                 '<td>' + $hp + '</td>' +
-                '<td class="serviceFlag">' + $mhpIdx + '/' + $greenFlag + '</td>' +
+                '<td class="serviceFlag">' + $greenFlag + '</td>' +
                 '<td class="smsFlag">' + $smsFlag + '</td>' +
                 '<td>' + $regdate + '</td>' +
                 '<td><input type="button" value="수정" class="edit_go"><input type="hidden" value="' + $id + '"></td></tr>'
@@ -318,12 +311,6 @@ function sc() {
                     $smsFlag = "동의"
                 }
 
-                if ($mhpIdx != null) {
-                    $mhpIdx = "헬로패스"
-                } else {
-                    $mhpIdx = "미가입"
-                }
-
                 if ($greenFlag == "FALSE") {
                     $greenFlag = "미가입"
                 } else {
@@ -335,7 +322,7 @@ function sc() {
                     '<td height="80px"><input type="checkbox" id="Ul_check_' + k + '" name="user" onClick="checkSelectAll()"><label For="Ul_check_' + k + '"></td>' +
                     '<td><p>이름 : ' + $name + '</p><p>이메일 : ' + $email + '</p></td>' +
                     '<td>' + $hp + '</td>' +
-                    '<td>' + $mhpIdx + '/' + $greenFlag + '</td>' +
+                    '<td>' + $greenFlag + '</td>' +
                     '<td>' + $smsFlag + '</td>' +
                     '<td>' + $regdate + '</td>' +
                     '<td><input type="button" value="수정" class="edit_go"><input type="hidden" value="' + $id + '"></td></tr>'
@@ -395,7 +382,6 @@ function sc() {
                         let $name = response.data.data[i].name;
                         let $email = response.data.data[i].email;
                         let $hp = response.data.data[i].hp;
-                        let $mhpIdx = response.data.data[i].mhpIdx;
                         let $greenFlag = response.data.data[i].greenFlag;
                         let $smsFlag = response.data.data[i].smsFlag;
                         let $regdate = response.data.data[i].regdate;
@@ -403,12 +389,6 @@ function sc() {
                             $smsFlag = "미동의"
                         } else {
                             $smsFlag = "동의"
-                        }
-
-                        if ($mhpIdx != null) {
-                            $mhpIdx = "헬로패스"
-                        } else {
-                            $mhpIdx = "미가입"
                         }
 
                         if ($greenFlag == "FALSE") {
@@ -423,7 +403,7 @@ function sc() {
                             '<td height="80px"><input type="checkbox" id="Ul_check_"' + k + ' name="user" onClick="checkSelectAll()"><label For="Ul_check_"' + k + '></td>' +
                             '<td><p>이름 : ' + $name + '</p><p>이메일 : ' + $email + '</p></td>' +
                             '<td>' + $hp + '</td>' +
-                            '<td>' + $mhpIdx + '/' + $greenFlag + '</td>' +
+                            '<td>' + $greenFlag + '</td>' +
                             '<td>' + $smsFlag + '</td>' +
                             '<td>' + $regdate + '</td>' +
                             '<td><input type="button" value="수정" class="edit_go"><input type="hidden" value="' + $id + '"></td></tr>'

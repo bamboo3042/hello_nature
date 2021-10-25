@@ -12,39 +12,52 @@
 </head>
 <script>
     $(function (){
-        const id = $("#id").val();
+        const id = sessionStorage.getItem("notice_idx");
+        console.log(id)
 
-        axios.get('/api/notice/list' + id, {
+        axios.get('/api/notice/read/' + id, {
 
         }).then(function(response){
-            const type = response.data.type;
-            const title = response.data.title;
-            const content = response.data.content;
+            console.log(response.data.data)
+            let type = response.data.data.type;
+            let title = response.data.data.title;
+            let content = response.data.data.content;
 
-            document.getElementById("type").value = type;
+            $('#type').val(type).prop("selected",true);
             document.getElementById("title").value = title;
             CKEDITOR.instances.NE_editor.setData(content);
 
-        }).then(function (err){
+        }).catch(function (err){
+            console.log(err)
         })
     });
 
     function edit(){
-        let id = $('#id').val();
+        const id = sessionStorage.getItem("notice_idx");
         let type = $('#type').val();
         let title = $('#title').val();
-        let content = $('#NE_editor').val();
+        let content = CKEDITOR.instances.NE_editor.getData();
 
-        axios.put('/api/notice/update/'+id, {
+        axios.put('/api/notice/update/', {
             headers: {'Content-type': 'application/json'},
             data: {
+                idx: id,
                 type: type,
                 title: title,
                 content: content
             }
         }).then(function (){
-            alert('수정되었습니다'),
-                location.href='/admin/notice/list'
+            alert('수정되었습니다')
+            $.ajax({
+                type: 'GET',
+                url: '/admin/Notice',
+                datatype: 'html/text',
+                success: function (result) {
+                    $("#content").html(result).trigger("create");
+                }
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     }
 </script>
@@ -53,9 +66,9 @@
 <div class="content_title"><p>고객센터<span>공지사항 관리</span></p></div>
 <!--content_title 끝-->
 <!--Nedit 시작-->
-<div class="Nedit">
+<div class="Ncreate">
     <!--form 시작-->
-    <form name="notice_edit" onsubmit="return edit()">
+    <form name="notice_create">
         <p class="product_title" id="NE_c1_title"><label>공지사항 수정</label></p>
         <!--table 시작-->
         <table>
@@ -63,10 +76,10 @@
                 <th>분류</th>
                 <td>
                     <select id="type">
-                        <option value="일반">일반</option>
-                        <option value="이벤트">이벤트</option>
-                        <option value="배송지연">배송지연</option>
-                        <option value="상품">상품</option>
+                        <option value="1">일반</option>
+                        <option value="2">이벤트</option>
+                        <option value="3">배송지연</option>
+                        <option value="4">상품</option>
                     </select>
                 </td>
             </tr>
@@ -92,7 +105,7 @@
         <!--NE_c1_btnBox 시작-->
         <div id="NE_c1_btnBox" class="bottom_btn">
             <span><input type="reset" name="reset" value="초기화"></span>
-            <span><input type="submit" name="submit" value="수정"></span>
+            <span><input type="button" name="submit" value="수정" onclick="edit()"></span>
         </div>
         <!--NE_c1_btnBox 끝-->
     </form>

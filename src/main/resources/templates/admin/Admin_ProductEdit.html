@@ -18,8 +18,9 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
+    //1차 카테고리 다중셀렉트
     $(function () {
-        axios.get("/api/category/list/first", {}).then(function (response) {
+        axios.get("/api/category/list/first?lifeFlag=FALSE", {}).then(function (response) {
             for (let i in response.data.data) {
                 let $id = response.data.data[i].idx;
                 let $name = response.data.data[i].name;
@@ -32,8 +33,10 @@
         })
     })
 
+    //2차 카테고리 다중셀렉트
     function categoryChange(e) {
-        axios.get("/api/category/list/second/" + e.value, {}).then(function (response) {
+        $('#PL_sel_2').empty();
+        axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
             for (let i in response.data.data) {
                 console.log(response)
                 let $id = response.data.data[i].idx;
@@ -137,8 +140,10 @@
             producer: $("#producer").val(),
             location: $("#location").val(),
             dateBuilt: $("#dateBuilt").val(),
-            dateValid: $("#dateValid").val()
+            dateValid: $("#dateValid").val(),
+            lifeFlag: 'FALSE'
         }
+        console.log(data.lifeFlag)
         console.log(data.idx)
         console.log(data.des)
         console.log(data.name)
@@ -280,7 +285,7 @@
                 <th>브랜드명</th>
                 <td colspan="3">
                     <!--팝업창 부분 시작 -->
-                    <input type="text" name="brand" id="brIdx">
+                    <input type="text" name="brand" id="br_name">
                     <button class="pop_btn" type="button" onclick="modal_open()"><img src="/admin/img/search_icon.png"
                                                                                       alt=""
                                                                                       style="width: 30px; border: 1px solid #266266;">

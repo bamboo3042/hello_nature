@@ -229,9 +229,9 @@
                 url = url + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
             }
 
-            if(state == ""){
+            if(state == undefined){
                 url = url;
-            }else if(state != ""){
+            }else if(state != undefined){
                 url = url + '&state=' + state;
             }
             if(member == ""){
@@ -320,6 +320,7 @@
                         }
                     })
                 })
+                $("#Maxprev").siblings(".page_num").remove();
                 for(let i = response.data.pagination.totalPages; i > 0; i--) {
                     let pages = $('<li class="page_num" value="' + (i - 1) + '">').append(
                         i + '</li>'

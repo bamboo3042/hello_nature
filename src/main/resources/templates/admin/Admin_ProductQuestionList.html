@@ -58,7 +58,6 @@
                 alert("뭘봐")
                 $("#ajax_hidden").val($(this).next().val());
                 let id = $("#ajax_hidden").val();
-                // let memIdx = $("#memIdx_hidden").val();
 
                 console.log(id)
 
@@ -239,9 +238,9 @@
                 url = url + '&startPage=' + page;
             }
 
-            if(answer == ""){
+            if(answer == undefined){
                 url = url;
-            }else if(answer != ""){
+            }else if(answer != undefined){
                 url = url +'&ansFlag=' + answer;
             }
             console.log(answer);

@@ -14,140 +14,366 @@
     <script src="/admin/js/checkbox.js"></script>
 </head>
 <script>
-    $(function (){
-        //http://127.0.0.1:9999/api/event/list?typeFlag=?&dateStart=?&dateEnd=? //전체보여주기
-        let tb = $('<tbody>');
-        //api/event/list
-        axios.get('api/event/list',{
+    $(function(){
+        let page = $('.page').val();
+        axios.get('/api/event/list?startPage=' + page, {
         }).then(function (response){
-            for(let i in response.data.data){
-                let $id = response.data.data[i].id;
-                let $typeFlag = response.data.data[i].typeFlag;
-                let $ingFlag= response.data.data[i].ingFlag;
-                let $dateStart= response.data.data[i].dateStart;
-                let $dateEnd = response.data.data[i].dateEnd;
-                let $image= response.data.data[i].image;
-                let $title= response.data.data[i].title;
-                let $des = response.data.data[i].des;
-                let $content = response.data.data[i].content;
+            let tb = $('<tbody class="tbody">');
+            for(let i in response.data.data) {
+                let id = response.data.data[i].idx
+                let eventFlag  = response.data.data[i].eventFlag;
+                let title = response.data.data[i].title;
+                let ingFlag = response.data.data[i].ingFlag;
+                let dateStart = response.data.data[i].dateStart;
+                let dateEnd = response.data.data[i].dateEnd;
+                let j = parseInt(i) + 1
+
+                if(eventFlag === "TRUE") {
+                    eventFlag = '이벤트'
+                }else if(eventFlag === "FALSE"){
+                    eventFlag = '기획전'
+                }
+
+                if(ingFlag === "TRUE") {
+                    ingFlag = '진행중'
+                }else if(ingFlag === "FALSE"){
+                    ingFlag = '진행종료'
+                }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" class="ELCheck" id="EL_check"'+i+'value='+$id+'><label for="EL_check"'+i+'></td>' +
-                    '<td>' + i + '</td>' +
-                    '<td>' + $typeFlag + '</td>' +
-                    '<td>' + $title + '</td>' +
-                    '<td>' + $dateStart + '~' + $dateEnd + '</td>' +
-                    '<td><input type="hidden" value='+$ingFlag+' class="ingFlag">' + $ingFlag + '</td>'
+                    '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                    '<td>' + j + '</td>' +
+                    '<td>'+ eventFlag +'</td>' +
+                    '<td>' + title + '</td>' +
+                    '<td>' + dateStart + '-' + dateEnd + '</td>' +
+                    '<td>' + ingFlag + '</td>' +
+                    '<td><input type="button" class="detail" value="상세"><input type="hidden" value="'+ id +'"></td></tr>'
                 )
                 tb.append(row);
             }
-            tb.append('</tobdy>')
+            tb.append('</tbody>');
             $('.thead').after(tb);
-        }).catch(function (err){
-            console.log(err)
+
+            $(".detail").click(function (e) {
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+
+                sessionStorage.setItem("brand_idx", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/EventEdit',
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
+            $("#Maxprev").siblings(".page_num").remove();
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function(e){
+                $('.tbody').empty();
+                $('.page').val($(this).val())
+                let page = $('.page').val()
+
+                axios.get('/api/event/list?startPage=' + page, {
+                }).then(function (response){
+                    let tb = $('<tbody class="tbody">');
+                    for(let i in response.data.data) {
+                        let id = response.data.data[i].idx
+                        let eventFlag  = response.data.data[i].eventFlag;
+                        let title = response.data.data[i].title;
+                        let ingFlag = response.data.data[i].ingFlag;
+                        let dateStart = response.data.data[i].dateStart;
+                        let dateEnd = response.data.data[i].dateEnd;
+                        let j = parseInt(i) + 1
+
+                        if(eventFlag === "TRUE") {
+                            eventFlag = '이벤트'
+                        }else if(eventFlag === "FALSE"){
+                            eventFlag = '기획전'
+                        }
+
+                        if(ingFlag === "TRUE") {
+                            ingFlag = '진행중'
+                        }else if(ingFlag === "FALSE"){
+                            ingFlag = '진행종료'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                            '<td>' + j + '</td>' +
+                            '<td>'+ eventFlag +'</td>' +
+                            '<td>' + title + '</td>' +
+                            '<td>' + dateStart + '-' + dateEnd + '</td>' +
+                            '<td>' + ingFlag + '</td>' +
+                            '<td><input type="button" class="detail" value="상세"><input type="hidden" value="'+ id +'"></td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    tb.append('</tbody>');
+                    $('.thead').after(tb);
+
+                    $(".detail").click(function (e) {
+                        $("#ajax_hidden").val($(this).next().val());
+                        let id = $("#ajax_hidden").val();
+
+                        console.log(id)
+
+                        sessionStorage.setItem("brand_idx", id);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/admin/EventEdit',
+                            datatype: 'html/text',
+                            success: function (result){
+                                console.log(result)
+                                $("#content").html(result).trigger("create");
+                            }
+                        })
+                    })
+                })
+
+            })
         })
-    });
 
+        $(function () {
+            $('#delbtn').click(function (){
+                let id = [];
+                ($("input:checkbox[name='pquestion']:checked").each(function (e){
+                    id.push($(this).val())
+                }));
+                console.log(id)
 
-    //http://127.0.0.1:9999/api/event/list?typeFlag=?&dateStart=?&dateEnd=? // 검색
-    $(function () {
-        let now = new Date();
-        let now_result = now.toISOString().substring(0,10);
-
-        document.getElementById("weekbtn").addEventListener("click", function (){
-
-            let week = new Date();
-            week.setDate(week.getDate()- 7);
-            var week_result = week.toISOString().substring(0, 10);
-
-            document.getElementById("date_start").value = week_result;
-            document.getElementById("date_end").value = now_result;
-        })
-
-        document.getElementById("monthbtn").addEventListener("click", function (){
-
-            let month = new Date();
-            month.setMonth(month.getMonth()- 1);
-            var month_result =month.toISOString().substring(0, 10);
-
-
-            document.getElementById("date_start").value = month_result;
-            document.getElementById("date_end").value = now_result;
-        })
-
-        document.getElementById("three_monthbtn").addEventListener("click", function (){
-
-            let three_month = new Date();
-            three_month.setMonth(three_month.getMonth()- 3);
-            var three_month_result =three_month.toISOString().substring(0, 10);
-
-
-            document.getElementById("date_start").value = three_month_result;
-            document.getElementById("date_end").value = now_result;
-        })
-
-        $('#schbtn').click(function (){
-
-            let type = $('#type').val() //1,2,3,4
-            let text =$('#text').val() // string
-            let datestart =$('#date_start').val() //0000-00-00
-            let dateEnd =$('#date_end').val() //0000-00-00
-
-            let tb= $("<tbody>");
-            axios.get("api/event/list?typeFlag="+type+"&datestart="+datestart+"&dateEnd="+dateEnd+"&text="+text,{
-            }).then(function (response){
-                for(let i in response.data.data){
-                    let $id = response.data.data[i].id;
-                    let $typeFlag = response.data.data[i].typeFlag;
-                    let $ingFlag= response.data.data[i].ingFlag;
-                    let $dateStart= response.data.data[i].dateStart;
-                    let $dateEnd = response.data.data[i].dateEnd;
-                    let $image= response.data.data[i].image;
-                    let $title= response.data.data[i].title;
-                    let $des = response.data.data[i].des;
-                    let $content = response.data.data[i].content;;
-
-                    let row = $('<tr>').append(
-                        '<td><input type="checkbox" class="ELCheck" id="EL_check"+i value='+$id+'><label for="EL_check"+i></td>' +
-                        '<td>' + i + '</td>' +
-                        '<td>' + $typeFlag + '</td>' +
-                        '<td>' + $title + '</td>' +
-                        '<td>' + $dateStart + '~' + $dateEnd + '</td>' +
-                        '<td><input type="hidden" value='+$ingFlag+' class="ingFlag">' + $ingFlag + '</td>'
-                    )
-                    tb.append(row);
-                }
-                tb.append('</tbody>')
-                $('.thead').after(tb);
+                axios.delete("/api/productquestion/delete", {
+                    data:{
+                        id: id,
+                    }
+                }).then(function (){
+                    alert("선택된 상품문의 삭제 성공")
+                })
             }).catch(function (err){
                 console.log(err)
             })
-            let ingFlag = document.querySelectorAll(".ingFlag");
-            for (let i =0; ingFlag.length; i++){
-                if(ingFlag[i].innerText==1){
-                    ingFlag[i].innerText="전시중"
-                }else{
-                    ingFlag[i].innerText="전시종료"
-                }
-            }
         })
-    })
 
+        $(function () {
+            let now = new Date();
+            let now_result = now.toISOString().substring(0, 10);
 
-    $(function (){
-        $("#delbtn").click(function(){
-            let id = [];
-            ($("input:checkbox[name='event']:checked").each(function (e) {
-                id.push($(this).val())
-            }));
-            console.log(id)
+            document.getElementById("weekbtn").addEventListener("click", function () {
+                let week = new Date();
+                week.setDate(week.getDate() - 7);
+                var week_result = week.toISOString().substring(0, 10);
 
-            axios.delete("/api/event/delete"+id, {
-            }).then(function () {
-                alert("이벤트 삭제 성공")
+                document.getElementById("date_start").value = week_result;
+                document.getElementById("date_end").value = now_result;
             })
-        }).catch(function (err) {
-            console.log(err)
+
+            document.getElementById("monthbtn").addEventListener("click", function () {
+
+                let month = new Date();
+                month.setMonth(month.getMonth() - 1);
+                var month_result = month.toISOString().substring(0, 10);
+
+
+                document.getElementById("date_start").value = month_result;
+                document.getElementById("date_end").value = now_result;
+            })
+
+            document.getElementById("three_monthbtn").addEventListener("click", function () {
+
+                let three_month = new Date();
+                three_month.setMonth(three_month.getMonth() - 3);
+                var three_month_result = three_month.toISOString().substring(0, 10);
+
+
+                document.getElementById("date_start").value = three_month_result;
+                document.getElementById("date_end").value = now_result;
+            })
+        })
+
+        $('#schbtn').click(function () {
+            $('#pageBox').em
+            $('.tbody').empty();
+
+            let page = $('.page').val();
+            let dateStart = $('#date_start').val();
+            let dateEnd = $('#date_end').val();
+            let typeFlag = $('#typeFlag').val();
+            let title = $('#title').val();
+
+            let url = '/api/event/list?startPage=' + page;
+
+            if(dateStart == "" && dateEnd == ""){
+                url = url
+            }else if(dateStart == "" && dateEnd != ""){
+                url = url + '&dateEnd=' + dateEnd;
+            }else if(dateStart != "" && dateEnd == ""){
+                url =url + '&dateStart=' + dateStart;
+            }else if(dateStart != "" && dateEnd != ""){
+                url = url + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+            }
+
+            if(typeFlag == "분류"){
+                url = url;
+            }else if(typeFlag != undefined){
+                url = url +'&typeFlag=' + typeFlag;
+            }
+
+            if(title === ""){
+                url = url;
+            }else if(title !== ""){
+                url = url + '&title=' + title;
+            }
+
+            console.log(url);
+
+            axios.get(url, {
+            }).then(function (response) {
+                let tb = $('<tbody class="tbody">');
+                for(let i in response.data.data) {
+                    let id = response.data.data[i].idx
+                    let eventFlag  = response.data.data[i].eventFlag;
+                    let title = response.data.data[i].title;
+                    let ingFlag = response.data.data[i].ingFlag;
+                    let dateStart = response.data.data[i].dateStart;
+                    let dateEnd = response.data.data[i].dateEnd;
+                    let j = parseInt(i) + 1
+
+                    if(eventFlag === "TRUE") {
+                        eventFlag = '이벤트'
+                    }else if(eventFlag === "FALSE"){
+                        eventFlag = '기획전'
+                    }
+
+                    if(ingFlag === "TRUE") {
+                        ingFlag = '진행중'
+                    }else if(ingFlag === "FALSE"){
+                        ingFlag = '진행종료'
+                    }
+
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                        '<td>' + j + '</td>' +
+                        '<td>'+ eventFlag +'</td>' +
+                        '<td>' + title + '</td>' +
+                        '<td>' + dateStart + '-' + dateEnd + '</td>' +
+                        '<td>' + ingFlag + '</td>' +
+                        '<td><input type="button" class="detail" value="상세"><input type="hidden" value="'+ id +'"></td></tr>'
+                    )
+                    tb.append(row);
+                }
+                tb.append('</tbody>');
+                $('.thead').after(tb);
+
+                $("#Maxprev").siblings(".page_num").remove();
+                for(let i = response.data.pagination.totalPages; i > 0; i--){
+                    let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
+                }
+                $('.page_num').click(function(e){
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+                    let dateStart = $('#date_start').val();
+                    let dateEnd = $('#date_end').val();
+                    let typeFlag = $('#typeFlag').val();
+                    let title = $('#title').val();
+
+                    let url = '/api/event/list?startPage=' + page;
+
+                    if(dateStart == "" && dateEnd == ""){
+                        url = url
+                    }else if(dateStart == "" && dateEnd != ""){
+                        url = url + '&dateEnd=' + dateEnd;
+                    }else if(dateStart != "" && dateEnd == ""){
+                        url =url + '&dateStart=' + dateStart;
+                    }else if(dateStart != "" && dateEnd != ""){
+                        url = url + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+                    }
+
+                    if(typeFlag == "분류"){
+                        url = url;
+                    }else if(typeFlag != undefined){
+                        url = url +'&typeFlag=' + typeFlag;
+                    }
+
+                    if(title === ""){
+                        url = url;
+                    }else if(title !== ""){
+                        url = url + '&title=' + title;
+                    }
+
+                    console.log(url);
+
+                    axios.get(url, {
+                    }).then(function (response){
+                        let tb = $('<tbody class="tbody">');
+                        for(let i in response.data.data) {
+                            let id = response.data.data[i].idx
+                            let eventFlag  = response.data.data[i].eventFlag;
+                            let title = response.data.data[i].title;
+                            let ingFlag = response.data.data[i].ingFlag;
+                            let dateStart = response.data.data[i].dateStart;
+                            let dateEnd = response.data.data[i].dateEnd;
+                            let j = parseInt(i) + 1
+
+                            if(eventFlag === "TRUE") {
+                                eventFlag = '이벤트'
+                            }else if(eventFlag === "FALSE"){
+                                eventFlag = '기획전'
+                            }
+
+                            if(ingFlag === "TRUE") {
+                                ingFlag = '진행중'
+                            }else if(ingFlag === "FALSE"){
+                                ingFlag = '진행종료'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                                '<td>' + j + '</td>' +
+                                '<td>'+ eventFlag +'</td>' +
+                                '<td>' + title + '</td>' +
+                                '<td>' + dateStart + '-' + dateEnd + '</td>' +
+                                '<td>' + ingFlag + '</td>' +
+                                '<td><input type="button" class="detail" value="상세"><input type="hidden" value="'+ id +'"></td></tr>'
+                            )
+                            tb.append(row);
+                        }
+                        tb.append('</tbody>');
+                        $('.thead').after(tb);
+                    })
+                })
+
+                $(".detail").click(function (e) {
+                    $("#ajax_hidden").val($(this).next().val());
+                    let id = $("#ajax_hidden").val();
+
+                    console.log(id)
+
+                    sessionStorage.setItem("brand_idx", id);
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/EventEdit',
+                        datatype: 'html/text',
+                        success: function (result){
+                            console.log(result)
+                            $("#content").html(result).trigger("create");
+                        }
+                    })
+                })
+            })
         })
     })
 </script>
@@ -179,18 +405,19 @@
                     <tr>
                         <th>분류</th>
                         <td>
-                            <select style="height: 38px;">
-                                <option value="기획전">기획전</option>
-                                <option value="이벤트">이벤트</option>
+                            <select style="height: 38px;" id="typeFlag">
+                                <option>분류</option>
+                                <option value="0">기획전</option>
+                                <option value="1">이벤트</option>
                             </select>
-                            <input type="text" name="text" placeholder="기획전/이벤트명을 검색하세요">
+                            <input type="text" name="text" placeholder="기획전/이벤트명을 검색하세요" id="title">
                         </td>
                     </tr>
                 </table>
                 <!--table 끝-->
                 <div class="bottom_btn">
                     <span><input type="reset" name="reset" value="초기화"></span>
-                    <span><input type="submit" name="submit" value="검색" id="schbtn"></span>
+                    <span><input type="button" name="submit" value="검색" id="schbtn"></span>
                 </div>
             </form>
             <!--form 끝-->
@@ -208,45 +435,32 @@
                 <span>
                     <input type="button" name="button" value="선택삭제">
                 </span>
-                <span>
-                    <select class="list_select" id="EL_display">
-                        <option value="1">전시중</option>
-                        <option value="2">전시종료</option>
-                    </select>
-                    <input type="submit" name="submit" value="적용">
-                </span>
                 <!--table 시작-->
                 <table width="100%" class="list_table">
-                    <thead>
+                    <thead class="thead">
                     <tr>
                         <th width="5%"><input type="checkbox" value="ELCheck" id="EL_check" name="selectall" onclick="EL_selectAll(this)"><label for="EL_check"></label></th>
                         <th width="10%">번호</th>
                         <th width="15%">분류</th>
-                        <th width="30%">기획전/이벤트명</th>
-                        <th width="25%">진행기간</th>
+                        <th width="25%">기획전/이벤트명</th>
+                        <th width="20%">진행기간</th>
                         <th width="15%">진행상태</th>
+                        <th width="10%">상세</th>
                     </tr>
                     </thead>
-                    <tr>
-                        <td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                        <td>예시</td>
-                    </tr>
                 </table>
                 <!--table 끝-->
                 <div class="pageBox">
                     <ul>
                         <li id="Maxprev"><a href="#"><<</a></li>
-                        <li><a href="#"><</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">></a></li>
+                        <li id="prev"><</li>
+                        <li></li>
                         <li id="Maxnext"><a href="#">>></a></li>
-                    </ul>   
-                </div> 
+                    </ul>
+                    <input type="hidden" value="0" class="page">
+                    <input type="hidden" value="0" class="page_hidden">
+                    <input type="hidden" id="ajax_hidden">
+                </div>
             </form>
             <!--form 끝-->
         </div>
