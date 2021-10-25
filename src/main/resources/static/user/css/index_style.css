@@ -178,21 +178,21 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .list_event_bg {margin-top: 36px; width: 100%; height: 625px;}
 .list_event_mold {width: 1050px; height: 635px; margin: 0 auto;}
 
-#event_list_1 .event1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #fff; border-radius: 8px;}
-#event_list_1 .event2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #80ae40; border-radius: 8px;}
+#event_list_1 .event1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #23160A; color: #fff; border-radius: 8px;}
+#event_list_1 .event2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: #c67a12; border-radius: 8px;}
 #event_list_1 .event3_wrap {float: left; width: 338px; height: 538px; background-color: #ec5958; border-radius: 8px;}
 
-#event_list_1 .event1_img {background: url(../images/event1_img.jpg); height: 100%; height: 338px;
+#event_list_1 .event1_img {background: url(../images/born.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#event_list_1 .event2_img {background: url(../images/event2_img.jpg); height: 100%; height: 338px;
+#event_list_1 .event2_img {background: url(../images/recommend/store/20210910122744964.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#event_list_1 .event3_img {background: url(../images/event3_img.png); height: 100%; height: 338px;
+#event_list_1 .event3_img {background: url(../images/recommend/event/ing/20210127174258717.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
 
 .event1_img img, .event2_img img, .event3_img img {width: 106.5px; height: 106.5px; margin-top: 13.7px; margin-left: 13.7px;}
 .event1_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
-.event1_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
-.event1_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
+.event1_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 400; letter-spacing: 0.5px;}
+.event1_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; color: #fff; border-top: 0.1px solid rgba(255, 255, 255, 0.39);}
 
 .event2_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; color: #fff; letter-spacing: 0.5px;}
 .event2_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 300; letter-spacing: 0.5px;}
@@ -237,15 +237,16 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /* -------------------------------------------------------------------------- */
 
 /* main 매거진 시작 */
-#magazine_list_1 .magezine1_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
-#magazine_list_1 .magezine2_wrap {float: left; width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
-#magazine_list_1 .magezine3_wrap {float: left; width: 338px; height: 538px; background-color: #468feb; border-radius: 8px;}
+.list_event_mold { display: flex; justify-content: space-between; }
+#magazine_list_1 .magezine1_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
+#magazine_list_1 .magezine2_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
+#magazine_list_1 .magezine3_wrap { width: 338px; height: 538px; margin-right: 18px; background-color: var(--hello_bg_1); border-radius: 8px;}
 
-#magazine_list_1 .magezine1_img {background: url(../images/magazine1.jpg); height: 100%; height: 338px;
+#magazine_list_1 .magezine1_img {background: url(../../uploads/magazine/2021-10-24-03-29-49_20210628173831876.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#magazine_list_1 .magezine2_img {background: url(../images/magazine2.jpg); height: 100%; height: 338px;
+#magazine_list_1 .magezine2_img {background: url(../../uploads/magazine/2021-10-24-04-13-49_20210521141526310.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#magazine_list_1 .magezine3_img {background: url(../images/magazine3.jpg); height: 100%; height: 404px;
+#magazine_list_1 .magezine3_img {background: url(../../uploads/magazine/2021-10-24-22-33-24_20200907174611726.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
 
 .magezine1_img img, .magezine2_img img, .magezine3_img img {width: 106.5px; height: 106.5px; margin-top: 13.7px; margin-left: 13.7px;}
@@ -257,8 +258,9 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .magezine2_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
 .magezine2_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
 
-.magezine3_img + p  {margin-top: 16.5px; margin-left: 13.7px; font-size: 15px; color: #fff; font-weight: 300; letter-spacing: 0.5px;}
-.magezine3_img + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; color: #fff; border-top: 0.1px solid rgba(255, 255, 255, 0.39);}
+.magezine3_img + p {margin-top: 18px; margin-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
+.magezine3_img + p + p {margin-top: 13px; margin-left: 13.7px; font-size: 15px; font-weight: 400; letter-spacing: 0.5px;}
+.magezine3_img + p + p + a {margin: 26.5px auto 0; padding-top: 10px; width: 300px; height: 36px; text-align: center; border-top: 0.1px solid rgba(0, 0, 0, 0.39);}
 /* main 매거진 끝 */
 /* -------------------------------------------------------------------------- */
 
@@ -269,8 +271,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .recipe1_wrap, .recipe2_wrap, .recipe3_wrap  { margin-top: 40px; float: left; list-style: none; position: relative; width: 249px; height: 415px; margin-right: 18px; background-color: var(--hello_bg_1);}
 .recipe4_wrap {margin-top: 40px; float: left; list-style: none; position: relative; width: 249px; height: 415px; background-color: var(--hello_bg_1);}
 
-#recipe_list_1 div div .recipe1_img {position: relative; background: url(../images/recipe1.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
-#recipe_list_1 div div .recipe2_img {position: relative; background: url(../images/recipe2.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe1_img {position: relative; background: url(../../uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
+#recipe_list_1 div div .recipe2_img {position: relative; background: url(../../uploads/magazine/2021-10-24-02-44-41_20210702104659946.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 #recipe_list_1 div div .recipe3_img {position: relative; background: url(../images/recipe3.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 #recipe_list_1 div div .recipe4_img {position: relative; background: url(../images/recipe4.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px;}
 
@@ -312,8 +314,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 #item_list_brand .category_mold .mold > ul > li {display: inline; padding: 1em; padding: 10px 13px 7px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #DDD;}
 #item_list_brand .category_mold .mold > ul > li:hover { border-bottom: 1px solid #00B081; color: #00B081; transition: .25s; }
 
-#item_list_brand .mold .ico_cate { overflow: hidden; width: 100%; height: 40px;}
-#item_list_brand .mold .ico_cate .txt {float: left;padding: 20px 0 0 4px;font-size: 14px; line-height: 18px; font-weight: 700; color: #000; letter-spacing: 0.3px;}
+#item_list_brand .category_mold .ico_cate { overflow: hidden; width: 100%; height: 40px;}
+#item_list_brand .category_mold .ico_cate .txt {float: left;padding: 20px 0 0 4px;font-size: 14px; line-height: 18px; font-weight: 700; color: #000; letter-spacing: 0.3px;}
 
 #item_list_brand .mold .list {overflow: hidden; width: 870px;}
 #item_list_brand .mold .list li { float: left; font-weight: 400; font-size: 14px;}
@@ -490,11 +492,15 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /*#item_list_brand .life_item_end_wrap {float: left; list-style: none; position: relative; width: 249px; height: 460px; }*/
 #item_list_brand .life_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
 #item_list_brand .life_item_wrap:nth-child(4), #item_list_brand .life_item_wrap:nth-child(8), #item_list_brand .life_item_wrap:nth-child(12), #item_list_brand .life_item_wrap:nth-child(16), #item_list_brand .life_item_wrap:nth-child(20), #item_list_brand .life_item_wrap:nth-child(24), #item_list_brand .life_item_wrap:nth-child(28), #item_list_brand .life_item_wrap:nth-child(32), #item_list_brand .life_item_wrap:nth-child(36), #item_list_brand .life_item_wrap:nth-child(40)  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin: 0;}
-
 #item_list_brand .item_img {background: white; background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
+/* sale goods list ---------------------------------------------------------- */
+#goods_item_list .life_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
+#goods_item_list .life_item_wrap:nth-child(4), #goods_item_list .life_item_wrap:nth-child(8), #goods_item_list .life_item_wrap:nth-child(12), #goods_item_list .life_item_wrap:nth-child(16), #goods_item_list .life_item_wrap:nth-child(20), #goods_item_list .life_item_wrap:nth-child(24), #goods_item_list .life_item_wrap:nth-child(28), #goods_item_list .life_item_wrap:nth-child(32), #goods_item_list .life_item_wrap:nth-child(36), #goods_item_list .life_item_wrap:nth-child(40)  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin: 0;}
+
+
+
 /* brand goods list ---------------------------------------------------------- */
-/* 아이템 공통 랩 */
 #item_list_brand .brand_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
 #item_list_brand .brand_item_wrap:nth-child(3), #item_list_brand .brand_item_wrap:nth-child(7), #item_list_brand .brand_item_wrap:nth-child(11),#item_list_brand .brand_item_wrap:nth-child(15),#item_list_brand .brand_item_wrap:nth-child(19),#item_list_brand .brand_item_wrap:nth-child(23),#item_list_brand .brand_item_wrap:nth-child(27),#item_list_brand .brand_item_wrap:nth-child(31),#item_list_brand .brand_item_wrap:nth-child(35),#item_list_brand .brand_item_wrap:nth-child(39) {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin: 0;}
 
@@ -815,6 +821,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .brand_section02 input[id="brand_slide03"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-1019px); }
 .brand_section02 input[id="brand_slide04"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-1527px); }
 .brand_section02 input[id="brand_slide05"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-2035px); }
+.brand_section02 input[id="brand_slide06"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-2543px); }
+.brand_section02 input[id="brand_slide07"]:checked ~ .brand_slidewrap .brand_slidelist > li { transform: translateX(-3051px); }
 
 .brand_slide_pagelist { text-align: center; padding: 5px; margin-top: 8px;}
 .brand_slide_pagelist > li { display: inline-block; vertical-align: middle; }
@@ -824,6 +832,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .brand_section02 input[id="brand_slide03"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(3) > label { background: #999; }
 .brand_section02 input[id="brand_slide04"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(4) > label { background: #999; }
 .brand_section02 input[id="brand_slide05"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(5) > label { background: #999; }
+.brand_section02 input[id="brand_slide06"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(6) > label { background: #999; }
+.brand_section02 input[id="brand_slide07"]:checked ~ .brand_slidewrap .brand_slide_pagelist > li:nth-child(7) > label { background: #999; }
 
 
 /* 세부 카테고리 */
@@ -938,7 +948,9 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 
 
-/* index.html - 가을에만 만날 수 있는 과일 이미지 */
+/* index.html 상품 이미지 ------------------------------------------------------------------------- */
+
+/* index.html - 가을에만 만날 수 있는 과일 */
 .item_img_fruit_1 { background: url(../../uploads/product/2021-10-20-17-07-25_026076_003_22.png); }
 .item_img_fruit_2 { background: url(../../uploads/product/2021-10-20-04-46-22_028209_001_22.jpg); }
 .item_img_fruit_3 { background: url(../../uploads/product/2021-10-20-04-38-57_016653_001_22.jpg); }
@@ -947,3 +959,133 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .item_img_fruit_6 { background: url(../../uploads/product/2021-10-20-04-05-42_img11_main.jpg); }
 .item_img_fruit_7 { background: url(../../uploads/product/2021-10-20-03-59-40_img10_main.png); }
 .item_img_fruit_8 { background: url(../../uploads/product/2021-10-20-03-39-08_img7_main.png); }
+
+/* index.html - 전체 상품 - 과일 */
+.total_img_fruit_1 { background: url(../../uploads/product/2021-10-20-10-21-35_105414_001_22.png); }
+.total_img_fruit_2 { background: url(../../uploads/product/2021-10-20-11-03-35_107036_001_22.png); }
+.total_img_fruit_3 { background: url(../../uploads/product/2021-10-20-11-10-53_026176_001_22.jpg); }
+.total_img_fruit_4 { background: url(../../uploads/product/2021-10-20-11-19-56_021541_001_22.jpg); }
+.total_img_fruit_5 { background: url(../../uploads/product/2021-10-20-11-36-34_026712_001_22.jpg); }
+.total_img_fruit_6 { background: url(../../uploads/product/2021-10-20-11-46-57_024058_001_22.jpg); }
+.total_img_fruit_7 { background: url(../../uploads/product/2021-10-20-11-53-46_024057_001_22.jpg); }
+.total_img_fruit_8 { background: url(../../uploads/product/2021-10-20-12-17-01_023137_001_22.jpg); }
+
+/* index.html - 전체 상품 - 채소 */
+.total_img_vege_1 { background: url(../../uploads/product/2021-10-19-17-48-00_106147_001_22.png); }
+.total_img_vege_2 { background: url(../../uploads/product/2021-10-19-18-09-39_022203_001_22.jpg); }
+.total_img_vege_3 { background: url(../../uploads/product/2021-10-20-01-39-04_106432_003_22.png); }
+.total_img_vege_4 { background: url(../../uploads/product/2021-10-20-01-50-49_106404_001_22.png); }
+.total_img_vege_5 { background: url(../../uploads/product/2021-10-20-02-05-12_024440_003_22.png); }
+.total_img_vege_6 { background: url(../../uploads/product/2021-10-20-02-15-08_024625_001_22.jpg); }
+.total_img_vege_7 { background: url(../../uploads/product/2021-10-20-02-23-55_028912_001_22.png); }
+.total_img_vege_8 { background: url(../../uploads/product/2021-10-20-02-30-18_103048_001_22.png); }
+
+/* index.html - 전체 상품 - 잡곡 */
+.total_img_cereal_1 { background: url(../../uploads/product/2021-10-20-22-42-40_104948_001_22.png); }
+.total_img_cereal_2 { background: url(../../uploads/product/2021-10-20-22-47-00_021733_001_22.jpg); }
+.total_img_cereal_3 { background: url(../../uploads/product/2021-10-20-22-53-22_101606_001_22.png); }
+.total_img_cereal_4 { background: url(../../uploads/product/2021-10-20-22-59-53_20200917100730239.jpg); }
+.total_img_cereal_5 { background: url(../../uploads/product/2021-10-21-00-00-57_027283_001_22.jpg); }
+.total_img_cereal_6 { background: url(../../uploads/product/2021-10-21-00-05-03_019011_001_22.jpg); }
+.total_img_cereal_7 { background: url(../../uploads/product/2021-10-21-00-13-58_014564_003_22.png); }
+.total_img_cereal_8 { background: url(../../uploads/product/2021-10-21-00-19-26_20210504143756936.jpg); }
+
+/* index.html - 전체 상품 - 정육 */
+.total_img_meat_1 { background: url(../../uploads/product/2021-10-23-04-14-10_102411_001_22.png); }
+.total_img_meat_2 { background: url(../../uploads/product/2021-10-21-04-38-49_101792_001_22.png); }
+.total_img_meat_3 { background: url(../../uploads/product/2021-10-21-04-35-11_101793_001_22.png); }
+.total_img_meat_4 { background: url(../../uploads/product/2021-10-21-04-27-27_022005_001_22.jpg); }
+.total_img_meat_5 { background: url(../../uploads/product/2021-10-21-04-24-18_022006_001_22.jpg); }
+.total_img_meat_6 { background: url(../../uploads/product/2021-10-21-03-53-56_022007_001_22.jpg); }
+.total_img_meat_7 { background: url(../../uploads/product/2021-10-21-03-49-56_022008_001_22.jpg); }
+.total_img_meat_8 { background: url(../../uploads/product/2021-10-21-03-39-46_100423_001_22.png); }
+
+/* index.html - 전체 상품 - 수산 */
+.total_img_fish_1 { background: url(../../uploads/product/2021-10-22-00-37-09_101946_001_22.png); }
+.total_img_fish_2 { background: url(../../uploads/product/2021-10-22-00-24-39_102708_001_22.png); }
+.total_img_fish_3 { background: url(../../uploads/product/2021-10-22-00-15-03_028816_001_22.jpg); }
+.total_img_fish_4 { background: url(../../uploads/product/2021-10-22-00-10-19_023335_001_22.jpg); }
+.total_img_fish_5 { background: url(../../uploads/product/2021-10-22-00-04-38_028814_001_22.jpg); }
+.total_img_fish_6 { background: url(../../uploads/product/2021-10-22-00-00-33_028818_001_22.jpg); }
+.total_img_fish_7 { background: url(../../uploads/product/2021-10-21-22-50-04_022233_001_22.jpg); }
+.total_img_fish_8 { background: url(../../uploads/product/2021-10-21-22-39-59_101064_001_22.png); }
+
+/* index.html - 전체 상품 - 요리 */
+.total_img_cook_1 { background: url(../../uploads/product/2021-10-24-04-44-57_027376_001_22.jpg); }
+.total_img_cook_2 { background: url(../../uploads/product/2021-10-24-04-41-41_027377_001_22.jpg); }
+.total_img_cook_3 { background: url(../../uploads/product/2021-10-23-04-18-51_026084_001_22.jpg); }
+.total_img_cook_4 { background: url(../../uploads/product/2021-10-22-10-28-01_104164_001_22.png); }
+.total_img_cook_5 { background: url(../../uploads/product/2021-10-22-06-45-21_104170_001_22.png); }
+.total_img_cook_6 { background: url(../../uploads/product/2021-10-22-06-42-55_027592_001_22.jpg); }
+.total_img_cook_7 { background: url(../../uploads/product/2021-10-22-06-35-46_100730_001_22.png); }
+.total_img_cook_8 { background: url(../../uploads/product/2021-10-22-06-33-09_027982_001_22.jpg); }
+
+/* index.html - 전체 상품 - 샐러드 */
+.total_img_salad_1 { background: url(../../uploads/product/2021-10-22-15-38-52_105646_001_22.png); }
+.total_img_salad_2 { background: url(../../uploads/product/2021-10-22-15-36-10_105648_001_22.png); }
+.total_img_salad_3 { background: url(../../uploads/product/2021-10-22-15-33-32_105649_001_22.png); }
+.total_img_salad_4 { background: url(../../uploads/product/2021-10-22-15-24-20_105354_001_22.png); }
+.total_img_salad_5 { background: url(../../uploads/product/2021-10-22-15-13-16_105590_001_22.png); }
+.total_img_salad_6 { background: url(../../uploads/product/2021-10-22-15-10-33_106462_001_22.png); }
+.total_img_salad_7 { background: url(../../uploads/product/2021-10-22-15-06-53_106463_001_22.png); }
+.total_img_salad_8 { background: url(../../uploads/product/2021-10-22-14-17-38_105706_001_22.png); }
+
+/* index.html - 전체 상품 - 양념 */
+.total_img_sauce_1 { background: url(../../uploads/product/2021-10-24-01-58-30_102384_001_22.png); }
+.total_img_sauce_2 { background: url(../../uploads/product/2021-10-24-01-53-49_104383_001_22.png); }
+.total_img_sauce_3 { background: url(../../uploads/product/2021-10-24-01-44-57_028394_003_22.png); }
+.total_img_sauce_4 { background: url(../../uploads/product/2021-10-22-14-10-38_106249_001_22.png); }
+.total_img_sauce_5 { background: url(../../uploads/product/2021-10-22-14-08-11_027572_005_22.png); }
+.total_img_sauce_6 { background: url(../../uploads/product/2021-10-22-14-05-50_027574_005_22.png); }
+.total_img_sauce_7 { background: url(../../uploads/product/2021-10-22-14-03-07_106250_001_22.png); }
+.total_img_sauce_8 { background: url(../../uploads/product/2021-10-22-13-42-44_027577_003_22.png); }
+
+/* index.html - 전체 상품 - 베이커리 */
+.total_img_bake_1 { background: url(../../uploads/product/2021-10-24-20-46-42_20210823181242487.jpg); }
+.total_img_bake_2 { background: url(../../uploads/product/2021-10-24-20-39-08_20210714143446135.jpg); }
+.total_img_bake_3 { background: url(../../uploads/product/2021-10-24-20-32-59_20210714140539634.jpg); }
+.total_img_bake_4 { background: url(../../uploads/product/2021-10-24-20-27-01_106412_001_22.png); }
+.total_img_bake_5 { background: url(../../uploads/product/2021-10-24-20-18-16_104396_001_22.png); }
+.total_img_bake_6 { background: url(../../uploads/product/2021-10-24-20-15-52_104395_001_22.png); }
+.total_img_bake_7 { background: url(../../uploads/product/2021-10-24-20-12-39_104394_001_22.png); }
+.total_img_bake_8 { background: url(../../uploads/product/2021-10-24-20-09-26_104388_001_22.png); }
+
+/* index.html - 전체 상품 - 음료 */
+.total_img_drink_1 { background: url(../../uploads/product/2021-10-24-21-28-22_106987_001_22.png); }
+.total_img_drink_2 { background: url(../../uploads/product/2021-10-24-21-24-42_106988_002_22.png); }
+.total_img_drink_3 { background: url(../../uploads/product/2021-10-24-21-21-38_107052_001_22.png); }
+.total_img_drink_4 { background: url(../../uploads/product/2021-10-24-21-18-56_107051_001_22.png); }
+.total_img_drink_5 { background: url(../../uploads/product/2021-10-24-21-11-33_104369_001_22.png); }
+.total_img_drink_6 { background: url(../../uploads/product/2021-10-24-21-08-47_104373_001_22.png); }
+.total_img_drink_7 { background: url(../../uploads/product/2021-10-24-21-06-00_104375_001_22.png); }
+.total_img_drink_8 { background: url(../../uploads/product/2021-10-24-21-02-28_104376_001_22.png); }
+
+/* index.html - 전체 상품 - 생활 */
+.total_img_daily_1 { background: url(../../user/images/product/2021-10-24-22-41-51_106009_001_22.png); }
+.total_img_daily_2 { background: url(../../uploads/product/2021-10-24-22-38-34_20210726165226222.jpg); }
+.total_img_daily_3 { background: url(../../uploads/product/2021-10-24-22-36-20_104077_001_22.png); }
+.total_img_daily_4 { background: url(../../uploads/product/2021-10-24-22-32-23_104041_001_22.png); }
+.total_img_daily_5 { background: url(../../uploads/product/2021-10-24-22-29-08_20210329145940823.jpg); }
+.total_img_daily_6 { background: url(../../uploads/product/2021-10-24-22-26-12_104051_001_22.png); }
+.total_img_daily_7 { background: url(../../uploads/product/2021-10-24-22-20-49_104045_001_22.png); }
+.total_img_daily_8 { background: url(../../uploads/product/2021-10-24-22-17-52_20210329153050787.jpg); }
+
+/* index.html - 스테이크의 모든 것 */
+.item_img_steak_1 { background: url(../../uploads/product/2021-10-21-01-33-59_023955_001_22.jpg); }
+.item_img_steak_2 { background: url(../../uploads/product/2021-10-21-01-28-34_023965_001_22.jpg); }
+.item_img_steak_3 { background: url(../../uploads/product/2021-10-21-01-24-34_023967_001_22.jpg); }
+.item_img_steak_4 { background: url(../../uploads/product/2021-10-21-01-19-08_027147_001_22.jpg); }
+.item_img_steak_5 { background: url(../../uploads/product/2021-10-21-01-08-15_029026_001_22.jpg); }
+.item_img_steak_6 { background: url(../../uploads/product/2021-10-20-20-00-21_023958_001_22.jpg); }
+.item_img_steak_7 { background: url(../../uploads/product/2021-10-20-19-51-56_027152_001_22.jpg); }
+.item_img_steak_8 { background: url(../../uploads/product/2021-10-20-19-27-53_026469_001_22.jpg); }
+
+/* index.html - MD 추천 */
+.item_img_md_1 { background: url(../../uploads/product/2021-10-21-02-49-00_014788_001_22.jpg); }
+.item_img_md_2 { background: url(../../uploads/product/2021-10-24-19-49-53_107094_001_22.png); }
+.item_img_md_3 { background: url(../../uploads/product/2021-10-24-04-51-05_027458_001_22.jpg); }
+.item_img_md_4 { background: url(../../uploads/product/2021-10-24-04-47-40_027457_001_22.jpg); }
+.item_img_md_5 { background: url(../../uploads/product/2021-10-20-10-11-54_100934_003_22.png); }
+.item_img_md_6 { background: url(../../uploads/product/2021-10-24-21-57-46_027964_003_22.png); }
+.item_img_md_7 { background: url(../../uploads/product/2021-10-24-20-15-52_104395_001_22.png); }
+.item_img_md_8 { background: url(../../uploads/product/2021-10-20-03-12-10_026013_001_22.jpg); }

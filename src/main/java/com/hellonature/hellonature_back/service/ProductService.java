@@ -515,7 +515,6 @@ public class ProductService{
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("상품이 없습니다"));
     }
-
     private ProductDetailResponse detailResponse(Product product, List<ProductReview> productReviews, Optional<Like> like){
         Float star = (float) 0;
 
@@ -580,7 +579,7 @@ public class ProductService{
                 .count(product.getCount())
                 .temp(product.getTemp())
                 .bestFlag(product.getBestFlag())
-                .star(star / productReviews.size())
+                .star(star == 0? star : star/ productReviews.size())
                 .regdate(product.getRegdate())
                 .build();
     }

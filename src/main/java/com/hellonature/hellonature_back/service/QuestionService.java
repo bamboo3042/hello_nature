@@ -34,6 +34,7 @@ public class QuestionService{
 
     public Header<QuestionApiResponse> create(QuestionApiRequest request, List<MultipartFile> multipartFiles) {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "question");
+
         Question question = Question.builder()
                 .member(memberrepository.findById(request.getMemIdx()).get())
                 .ansDate(request.getAnsDate())
@@ -151,14 +152,20 @@ public class QuestionService{
         int start = count * startPage;
         int end = Math.min(result.size(), start + count);
 
+        List<QuestionApiResponse> list = new ArrayList<>();
+
+        for(Question question : result.subList(start,end)){
+            list.add(response(question));
+        }
+
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()>=10 ? (result.size()/count)+1 : 1  )
+                .totalPages( result.size() / count  )
                 .totalElements((long) result.size())
-                .currentPage(startPage+1)
-                .currentElements(result.size())
+                .currentPage(startPage)
+                .currentElements(end - start)
                 .build();
 
-        return Header.OK(result.subList(start, end).stream().map(this::response).collect(Collectors.toList()), pagination);
+        return Header.OK(list, pagination);
     }
 
 

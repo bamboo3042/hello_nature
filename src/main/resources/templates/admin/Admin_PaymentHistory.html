@@ -17,7 +17,6 @@
 <script>
     $(function (){
         let page = $('.page').val();
-
         axios.get('/api/memberPayment/list?startPage=' + page, {
 
         }).then(function (response){
@@ -33,6 +32,7 @@
                 let $num = response.data.data[i].num;
                 let $type = response.data.data[i].paymentType;
                 $mordReg = $mordReg.toString().substring(0,10);
+                // $num = $num.toString().substring(16,20);
 
                 if($state == 1){
                     $state = '결제완료'
@@ -44,17 +44,17 @@
                     $type = '헬로페이'
                 }else if($type == 2){
                     $type = '차이페이'
-                }else if($type == 2){
+                }else if($type == 3){
                     $type = '네이버페이'
-                }else if($type == 2){
+                }else if($type == 4){
                     $type = '카카오페이'
-                }else if($type == 2){
+                }else if($type == 5){
                     $type = '페이코'
-                }else if($type == 2){
+                }else if($type == 6){
                     $type = '삼성페이'
-                }else if($type == 2){
+                }else if($type == 7){
                     $type = 'SK페이'
-                }else if($type == 2){
+                }else if($type == 8){
                     $type = '신용카드/일반결제'
                 }
 
@@ -113,17 +113,17 @@
                             $type = '헬로페이'
                         }else if($type == 2){
                             $type = '차이페이'
-                        }else if($type == 2){
+                        }else if($type == 3){
                             $type = '네이버페이'
-                        }else if($type == 2){
+                        }else if($type == 4){
                             $type = '카카오페이'
-                        }else if($type == 2){
+                        }else if($type == 5){
                             $type = '페이코'
-                        }else if($type == 2){
+                        }else if($type == 6){
                             $type = '삼성페이'
-                        }else if($type == 2){
+                        }else if($type == 7){
                             $type = 'SK페이'
-                        }else if($type == 2){
+                        }else if($type == 8){
                             $type = '신용카드/일반결제'
                         }
 
@@ -142,11 +142,200 @@
                     $('.thead').after(tb);
                 })
             })
-        }).catch(function(err){
-            console.log(err)
-            alert('업로드되지 않았습니다.')
         })
     })
+
+    $(function(){
+        let now = new Date();
+        let now_result = now.toISOString().substring(0, 10);
+
+        //일주일, 일개월, 삼개월버튼
+        document.getElementById("weekbtn").addEventListener("click", function () {
+            let week = new Date();
+            week.setDate(week.getDate() - 7);
+            var week_result = week.toISOString().substring(0, 10);
+
+            document.getElementById("date_start").value = week_result;
+            document.getElementById("date_end").value = now_result;
+        })
+
+        document.getElementById("monthbtn").addEventListener("click", function () {
+
+            let month = new Date();
+            month.setMonth(month.getMonth() - 1);
+            var month_result = month.toISOString().substring(0, 10);
+
+
+            document.getElementById("date_start").value = month_result;
+            document.getElementById("date_end").value = now_result;
+        })
+
+        document.getElementById("three_monthbtn").addEventListener("click", function () {
+
+            let three_month = new Date();
+            three_month.setMonth(three_month.getMonth() - 3);
+            var three_month_result = three_month.toISOString().substring(0, 10);
+
+
+            document.getElementById("date_start").value = three_month_result;
+            document.getElementById("date_end").value = now_result;
+        })
+
+        $('#shcbtn').click(function(e){
+
+            $('.tbody').empty();
+            $('.page_num').remove();
+
+            let page = $('.page').val();
+            let dateStart = $('#date_start').val();
+            let dateEnd = $('#date_end').val();
+            let member = $('#member').val();
+            let url = '/api/memberPayment/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+
+            if(dateStart == "" && dateEnd == ""){
+                url = '/api/question/list?startPage=' + page;
+            }else if(dateStart == "" && dateEnd != ""){
+                url = '/api/question/list?startPage=' + page + '&dateEnd=' + dateEnd;
+            }else if(dateStart != "" && dateEnd == ""){
+                url = '/api/question/list?startPage=' + page + '&dateStart=' + dateStart;
+            }else if(dateStart != "" && dateEnd != ""){
+                url = url + '&startPage=' + page;
+            }
+
+            if(member == undefined){
+                url = url;
+            }else if(member != undefined){
+                url = url + '&member=' + member;
+            }
+            console.log(url)
+
+            axios.get(url, {
+            }).then(function(response) {
+
+
+                let tb = $('<tbody class="tbody">');
+
+                for (let i in response.data.data) {
+                    let $mordIdx = response.data.data[i].mordIdx;
+                    let $mordName = response.data.data[i].memName;
+                    let $state = response.data.data[i].state;
+                    let $price = response.data.data[i].price;
+                    let $mordReg = response.data.data[i].regdate;
+                    let $num = response.data.data[i].num;
+                    let $type = response.data.data[i].paymentType;
+                    $mordReg = $mordReg.toString().substring(0, 10);
+                    // $num = $num.toString().substring(16,20);
+
+                    if ($state == 1) {
+                        $state = '결제완료'
+                    } else if ($state == 2) {
+                        $state = '결제취소'
+                    }
+
+                    if ($type == 1) {
+                        $type = '헬로페이'
+                    } else if ($type == 2) {
+                        $type = '차이페이'
+                    } else if ($type == 3) {
+                        $type = '네이버페이'
+                    } else if ($type == 4) {
+                        $type = '카카오페이'
+                    } else if ($type == 5) {
+                        $type = '페이코'
+                    } else if ($type == 6) {
+                        $type = '삼성페이'
+                    } else if ($type == 7) {
+                        $type = 'SK페이'
+                    } else if ($type == 8) {
+                        $type = '신용카드/일반결제'
+                    }
+
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_' + i + '"></td>' +
+                        '<td>' + $mordIdx + '</td>' +
+                        '<td>' + $mordName + '</td>' +
+                        '<td>' + $state + '</td>' +
+                        '<td>' + $price + '</td>' +
+                        '<td>' + $mordReg + '</td>' +
+                        '<td>' + $num + '</td>' +
+                        '<td>' + $type + '</td></tr>'
+                    )
+                    tb.append(row);
+                }
+                $('.thead').after(tb);
+
+                for (let i = response.data.pagination.totalPages; i > 0; i--) {
+                    let page = $('<li class="page_num" value="' + (i - 1) + '" id="page_num ' + i + '">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(page);
+                }
+
+                $('.page_num').click(function (e) {
+
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val());
+                    let page = $('.page').val();
+
+                    axios.get('/api/memberPayment/list?startPage=' + page, {}).then(function (response) {
+
+                        let tb = $('<tbody class="tbody">');
+
+                        for (let i in response.data.data) {
+                            let $mordIdx = response.data.data[i].mordIdx;
+                            let $mordName = response.data.data[i].memName;
+                            let $state = response.data.data[i].state;
+                            let $price = response.data.data[i].price;
+                            let $mordReg = response.data.data[i].regdate;
+                            let $num = response.data.data[i].num;
+                            let $type = response.data.data[i].paymentType;
+
+                            $mordReg = $mordReg.toString().substring(0, 10);
+
+                            if ($state == 1) {
+                                $state = '결제완료'
+                            } else if ($state == 2) {
+                                $state = '결제취소'
+                            }
+
+                            if ($type == 1) {
+                                $type = '헬로페이'
+                            } else if ($type == 2) {
+                                $type = '차이페이'
+                            } else if ($type == 3) {
+                                $type = '네이버페이'
+                            } else if ($type == 4) {
+                                $type = '카카오페이'
+                            } else if ($type == 5) {
+                                $type = '페이코'
+                            } else if ($type == 6) {
+                                $type = '삼성페이'
+                            } else if ($type == 7) {
+                                $type = 'SK페이'
+                            } else if ($type == 8) {
+                                $type = '신용카드/일반결제'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_' + i + '"></td>' +
+                                '<td>' + $mordIdx + '</td>' +
+                                '<td>' + $mordName + '</td>' +
+                                '<td>' + $state + '</td>' +
+                                '<td>' + $price + ' 원</td>' +
+                                '<td>' + $mordReg + '</td>' +
+                                '<td>' + $num + '</td>' +
+                                '<td>' + $type + '</td></tr>'
+                            )
+                            tb.append(row);
+                        }
+                        $('.thead').after(tb);
+                    })
+                })
+            })
+        })
+    })
+
 </script>
 <body>
 <!--content_title 시작-->
@@ -166,21 +355,20 @@
                 <tr>
                     <th width="100">결제일 기준</th>
                     <td>
-                        <input type="date" name="date" value="기간필터"> - <input type="date" name="date" value="기간필터">
+                        <input type="date" name="date" value="기간필터" id="date_start"> - <input type="date" name="date" value="기간필터" id="date_end">
                         <span class="datebtn">
-                                <input type="button" name="button" value="최근 1주일">
-                                <input type="button" name="button" value="최근 1개월">
-                                <input type="button" name="button" value="최근 3개월">
+                                <input type="button" name="button" value="최근 1주일" id="weekbtn">
+                                <input type="button" name="button" value="최근 1개월" id="monthbtn">
+                                <input type="button" name="button" value="최근 3개월" id="three_monthbtn">
                             </span>
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <select>
-                            <option value="회원번호">회원번호</option>
-                            <option value="비회원번호">비회원번호</option>
-                            <option value="상품번호">상품번호</option>
+                        <select id="">
+                            <option value="1">회원번호</option>
+                            <option value="2">비회원번호</option>
                         </select>
                         <input type="text" name="text" placeholder="직접 입력">
                     </td>
@@ -190,7 +378,7 @@
             <!--No_c1_btnBox 시작-->
             <div class="bottom_btn" id="PH_c1_btnBox">
                 <span><input type="button" name="button" value="초기화"></span>
-                <span><input type="button" name="button" value="검색"></span>
+                <span><input type="button" name="button" value="검색" id="shcbtn"></span>
             </div>
             <!--No_c1_btnBox 끝-->
         </form>

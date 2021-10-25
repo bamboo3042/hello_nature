@@ -15,21 +15,69 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <script>
+    //1차 카테고리 다중셀렉트
+    $(function () {
+        axios.get("/api/category/list/first?lifeFlag=FALSE", {}).then(function (response) {
+            for (let i in response.data.data) {
+                let $id = response.data.data[i].idx;
+                let $name = response.data.data[i].name;
+                let row = $('<option value=' + $id + '>').append(
+                    $name + '</option>'
+                )
+                console.log(row)
+                $('#PL_sel_1').append(row)
+            }
+        })
+    })
+
+    //2차 카테고리 다중셀렉트
+    function categoryChange(e) {
+        $('#PL_sel_2').empty();
+        axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
+            for (let i in response.data.data) {
+                console.log(response)
+                let $id = response.data.data[i].idx;
+                let $name = response.data.data[i].name;
+
+                let row = $('<option value=' + $id + '>').append(
+                    $name + '</option>'
+                )
+                console.log(row)
+                $('#PL_sel_2').append(row)
+            }
+        })
+    }
 
     $(function(){
 
         let page = $('.page').val();
-
         axios.get('/api/product/list?page=' + page, {
 
         }).then(function(response){
-            let tb = $('<tbody>');
+
+            let tb = $('<tbody class="tbody">');
             for(let i in response.data.data){
+                let id = response.data.data[i].idx;
                 let $cate = response.data.data[i].cateIdx;
-                let $name = response.data.date[i].name;
+                let $name = response.data.data[i].name;
                 let $state = response.data.data[i].state;
                 let $price = response.data.data[i].price;
                 let $count = response.data.data[i].count;
+                console.log($state);
+                console.log($cate);
+                console.log($state);
+                console.log($count);
+                if($state == 0){
+                    $state = '판매대기'
+                }else if($state == 1){
+                    $state = '판매중'
+                }else if($state == 2){
+                    $state = '판매중지'
+                }else if($state == 3){
+                    $state = '판매종료'
+                }else if($state == 4){
+                    $state = '품절'
+                }
 
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" value="prod_list" id="PL_check_'+ i +'" name="product"' +
@@ -37,12 +85,33 @@
                     '<td>'+ $cate +'</td>' +
                     '<td>'+ $name +'</td>' +
                     '<td>'+ $state +'</td>' +
-                    '<td>'+ $price +'</td>' +
-                    '<td>'+ $count +'</td></tr>'
+                    '<td>'+ $count +' 개</td>' +
+                    '<td>'+ $price +' 원</td>' +
+                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
                 )
                 tb.append(row);
             }
             $('.thead').after(tb);
+
+            $(".edit").click(function (e) {
+                alert("뭘봐")
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+
+                console.log(id)
+
+                sessionStorage.setItem("proIdx", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/productEdit?proIdx=' + id,
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
                     i + '</li>'
@@ -51,7 +120,7 @@
             }
 
             $('.page_num').click(function(e){
-                $('tbody').empty();
+                $('.tbody').empty();
 
                 $('.page').val($(this).val());
                 let page = $('.page').val()
@@ -59,13 +128,25 @@
                 axios.get('/api/product/list?page=' + page, {
 
                 }).then(function(response) {
-                    let tb = $('<tbody>');
+                    let tb = $('<tbody class="tbody">');
                     for (let i in response.data.data) {
+                        let id = response.data.data[i].idx;
                         let $cate = response.data.data[i].cateIdx;
                         let $name = response.data.date[i].name;
                         let $state = response.data.data[i].state;
                         let $price = response.data.data[i].price;
                         let $count = response.data.data[i].count;
+                        if($state == 0){
+                            $state = '판매대기'
+                        }else if($state == 1){
+                            $state = '판매중'
+                        }else if($state == 2){
+                            $state = '판매중지'
+                        }else if($state == 3){
+                            $state = '판매종료'
+                        }else if($state == 4){
+                            $state = '품절'
+                        }
 
                         let row = $('<tr>').append(
                             '<td><input type="checkbox" value="prod_list" id="PL_check_' + i + '" name="product"' +
@@ -73,18 +154,234 @@
                             '<td>' + $cate + '</td>' +
                             '<td>' + $name + '</td>' +
                             '<td>' + $state + '</td>' +
-                            '<td>' + $price + '</td>' +
-                            '<td>' + $count + '</td></tr>'
+                            '<td>' + $count + ' 개</td>' +
+                            '<td>' + $price + ' 원</td>' +
+                            '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
                         )
                         tb.append(row);
                     }
                     $('.thead').after(tb);
+                    $(".edit").click(function (e) {
+                        alert("뭘봐")
+                        $("#ajax_hidden").val($(this).next().val());
+                        let id = $("#ajax_hidden").val();
+
+                        console.log(id)
+
+                        sessionStorage.setItem("proIdx", id);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/admin/productEdit?proIdx=' + id,
+                            datatype: 'html/text',
+                            success: function (result) {
+                                console.log(result)
+                                $("#content").html(result).trigger("create");
+                            }
+                        })
+                    })
                 })
             })
         }).catch(function(err){
             console.log(err)
         })
     })
+
+    function search(){
+
+        let cateIdx = $('#PL_sel_2').val();
+        let page = $('.page').val();
+        let state = $('input:checkbox[name="d_status"]:checked').val();
+        let name = $('#text').val();
+        let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
+
+        if(cateIdx == ""){
+            cateIdx = $('#PL_sel_1').val();
+        }
+
+        if(cateIdx == ""){
+            url = '/api/product/list?page=' + page;
+        }else if(cateIdx != ""){
+            url = url;
+        }
+
+        if(state == ""){
+            url = url;
+        } else if(state != ""){
+            url = url + '&state=' + state;
+        }
+
+        if(name == ""){
+            url = url;
+        }else if(name != ""){
+            url = url + '&name=' + name;
+        }
+        console.log(url)
+        axios.get(url, {
+
+        }).then(function(response){
+            $('.tbody').empty();
+            let tb = $('<tbody class="tbody">');
+            for(let i in response.data.data){
+                let id = response.data.data[i].idx;
+                let $cate = response.data.data[i].cateIdx;
+                let $name = response.data.date[i].name;
+                let $state = response.data.data[i].state;
+                let $price = response.data.data[i].price;
+                let $count = response.data.data[i].count;
+                if($state == 0){
+                    $state = '판매대기'
+                }else if($state == 1){
+                    $state = '판매중'
+                }else if($state == 2){
+                    $state = '판매중지'
+                }else if($state == 3){
+                    $state = '판매종료'
+                }else if($state == 4){
+                    $state = '품절'
+                }
+
+                let row = $('<tr>').append(
+                    '<td><input type="checkbox" value="prod_list" id="PL_check_'+ i +'" name="product"' +
+                    'onclick="PL_checkSelectAll()"><label for="PL_check_'+ i +'"></label></td>' +
+                    '<td>'+ $cate +'</td>' +
+                    '<td>'+ $name +'</td>' +
+                    '<td>'+ $state +'</td>' +
+                    '<td>'+ $count +' 개</td>' +
+                    '<td>'+ $price +' 원</td>' +
+                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                )
+                tb.append(row)
+            }
+            $('.thead').after(tb)
+
+            $(".edit").click(function (e) {
+                alert("뭘봐")
+                $("#ajax_hidden").val($(this).next().val());
+                let id = $("#ajax_hidden").val();
+
+                console.log(id)
+
+                sessionStorage.setItem("proIdx", id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/productEdit?proIdx=' + id,
+                    datatype: 'html/text',
+                    success: function (result) {
+                        console.log(result)
+                        $("#content").html(result).trigger("create");
+                    }
+                })
+            })
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+
+                $('.page_num').click(function(e) {
+
+                    $('.tbody').empty();
+
+                    $('.page').val($(this).val())
+                    let page = $('.page').val();
+                    let state = $('input:checkbox[name="d_status"]:checked').val();
+                    let name = $('#text').val();
+                    let url = '/api/product/list?page=' + page;
+
+                    if(state == 0){
+                        state = '판매대기'
+                    }else if(state == 1){
+                        state = '판매중'
+                    }else if(state == 2){
+                        state = '판매중지'
+                    }else if(state == 3){
+                        state = '판매종료'
+                    }else if(state == 4){
+                        state = '품절'
+                    }
+
+                    if(cateIdx == ""){
+                        url = url;
+                    }else if(cateIdx != ""){
+                        url = url + '&cateIdx=' + cateIdx;
+                    }
+
+                    console.log(state)
+                    if (state == "") {
+                        url = url;
+                    } else if (state != "") {
+                        url = url + '&state=' + state;
+                    }
+
+                    if (name == "") {
+                        url = url;
+                    } else if (name != "") {
+                        url = url + '&name=' + name;
+                    }
+                    console.log(url)
+
+                    axios.get(url, {}).then(function (response) {
+                        let tb = $('<tbody class="tbody">');
+                        for (let i in response.data.data) {
+                            let id = response.data.data[i].idx;
+                            let $cate = response.data.data[i].cateIdx;
+                            let $name = response.data.date[i].name;
+                            let $state = response.data.data[i].state;
+                            let $price = response.data.data[i].price;
+                            let $count = response.data.data[i].count;
+                            if($state == 0){
+                                $state = '판매대기'
+                            }else if($state == 1){
+                                $state = '판매중'
+                            }else if($state == 2){
+                                $state = '판매중지'
+                            }else if($state == 3){
+                                $state = '판매종료'
+                            }else if($state == 4){
+                                $state = '품절'
+                            }
+
+                            let row = $('<tr>').append(
+                                '<td><input type="checkbox" value="prod_list" id="PL_check_'+ i +'" name="product"' +
+                                'onclick="PL_checkSelectAll()"><label for="PL_check_'+ i +'"></label></td>' +
+                                '<td>'+ $cate +'</td>' +
+                                '<td>'+ $name +'</td>' +
+                                '<td>'+ $state +'</td>' +
+                                '<td>'+ $count +' 개</td>' +
+                                '<td>'+ $price +' 원</td>' +
+                                '<td>'+  +' 원</td>' +
+                                '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                            )
+                            tb.append(row)
+                        }
+                        $('.thead').after(tb)
+                        $(".edit").click(function (e) {
+                            alert("뭘봐")
+                            $("#ajax_hidden").val($(this).next().val());
+                            let id = $("#ajax_hidden").val();
+
+                            console.log(id)
+
+                            sessionStorage.setItem("proIdx", id);
+                            $.ajax({
+                                type: 'GET',
+                                url: '/admin/productEdit?proIdx=' + id,
+                                datatype: 'html/text',
+                                success: function (result) {
+                                    console.log(result)
+                                    $("#content").html(result).trigger("create");
+                                }
+                            })
+                        })
+                    })
+                })
+            }
+        }).catch(function(err){
+            console.log(err)
+            alert('리스트 불러오기 실패')
+        })
+    }
 </script>
 <body>
 <!--content_title 시작-->
@@ -102,82 +399,35 @@
     <!--PL_c1 시작-->
     <div class="PL_c1">
         <!--form 시작-->
-        <form name="prod_search" onsubmit="return sendit()">
+        <form name="prod_search">
             <p id="PL_c1_title" class="product_title"><label>상품 조회</label></p>
             <!--table 시작-->
             <table>
                 <tr>
                     <th width="120">판매상태</th>
                     <td>
-                        <span><input type="checkbox" name="d_status" value="전체" checked id="PL_check_1"><label
+                        <span><input type="checkbox" name="d_status" value="" checked id="PL_check_1"><label
                                 for="PL_check_1">전체</label></span>
-                        <span><input type="checkbox" name="d_status" value="판매대기" id="PL_check_2"><label
+                        <span><input type="checkbox" name="d_status" value="0" id="PL_check_2"><label
                                 for="PL_check_2">판매대기</label></span>
-                        <span><input type="checkbox" name="d_status" value="판매중" id="PL_check_3"><label
+                        <span><input type="checkbox" name="d_status" value="1" id="PL_check_3"><label
                                 for="PL_check_3">판매중</label></span>
-                        <span><input type="checkbox" name="d_status" value="판매중지" id="PL_check_4"><label
+                        <span><input type="checkbox" name="d_status" value="2" id="PL_check_4"><label
                                 for="PL_check_4">판매중지</label></span>
-                        <span><input type="checkbox" name="d_status" value="판매종료" id="PL_check_5"><label
+                        <span><input type="checkbox" name="d_status" value="3" id="PL_check_5"><label
                                 for="PL_check_5">판매종료</label></span>
-                        <span><input type="checkbox" name="d_status" value="품절" id="PL_check_6"><label for="PL_check_6">품절</label></span>
+                        <span><input type="checkbox" name="d_status" value="4" id="PL_check_6"><label for="PL_check_6">품절</label></span>
                     </td>
                 </tr>
                 <tr>
                     <th>카테고리</th>
                     <td>
-                        <select onchange="categoryChange(this)">
+                        <select onchange="categoryChange(this)" id="PL_sel_1">
                             <option value="대분류">대분류</option>
-                            <option value="과일">과일</option>
-                            <option value="채소">채소</option>
-                            <option value="쌀·잡곡·견과">쌀·잡곡·견과</option>
-                            <option value="정육·계란">정육·계란</option>
-                            <option value="수산·건어물">수산·건어물</option>
-                            <option value="국·반찬·요리">국·반찬·요리</option>
-                            <option value="간편식·샐러드">간편식·샐러드</option>
-                            <option value="양념·오일·면">양념·오일·면</option>
-                            <option value="베이커리·유제품">베이커리·유제품</option>
-                            <option value="커피·음료·간식">커피·음료·간식</option>
-                            <option value="생활·선물세트">생활·선물세트</option>
                         </select>
-                        <select id="PL_sel">
+                        <select id="PL_sel_2">
                             <option value="중분류">중분류</option>
                         </select>
-                        <script>
-                            function categoryChange(e) {
-                                var PL_sel_1 = ["시즌한정과일", "국산과일", "수입과일", "간편과일", "냉동·건과일"];
-                                var PL_sel_2 = ["필수채소", "반찬채소", "뿌리채소", "쌈·샐러드", "간편채소", "버섯류"];
-                                var PL_sel_3 = ["쌀", "잡곡", "견과"];
-                                var PL_sel_4 = ["소고기", "돼지고기", "닭·오리고기", "양고기", "계란류", "양념육·가공육", "햄·소시지·베이컨", "본앤브래드"];
-                                var PL_sel_5 = ["시즌한정수산·회", "생선류", "오징어·낙지·문어", "새우·게·랍스터", "전복·조개류", "김·미역·해조류", "멸치·건어물", "간편수산물"];
-                                var PL_sel_6 = ["반찬", "국·찌개·탕", "김치·장아찌·젓갈", "두부·어묵·냉장식품", "만두·튀김·냉동식품"];
-                                var PL_sel_7 = ["밀키트", "샐러드·도시락", "밥·면·즉석식품", "떡볶이·핫도그·냉동간식", "떡", "시리얼·바·선식", "죽·수프·퓨레"];
-                                var PL_sel_8 = ["소스·드레싱·육수", "장·식초·액젓", "소금·향신료·설탕·꿀", "오잉·참기름·식용유", "파스타·면", "밀가루·가루·믹스", "통조림·병조림"];
-                                var PL_sel_9 = ["식빵·빵류", "케이크·파이·디저트류", "치즈·버터·잼", "우유·두유·요거트"];
-                                var PL_sel_10 = ["커피", "차", "주스", "음료·즙", "생수·탄산수", "아이스크림", "과자류", "캔디·젤리·초콜릿"];
-                                var PL_sel_11 = ["주방용품", "생활·위생용품", "가전제품", "건강식품", "선물세트"];
-                                var target = document.getElementById("PL_sel");
-
-                                if (e.value == "과일") var d = PL_sel_1;
-                                else if (e.value == "채소") var d = PL_sel_2;
-                                else if (e.value == "쌀·잡곡·견과") var d = PL_sel_3;
-                                else if (e.value == "정육·계란") var d = PL_sel_4;
-                                else if (e.value == "수산·건어물") var d = PL_sel_5;
-                                else if (e.value == "국·반찬·요리") var d = PL_sel_6;
-                                else if (e.value == "간편식·샐러드") var d = PL_sel_7;
-                                else if (e.value == "양념·오일·면") var d = PL_sel_8;
-                                else if (e.value == "베이커리·유제품") var d = PL_sel_9;
-                                else if (e.value == "커피·음료·간식") var d = PL_sel_10;
-                                else if (e.value == "생활·선물세트") var d = PL_sel_11;
-                                target.options.length = 0;
-
-                                for (x in d) {
-                                    var opt = document.createElement("option");
-                                    opt.value = d[x];
-                                    opt.innerHTML = d[x];
-                                    target.appendChild(opt);
-                                }
-                            }
-                        </script>
                     </td>
                 </tr>
                 <tr>
@@ -191,7 +441,7 @@
             <!--PL_c1_btnBox 시작-->
             <div class="bottom_btn" id="PL_c1_btnBox">
                 <span><input type="reset" name="reset" value="초기화"></span>
-                <span><input type="submit" name="submit" value="검색"></span>
+                <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
             <!--PL_c1_btnBox 끝-->
         </form>
@@ -225,9 +475,10 @@
                                           onclick="PL_selectAll(this)"><label for="PL_check"></label></th>
                     <th width="10%">분류</th>
                     <th width="25%">상품명</th>
-                    <th width="13%">판매상태</th>
+                    <th width="15%">판매상태</th>
                     <th width="10%">재고수량</th>
-                    <th width="13%">판매가</th>
+                    <th width="15%">판매가</th>
+                    <th width="20%">수정</th>
                 </tr>
                 </thead>
             </table>
@@ -241,6 +492,7 @@
                     <li id="Maxnext">>></li>
                 </ul>
                 <input type="hidden" value="0" class="page">
+                <input type="hidden" id="ajax_hidden">
             </div>
             <!-- pageBox 끝-->
         </form>

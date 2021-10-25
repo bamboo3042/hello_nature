@@ -86,7 +86,7 @@ public class MemberPaymentService extends BaseService<MemberPaymentApiRequest, M
     private MemberPaymentApiResponse response(MemberPayment memberPayment){
         MemberPaymentApiResponse memberPaymentApiResponse = MemberPaymentApiResponse.builder()
                 .idx(memberPayment.getIdx())
-                .mordIdx(memberPayment.getOrder().getIdx())
+//                .mordIdx(memberPayment.getOrder().getIdx())
                 .memName(memberPayment.getMember().getName())
                 .state(memberPayment.getState())
                 .price(memberPayment.getPrice())

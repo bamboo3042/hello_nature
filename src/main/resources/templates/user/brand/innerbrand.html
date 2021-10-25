@@ -98,12 +98,48 @@
                                 $('#brand_slidebox_fifth').append(div);
 
 
-                            });
+                                axios.get('/api/brand/list?startPage=5&count=9', {}).then(function (res) {
+                                    let div = $('<div class="brand_item">');
+
+                                    for (let i in res.data.data) {
+                                        let $brIdx = res.data.data[i].idx;
+                                        let $logo = res.data.data[i].logo;
+
+                                        let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
+                                            `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                        )
+                                        div.append(brandItem);
+                                    }
+                                    div.append($('</div>'));
+                                    $('#brand_slidebox_sixth').append(div);
+
+
+
+                                    axios.get('/api/brand/list?startPage=6&count=9', {}).then(function (res) {
+                                        let div = $('<div class="brand_item">');
+
+                                        for (let i in res.data.data) {
+                                            let $brIdx = res.data.data[i].idx;
+                                            let $logo = res.data.data[i].logo;
+
+                                            let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
+                                                `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                            )
+                                            div.append(brandItem);
+                                        }
+                                        div.append($('</div>'));
+                                        $('#brand_slidebox_seventh').append(div);
+
+
+
+                                    });
                         });
                     }).catch(function (err) {
                         console.log(err);
                     });
                 });
+            });
+        });
             });
         });
 
@@ -150,6 +186,8 @@
                             <input type="radio" name="brand_slide" id="brand_slide03">
                             <input type="radio" name="brand_slide" id="brand_slide04">
                             <input type="radio" name="brand_slide" id="brand_slide05">
+                            <input type="radio" name="brand_slide" id="brand_slide06">
+                            <input type="radio" name="brand_slide" id="brand_slide07">
 
                             <div class="brand_slidewrap">
                                 <ul class="brand_slidelist">
@@ -163,6 +201,10 @@
                                     </li>
                                     <li class="brand_slidebox" id="brand_slidebox_fifth">
                                     </li>
+                                    <li class="brand_slidebox" id="brand_slidebox_sixth">
+                                    </li>
+                                    <li class="brand_slidebox" id="brand_slidebox_seventh">
+                                    </li>
                                 </ul>
                                 <!-- 페이징 -->
                                 <ul class="brand_slide_pagelist">
@@ -171,6 +213,8 @@
                                     <li><label for="brand_slide03"></label></li>
                                     <li><label for="brand_slide04"></label></li>
                                     <li><label for="brand_slide05"></label></li>
+                                    <li><label for="brand_slide06"></label></li>
+                                    <li><label for="brand_slide07"></label></li>
                                 </ul>
                             </div>
                         </div>

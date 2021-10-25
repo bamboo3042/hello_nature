@@ -16,7 +16,8 @@
 </head>
 <script>
     $(function (){
-        axios.get('/api/brand/read/56', {
+        let id = sessionStorage.getItem('brIdx');
+        axios.get('/api/brand/read/' + id, {
 
         }).then(function (response){
             let $name = response.data.data.name;
@@ -30,7 +31,6 @@
             $('input[name="state"]').val($state);
             $('#date_start').val($dateStart);
             $('#date_end').val($dateEnd);
-            console.log($state);
 
             if($state === 1){
                 $('input:radio[name="state"]').prop("checked", true);
@@ -50,7 +50,9 @@
 
     function edit(){
         alert("햄버거")
+        let id = sessionStorage.getItem("brIdx");
         let data = {
+            idx: id,
             name: $('#name').val(),
             des: $('#des').val(),
             state: $('input[name="state"]:checked').val(),
@@ -77,6 +79,221 @@
             location.reload();
         })
     }
+
+    $(function(){
+        let page = $('.page').val();
+        let id = sessionStorage.getItem("brIdx");
+        axios.get('/api/product/list?page=' + page + '&brIdx=' + id, {
+
+        }).then(function(response){
+            let tb = $('<tbody class="tbody">');
+            for(let i in response.data.data){
+                let id = response.data.data[i].idx;
+                let name = response.data.data[i].name;
+                let des = response.data.data[i].des;
+                let regdate = response.data.data[i].regdate;
+                let state = response.data.data[i].state;
+                let k = parseInt(i) + 8;
+                if(state == 0){
+                    state = '판매대기'
+                }else if(state == 1){
+                    state = '판매중'
+                }else if(state == 2){
+                    state = '판매중지'
+                }else if(state == 3){
+                    state = '판매종료'
+                }else if(state == 4){
+                    state = '품절'
+                }
+
+                let row = $('<tr>').append(
+                    '<td><input type="checkbox" value="cou_list" id="BL_check_'+ k +'"><label for="BL_check_'+ k +'"></label></td>' +
+                    '<td>'+ id +'</td>' +
+                    '<td>'+ name +'</td>' +
+                    '<td>'+ des +'</td>' +
+                    '<td>'+ regdate +'</td>' +
+                    '<td>'+ state +'</td></tr>'
+                )
+                tb.append(row);
+            }
+            $('.thead').after(tb);
+
+            for(let i = response.data.pagination.totalPages; i > 0; i--){
+                let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function(e){
+                $('.tbody').empty();
+
+                let page = $('.page').val();
+                let id = sessionStorage.getItem("brIdx");
+                axios.get('/api/product/list?page=' + page + '&brIdx=' + id, {
+
+                }).then(function(response) {
+                    let tb = $('<tbody class="tbody">');
+                    for (let i in response.data.data) {
+                        let id = response.data.data[i].idx;
+                        let name = response.data.data[i].name;
+                        let des = response.data.data[i].des;
+                        let regdate = response.data.data[i].regdate;
+                        let state = response.data.data[i].state;
+                        let k = parseInt(i) + 8;
+                        if (state == 0) {
+                            state = '판매대기'
+                        } else if (state == 1) {
+                            state = '판매중'
+                        } else if (state == 2) {
+                            state = '판매중지'
+                        } else if (state == 3) {
+                            state = '판매종료'
+                        } else if (state == 4) {
+                            state = '품절'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                            '<td>' + id + '</td>' +
+                            '<td>' + name + '</td>' +
+                            '<td>' + des + '</td>' +
+                            '<td>' + regdate + '</td>' +
+                            '<td>' + state + '</td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    $('.thead').after(tb);
+                })
+            })
+        }).catch(function(err){
+            console.log(err);
+        })
+    })
+
+    function search(){
+        $('.tbody').empty();
+        let page = $('.page').val();
+        let state = $('#state').val();
+        let name = $('#proName').val();
+        let id = sessionStorage.getItem("brIdx");
+        let url = '/api/product/list?page=' + page + '&brIdx=' + id;
+
+        if(state == ""){
+            url = url;
+        }else if(state != ""){
+            url = url + '&state=' + state;
+        }
+        if(name == ""){
+            url = url;
+        }else if(name != ""){
+            url = url + '&name=' + name;
+        }
+
+        console.log(url)
+        axios.get(url, {
+
+        }).then(function(response) {
+            let tb = $('<tbody class="tbody">');
+            for (let i in response.data.data) {
+                let id = response.data.data[i].idx;
+                let name = response.data.data[i].name;
+                let des = response.data.data[i].des;
+                let regdate = response.data.data[i].regdate;
+                let state = response.data.data[i].state;
+                let k = parseInt(i) + 8;
+                if (state == 0) {
+                    state = '판매대기'
+                } else if (state == 1) {
+                    state = '판매중'
+                } else if (state == 2) {
+                    state = '판매중지'
+                } else if (state == 3) {
+                    state = '판매종료'
+                } else if (state == 4) {
+                    state = '품절'
+                }
+
+                let row = $('<tr>').append(
+                    '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                    '<td>' + id + '</td>' +
+                    '<td>' + name + '</td>' +
+                    '<td>' + des + '</td>' +
+                    '<td>' + regdate + '</td>' +
+                    '<td>' + state + '</td></tr>'
+                )
+                tb.append(row);
+            }
+            $('.thead').after(tb);
+
+            for (let i = response.data.pagination.totalPages; i > 0; i--) {
+                let pages = $('<li class="page_num" style="cursor: pointer" value="' + (i - 1) + ' ">').append(
+                    i + '</li>'
+                )
+                $('#prev').after(pages);
+            }
+
+            $('.page_num').click(function (e) {
+                $('.tbody').empty();
+
+                let page = $('.page').val();
+                let state = $('#state').val();
+                let name = $('#proName').val();
+                let id = sessionStorage.getItem("brIdx");
+                let url = '/api/product/list?page=' + page + '&brIdx=' + id;
+
+                if(state == ""){
+                    url = url;
+                }else if(state != ""){
+                    url = url + '&state=' + state;
+                }
+                if(name == ""){
+                    url = url;
+                }else if(name != ""){
+                    url = url + '&name=' + name;
+                }
+
+                axios.get(url, {}).then(function (response) {
+                    let tb = $('<tbody class="tbody">');
+                    for (let i in response.data.data) {
+                        let id = response.data.data[i].idx;
+                        let name = response.data.data[i].name;
+                        let des = response.data.data[i].des;
+                        let regdate = response.data.data[i].regdate;
+                        let state = response.data.data[i].state;
+                        let k = parseInt(i) + 8;
+                        if (state == 0) {
+                            state = '판매대기'
+                        } else if (state == 1) {
+                            state = '판매중'
+                        } else if (state == 2) {
+                            state = '판매중지'
+                        } else if (state == 3) {
+                            state = '판매종료'
+                        } else if (state == 4) {
+                            state = '품절'
+                        }
+
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                            '<td>' + id + '</td>' +
+                            '<td>' + name + '</td>' +
+                            '<td>' + des + '</td>' +
+                            '<td>' + regdate + '</td>' +
+                            '<td>' + state + '</td></tr>'
+                        )
+                        tb.append(row);
+                    }
+                    $('.thead').after(tb);
+                })
+            })
+        })
+
+    }
+
+
+
+
 </script>
 <body>
     <!--content_title 시작-->
@@ -87,7 +304,7 @@
     <!--Bedit 시작-->
     <div class="Bedit">
         <!--form 시작-->
-        <form name="brand_edit" onsubmit="return edit()" enctype="multipart/form-data">
+        <form name="brand_edit" enctype="multipart/form-data">
             <p class="product_title" id="BE_c1_title"><label>브랜드 수정</label></p>
             <!--table 시작-->
             <table class="brand">
@@ -143,7 +360,7 @@
             <!--table 끝-->
             <!--BE_c1_btnBox 시작-->
             <div id="BE_c1_btnBox" class="bottom_btn">
-                <span><input type="submit" name="submit" value="수정"></span>
+                <span><input type="button" name="submit" value="수정" onclick="edit()"></span>
             </div>
             <!--BE_c1_btnBox 끝-->
         </form>
@@ -160,15 +377,17 @@
                 <tr>
                     <th width="100">상품 검색</th>
                     <td>
-                        <select style="width: 90px; padding-left: 10px;">
-                            <option value="전체">전체</option>
-                            <option value="판매중">판매중</option>
-                            <option value="판매중지">판매중지</option>
-                            <option value="판매종료">판매종료</option>
+                        <select style="width: 90px; padding-left: 10px;" id="state">
+                            <option value="">전체</option>
+                            <option value="0">판매대기</option>
+                            <option value="1">판매중</option>
+                            <option value="2">판매중지</option>
+                            <option value="3">판매종료</option>
+                            <option value="4">품절</option>
                         </select>
-                        <input type="text" name="text" placeholder="상품명을 입력하세요">
+                        <input type="text" name="text" placeholder="상품명을 입력하세요" id="proName">
                     </td>
-                    <td><input type="button" name="button" value="검색"></td>
+                    <td><input type="button" name="button" value="검색" onclick="search()"></td>
                 </tr>
             </table>
             <!--table 끝-->
@@ -188,41 +407,36 @@
                 <span>
                     <input type="button" name="button" value="선택삭제">
                     <select class="list_select">
-                        <option value="판매중">판매중</option>
-                        <option value="판매중지">판매중지</option>
-                        <option value="판매종료">판매종료</option>
+                        <option value="0">판매대기</option>
+                        <option value="1">판매중</option>
+                        <option value="2">판매중지</option>
+                        <option value="3">판매종료</option>
+                        <option value="4">품절</option>
                     </select>
                 </span>
             <!--table 시작-->
             <table width="100%" class="list_table">
-                <tr>
-                    <th width="5%"><input type="checkbox" value="cou_list" id="BL_check_8"><label for="BL_check_8"></label></th>
-                    <th width="15%">상품번호</th>
-                    <th width="20%">상품명</th>
-                    <th width="25%">상세설명</th>
-                    <th width="20%">상품등록날짜</th>
-                    <th width="15%">판매상태</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" value="cou_list" id="BL_check_9"><label for="BL_check_9"></label></td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                    <td>예시</td>
-                </tr>
+                <thead class="thead">
+                    <tr>
+                        <th width="5%"><input type="checkbox" value="cou_list" id="BL_check_8"><label for="BL_check_8"></label></th>
+                        <th width="15%">상품번호</th>
+                        <th width="20%">상품명</th>
+                        <th width="25%">상세설명</th>
+                        <th width="20%">상품등록날짜</th>
+                        <th width="15%">판매상태</th>
+                    </tr>
+                </thead>
             </table>
             <!--table 끝-->
             <!-- pageBox 시작-->
             <div class="pageBox">
                 <ul>
                     <li id="Maxprev"><a href="#"><<</a></li>
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
+                    <li id="prev"><a href="#"><</a></li>
                     <li><a href="#">></a></li>
                     <li id="Maxnext"><a href="#">>></a></li>
                 </ul>
+                <input type="hidden" value="0" class="page">
             </div>
             <!-- pageBox 끝-->
         </form>
