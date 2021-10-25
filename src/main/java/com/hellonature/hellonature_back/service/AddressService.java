@@ -89,7 +89,7 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
             address.setRequestMemo2(addressApiRequest.getRequestMemo2());
             address.setRequestType(addressApiRequest.getRequestType());
 
-            if (addressApiRequest.getBaseFlag() != null && addressApiRequest.getBaseFlag() == Flag.TRUE){
+            if (addressApiRequest.getBaseIdx() != null && addressApiRequest.getBaseFlag() != null && addressApiRequest.getBaseFlag() == Flag.TRUE){
                 address.setBaseFlag(Flag.TRUE);
                 Address baseAddress = addressRepository.findById(addressApiRequest.getBaseIdx()).get();
                 baseAddress.setBaseFlag(Flag.FALSE);
