@@ -272,12 +272,13 @@ public class ProductReviewService  {
                 .build();
     }
 
-    public Header updateAns(Long idx, String ansContent){
-        Optional<ProductReview> optionalProductReview = productReviewRepository.findById(idx);
+    public Header updateAns(Header<ProductReviewApiRequest> requestHeader){
+        ProductReviewApiRequest request = requestHeader.getData();
+        Optional<ProductReview> optionalProductReview = productReviewRepository.findById(request.getIdx());
         if (optionalProductReview.isEmpty()) return Header.ERROR("리뷰 idx가 잘못되었습니다");
         ProductReview productReview = optionalProductReview.get();
 
-        if (ansContent == null || ansContent.isEmpty()){
+        if (request.getAnsContent() == null || request.getAnsContent().isEmpty()){
             productReview.setAnsContent(null);
             productReview.setAnsFlag(Flag.FALSE);
             productReview.setAnsDate(null);
@@ -285,7 +286,7 @@ public class ProductReviewService  {
         else{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            productReview.setAnsContent(ansContent);
+            productReview.setAnsContent(request.getAnsContent());
             productReview.setAnsFlag(Flag.TRUE);
             productReview.setAnsDate(LocalDate.now().format(formatter));
         }

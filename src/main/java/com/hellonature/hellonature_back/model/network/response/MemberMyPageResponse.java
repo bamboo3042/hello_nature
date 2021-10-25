@@ -17,4 +17,5 @@ public class MemberMyPageResponse {
     private Integer couponCount;
     private Flag hellopayFlag;
     private Flag hellopassFlag;
+    private Flag theGreenFlag;
 }

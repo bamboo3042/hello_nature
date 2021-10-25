@@ -191,6 +191,7 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
                 .couponCount(coupons.size())
                 .hellopassFlag(cards.isEmpty() ? Flag.FALSE : Flag.TRUE)
                 .hellopassFlag(member.getMemberHellopass() != null ? Flag.TRUE : Flag.FALSE)
+                .theGreenFlag(member.getGreenFlag())
                 .build();
     }
 
