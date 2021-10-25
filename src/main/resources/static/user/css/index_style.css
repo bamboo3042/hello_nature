@@ -206,8 +206,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 /* main 신상품 아이템 리스트(3단) 시작 */
 .new_item_wrap {float: left; list-style: none; position: relative; width: 516px; height: 100%; margin-right: 18px;}
-#item_list_2 .new_img, #item_list_7 .new_img, #item_list_8 .new_img {background: url(../images/new_banner.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px 8px 0 0  / 8px 8px 0 0 ;}
-#item_list_2 .item_img, #item_list_7 .item_img, #item_list_8 .item_img {background: url(../images/new_item1.png); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+#item_list_2 .new_img, #item_list_7 .new_img, #item_list_8 .new_img { background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px 8px 0 0  / 8px 8px 0 0 ;}
+#item_list_2 .item_img, #item_list_7 .item_img, #item_list_8 .item_img { background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
 .new_banner {background-color: var(--hello_bg_1); height: 185px; border-radius: 0 0 8px 8px / 0 0 8px 8px ;}
 .new_banner p {padding-top: 18px; padding-left: 13.7px; font-family: netmarbleM; font-size: 21px; letter-spacing: 0.5px;}
@@ -437,7 +437,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 #goods_item_list .list_bg {width: 100%; height: 4140px; }
 #goods_item_list .list_mold {width: 1050px; height: 100%; margin: 0 auto;}
-#goods_item_list .item_img {background: url(../images/life/vegan_item1.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+#goods_item_list .item_img { background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
 /* -------------------------------------------------------------------------- */
 
@@ -492,7 +492,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /*#item_list_brand .life_item_end_wrap {float: left; list-style: none; position: relative; width: 249px; height: 460px; }*/
 #item_list_brand .life_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
 #item_list_brand .life_item_wrap:nth-child(4), #item_list_brand .life_item_wrap:nth-child(8), #item_list_brand .life_item_wrap:nth-child(12), #item_list_brand .life_item_wrap:nth-child(16), #item_list_brand .life_item_wrap:nth-child(20), #item_list_brand .life_item_wrap:nth-child(24), #item_list_brand .life_item_wrap:nth-child(28), #item_list_brand .life_item_wrap:nth-child(32), #item_list_brand .life_item_wrap:nth-child(36), #item_list_brand .life_item_wrap:nth-child(40)  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin: 0;}
-#item_list_brand .item_img {background: white; background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
+#item_list_brand .item_img { background-repeat: no-repeat; background-size: cover; width: 100%; height: 245px; margin-top: 40px; border-radius: 8px;}
 
 /* sale goods list ---------------------------------------------------------- */
 #goods_item_list .life_item_wrap  {float: left; list-style: none; position: relative; width: 249px; height: 460px; margin-right: 18px; margin-bottom: 5px;}
@@ -1089,3 +1089,38 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .item_img_md_6 { background: url(../../uploads/product/2021-10-24-21-57-46_027964_003_22.png); }
 .item_img_md_7 { background: url(../../uploads/product/2021-10-24-20-15-52_104395_001_22.png); }
 .item_img_md_8 { background: url(../../uploads/product/2021-10-20-03-12-10_026013_001_22.jpg); }
+
+/* recommend_goods_list.html - 집콕 간식거리 해결 */
+.item_img_snack_1 { background: url(../../uploads/product/2021-10-24-21-18-56_107051_001_22.png); }
+.item_img_snack_2 { background: url(../../uploads/product/2021-10-24-20-06-16_104393_001_22.png); }
+.item_img_snack_3 { background: url(../../uploads/product/2021-10-24-20-27-01_106412_001_22.png); }
+.item_img_snack_4 { background: url(../../uploads/product/2021-10-22-16-16-15_027685_001_22.jpg); }
+.item_img_snack_5 { background: url(../../uploads/product/2021-10-22-16-03-18_026149_001_22.jpg); }
+.item_img_snack_6 { background: url(../../uploads/product/2021-10-22-15-06-53_106463_001_22.png); }
+.item_img_snack_7 { background: url(../../uploads/product/2021-10-24-21-55-05_027963_003_22.png); }
+.item_img_snack_8 { background: url(../../uploads/product/2021-10-24-21-32-41_027965_003_22.png); }
+
+/* recommend_goods_list.html - MD 추천 */
+.item_img_md2_1 { background: url(../../uploads/product/2021-10-22-14-17-38_105706_001_22.png); }
+.item_img_md2_2 { background: url(../../uploads/product/2021-10-22-15-57-12_106859_005_22.png); }
+.item_img_md2_3 { background: url(../../uploads/product/2021-10-22-15-50-26_106864_006_22.png); }
+.item_img_md2_4 { background: url(../../uploads/product/2021-10-24-04-51-05_027458_001_22.jpg); }
+.item_img_md2_5 { background: url(../../uploads/product/2021-10-24-19-49-53_107094_001_22.png); }
+.item_img_md2_6 { background: url(../../uploads/product/2021-10-24-04-47-40_027457_001_22.jpg); }
+.item_img_md2_7 { background: url(../../uploads/product/2021-10-21-02-49-00_014788_001_22.jpg); }
+.item_img_md2_8 { background: url(../../uploads/product/2021-10-22-06-42-55_027592_001_22.jpg); }
+
+/* recommend_goods_list.html - 스테이크의 모든 것 */
+.item_img_stake2_1 { background: url(../../uploads/product/2021-10-21-01-57-48_023960_001_22.jpg); }
+.item_img_stake2_2 { background: url(../../uploads/product/2021-10-21-01-54-07_023963_001_22.jpg); }
+.item_img_stake2_3 { background: url(../../uploads/product/2021-10-21-01-51-04_023966_001_22.jpg); }
+.item_img_stake2_4 { background: url(../../uploads/product/2021-10-21-01-47-09_027148_001_22.jpg); }
+.item_img_stake2_5 { background: url(../../uploads/product/2021-10-21-01-42-49_027153_001_22.jpg); }
+.item_img_stake2_6 { background: url(../../uploads/product/2021-10-21-01-38-18_023961_001_22.jpg); }
+.item_img_stake2_7 { background: url(../../uploads/product/2021-10-21-01-33-59_023955_001_22.jpg); }
+.item_img_stake2_8 { background: url(../../uploads/product/2021-10-21-01-28-34_023965_001_22.jpg); }
+
+/* recommend_goods_list.html - 헬로윈 홈파티-1 */
+.halloween_img_1 { background: url(../../user/images/halloween1.jpg); }
+.halloween_img_2 { background: url(../../user/images/halloween2.jpg); }
+.halloween_img_3 { background: url(../../user/images/halloween3.jpg); }
