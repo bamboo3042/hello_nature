@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -245,5 +247,29 @@ public class ProductQuestionService  {
                 .ansDate(productQuestion.getAnsDate())
                 .regdate(productQuestion.getRegdate())
                 .build();
+    }
+
+    public Header<ProductQuestionApiResponse> updateAns(Header<ProductQuestionApiRequest> requestHeader){
+        ProductQuestionApiRequest request = requestHeader.getData();
+        Optional<ProductQuestion> optional = productQuestionRepository.findById(request.getIdx());
+        if (optional.isEmpty()) return Header.ERROR("후기 idx가 잘못되었습니다");
+        ProductQuestion productQuestion = optional.get();
+
+        if (request.getAnsContent() == null || request.getAnsContent().isEmpty()){
+            productQuestion.setAnsContent(null);
+            productQuestion.setAnsFlag(Flag.FALSE);
+            productQuestion.setAnsDate(null);
+        }
+        else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            productQuestion.setAnsContent(request.getAnsContent());
+            productQuestion.setAnsFlag(Flag.TRUE);
+            productQuestion.setAnsDate(LocalDate.now().format(formatter));
+        }
+
+        productQuestionRepository.save(productQuestion);
+
+        return Header.OK();
     }
 }

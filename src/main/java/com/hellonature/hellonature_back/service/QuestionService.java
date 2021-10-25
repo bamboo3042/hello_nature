@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -199,5 +201,29 @@ public class QuestionService{
             questionApiResponses.add(response(question));
         }
         return Header.OK(questionApiResponses);
+    }
+
+    public Header<QuestionApiResponse> updateAns(Header<QuestionApiRequest> requestHeader){
+        QuestionApiRequest request = requestHeader.getData();
+        Optional<Question> optional = questionRepository.findById(request.getIdx());
+        if (optional.isEmpty()) Header.ERROR("1:1문의 idx가 잘못되었습니다");
+        Question question = optional.get();
+
+        if (request.getAnsContent() == null || request.getAnsContent().isEmpty()){
+            question.setAnsContent(null);
+            question.setAnsFlag(Flag.FALSE);
+            question.setAnsDate(null);
+        }
+        else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            question.setAnsContent(request.getAnsContent());
+            question.setAnsFlag(Flag.TRUE);
+            question.setAnsDate(LocalDate.now().format(formatter));
+        }
+
+        questionRepository.save(question);
+
+        return Header.OK();
     }
 }

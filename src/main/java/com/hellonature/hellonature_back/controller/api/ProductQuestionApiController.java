@@ -67,4 +67,9 @@ public class ProductQuestionApiController extends CrudController<ProductQuestion
     public Header<List<MyPageProductQuestionResponse>> myPageList(@PathVariable(name = "memIdx") Long memIdx){
         return productQuestionService.myPageList(memIdx);
     }
+
+    @PutMapping("ansContent/update")
+    public Header<ProductQuestionApiResponse> updateAns(@RequestBody Header<ProductQuestionApiRequest> requestHeader){
+        return productQuestionService.updateAns(requestHeader);
+    }
 }
