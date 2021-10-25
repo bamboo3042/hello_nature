@@ -17,6 +17,7 @@ public class QuestionApiResponse {
     private Long idx;
 
     private Long memIdx;
+    private String name;
     private String hp;
     private String email;
 

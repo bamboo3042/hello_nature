@@ -94,6 +94,7 @@ public class QuestionService{
         return QuestionApiResponse.builder()
                 .idx(question.getIdx())
                 .memIdx(question.getMember().getIdx())
+                .name(question.getMember().getName())
                 .ansFlag(question.getAnsFlag())
                 .ansDate(question.getAnsDate())
                 .content(question.getContent())
@@ -143,7 +144,7 @@ public class QuestionService{
 
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
-        if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
+        if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag.getId());
         if (type != null) query = query.setParameter("type", type);
         if (memEmail != null) query = query.setParameter("memEmail", "%" + memEmail + "%");
 
