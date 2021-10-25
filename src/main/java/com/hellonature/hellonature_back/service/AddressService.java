@@ -84,14 +84,13 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
             address.setZipcode(addressApiRequest.getZipcode());
             address.setAddr1(addressApiRequest.getAddr1());
             address.setAddr2(addressApiRequest.getAddr2());
-            address.setBaseFlag(addressApiRequest.getBaseFlag());
-            address.setDawnFlag(addressApiRequest.getDawnFlag());
-            address.setGrFlag(addressApiRequest.getGreenFlag());
+            address.setDawnFlag(isSeoul(addressApiRequest.getAddr1()) ? Flag.TRUE : Flag.FALSE);
             address.setRequestMemo1(addressApiRequest.getRequestMemo1());
             address.setRequestMemo2(addressApiRequest.getRequestMemo2());
             address.setRequestType(addressApiRequest.getRequestType());
 
             if (addressApiRequest.getBaseFlag() != null && addressApiRequest.getBaseFlag() == Flag.TRUE){
+                address.setBaseFlag(Flag.TRUE);
                 Address baseAddress = addressRepository.findById(addressApiRequest.getBaseIdx()).get();
                 baseAddress.setBaseFlag(Flag.FALSE);
                 addressRepository.save(baseAddress);
