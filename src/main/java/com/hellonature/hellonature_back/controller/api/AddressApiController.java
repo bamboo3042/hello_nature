@@ -43,9 +43,9 @@ public class AddressApiController extends CrudController<AddressApiRequest, Addr
     }
 
     @GetMapping("/list")
-    public Header<List<AddressApiResponse>> list(@RequestParam(name="memEmail", required = false) String memEmail,
+    public Header<List<AddressApiResponse>> list(@RequestParam(name="name", required = false) String name,
                                                  @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
-        return addressService.list(memEmail, startPage);
+        return addressService.list(name, startPage);
     }
 
     @DeleteMapping("/deleteList/{idx}")

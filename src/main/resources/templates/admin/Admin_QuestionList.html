@@ -269,7 +269,6 @@
             url = url + '&email=' + email;
         }
 
-        console.log(url)
         axios.get(url, {
 
         }).then(function(response){
@@ -442,7 +441,7 @@
     <!--QList 시작-->
     <div class="QList">
         <!--QL_c1 시작-->
-        <form class="QL_c1">
+        <div class="QL_c1">
             <p id="PQ_title1" class="product_title_s"><label>1:1 문의 검색</label></p>
             <div class="QL_c1_searchBox">
                 <p><span>등록일 기준</span>
@@ -483,7 +482,7 @@
                 <span><input type="reset" name="reset" value="초기화"></span>
                 <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
-        </form>
+        </div>
         <!--QL_c1 끝-->
         <!--QL_c2 시작-->
         <div class="QL_c2">

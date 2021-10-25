@@ -132,7 +132,7 @@
                     for (let i in response.data.data) {
                         let id = response.data.data[i].idx;
                         let $cate = response.data.data[i].cateIdx;
-                        let $name = response.data.date[i].name;
+                        let $name = response.data.data[i].name;
                         let $state = response.data.data[i].state;
                         let $price = response.data.data[i].price;
                         let $count = response.data.data[i].count;
@@ -166,8 +166,6 @@
                         $("#ajax_hidden").val($(this).next().val());
                         let id = $("#ajax_hidden").val();
 
-                        console.log(id)
-
                         sessionStorage.setItem("proIdx", id);
                         $.ajax({
                             type: 'GET',
@@ -192,22 +190,18 @@
         let page = $('.page').val();
         let state = $('input:checkbox[name="d_status"]:checked').val();
         let name = $('#text').val();
-        let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
+        let url = '/api/product/list?page=' + page + '&state=' + state;
 
-        if(cateIdx == ""){
-            cateIdx = $('#PL_sel_1').val();
-        }
-
-        if(cateIdx == ""){
+        if(state == undefined){
             url = '/api/product/list?page=' + page;
-        }else if(cateIdx != ""){
+        } else if(state != undefined){
             url = url;
         }
 
-        if(state == ""){
+        if(cateIdx == "중분류"){
             url = url;
-        } else if(state != ""){
-            url = url + '&state=' + state;
+        }else if(cateIdx != "중분류"){
+            url = url + '&cateIdx=' + cateIdx;
         }
 
         if(name == ""){
@@ -224,7 +218,7 @@
             for(let i in response.data.data){
                 let id = response.data.data[i].idx;
                 let $cate = response.data.data[i].cateIdx;
-                let $name = response.data.date[i].name;
+                let $name = response.data.data[i].name;
                 let $state = response.data.data[i].state;
                 let $price = response.data.data[i].price;
                 let $count = response.data.data[i].count;
@@ -287,46 +281,32 @@
                     let page = $('.page').val();
                     let state = $('input:checkbox[name="d_status"]:checked').val();
                     let name = $('#text').val();
-                    let url = '/api/product/list?page=' + page;
+                    let url = '/api/product/list?page=' + page + '&state=' + state;
 
-                    if(state == 0){
-                        state = '판매대기'
-                    }else if(state == 1){
-                        state = '판매중'
-                    }else if(state == 2){
-                        state = '판매중지'
-                    }else if(state == 3){
-                        state = '판매종료'
-                    }else if(state == 4){
-                        state = '품절'
+                    if(state == undefined){
+                        url = '/api/product/list?page=' + page;
+                    } else if(state != undefined){
+                        url = url;
                     }
 
-                    if(cateIdx == ""){
+                    if(cateIdx == "중분류"){
                         url = url;
-                    }else if(cateIdx != ""){
+                    }else if(cateIdx != "중분류"){
                         url = url + '&cateIdx=' + cateIdx;
                     }
 
-                    console.log(state)
-                    if (state == "") {
+                    if(name == ""){
                         url = url;
-                    } else if (state != "") {
-                        url = url + '&state=' + state;
-                    }
-
-                    if (name == "") {
-                        url = url;
-                    } else if (name != "") {
+                    }else if(name != ""){
                         url = url + '&name=' + name;
                     }
-                    console.log(url)
 
                     axios.get(url, {}).then(function (response) {
                         let tb = $('<tbody class="tbody">');
                         for (let i in response.data.data) {
                             let id = response.data.data[i].idx;
                             let $cate = response.data.data[i].cateIdx;
-                            let $name = response.data.date[i].name;
+                            let $name = response.data.data[i].name;
                             let $state = response.data.data[i].state;
                             let $price = response.data.data[i].price;
                             let $count = response.data.data[i].count;
@@ -441,7 +421,7 @@
             <!--PL_c1_btnBox 시작-->
             <div class="bottom_btn" id="PL_c1_btnBox">
                 <span><input type="reset" name="reset" value="초기화"></span>
-                <span><input type="button" name="submit" value="검색" id="schbtn"></span>
+                <span><input type="button" name="submit" value="검색" onclick="search()"></span>
             </div>
             <!--PL_c1_btnBox 끝-->
         </form>

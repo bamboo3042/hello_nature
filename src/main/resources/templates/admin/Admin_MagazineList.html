@@ -19,7 +19,7 @@
         let page = $('.page').val()
 
         axios.get("/api/magazine/list?page"+ page, {}).then(function (response) {
-            let tb = $('<tbody>');
+            let tb = $('<tbody class="tbody">');
 
             for (let i in response.data.data) {
                 let $id = response.data.data[i].idx;
@@ -31,9 +31,9 @@
                 let k = parseInt(i)
                 $regdate = $regdate.toString().substring(0,10);
 
-                if($showFlag == 0){
+                if($showFlag == 'TRUE'){
                     $showFlag = '전시중'
-                }else if($showFlag == 1){
+                }else if($showFlag == 'FALSE'){
                     $showFlag = '전시종료'
                 }
 
@@ -88,9 +88,9 @@
                         let k = parseInt(i)
                         $regdate = $regdate.toString().substring(0,10);
 
-                        if($showFlag == 0){
+                        if($showFlag == 'TRUE'){
                             $showFlag = '전시중'
-                        }else if($showFlag == 1){
+                        }else if($showFlag == 'FALSE'){
                             $showFlag = '전시종료'
                         }
 
@@ -147,6 +147,8 @@
         let type = $("#Mz_cate").val();
         let title = $("#text").val();
         let page = $('.page').val();
+        let dateStart = $('#date_start').val();
+        let dateEnd = $('#date_end').val();
         let url = '/api/magazine/list?page='+ page + '&type=' + type;
 
         if(type == ""){
@@ -161,7 +163,17 @@
             url = url + '&title=' + title;
         }
 
+        if(dateStart == "" && dateEnd == ""){
+            url = url;
+        }else if(dateStart == "" && dateEnd != ""){
+            url = url + '&dateEnd=' + dateEnd;
+        }else if(dateStart != "" && dateEnd == ""){
+            url = url + '&dateStart' + dateStart;
+        }else if(dateStart != "" && dateEnd != ""){
+            url = url + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+        }
 
+        console.log(url)
         axios.get(url, {
         }).then(function (response){
             let tb = $('<tbody>');
@@ -175,9 +187,9 @@
                 let k = parseInt(i)
                 $regdate = $regdate.toString().substring(0, 10);
 
-                if($showFlag == 0){
+                if($showFlag == 'TRUE'){
                     $showFlag = '전시중'
-                }else if($showFlag == 1){
+                }else if($showFlag == 'FALSE'){
                     $showFlag = '전시종료'
                 }
 
@@ -204,8 +216,7 @@
             tb.append('</tbody>');
             $('.thead').after(tb);
 
-            alert("검색 완료")
-
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
                     i + '</li>'
@@ -234,9 +245,9 @@
 
                         $regdate = $regdate.toString().substring(0, 10);
 
-                        if($showFlag == 0){
+                        if($showFlag == 'TRUE'){
                             $showFlag = '전시중'
-                        }else if($showFlag == 1){
+                        }else if($showFlag == 'FALSE'){
                             $showFlag = '전시종료'
                         }
 
@@ -287,7 +298,7 @@
                     <th width="100">분류</th>
                     <td>
                         <select style="height: 38px; width: 150px; margin-right: 10px;" id="Mz_cate">
-                            <option>카테고리</option>
+                            <option value="">카테고리</option>
                             <option value="NOTE">탐험노트</option>
                             <option value="STYLE">라이프스타일</option>
                             <option value="GUIDE">키친가이드</option>
