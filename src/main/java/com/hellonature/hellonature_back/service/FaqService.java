@@ -83,6 +83,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
                 .subject(faq.getSubject())
                 .title(faq.getTitle())
                 .content(faq.getContent())
+                .regdate(faq.getRegdate())
                 .build();
     }
 
