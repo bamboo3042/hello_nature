@@ -267,6 +267,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         MemberOrder memberOrder = optional.get();
 
         memberOrder.setState(state);
+        memberOrderRepository.save(memberOrder);
         return Header.OK();
     }
 }
