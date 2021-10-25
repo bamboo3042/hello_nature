@@ -18,7 +18,7 @@
     $(function(){
         let page = $('.page').val();
 
-        axios.get('/api/question/list?startPage=' + page, {
+        axios.get('/api/Question/list?startPage=' + page, {
 
         }).then(function(response){
             let tb = $('<tbody class="tbody">');
@@ -33,10 +33,13 @@
                 $regdate = $regdate.toString().substring(0, 10);
                 let $ansFlag = response.data.data[i].ansFlag;
                 let k = parseInt(i) + 1
+                if($ansDate == null){
+                    $ansDate = "..."
+                }
 
-                if($ansFlag === 1) {
+                if ($ansFlag === "TRUE") {
                     $ansFlag = '답변완료'
-                }else if($ansFlag === 0){
+                } else if ($ansFlag === "FALSE") {
                     $ansFlag = '답변대기'
                 }
 
@@ -107,7 +110,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -120,10 +123,13 @@
                         $regdate = $regdate.toString().substring(0, 10);
                         let $ansFlag = response.data.data[i].ansFlag;
                         let k = parseInt(i) + 1
+                        if($ansDate == null){
+                            $ansDate = "..."
+                        }
 
-                        if ($ansFlag === 1) {
+                        if ($ansFlag === "TRUE") {
                             $ansFlag = '답변완료'
-                        } else if ($ansFlag === 0) {
+                        } else if ($ansFlag === "FALSE") {
                             $ansFlag = '답변대기'
                         }
 
@@ -240,14 +246,19 @@
         let ansFlag = $('#QL_c1_sel_1').val();
         let type = $('#QL_c1_sel_3').val();
         let email = $('#email').val();
-        let url = '/api/question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+        if(ansFlag == 1){
+            ansFlag = 'TRUE'
+        }else if(ansFlag == 0){
+            ansFlag = 'FALSE'
+        }
+        let url = '/api/Question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
 
         if(dateStart == "" && dateEnd == ""){
-            url = '/api/question/list?startPage=' + page;
+            url = '/api/Question/list?startPage=' + page;
         }else if(dateStart == "" && dateEnd != ""){
-            url = '/api/question/list?startPage=' + page + '&dateEnd=' + dateEnd;
+            url = '/api/Question/list?startPage=' + page + '&dateEnd=' + dateEnd;
         }else if(dateStart != "" && dateEnd == ""){
-            url = '/api/question/list?startPage=' + page + '&dateStart=' + dateStart;
+            url = '/api/Question/list?startPage=' + page + '&dateStart=' + dateStart;
         }else if(dateStart != "" && dateEnd != ""){
             url = url + '&startPage=' + page;
         }
@@ -268,7 +279,7 @@
         }else if(email != ""){
             url = url + '&email=' + email;
         }
-
+        console.log(url)
         axios.get(url, {
 
         }).then(function(response){
@@ -284,10 +295,13 @@
                 $regdate = $regdate.toString().substring(0, 10);
                 let $ansFlag = response.data.data[i].ansFlag;
                 let k = parseInt(i) + 1
+                if($ansDate == null){
+                    $ansDate = "..."
+                }
 
-                if($ansFlag === 1) {
+                if ($ansFlag === "TRUE") {
                     $ansFlag = '답변완료'
-                }else if($ansFlag === 0){
+                } else if ($ansFlag === "FALSE") {
                     $ansFlag = '답변대기'
                 }
 
@@ -343,7 +357,7 @@
                     }
                 })
             })
-
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
                     i + '</li>'
@@ -358,7 +372,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -371,10 +385,13 @@
                         $regdate = $regdate.toString().substring(0, 10);
                         let $ansFlag = response.data.data[i].ansFlag;
                         let k = parseInt(i) + 1
+                        if($ansDate == null){
+                            $ansDate = "..."
+                        }
 
-                        if ($ansFlag === 1) {
+                        if ($ansFlag === "TRUE") {
                             $ansFlag = '답변완료'
-                        } else if ($ansFlag === 0) {
+                        } else if ($ansFlag === "FALSE") {
                             $ansFlag = '답변대기'
                         }
 
@@ -441,7 +458,7 @@
     <!--QList 시작-->
     <div class="QList">
         <!--QL_c1 시작-->
-        <div class="QL_c1">
+        <form class="QL_c1">
             <p id="PQ_title1" class="product_title_s"><label>1:1 문의 검색</label></p>
             <div class="QL_c1_searchBox">
                 <p><span>등록일 기준</span>
@@ -482,7 +499,7 @@
                 <span><input type="reset" name="reset" value="초기화"></span>
                 <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
-        </div>
+        </form>
         <!--QL_c1 끝-->
         <!--QL_c2 시작-->
         <div class="QL_c2">
