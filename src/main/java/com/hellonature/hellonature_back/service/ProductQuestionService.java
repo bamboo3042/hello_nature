@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,15 +40,15 @@ public class ProductQuestionService  {
     private final FileService fileService;
 
 
-    public Header<ProductQuestionApiResponse> create(Header<ProductQuestionApiRequest> request, List<MultipartFile> multipartFiles ) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
+    public Header<ProductQuestionApiResponse> create(Header<ProductQuestionApiRequest> request) {
+//        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
 
         ProductQuestion productQuestion = ProductQuestion.builder()
                 .member(memberRepository.findById(productQuestionApiRequest.getMemIdx()).get())
                 .product(productRepository.findById(productQuestionApiRequest.getProIdx()).get())
                 .content(productQuestionApiRequest.getContent())
-                .img(pathList.get(0))
+//                .img(pathList.get(0))
                 .build();
         productQuestionRepository.save(productQuestion);
         return Header.OK();
@@ -61,8 +63,8 @@ public class ProductQuestionService  {
     }
 
 
-    public Header<ProductQuestionApiResponse> update(Header<ProductQuestionApiRequest> request, List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
+    public Header<ProductQuestionApiResponse> update(Header<ProductQuestionApiRequest> request) {
+//        List<String> pathList = fileService.imagesUploads(multipartFiles, "productQuestion");
         ProductQuestionApiRequest productQuestionApiRequest = request.getData();
         Optional<ProductQuestion> optional = productQuestionRepository.findById(productQuestionApiRequest.getIdx());
         return optional.map(productQuestion -> {
@@ -71,7 +73,7 @@ public class ProductQuestionService  {
                     productQuestion.setContent(productQuestionApiRequest.getContent());
                     productQuestion.setAnsFlag(productQuestionApiRequest.getAnsFlag());
                     productQuestion.setAnsContent(productQuestionApiRequest.getAnsContent());
-                    productQuestion.setImg(pathList.get(0));
+//                    productQuestion.setImg(pathList.get(0));
                     productQuestion.setAnsDate(productQuestionApiRequest.getAnsDate());
 
                     return productQuestion;
@@ -245,5 +247,29 @@ public class ProductQuestionService  {
                 .ansDate(productQuestion.getAnsDate())
                 .regdate(productQuestion.getRegdate())
                 .build();
+    }
+
+    public Header<ProductQuestionApiResponse> updateAns(Header<ProductQuestionApiRequest> requestHeader){
+        ProductQuestionApiRequest request = requestHeader.getData();
+        Optional<ProductQuestion> optional = productQuestionRepository.findById(request.getIdx());
+        if (optional.isEmpty()) return Header.ERROR("후기 idx가 잘못되었습니다");
+        ProductQuestion productQuestion = optional.get();
+
+        if (request.getAnsContent() == null || request.getAnsContent().isEmpty()){
+            productQuestion.setAnsContent(null);
+            productQuestion.setAnsFlag(Flag.FALSE);
+            productQuestion.setAnsDate(null);
+        }
+        else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            productQuestion.setAnsContent(request.getAnsContent());
+            productQuestion.setAnsFlag(Flag.TRUE);
+            productQuestion.setAnsDate(LocalDate.now().format(formatter));
+        }
+
+        productQuestionRepository.save(productQuestion);
+
+        return Header.OK();
     }
 }

@@ -152,6 +152,7 @@ public class ProductReviewService  {
                 .totalPages(result.size() / count)
                 .totalElements((long) result.size())
                 .currentPage(page)
+                .currentElements(end - start)
                 .build();
 
         return Header.OK(list, pagination);
@@ -290,6 +291,8 @@ public class ProductReviewService  {
             productReview.setAnsFlag(Flag.TRUE);
             productReview.setAnsDate(LocalDate.now().format(formatter));
         }
+
+        productReviewRepository.save(productReview);
 
         return Header.OK();
     }
