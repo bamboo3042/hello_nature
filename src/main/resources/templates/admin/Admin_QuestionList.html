@@ -18,7 +18,7 @@
     $(function(){
         let page = $('.page').val();
 
-        axios.get('/api/question/list?startPage=' + page, {
+        axios.get('/api/Question/list?startPage=' + page, {
 
         }).then(function(response){
             let tb = $('<tbody class="tbody">');
@@ -34,9 +34,9 @@
                 let $ansFlag = response.data.data[i].ansFlag;
                 let k = parseInt(i) + 1
 
-                if($ansFlag === 1) {
+                if($ansFlag === 'TRUE') {
                     $ansFlag = '답변완료'
-                }else if($ansFlag === 0){
+                }else if($ansFlag === 'FALSE'){
                     $ansFlag = '답변대기'
                 }
 
@@ -68,7 +68,7 @@
                     '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
                     '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
                     '<td align="center"><p>'+ $type +'</p></td>' +
-                    '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
+                    '<td align="center"><p>' + $regdate +'</p><p>----------------------</p><p>'+ $ansDate +'</p></td>' +
                     '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="'+ $id +'"></p></td></tr>'
                 )
                 tb.append(row);
@@ -107,7 +107,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -121,9 +121,9 @@
                         let $ansFlag = response.data.data[i].ansFlag;
                         let k = parseInt(i) + 1
 
-                        if ($ansFlag === 1) {
+                        if ($ansFlag === 'TRUE') {
                             $ansFlag = '답변완료'
-                        } else if ($ansFlag === 0) {
+                        } else if ($ansFlag === 'FALSE') {
                             $ansFlag = '답변대기'
                         }
 
@@ -155,7 +155,7 @@
                             '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
                             '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
                             '<td align="center"><p>' + $type + '</p></td>' +
-                            '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
+                            '<td align="center"><p>' + $regdate + '</p><p>----------------------</p><p>' + $ansDate + '</p></td>' +
                             '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="' + $id + '"></p></td></tr>'
                         )
                         tb.append(row);
@@ -240,14 +240,14 @@
         let ansFlag = $('#QL_c1_sel_1').val();
         let type = $('#QL_c1_sel_3').val();
         let email = $('#email').val();
-        let url = '/api/question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
+        let url = '/api/Question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
 
         if(dateStart == "" && dateEnd == ""){
-            url = '/api/question/list?startPage=' + page;
+            url = '/api/Question/list?startPage=' + page;
         }else if(dateStart == "" && dateEnd != ""){
-            url = '/api/question/list?startPage=' + page + '&dateEnd=' + dateEnd;
+            url = '/api/Question/list?startPage=' + page + '&dateEnd=' + dateEnd;
         }else if(dateStart != "" && dateEnd == ""){
-            url = '/api/question/list?startPage=' + page + '&dateStart=' + dateStart;
+            url = '/api/Question/list?startPage=' + page + '&dateStart=' + dateStart;
         }else if(dateStart != "" && dateEnd != ""){
             url = url + '&startPage=' + page;
         }
@@ -266,9 +266,9 @@
         if(email == ""){
             url = url;
         }else if(email != ""){
-            url = url + '&email=' + email;
+            url = url + '&memEmail=' + email;
         }
-
+        console.log(url)
         axios.get(url, {
 
         }).then(function(response){
@@ -285,9 +285,9 @@
                 let $ansFlag = response.data.data[i].ansFlag;
                 let k = parseInt(i) + 1
 
-                if($ansFlag === 1) {
+                if($ansFlag == 'TRUE') {
                     $ansFlag = '답변완료'
-                }else if($ansFlag === 0){
+                }else if($ansFlag == 'FALSE'){
                     $ansFlag = '답변대기'
                 }
 
@@ -319,7 +319,7 @@
                     '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
                     '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
                     '<td align="center"><p>'+ $type +'</p></td>' +
-                    '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
+                    '<td align="center"><p>' + $regdate +'</p><p>----------------------</p><p>'+ $ansDate +'</p></td>' +
                     '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="'+ $id +'"></p></td></tr>'
                 )
                 tb.append(row);
@@ -343,7 +343,7 @@
                     }
                 })
             })
-
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
                     i + '</li>'
@@ -358,7 +358,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -372,9 +372,9 @@
                         let $ansFlag = response.data.data[i].ansFlag;
                         let k = parseInt(i) + 1
 
-                        if ($ansFlag === 1) {
+                        if ($ansFlag === 'TRUE') {
                             $ansFlag = '답변완료'
-                        } else if ($ansFlag === 0) {
+                        } else if ($ansFlag === 'FALSE') {
                             $ansFlag = '답변대기'
                         }
 
@@ -406,7 +406,7 @@
                             '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
                             '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
                             '<td align="center"><p>' + $type + '</p></td>' +
-                            '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
+                            '<td align="center"><p>' + $regdate + '</p><p>----------------------</p><p>' + $ansDate + '</p></td>' +
                             '<td align="center"><p><input type="button" class="detail" value="'+ $ansFlag +'"><input type="hidden" value="' + $id + '"></p></td></tr>'
                         )
                         tb.append(row);
@@ -441,7 +441,7 @@
     <!--QList 시작-->
     <div class="QList">
         <!--QL_c1 시작-->
-        <div class="QL_c1">
+        <form class="QL_c1">
             <p id="PQ_title1" class="product_title_s"><label>1:1 문의 검색</label></p>
             <div class="QL_c1_searchBox">
                 <p><span>등록일 기준</span>
@@ -482,12 +482,12 @@
                 <span><input type="reset" name="reset" value="초기화"></span>
                 <span><input type="button" name="submit" value="검색" id="schbtn"></span>
             </div>
-        </div>
+        </form>
         <!--QL_c1 끝-->
         <!--QL_c2 시작-->
         <div class="QL_c2">
             <div id="QL_c2_title" class="green_title_s">
-                <p> 문의 목록 <span style="font-size: 14px;">(<span>현재 등록 후기 : 2개</span> <span>답변대기 : 1개</span> <span>답변완료 : 1개</span>)</span></p>
+                <p> 문의 목록 </p>
             </div>
             <form name="Question_list">
                 <input type="button" id="Q1_c2_delbtn" name="delete" value="선택삭제">
