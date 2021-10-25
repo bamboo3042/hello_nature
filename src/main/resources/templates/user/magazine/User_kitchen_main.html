@@ -19,7 +19,7 @@
             const searchParams = currUrl.searchParams;
             const page = searchParams.get("page");
 
-            axios.get('/api/magazine/user/list?type=3&page='+page, {
+            axios.get('/api/magazine/user/list?type=GUIDE&page='+page, {
 
             }).then(function(res) {
 
