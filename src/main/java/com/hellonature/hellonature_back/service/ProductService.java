@@ -411,7 +411,7 @@ public class ProductService{
         }
 
         Pagination pagination = Pagination.builder()
-                .totalPages(size % count == 0 ? size - 1 : size)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .currentPage(page)
                 .totalElements((long) products.size())
                 .currentElements(end - start)
@@ -460,7 +460,7 @@ public class ProductService{
         }
 
         Pagination pagination = Pagination.builder()
-                .totalPages(size % count == 0 ? size - 1: size)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .currentPage(page)
                 .totalElements((long) result.size())
                 .currentElements(end - start)
@@ -506,7 +506,7 @@ public class ProductService{
         }
 
         Pagination pagination = Pagination.builder()
-                .totalPages(size % count == 0 ? size - 1 : size)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .currentPage(page)
                 .totalElements((long) result.size())
                 .currentElements(end - start)
