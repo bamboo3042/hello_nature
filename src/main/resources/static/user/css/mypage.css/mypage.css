@@ -179,11 +179,11 @@ mantoman_button:hover{ background-color: #11b082;}
 .contents_hellopay_inputcard_h:hover {background-color: #ebebeb}
 
 /* 라디오 버튼 기능 삭제 */
-#hellopay_radio { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; box-shadow:none; border: none;}
+.hellopay_radio_s { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; box-shadow:none; border: none; with:30px;}
 /* (라디오 커스터마이징) 체크되기 전 */
-#hellopay_radio + label:before { background: url("/user/images/mypage.img/hellopay_radio_unchecked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
+.hellopay_radio_s + label:before { width:30px; background: url("/user/images/mypage.img/hellopay_radio_unchecked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
 /* (라디오 커스터마이징) 체크된 후 */
-#hellopay_radio:checked + label:before { background: url("/user/images/mypage.img/hellopay_radio_checked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
+.hellopay_radio_s:checked + label:before { width:30px; background: url("/user/images/mypage.img/hellopay_radio_checked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
 .hellopay_radio_box_h { width: 650px; display: flex; justify-content:space-between; margin-bottom: 5px;}
 
 .hellopay_card_edit_del { display: flex; align-items: center; justify-self: center;}

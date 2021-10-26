@@ -44,7 +44,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function () {
-
             $(".overview").click(function (e){
                 if( $(".contents_hellocash_box3").css("display") === "none") {
                     $(".contents_hellocash_box3").css("display", "block");
@@ -104,11 +103,19 @@
                         let $point = response.data.data[i].point;
                         let $dateVal = response.data.data[i].dateVal;
                         let $title = response.data.data[i].title;
+                        let $dateUsed = response.data.data[i].dateUsed;
+
+                        if($dateUsed === null){
+                            $point = "+" + $point
+                        }else{
+                            $point = "-" + $point
+                            $dateVal = $dateUsed
+                        }
 
                         let row = $('<div class="contents_hellocash_box1">').append(
                             '<div class="hellocash_savingbox1"><p>' + $title + '</p>' +
                             '<div class="hellocash_savingbox1_inner"><p>' + $dateVal + '</p><div class="hellocash_saving_line"></div><p>'+idx+'</p></div>' +
-                            '<div class="hellocash_savingbox2" style="margin-left: 700px;"><p>+' + $point + '<span>원</span></p></div></div>'
+                            '<div class="hellocash_savingbox2" style="margin-left: 700px;"><p>' + $point + '<span>원</span></p></div></div>'
                         )
 
                         $("#hello_list").append(row)
@@ -131,11 +138,19 @@
                         let $point = response.data.data[i].point;
                         let $dateVal = response.data.data[i].dateVal;
                         let $title = response.data.data[i].title;
+                        let $dateUsed = response.data.data[i].dateUsed;
+
+                        if($dateUsed === null){
+                            $point = "+" + $point
+                        }else{
+                            $point = "-" + $point
+                            $dateVal = $dateUsed
+                        }
 
                         let row = $('<div class="contents_hellocash_box1">').append(
                             '<div class="hellocash_savingbox1"><p>' + $title + '</p>' +
                             '<div class="hellocash_savingbox1_inner"><p>' + $dateVal + '</p><div class="hellocash_saving_line"></div><p>'+idx+'</p></div>' +
-                            '<div class="hellocash_savingbox2" style="margin-left: 700px;"><p>+' + $point + '<span>원</span></p></div></div>'
+                            '<div class="hellocash_savingbox2" style="margin-left: 700px;"><p>' + $point + '<span>원</span></p></div></div>'
                         )
 
                         $("#hello_list").append(row)

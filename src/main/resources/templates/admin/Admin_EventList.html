@@ -15,6 +15,7 @@
 </head>
 <script>
     $(function(){
+
         let page = $('.page').val();
         axios.get('/api/event/list?startPage=' + page, {
         }).then(function (response){
