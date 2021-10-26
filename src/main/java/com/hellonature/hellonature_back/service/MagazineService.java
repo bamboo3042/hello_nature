@@ -16,20 +16,16 @@ import com.hellonature.hellonature_back.repository.MagazineRepository;
 import com.hellonature.hellonature_back.repository.MemberRepository;
 import com.hellonature.hellonature_back.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -173,7 +169,7 @@ public class MagazineService {
         int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages(result.size() / count)
+                .totalPages(result.size() % count == 0 ? result.size()/count - 1 : result.size()/count)
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)

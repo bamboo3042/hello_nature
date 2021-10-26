@@ -205,7 +205,7 @@ public class ProductQuestionService  {
         }
 
         Pagination pagination = Pagination.builder()
-                .totalPages(size / 5)
+                .totalPages(size % 5 == 0 ? size - 1 : size)
                 .totalElements((long) size)
                 .currentPage(page)
                 .currentElements(end - start)
