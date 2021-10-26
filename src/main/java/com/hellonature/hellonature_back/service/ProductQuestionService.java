@@ -2,7 +2,6 @@ package com.hellonature.hellonature_back.service;
 
 import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.entity.ProductQuestion;
-
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
@@ -13,13 +12,8 @@ import com.hellonature.hellonature_back.model.network.response.ProductQuestionLi
 import com.hellonature.hellonature_back.repository.MemberRepository;
 import com.hellonature.hellonature_back.repository.ProductQuestionRepository;
 import com.hellonature.hellonature_back.repository.ProductRepository;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -28,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -125,7 +118,7 @@ public class ProductQuestionService  {
             }
             if (name != null){
                 if (check) jpql += " and";
-                jpql += " name = :name";
+                jpql += " name like :name";
                 check = true;
             }
             if (dateStart != null){
@@ -144,7 +137,7 @@ public class ProductQuestionService  {
 
         if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
         if (content != null) query = query.setParameter("content", "%"+content+"%");
-        if (name != null) query = query.setParameter("name", name);
+        if (name != null) query = query.setParameter("name", "%" + name + "%");
         if (dateStart != null) query = query.setParameter("dateStart", dateStart);
         if (dateEnd != null) query = query.setParameter("dateEnd", dateEnd);
 
