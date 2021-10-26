@@ -9,7 +9,7 @@
 
 /* 전체 적용 */
 * { margin: 0; padding: 0; }
-h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size: inherit; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 div, p, label, a {margin: 0; padding: 0; display: block;}
 ul, ol, li { list-style: none; }
 a { text-decoration: none;}
@@ -568,3 +568,6 @@ img { border: none; vertical-align: top; }
 .event_list_item .event_title .event_name { padding-bottom: 15px; font-size: 25px; font-weight: bold; letter-spacing: 1.5px; }
 
 .list_on { display: none; }
+
+
+.q_bnr_list { font-size: 12px; }
