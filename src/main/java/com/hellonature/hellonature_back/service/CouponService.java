@@ -15,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -128,6 +129,7 @@ public class CouponService extends BaseService<CouponApiRequest, CouponApiRespon
                 .title(coupon.getCouponType().getTitle())
                 .discount(coupon.getCouponType().getDiscount())
                 .minPrice(coupon.getCouponType().getMinPrice())
+                .ctIdx(coupon.getCouponType().getIdx())
                 .build();
     }
 }

@@ -22,4 +22,5 @@ public class MemberCouponApiResponse {
     private String title;
     private Integer discount;
     private Integer minPrice;
+    private Long ctIdx;
 }
