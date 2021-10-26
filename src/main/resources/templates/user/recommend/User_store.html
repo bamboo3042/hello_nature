@@ -11,6 +11,36 @@
     <title>HelloNature-Recommend-fresh</title>
     <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function (){
+            axios.get('/api/popupstore/read/1',{
+
+            }).then(function (res){
+
+                let idx = res.data.data.idx;
+                let title = res.data.data.title;
+                let content = res.data.data.content;
+                let dateStart = res.data.data.dateStart;
+                let dateEnd = res.data.data.dateEnd;
+
+                dateStart = dateStart.substr(5, 10);
+                dateEnd = dateEnd.substr(5, 10);
+
+                document.getElementsByClassName("popup_idx")[0].innerText = "no. " + idx;
+                document.getElementsByClassName("popup_dday")[0].innerText = dateStart + "~" + dateEnd;
+                document.getElementsByClassName("popup_title")[0].innerText = title;
+                document.getElementsByClassName("popup_content")[0].innerHTML = content;
+
+
+            }).catch(function (err){
+                console.log(err);
+            })
+        });
+    </script>
+    <!-- axios  -->
 </head>
 <!-- head 끝 -->
 <body>
@@ -74,33 +104,7 @@
 
                         <!-- db에서 content read -->
                         <div class="popup_content">
-                            <div class="popup_cont_html">
-                                <img src="/user/images/recommend/store/20210910113931572.jpg" alt="">
-                                <p>대구 칠성시장 20년 납작만두 장인 아버지를 이어 아들은 그야말로 ‘꿀맛나는’ 납작만두집을 열었죠. 대구 명물 납작만두의 MZ적 변신 ‘편밀밀’과 납작만두떡볶이를 소개합니다.</p>
-                                <img src="./images/dudgns/store/20210910152103784.jpg" alt="">
 
-                                <hr class="line_01">
-
-                                <p>원조 납작만두의 MZ적 변신</p>
-                                <img src="/user/images/recommend/store/20210910122445408.jpg" alt="">
-                                <p>아버지 한병철 님은 대구 칠성시장에서 20년 넘게 납작만두를 빚었습니다. 사이드 메뉴에 불과하던 납작만두를 단독 주연으로 데뷔시킨 건 아들 한대탁 님이죠. 편밀밀은 대구 명물 납작만두를 트렌디한 요리로 재해석하며 MZ세대 취향 저격 뉴트로 맛집으로 떠올랐습니다. 바삭고소한 납작만두에 걸쭉매콤한 떡볶이를 더하면 말해 뭐해? 제대로 맛.없.없 조합이죠.</p>
-
-                                <hr class="line_01">
-
-                                <img src="/user/images/recommend/store/20210910122744964.jpg" alt="">
-                                <p>생긴 건 납작해도 맛은 풍성하죠</p>
-                                <p>납작만두는 생각보다 더 ‘납작’합니다. 만두피에 당면과 파를 가위로 잘게 잘라 넣는 만두소 조금이 전부니까요. 20년 장인의 편밀밀 납작만두는 좀 다릅니다. 만두피는 진공 배합으로 더 쫀득고소, 만두소는 넉넉하게 채워 아삭든든하거든요. 바삭하게 눌러 지져 간장소스에만 찍어 먹어도 참 맛있습니다.</p>
-
-                                <img src="/user/images/recommend/store/20210910123005912.jpg" alt="">
-                                <p>한국인의 소울푸드 분식계의 제왕</p>
-                                <p>500원의 행복이던 학교 앞 분식집부터 우리네 떡볶이 사랑은 영원하죠. 떡볶이의 온갖 화려한 변신 속에서도 달짝지근한 옛날 떡볶이가 그리울 때가 있습니다. 그런 떡볶이를 찾고 있다면 편밀밀 떡볶이가 해답입니다. 탱글한 밀떡과 쫄깃한 어묵, 매콤달콤 떡볶이소스까지, 추억 속 바로 그 맛이니까요.</p>
-
-                                <img src="/user/images/recommend/store/20210910123144906.jpg" alt="">
-                                <p>아는 맛에 아는 맛 맛있음은 무한대</p>
-                                <p>만두와 떡볶이 조합은 다 아는 맛이라고요? 섭섭한 말씀! 편밀밀 납작만두와 편밀밀 떡볶이가 만나면 맛있음이 두 배, 아니 무한대! 싸서 먹고 찍어 먹고 여기에 삶은 달걀까지 폭폭 깨먹으면 편밀밀 이름 그대로 꿀맛이죠. 누구나 간편하게 조리할 수 있게 모든 재료 넉넉히 챙겨 보내드릴게요. 우리집이 SNS 맛집 편밀밀이 되는 순간!</p>
-
-                                <hr class="line_01">
-                            </div>
                         </div>
 
                         <!-- BEST 브랜드 -->

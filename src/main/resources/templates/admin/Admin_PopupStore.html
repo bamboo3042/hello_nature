@@ -113,7 +113,6 @@
         let files = ($('input[name="file"]'));
         let fileList = [];
         let formData = new FormData();
-
         for (let i = 0; i < files.length; i++) {
             fileList.push(files[i].files[0]);
             formData.append('files', files[i].files[0]);

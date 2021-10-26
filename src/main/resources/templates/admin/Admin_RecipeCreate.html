@@ -28,7 +28,7 @@
                 let $id = response.data.data[i].idx;
                 let $name = response.data.data[i].name;
                 let row = $('<option value=' + $id + '>').append(
-                    $name + '</option>'
+                    $name + '</option>  '
                 )
                 console.log(row)
                 $('#PL_sel_1').append(row)

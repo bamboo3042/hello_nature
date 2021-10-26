@@ -79,4 +79,8 @@ public class MainController {
     public String brand_goods_list(){
         return "/user/brand/brand_goods_list.html";
     }
+
+    // funstaurant.html
+    @GetMapping("/funstaurant")
+    public String funstaurant() {return "/user/magazine/funstaurant.html";}
 }

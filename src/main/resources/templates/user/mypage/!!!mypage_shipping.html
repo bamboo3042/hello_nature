@@ -42,10 +42,10 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function () {
+
             let urlidx = $("#section_hidden").val()
 
             axios.get('/api/membersAddresses/user/list/' + urlidx, {}).then(function (response) {
-                console.log(response.data.data)
 
                 for (let i in response.data.data) {
                     let addrName = response.data.data[i].addrName;
@@ -90,7 +90,7 @@
                     }
 
                     let row = $('<div class="shipping_box1">').append(
-                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span>' + baseFlag + '</span></div>' +
+                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span class="base_name">' + baseFlag + '</span></div>' +
                         '<div class="shipping_edit_box"><a href="#" class="shipping_edit_button"><input type="hidden" value=' + id + '>수정</a>' +
                         '<div class="just-line"></div><span class="shipping_delete_button"><input type="hidden" value=' + id + '>삭제</span></div></div>' +
                         '<div class="shipping_box1_line2"> ' + name + ' <span></span>' +
@@ -101,18 +101,22 @@
                     $(".shipping_list").append(row)
                 }
 
+                let baselist = document.querySelectorAll(".shipping_box1");
+                console.log(baselist)
+                for(let i =0; i<baselist.length; i++) {
+                    if(baselist[i].childNodes[0].childNodes[0].childNodes[0].innerHTML === "기본 배송지"){
+                        let base_id = baselist[i].childNodes[0].childNodes[1].childNodes[0].childNodes[0].value
+                        sessionStorage.setItem("base_id", base_id)
+                    }
+                }
+
+
                 $(".shipping_edit_button").click(function (e) {
                     let ship_id = $(this).children("input").val()
                     console.log(ship_id)
 
                     sessionStorage.setItem("ship_id", ship_id)
                     location.href = "/user/mypage_editShipping"
-
-                    if ($(this).parents().siblings(".shipping_txt").children("span").text() === "기본 배송지") {
-                        sessionStorage.setItem("base_id", ship_id)
-                    }else{
-                        sessionStorage.removeItem("base_id")
-                    }
                 })
 
                 $(".shipping_delete_button").click(function (e) {

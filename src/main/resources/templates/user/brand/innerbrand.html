@@ -20,11 +20,11 @@
                 let div = $('<div class="brand_item">');
 
                 for (let i in res.data.data) {
-                    let $brIdx = res.data.data[i].idx;
-                    let $logo = res.data.data[i].logo;
+                    let brIdx = res.data.data[i].idx;
+                    let logo = res.data.data[i].logo;
 
-                    let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                        `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                    let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                        `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                     )
                     div.append(brandItem);
                 }
@@ -37,11 +37,11 @@
                     let div = $('<div class="brand_item">');
 
                     for (let i in res.data.data) {
-                        let $brIdx = res.data.data[i].idx;
-                        let $logo = res.data.data[i].logo;
+                        let brIdx = res.data.data[i].idx;
+                        let logo = res.data.data[i].logo;
 
-                        let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                            `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                        let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                            `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                         )
                         div.append(brandItem);
                     }
@@ -54,11 +54,11 @@
                         let div = $('<div class="brand_item">');
 
                         for (let i in res.data.data) {
-                            let $brIdx = res.data.data[i].idx;
-                            let $logo = res.data.data[i].logo;
+                            let brIdx = res.data.data[i].idx;
+                            let logo = res.data.data[i].logo;
 
-                            let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                                `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                            let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                                `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                             )
                             div.append(brandItem);
                         }
@@ -70,11 +70,11 @@
                             let div = $('<div class="brand_item">');
 
                             for (let i in res.data.data) {
-                                let $brIdx = res.data.data[i].idx;
-                                let $logo = res.data.data[i].logo;
+                                let brIdx = res.data.data[i].idx;
+                                let logo = res.data.data[i].logo;
 
-                                let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                                    `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                                    `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                                 )
                                 div.append(brandItem);
                             }
@@ -86,11 +86,11 @@
                                 let div = $('<div class="brand_item">');
 
                                 for (let i in res.data.data) {
-                                    let $brIdx = res.data.data[i].idx;
-                                    let $logo = res.data.data[i].logo;
+                                    let brIdx = res.data.data[i].idx;
+                                    let logo = res.data.data[i].logo;
 
-                                    let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                                        `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                    let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                                        `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                                     )
                                     div.append(brandItem);
                                 }
@@ -102,11 +102,11 @@
                                     let div = $('<div class="brand_item">');
 
                                     for (let i in res.data.data) {
-                                        let $brIdx = res.data.data[i].idx;
-                                        let $logo = res.data.data[i].logo;
+                                        let brIdx = res.data.data[i].idx;
+                                        let logo = res.data.data[i].logo;
 
-                                        let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                                            `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                        let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                                            `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                                         )
                                         div.append(brandItem);
                                     }
@@ -119,18 +119,16 @@
                                         let div = $('<div class="brand_item">');
 
                                         for (let i in res.data.data) {
-                                            let $brIdx = res.data.data[i].idx;
-                                            let $logo = res.data.data[i].logo;
+                                            let brIdx = res.data.data[i].idx;
+                                            let logo = res.data.data[i].logo;
 
-                                            let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + $brIdx + '">').append(
-                                                `<div class="brand_img" style="background-image: url('${$logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
+                                            let brandItem = $('<a href="/user/brand_goods_list?brIdx=' + brIdx + '&order=0">').append(
+                                                `<div class="brand_img" style="background-image: url('${logo}'); background-repeat: no-repeat; background-size: cover; "></div></a>`
                                             )
                                             div.append(brandItem);
                                         }
                                         div.append($('</div>'));
                                         $('#brand_slidebox_seventh').append(div);
-
-
 
                                     });
                         });

@@ -24,8 +24,8 @@
             const currentUrl = new URL(location.href);              // 현재 url
             const currentUrlParam = currentUrl.searchParams;        // 물음표 뒤 값 잘라내기
             let prodIdx = currentUrlParam.get("prodIdx");           // 상품 상세
-            let memIdx = $("#hidden_user").val()
-            console.log(memIdx)
+            let memIdx = $("#hidden_user").val();
+            console.log(memIdx);
 
             axios.get('/api/product/detail?proIdx=' + prodIdx + '&memIdx=' + memIdx, {}).then(function (res) {
                 console.log(res.data.data);
@@ -120,7 +120,7 @@
                 document.getElementById("date_valid").innerText = dateValid;
                 document.getElementById("brand_name").innerText = brName;
                 document.getElementById("brand_img").style.bacgkroundImage = "url:(" + brLogo + ")";
-                document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx;
+                document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx +"&order=1";
                 document.getElementById("proDes").innerHTML = proDes;
                 document.getElementById("pro_score").innerText = star + "점";
 
