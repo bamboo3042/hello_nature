@@ -63,17 +63,21 @@ public class QuestionService{
 
 
     public Header<QuestionApiResponse> update(QuestionApiRequest questionApiRequest, List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "question");
         Optional<Question> optional = questionRepository.findById(questionApiRequest.getIdx());
         return optional.map(question -> {
                     question.setAnsFlag(questionApiRequest.getAnsFlag());
                     question.setAnsDate(questionApiRequest.getAnsDate());
                     question.setContent(questionApiRequest.getContent());
                     question.setAnsContent(questionApiRequest.getAnsContent());
-                    question.setFiles(pathList.get(0));
                     question.setEmail(questionApiRequest.getEmail());
                     question.setHp(questionApiRequest.getHp());
                     question.setType(questionApiRequest.getType());
+
+                    if (!multipartFiles.isEmpty()){
+                        List<String> pathList = fileService.imagesUploads(multipartFiles, "question");
+                        question.setFiles(pathList.get(0));
+                    }
+
                     return question;
                 }).map(questionRepository::save)
                 .map(this::response)

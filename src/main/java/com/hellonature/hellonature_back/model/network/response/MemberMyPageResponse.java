@@ -14,7 +14,7 @@ public class MemberMyPageResponse {
     private Long idx;
     private String name;
     private Integer hellocash;
-    private Integer couponCount;
+    private Long couponCount;
     private Flag hellopayFlag;
     private Flag hellopassFlag;
     private Flag theGreenFlag;

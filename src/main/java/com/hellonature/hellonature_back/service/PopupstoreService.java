@@ -56,7 +56,7 @@ public class PopupstoreService {
         return optional.map(popupstore -> {
             if (!multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "popupstore");
-                popupstore.setImg(pathList.get(0));
+                if (pathList.get(0) != null) popupstore.setImg(pathList.get(0));
             }
 
             popupstore.setTitle(popupstoreApiRequest.getTitle());

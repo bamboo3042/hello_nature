@@ -1,11 +1,12 @@
 package com.hellonature.hellonature_back.service;
 
-import com.hellonature.hellonature_back.model.entity.*;
+import com.hellonature.hellonature_back.model.entity.Address;
+import com.hellonature.hellonature_back.model.entity.Card;
+import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.enumclass.MemberRole;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
-import com.hellonature.hellonature_back.model.network.request.AddressApiRequest;
 import com.hellonature.hellonature_back.model.network.request.MemberApiRequest;
 import com.hellonature.hellonature_back.model.network.request.MemberCreateRequest;
 import com.hellonature.hellonature_back.model.network.response.MemberApiResponse;
@@ -158,7 +159,7 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
         int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages(result.size() % count == 0 ? result.size() / count : result.size() / count + 1)
+                .totalPages(result.size() % count == 0 ? result.size() / count - 1 : result.size() / count)
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)
@@ -183,12 +184,11 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
 
     private MemberMyPageResponse myPageResponse(Member member){
         List<Card> cards = cardRepository.findAllByMember(member);
-        List<Coupon> coupons = couponRepository.findAllByMemberOrderByIdxDesc(member);
         return MemberMyPageResponse.builder()
                 .idx(member.getIdx())
                 .name(member.getName())
                 .hellocash(member.getHellocash())
-                .couponCount(coupons.size())
+                .couponCount(couponRepository.countAllByMemberAndUsedFlag(member, Flag.FALSE))
                 .hellopassFlag(cards.isEmpty() ? Flag.FALSE : Flag.TRUE)
                 .hellopassFlag(member.getMemberHellopass() != null ? Flag.TRUE : Flag.FALSE)
                 .theGreenFlag(member.getGreenFlag())

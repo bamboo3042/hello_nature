@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByEveCategoryInAndState(List<Category> categories, Integer state);
     List<Product> findAllBySalePriceIsNotNullOrderByIdxDesc();
     List<Product> findAllByIdxInOrderByIdxDesc(List<Long> idx);
+    Long  countAllByState(Integer state);
+    Long countAllByCount(Integer count);
 }

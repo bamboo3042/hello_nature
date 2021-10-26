@@ -164,12 +164,11 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
         );
 
         int count = 10;
-
         int start = (count * startPage);
         int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()>=10 ? (result.size()/count)+1 : 1  )
+                .totalPages(result.size() % count == 0 ? result.size()/count - 1 : result.size()  )
                 .totalElements((long) result.size())
                 .currentPage(startPage+1)
                 .currentElements(result.size())

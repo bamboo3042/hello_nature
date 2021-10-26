@@ -59,7 +59,6 @@ a:focus { color: #444;}
 #check_agree_field span a { color: #5dab99; font-size: 13px;}
 .div_login_but { text-align: center; margin-bottom: 50px;}
 #join_button{ margin-top: 50px; width: 240px; height: 56px; border: 1px solid #5dab99; color: #ffffff; background-color: #5dab99; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 20px;}
-#check_agree_field{position: relative;}
 #check_agree_field .agree_link a{ position: absolute; right: 10px; font-size: 13px;   color: #5dab99; line-height: 6px; letter-spacing: 0;}
 
 
@@ -417,7 +416,7 @@ a:focus { color: #444;}
 .mw_c .bg_c {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50); z-index: 100;}
 .mw_c .fg_c {position:absolute; top:50%; left:50%; width:650px; height: 550px;  transform: translate(-50%, -50%); border:3px solid #ccc;background:#fff; z-index: 101}
 
-.Modal { margin: 30px auto; background-color: white;}
+.Modal { margin: 30px auto; background-color: white; z-index: 1;}
 .Modal_h { margin: 30px auto; background-color: white;}
 .modal_list {  display: flex; margin-top: 30px; margin-left: 60px;}
 .modal_list span { font-size: 16px; font-weight: bold; margin-left: 20px; margin-right: 34px; color: #777; }
