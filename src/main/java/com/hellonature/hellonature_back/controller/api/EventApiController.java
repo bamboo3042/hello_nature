@@ -37,7 +37,7 @@ public class EventApiController extends CrudController<EventApiRequest, EventApi
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public Header<EventApiResponse> update(@RequestPart(value = "key") EventApiRequest request,
-                                           @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception{
+                                           @RequestPart(value = "files", required = false) List<MultipartFile> fileList) throws Exception{
         return eventService.update(request, fileList);
     }
 
