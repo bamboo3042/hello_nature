@@ -74,7 +74,7 @@
             let urlidx = $("#section_hidden").val()
 
             $(".filter_outline > div").click(function (e) {
-
+                $("#main_contents").empty();
                 if ($(this).children("a").text() === "최근 1개월") {
                     $("#main_contents").empty();
                     let month = new Date();
@@ -199,6 +199,11 @@
                             $("#main_contents").append(tb)
                         }
 
+                        $(".mantoman_button").click(function (){
+                            location.href = '/user/mypage_enrollMantoman';
+                        })
+
+
                         $(".order_detail_button").click(function (e) {
                             if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
                                 $(this).parents().parents().children(".orderlist_contain").css("display", "none");
@@ -307,6 +312,10 @@
                             $("#main_contents").append(tb)
                         }
 
+                        $(".mantoman_button").click(function (){
+                            location.href = '/user/mypage_enrollMantoman';
+                        })
+
                         $(".order_detail_button").click(function (e) {
                             if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
                                 $(this).parents().parents().children(".orderlist_contain").css("display", "none");
@@ -332,7 +341,7 @@
                             let proWeightSize = response.data.data[i].proWeightSize;
 
                             let row = $('<div class="contents_box6">').append(
-                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                `<div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover"></div>` +
                                 '<div class="product_info"><p>' + proName + ' ' + proWeightSize + 'g' + '</p></div>' +
                                 '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
                             )
@@ -349,7 +358,6 @@
                 date_end = $("#date_end").val();
 
                 if ($(".category_name1 > h2").text() === "주문배송") {
-                    alert("주문배송인돼욥")
                     let url = "/api/orderList/myPage?dateStart=" + date_start + "&dateEnd=" + date_end + "&type=1&memIdx=" + urlidx;
                     console.log(url)
                     axios.get(url, {}).then(function (response) {
@@ -446,7 +454,7 @@
                         }
 
                         $(".mantoman_button").click(function (){
-                            location.href = '/user/mypage_orderlist';
+                            location.href = '/user/mypage_enrollMantoman';
                         })
 
 
@@ -556,7 +564,7 @@
                                 '<div class="contents_box5"><div class="order_info"><p>'+ ' ' + recName+ + ' ' + '/' +  ' ' + recHp +'</p>' +
                                 '<div class="order_info_right">' +
                                 '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
-                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')" no-repeat; background-size: cover"></div><div class="product_info">` +
                                 '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
                                 '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
                             )
@@ -578,7 +586,7 @@
                         })
 
                         $(".mantoman_button").click(function (){
-                            location.href = '/user/mypage_orderlist';
+                            location.href = '/user/mypage_enrollMantoman';
                         })
 
                     }).catch(function (err) {
@@ -596,7 +604,7 @@
                             let proWeightSize = response.data.data[i].proWeightSize;
 
                             let row = $('<div class="contents_box6">').append(
-                                `<div class="product_image" style="background: url('${proImg}')"></div>` +
+                                `<div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover""></div>` +
                                 '<div class="product_info"><p>' + proName + ' ' + proWeightSize + '개' + '</p></div>' +
                                 '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
                             )

@@ -41,7 +41,16 @@
             $(".enroll_post_box1_inner > p").text(sessionStorage.getItem("review_prodDate"))
             let proImg = sessionStorage.getItem("review_prodImg")
             console.log(proImg)
-            $(".product_image").css("background", "url('" + proImg + "')")
+            $(".product_image").css("background", "url('" + proImg + "'), no-repeat")
+            $(".product_image").css("background-size", "cover")
+
+            $(".overview").click(function (e){
+                if( $(".post_guide_overview").css("display") === "none") {
+                    $(".post_guide_overview").css("display", "block");
+                }else{
+                    $(".post_guide_overview").css("display", "none");
+                }
+            })
         })
 
         function sendit() {
@@ -74,7 +83,7 @@
                 headers: {'Content-Type': 'multipart/form-data'}
             }).then(function (){
                 alert("후기가 등록되었습니다!")
-                location.reload();
+                location.href = '/user/mypage_review'
             }).catch(function (err){
                 console.log(err)
             })

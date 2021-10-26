@@ -238,6 +238,7 @@
                     }
                 }).then(function () {
                     alert('배송지 정보가 수정되었습니다.');
+                    location.href = '/user/mypage_shipping';
                 }).catch(function (err) {
                     console.log(err)
                 });
@@ -268,7 +269,7 @@
                     <h2 class="contents_name">배송지 수정</h2>
                 </div>
                 <!-- form 시작 -->
-                <form target="_blank" onsubmit="return sendit()">
+                <form>
                     <div class="shipping_store_box">
                         <div class="shipping_store_box_inner">
                             <input type="checkbox" name="baseFlag" class="shipping_store_checkbox"
@@ -397,7 +398,7 @@
                         <label for="check_business_credit_card">개인 정보 수집 및 이용 동의</label>
                     </div>
                     <!-- 개인 정보 수집 체크박스 끝 -->
-                    <button type="submit" class="button_submit">저장</button>
+                    <button type="button" class="button_submit" onclick="sendit()">저장</button>
                 </form>
                 <!-- form 끝 -->
                 <!-- main_contents 끝 -->

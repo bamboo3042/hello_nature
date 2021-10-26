@@ -37,6 +37,7 @@
                         if(confirm) {
                             axios.delete("/api/theGreen/delete/" + memIdx, {}).then(function () {
                                 alert("더 그린 배송이 해지되었습니다")
+                                location.href = "/user/mypage_thegreen/"
                             })
                         }
                     }

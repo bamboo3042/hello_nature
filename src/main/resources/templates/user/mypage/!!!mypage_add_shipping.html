@@ -143,12 +143,12 @@
                     greenFlag : greenFlag
                 }
             }).then(function () {
+                alert('배송지 정보가 등록되었습니다.');
+                window.history.back();
             }).catch(function (err) {
                 console.log(err)
                 return false;
             });
-            alert('배송지 정보가 등록되었습니다.');
-            location.history();
         };
 
 

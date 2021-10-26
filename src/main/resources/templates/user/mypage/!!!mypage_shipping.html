@@ -58,6 +58,7 @@
                     let requestType = response.data.data[i].requestType;             // 배송타입
                     let baseFlag = response.data.data[i].baseFlag;                // 기본배송지
                     let greenFlag = response.data.data[i].greenFlag;
+                    let dawnFlag = response.data.data[i].dawnFlag;
                     sessionStorage.setItem("ship_id", id)
 
                     if (baseFlag === "TRUE") {
@@ -65,10 +66,24 @@
                     } else {
                         baseFlag = "그 외"
                     }
+
+                    let greenFlag2;
+                    let show_greenFlag;
                     if (greenFlag == "TRUE") {
                         baseFlag += "/ 더그린 배송지"
+                        greenFlag2 = "더그린"
+                        show_greenFlag = 'block';
                     } else {
+                        show_greenFlag = 'none';
                         baseFlag = baseFlag
+                    }
+
+                    let show_dawnFlag;
+                    if (dawnFlag == "TRUE") {
+                        dawnFlag = "새벽"
+                        show_dawnFlag = 'block';
+                    } else {
+                        show_dawnFlag = 'none';
                     }
 
                     switch (requestType) {
@@ -90,7 +105,7 @@
                     }
 
                     let row = $('<div class="shipping_box1">').append(
-                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span class="base_name">' + baseFlag + '</span></div>' +
+                        '<div class="shipping_box1_line1"><div class="shipping_txt"><span class="base_name">' + baseFlag + '</span><span style="display:'+show_greenFlag+'">'+greenFlag2+'</span><span style="display:'+show_dawnFlag+'">'+dawnFlag+'</span></div>' +
                         '<div class="shipping_edit_box"><a href="#" class="shipping_edit_button"><input type="hidden" value=' + id + '>수정</a>' +
                         '<div class="just-line"></div><span class="shipping_delete_button"><input type="hidden" value=' + id + '>삭제</span></div></div>' +
                         '<div class="shipping_box1_line2"> ' + name + ' <span></span>' +
