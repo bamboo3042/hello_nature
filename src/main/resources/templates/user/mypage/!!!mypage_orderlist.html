@@ -186,7 +186,7 @@
                                 '<div class="contents_box5"><div class="order_info"><p>받는 분'+ recName + '/'  + recHp +'</p>' +
                                 '<div class="order_info_right">' +
                                 '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
-                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover"></div><div class="product_info">` +
                                 '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
                                 '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
                             )
@@ -294,7 +294,7 @@
                                 '<div class="contents_box5"><div class="order_info"><p>받는 분 '+  recName+  '/'  + recHp +'</p>' +
                                 '<div class="order_info_right">' +
                                 '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
-                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover""></div><div class="product_info">` +
                                 '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
                                 '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
                             )
@@ -432,7 +432,7 @@
                                 '<div class="contents_box5"><div class="order_info"><p>'+ ' ' + recName+ + ' ' + '/' +  ' ' + recHp +'</p>' +
                                 '<div class="order_info_right">' +
                                 '<p><a href="#" class="order_info_font3">' + state + '</a></p></div></div></div>' +
-                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}')"></div><div class="product_info">` +
+                                `<div class="contents_box6"><div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover""></div><div class="product_info">` +
                                 '<p>' + proName + '</p><div class="contents_box6_inner"><p>' + proWeightSize + 'g' + '</p><div class="product_info_line"></div><p>' + proCount + '개' + '</p></div>' +
                                 '</div><div class="mantoman_button_box"><input type="button" value="1:1문의" class="mantoman_button"></div></div>'
                             )
@@ -444,6 +444,11 @@
                             tb.append('</div>')
                             $("#main_contents").append(tb)
                         }
+
+                        $(".mantoman_button").click(function (){
+                            location.href = '/user/mypage_orderlist';
+                        })
+
 
                         $(".order_detail_button").click(function (e) {
                             if ($(this).parents().parents().children(".orderlist_contain").css("display") === "block") {
@@ -572,6 +577,10 @@
                             }
                         })
 
+                        $(".mantoman_button").click(function (){
+                            location.href = '/user/mypage_orderlist';
+                        })
+
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -618,7 +627,7 @@
                             let $proIdx = response.data.data[i].proIdx
 
                             let row = $('<div class="contents_box6">').append(
-                                `<div class="product_image" style="background: url('${$proImg}')"></div>` +
+                                `<div class="product_image" style="background: url('${$proImg}') no-repeat; background-size: cover"></div>` +
                                 '<div class="product_info"><p>' + $proName + " " + $proWeightSize + "(g)" + '</p>' +
                                 '</div><div class="like_box"><div class="like_image" style="cursor: pointer" onclick="likedel()">' +
                                 '<input type="hidden" value="' + $proIdx + '"></div><p class="like_count">' + $proLikeCount + '</p>' +
@@ -641,6 +650,7 @@
                         })
 
 
+
                     }).catch(function (err) {
                         console.log(err)
                     })
@@ -657,7 +667,7 @@
 
 
                             let row = $('<div class="contents_box6">').append(
-                                `<div class="product_image" style="background: url('${$mgImg}')"></div>` +
+                                `<div class="product_image" style="background: url('${$mgImg}')  no-repeat; background-size: cover"></div>` +
                                 '<div class="product_info"><p>' + $mgTitle + '</p>' +
                                 '</div><div class="like_box"><div class="like_image" style="cursor: pointer" onclick="likedel()">' +
                                 '<input type="hidden" value="' + $mgIdx + '"></div><p class="like_count">' + $mgLikeCount + '</p>' +
