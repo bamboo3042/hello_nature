@@ -56,15 +56,16 @@ public class EventService{
     }
 
     public Header<EventApiResponse> update(EventApiRequest eventApiRequest, List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "event");
-
         Optional<Event> optional = eventRepository.findById(eventApiRequest.getIdx());
         return optional.map(event -> {
             event.setTypeFlag(eventApiRequest.getTypeFlag());
             event.setIngFlag(eventApiRequest.getIngFlag());
             event.setDateStart(eventApiRequest.getDateStart());
             event.setDateEnd(eventApiRequest.getDateEnd());
-            event.setImg(pathList.isEmpty() ? null : pathList.get(0));
+            if (!multipartFiles.isEmpty()){
+                List<String> pathList = fileService.imagesUploads(multipartFiles, "event");
+                event.setImg(pathList.get(0));
+            }
             event.setTitle(eventApiRequest.getTitle());
             event.setDes(eventApiRequest.getDes());
             event.setContent(eventApiRequest.getContent());
