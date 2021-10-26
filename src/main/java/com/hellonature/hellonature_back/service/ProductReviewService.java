@@ -252,8 +252,8 @@ public class ProductReviewService  {
         LocalDateTime end = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 23, 59);
 
         List<ProductReview> productReviews = new ArrayList<>();
-        if (flag == Flag.TRUE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdx(member, start, end);
-        else if (flag == Flag.FALSE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdx(member, start, end);
+        if (flag == Flag.TRUE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdxDesc(member, start, end);
+        else if (flag == Flag.FALSE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdxDesc(member, start, end);
 
         List<MyPageOrderResponse> list = new ArrayList<>();
 
