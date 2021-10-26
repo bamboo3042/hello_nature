@@ -1,20 +1,14 @@
 package com.hellonature.hellonature_back.service;
 
 import com.hellonature.hellonature_back.model.entity.MemberPayment;
-import com.hellonature.hellonature_back.model.entity.NonMemberPayment;
-import com.hellonature.hellonature_back.model.entity.Question;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
 import com.hellonature.hellonature_back.model.network.request.MemberPaymentApiRequest;
-import com.hellonature.hellonature_back.model.network.response.MemberApiResponse;
 import com.hellonature.hellonature_back.model.network.response.MemberPaymentApiResponse;
-import com.hellonature.hellonature_back.model.network.response.NonMemberPaymentApiResponse;
 import com.hellonature.hellonature_back.repository.MemberOrderRepository;
 import com.hellonature.hellonature_back.repository.MemberPaymentRepository;
 import com.hellonature.hellonature_back.repository.MemberRepository;
-import com.hellonature.hellonature_back.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -133,18 +127,17 @@ public class MemberPaymentService extends BaseService<MemberPaymentApiRequest, M
         List<MemberPayment> result = query.getResultList();
 
         int count = 10;
-
-        Integer start = count * startPage;
-        Integer end = Math.min(result.size(), start + count);
+        int start = count * startPage;
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()>=10 ? (result.size()/count)+1 : 1  )
-                .totalElements(result.stream().count())
+                .totalPages( result.size() % count == 0 ? result.size()/count - 1 : result.size())
+                .totalElements((long) result.size())
                 .currentPage(startPage+1)
                 .currentElements(result.size())
                 .build();
 
-        return Header.OK(result.subList(start, end).stream().map(memberPayment -> response(memberPayment)).collect(Collectors.toList()), pagination);
+        return Header.OK(result.subList(start, end).stream().map(this::response).collect(Collectors.toList()), pagination);
     }
 
     @Transactional
