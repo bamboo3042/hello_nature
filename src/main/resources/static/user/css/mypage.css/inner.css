@@ -31,7 +31,7 @@ a:focus { color: #444;}
 #join_table tr td input[type=text], #join_table tr td input[type=password], #join_table tr td input[type=tel] {width: 332px; height: 44px; padding-left: 14px;  border:1px solid #cccccc; border-radius: 3px;}
 #email_check_btn {width: 120px; height: 44px;  margin-left: 7px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold; cursor:pointer;}
 #hp_check_btn {width: 120px; height: 44px; margin-left: 7px; border: 1px solid #cccccc; color: #cccccc; background-color: #ffffff; border-radius: 3px; font-weight: bold; cursor:pointer;}
-#address_search_btn{width: 350px; height: 44px; margin-bottom: 20px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold;cursor: pointer;}
+#address_search_btn{width: 332px; height: 44px; margin-bottom: 20px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold;cursor: pointer;}
 #join_table tr td .gender_radio { width: 24px; height: 24px; margin-right: 12px;}
 #gender_field td label{margin-right: 100px;}
 #birth_field th, #birth_field td {border-bottom: 0.5px solid #929292;}
@@ -115,7 +115,7 @@ a:focus { color: #444;}
 #find_email_area{ width:340px; margin: 0 auto; }
 #hp_chk_box{ width: 100%; margin-bottom: 50px; }
 #find_email_area .hp_chk_msg { font-size: 18px; text-align: center; padding: 20px 0; letter-spacing: -0.5px; color: #444; font-weight: 500;}
-#find_email_cont_box button{ width: 340px; height: 54px; font-size: 16px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+#find_email_cont_box button{ box-shadow: 5px 5px 5px #ccc; width: 340px; height: 45px; font-size: 16px; cursor: pointer; border-radius: 3px; font-weight: bold; color: white; border: 1px solid #5dab99; background-color: #5dab99; color: white;}
 .hp_chk_btn { color: #ffffff; background-color: #5dab99; border-radius: 3px; font-weight: bold; border: 1px solid #5dab99; width: 340px; height: 54px; font-size: 16px; border-radius: 3px; cursor: pointer; }
 .emailInfo_msg{font-size: 19px; text-align: center; padding-bottom: 10px; letter-spacing: -0.5px; color: #444; font-weight: 500;}
 #emailInfo{ background-color: #f4f4f4; padding: 10px 20px 10px 20px; margin-bottom: 10px;}
@@ -422,7 +422,7 @@ a:focus { color: #444;}
 .modal_list {  display: flex; margin-top: 30px; margin-left: 60px;}
 .modal_list span { font-size: 16px; font-weight: bold; margin-left: 20px; margin-right: 34px; color: #777; }
 .modal_search span { font-size: 16px; font-weight: bold; margin-right: 20px; margin-left: 33px; color: #777;}
-.modal_search input[type="button"] { width: 110px; height: 40px; font-size: 14px; border: 2px solid #266266; background-color: white; box-shadow: 3px 3px 3px #ccc; margin-left: 10px; border-radius: 5px; cursor: pointer; color: #266266; }
+.modal_search input[type="button"] { width: 110px; height: 40px; font-size: 14px; border: 2px solid #5dab99; background-color: white; box-shadow: 3px 3px 3px #ccc; margin-left: 10px; border-radius: 5px; cursor: pointer; color: #5dab99; }
 .modal_search input[type="button"]:hover {  border: 2px solid #5dab99; background-color: #5dab99; color: white;}
 .modal_list input[type="text"] {
     border: 1px solid #999;
@@ -441,7 +441,8 @@ a:focus { color: #444;}
 .modal_search { text-align: center; }
 button[type="submit"] { width: 70px; height: 38px; font-size: 15px; background-color: #5dab99; box-shadow: 5px 5px 5px #ccc; margin-top: 20px; color: white; cursor: pointer; border: none; }
 .modal_btn { margin-top: 20px;  text-align: center; }
-.modal_btn input[type="reset"],.modal_btn input[type="button"] { box-shadow: 3px 3px 3px #999; height: 34px; width: 80px;}
+.modal_btn input[type="reset"],.modal_btn input[type="button"] { box-shadow: 3px 3px 3px #999; height: 34px; width: 80px; background-color: #5dab99; color: white; border: 1px solid #5dab99; border-radius: 5px; cursor: pointer;}
 .modal_closeBtn{width: 30px; height:30px; float: right; cursor: pointer; margin-top: -1px;}
 .modal_greentitle { padding: 14px 10px 14px 20px; font-size: 18px; background-color: #5dab99; color: white; }
+
 

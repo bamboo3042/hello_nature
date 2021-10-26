@@ -1,23 +1,18 @@
 package com.hellonature.hellonature_back.service;
 
-import com.hellonature.hellonature_back.model.entity.Notice;
 import com.hellonature.hellonature_back.model.entity.Popupstore;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
 import com.hellonature.hellonature_back.model.network.request.PopupstoreApiRequest;
 import com.hellonature.hellonature_back.model.network.response.PopupstoreApiResponse;
 import com.hellonature.hellonature_back.repository.BrandRepository;
-
 import com.hellonature.hellonature_back.repository.PopupstoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,19 +52,22 @@ public class PopupstoreService {
 
 
     public Header<PopupstoreApiResponse> update(PopupstoreApiRequest popupstoreApiRequest, List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "popupstore");
         Optional<Popupstore> optional = popupstoreRepository.findById(popupstoreApiRequest.getIdx());
         return optional.map(popupstore -> {
-                    popupstore.setImg(pathList.get(0));
-                    popupstore.setTitle(popupstoreApiRequest.getTitle());
-                    popupstore.setDes(popupstoreApiRequest.getDes());
-                    popupstore.setBrand(brandRepository.findById(popupstoreApiRequest.getBrIdx()).get());
-                    popupstore.setContent(popupstoreApiRequest.getContent());
-                    popupstore.setDateStart(popupstoreApiRequest.getDateStart());
-                    popupstore.setDateEnd(popupstoreApiRequest.getDateEnd());
+            if (!multipartFiles.isEmpty()){
+                List<String> pathList = fileService.imagesUploads(multipartFiles, "popupstore");
+                popupstore.setImg(pathList.get(0));
+            }
 
-                    return popupstore;
-                }).map(popupstoreRepository::save)
+            popupstore.setTitle(popupstoreApiRequest.getTitle());
+            popupstore.setDes(popupstoreApiRequest.getDes());
+            popupstore.setBrand(brandRepository.findById(popupstoreApiRequest.getBrIdx()).get());
+            popupstore.setContent(popupstoreApiRequest.getContent());
+            popupstore.setDateStart(popupstoreApiRequest.getDateStart());
+            popupstore.setDateEnd(popupstoreApiRequest.getDateEnd());
+
+            return popupstore;
+        }).map(popupstoreRepository::save)
                 .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("수정 실패"));

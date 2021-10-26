@@ -1,7 +1,6 @@
 package com.hellonature.hellonature_back.controller.api;
 
 import com.hellonature.hellonature_back.controller.CrudController;
-import com.hellonature.hellonature_back.model.entity.Notice;
 import com.hellonature.hellonature_back.model.entity.Popupstore;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.PopupstoreApiRequest;
@@ -35,7 +34,7 @@ public class PopupstoreApiController extends CrudController<PopupstoreApiRequest
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public Header<PopupstoreApiResponse> update(@RequestPart(value = "key") PopupstoreApiRequest request,
-                                                @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+                                                @RequestPart(value = "files", required = false) List<MultipartFile> fileList) throws Exception {
         return popupstoreService.update(request, fileList);
     }
 
