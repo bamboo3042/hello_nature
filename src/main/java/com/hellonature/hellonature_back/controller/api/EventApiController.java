@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ import java.util.List;
 public class EventApiController extends CrudController<EventApiRequest, EventApiResponse, Event> {
     private final EventService eventService;
 
-    @Override
-    @PostMapping("/create")
-    public Header<EventApiResponse> create(@RequestBody Header<EventApiRequest> request) {
-        return eventService.create(request);
+    @RequestMapping(value = "/create" , method = RequestMethod.POST, consumes = { "multipart/form-data" })
+    public Header<EventApiResponse> create(@RequestPart(value = "key") EventApiRequest request,
+                                           @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception{
+        return eventService.create(request, fileList);
     }
 
     @Override
@@ -34,10 +35,10 @@ public class EventApiController extends CrudController<EventApiRequest, EventApi
         return eventService.read(idx);
     }
 
-    @Override
-    @PutMapping("/update")
-    public Header<EventApiResponse> update(@RequestBody Header<EventApiRequest> request) {
-        return eventService.update(request);
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
+    public Header<EventApiResponse> update(@RequestPart(value = "key") EventApiRequest request,
+                                           @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception{
+        return eventService.update(request, fileList);
     }
 
     @Override

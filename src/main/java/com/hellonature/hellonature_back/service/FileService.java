@@ -29,8 +29,6 @@ public class FileService {
     private HttpServletRequest request;
 
     public List<String> imagesUploads(List<MultipartFile> multipartFiles, String targetDir){
-
-
         List<String> pathList = new ArrayList<>();
         if (multipartFiles == null || multipartFiles.isEmpty()) return pathList;
 

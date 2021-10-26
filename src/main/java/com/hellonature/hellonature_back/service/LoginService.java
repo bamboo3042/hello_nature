@@ -22,15 +22,6 @@ public class LoginService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
-//    public Header<Flag> userLogin(String id, String password){
-//        System.out.println("id : " + id);
-//        System.out.println("password : " + password);
-//        System.out.println("password encode : " + passwordEncoder.encode(password));
-//        return memberRepository.findByEmailAndPassword(id, passwordEncoder.encode(password))
-//                .map(member -> Header.OK(Flag.TRUE))
-//                .orElseGet(() -> Header.ERROR(Flag.FALSE));
-//    }
-
     public Header<Flag> userLogin(Header<LoginCheckApiRequest> requestHeader){
 
         LoginCheckApiRequest request = requestHeader.getData();
@@ -38,15 +29,16 @@ public class LoginService {
         String id = request.getId();
         String password = request.getPassword();
 
-        Optional<Member> optional = memberRepository.findByEmailAndPassword(id, passwordEncoder.encode(password));
+        Optional<Member> optional = memberRepository.findByEmail(id);
+        if (optional.isEmpty()) return Header.ERROR("사용자 정보가 없습니다");
+        Member member = optional.get();
 
-        if (optional.isPresent()) return Header.OK(Flag.TRUE);
+        if (passwordEncoder.matches(password, member.getPassword())) return Header.OK(Flag.TRUE);
         else return Header.ERROR(Flag.FALSE);
-
     }
 
     public Header<Flag> adminLogin(String id, String password){
-        return adminRepository.findByIdAndPassword(id, passwordEncoder.encode(password))
+        return adminRepository.findById(id)
                 .map(admin -> Header.OK(Flag.TRUE))
                 .orElseGet(() -> Header.ERROR(Flag.FALSE));
     }

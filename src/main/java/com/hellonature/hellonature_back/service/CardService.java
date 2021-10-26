@@ -108,7 +108,10 @@ public class CardService extends BaseService<CardApiRequest, CardApiResponse, Ca
     }
 
     public Header<List<CardApiResponse>> list(Long memIdx){
-        List<Card> cardList = cardRepository.findAllByMemberOrderByBaseFlag(memberRepository.findById(memIdx).get());
+        Optional<Member> optionalMember = memberRepository.findById(memIdx);
+        if (optionalMember.isEmpty()) return Header.ERROR("회원 정보가 잘못되었습니다");
+        Member member = optionalMember.get();
+        List<Card> cardList = cardRepository.findAllByMemberOrderByBaseFlagDescIdxAsc(member);
         List<CardApiResponse> list = new ArrayList<>();
         for (Card card: cardList) {
             list.add(response(card));

@@ -1,6 +1,7 @@
 package com.hellonature.hellonature_back.service;
 
-import com.hellonature.hellonature_back.model.entity.*;
+import com.hellonature.hellonature_back.model.entity.Member;
+import com.hellonature.hellonature_back.model.entity.Question;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
@@ -61,9 +62,8 @@ public class QuestionService{
     }
 
 
-    public Header<QuestionApiResponse> update(Header<QuestionApiRequest> request, List<MultipartFile> multipartFiles) {
+    public Header<QuestionApiResponse> update(QuestionApiRequest questionApiRequest, List<MultipartFile> multipartFiles) {
         List<String> pathList = fileService.imagesUploads(multipartFiles, "question");
-        QuestionApiRequest questionApiRequest = request.getData();
         Optional<Question> optional = questionRepository.findById(questionApiRequest.getIdx());
         return optional.map(question -> {
                     question.setAnsFlag(questionApiRequest.getAnsFlag());

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
-    List<Card> findAllByMemberOrderByBaseFlag(Member member);
+    List<Card> findAllByMemberOrderByBaseFlagDescIdxAsc(Member member);
     Optional<Card> findByMemberAndBaseFlag(Member member, Flag baseFlag);
     List<Card> findAllByMember(Member member);
 }
