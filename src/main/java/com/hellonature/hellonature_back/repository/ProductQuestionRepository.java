@@ -3,7 +3,7 @@ package com.hellonature.hellonature_back.repository;
 import com.hellonature.hellonature_back.model.entity.Member;
 import com.hellonature.hellonature_back.model.entity.Product;
 import com.hellonature.hellonature_back.model.entity.ProductQuestion;
-import com.hellonature.hellonature_back.model.entity.Purchase;
+import com.hellonature.hellonature_back.model.enumclass.Flag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,4 +13,6 @@ public interface ProductQuestionRepository extends JpaRepository<ProductQuestion
     Optional<ProductQuestion> findById(Long id);
     List<ProductQuestion> findAllByProduct(Product product);
     List<ProductQuestion> findAllByMember(Member member);
+    Long countAllByAnsFlag(Flag flag);
+    List<ProductQuestion> findTop4ByOrderByIdxDesc();
 }

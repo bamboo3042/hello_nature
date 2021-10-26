@@ -10,4 +10,5 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     Optional<Notice> findById(Long id);
     void deleteAllByIdxIn(List<Long> idx);
     Optional<Notice> findByType(Integer type);
+    List<Notice> findTop4ByOrderByIdxDesc();
 }

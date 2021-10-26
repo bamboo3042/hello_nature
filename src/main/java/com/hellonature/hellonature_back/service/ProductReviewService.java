@@ -8,11 +8,13 @@ import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.Pagination;
 import com.hellonature.hellonature_back.model.network.request.ProductReviewApiRequest;
+import com.hellonature.hellonature_back.model.network.response.MemberReviewResponse;
 import com.hellonature.hellonature_back.model.network.response.MyPageOrderResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductReviewApiResponse;
 import com.hellonature.hellonature_back.model.network.response.ProductReviewListResponse;
-import com.hellonature.hellonature_back.model.network.response.MemberReviewResponse;
-import com.hellonature.hellonature_back.repository.*;
+import com.hellonature.hellonature_back.repository.MemberRepository;
+import com.hellonature.hellonature_back.repository.ProductRepository;
+import com.hellonature.hellonature_back.repository.ProductReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,8 +65,6 @@ public class ProductReviewService  {
 
 
     public Header<ProductReviewApiResponse> update(ProductReviewApiRequest productReviewApiRequest, List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
-
         Optional<ProductReview> optional = productReviewRepository.findById(productReviewApiRequest.getIdx());
         return optional.map(productReview -> {
 
@@ -76,7 +76,11 @@ public class ProductReviewService  {
             productReview.setAnsFlag(productReviewApiRequest.getAnsFlag());
             productReview.setAnsContent(productReviewApiRequest.getAnsContent());
             productReview.setAnsDate(productReviewApiRequest.getAnsDate());
-            if (multipartFiles != null && !multipartFiles.isEmpty()) productReview.setFiles(pathList.get(0));
+
+            if (!multipartFiles.isEmpty()){
+                List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
+                productReview.setFiles(pathList.get(0));
+            }
 
             return productReview;
         }).map(productReviewRepository::save)

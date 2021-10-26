@@ -30,13 +30,15 @@ public class FileService {
 
     public List<String> imagesUploads(List<MultipartFile> multipartFiles, String targetDir){
         List<String> pathList = new ArrayList<>();
-        if (multipartFiles == null || multipartFiles.isEmpty()) return pathList;
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
+            pathList.add(null);
+            return pathList;
+        }
 
         try {
             for (MultipartFile multipartFile : multipartFiles) {
                 if (multipartFile.isEmpty()) pathList.add(null);
                 else {
-
                     String path = request.getServletContext().getRealPath("/") + "/uploads/";
 
                     File files = new File(path);
@@ -69,13 +71,52 @@ public class FileService {
                     pathList.add(temp);
                 }
             }
-
-            System.out.println(pathList);
         } catch (IOException e) {
             e.printStackTrace();
             return pathList;
         }
-
         return pathList;
+    }
+
+    public String imageUpload(MultipartFile multipartFile, String targetDir){
+        String result = null;
+        if (multipartFile.isEmpty()) return null;
+
+        try {
+            String path = request.getServletContext().getRealPath("/") + "/uploads/";
+
+            File files = new File(path);
+            if (!files.exists()) {
+                try {
+                    files.mkdirs();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            String path2 = files.getPath() + File.separator + targetDir;
+            File files1 = new File(path2);
+            if (!files1.exists()) {
+                try {
+                    files1.mkdirs();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            FileCopyUtils.copy(multipartFile.getInputStream(), new FileOutputStream(files1.getPath() + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + "_"
+                    + StringUtils.cleanPath(multipartFile.getOriginalFilename())));
+
+            Path copyOfLocation = Paths.get(uploadDir + File.separator + targetDir + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + "_"
+                    + StringUtils.cleanPath(multipartFile.getOriginalFilename())).toAbsolutePath();
+            Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+            String temp = copyOfLocation.toString().substring(copyOfLocation.toString().indexOf("\\upload"));
+            temp = temp.replace("\\", "/");
+            result = (temp);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return result;
+        }
+        return result;
     }
 }

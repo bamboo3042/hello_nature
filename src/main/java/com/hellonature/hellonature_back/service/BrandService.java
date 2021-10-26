@@ -53,20 +53,22 @@ public class BrandService {
 
 
     public Header<BrandApiResponse> update(BrandApiRequest brandApiRequest,  List<MultipartFile> multipartFiles) {
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "brand");
         Optional<Brand> optional = brandRepository.findById(brandApiRequest.getIdx());
 
         return optional.map(brand -> {
                     brand.setName(brandApiRequest.getName());
                     brand.setDes(brandApiRequest.getDes());
-                    brand.setLogo(pathList.get(0));
                     brand.setState(brandApiRequest.getState());
-                    brand.setBanner(pathList.get(1));
                     brand.setDateStart(brandApiRequest.getDateStart());
                     brand.setDateEnd(brandApiRequest.getDateEnd());
 
+                    if (!multipartFiles.isEmpty()){
+                        List<String> pathList = fileService.imagesUploads(multipartFiles, "brand");
+                        if (pathList.get(0) != null) brand.setLogo(pathList.get(0));
+                        if (pathList.get(1) != null) brand.setBanner(pathList.get(1));
+                    }
+                    
                     return brand;
-
                 }).map(brandRepository::save)
                 .map(this::response)
                 .map(Header::OK)

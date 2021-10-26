@@ -84,9 +84,6 @@ public class ProductService{
     }
 
     public Header<ProductApiResponse> update(ProductApiRequest productApiRequest, List<MultipartFile> multipartFiles) {
-
-        List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
-
         Optional<Product> optional = productRepository.findById(productApiRequest.getIdx());
         return optional.map(product -> {
             product.setName(productApiRequest.getName());
@@ -104,13 +101,20 @@ public class ProductService{
             product.setCount(productApiRequest.getCount());
             product.setDelivery(productApiRequest.getDelivery());
             product.setPacking(productApiRequest.getPacking());
-            product.setImg1(pathList.get(0));
-            product.setImg2(pathList.get(1));
-            product.setImg3(pathList.get(2));
-            product.setImg4(pathList.get(3));
+
+            if(!multipartFiles.isEmpty()){
+                List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
+                if(multipartFiles.get(0) != null) product.setImg1(pathList.get(0));
+                if(multipartFiles.get(1) != null) product.setImg2(pathList.get(1));
+                if(multipartFiles.get(2) != null) product.setImg2(pathList.get(2));
+                if(multipartFiles.get(3) != null) product.setImg2(pathList.get(3));
+            }
+
             product.setProDes(productApiRequest.getProDes());
             product.setCategory(categoryRepository.findById(productApiRequest.getCateIdx()).get());
-            product.setEveCategory(productApiRequest.getEveCateIdx() == null? null : categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
+
+            if((productApiRequest.getEveCateIdx() != null)) product.setEveCategory(categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
+
             product.setProType(productApiRequest.getProType());
             product.setProName(productApiRequest.getProName());
             product.setFoodType(productApiRequest.getFoodType());
