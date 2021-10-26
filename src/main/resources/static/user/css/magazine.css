@@ -114,6 +114,7 @@
 /* 배너 */
 .banner02 > img { box-sizing: border-box; padding-top: 80px; }
 /* 미리보기 타이틀 */
+.recipe_preview { padding-top: 40px; }
 .recipe_preview > p { box-sizing: border-box; padding: 0 0 10px 0; font-size: 20px; letter-spacing: -.5px; color: #145d65; }
 .adventure_preview > p { box-sizing: border-box; padding: 80px 0 10px 0; font-size: 20px; letter-spacing: -.5px; color: #145d65; }
 .lifestyle_preview > p { box-sizing: border-box; padding: 80px 0 10px 0; font-size: 20px; letter-spacing: -.5px; color: #145d65; }
