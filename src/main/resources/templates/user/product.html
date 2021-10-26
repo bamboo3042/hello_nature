@@ -296,9 +296,9 @@
                     }
                 });
 
-                for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                for (let i=res.data.pagination.totalPages; i>0; i--) {
                     let pages = $('<div id="review_page_num" class="rev_page_num">').append(
-                        (i+1)+'</div>'
+                        i+'</div>'
                     )
                     $('#review_page_prev').after(pages);
                 }
@@ -447,9 +447,9 @@
                             }
                         });
 
-                        for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                        for (let i=res.data.pagination.totalPages; i>0; i--) {
                             let pages = $('<div id="review_page_num" class="rev_page_num">').append(
-                                (i+1)+'</div>'
+                                i+'</div>'
                             )
                             $('#review_page_prev').after(pages);
                         }
@@ -610,9 +610,9 @@
                     }
                 });
 
-                for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                for (let i=res.data.pagination.totalPages; i>0; i--) {
                     let pages = $('<div id="prod_qna_page_num" class="page_num">').append(
-                        (i+1)+'</div>'
+                        i+'</div>'
                     )
                     $('#prod_qna_page_prev').after(pages);
                 }
