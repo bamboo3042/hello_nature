@@ -127,11 +127,12 @@ public class MemberPaymentService extends BaseService<MemberPaymentApiRequest, M
         List<MemberPayment> result = query.getResultList();
 
         int count = 10;
+        int size = result.size();
         int start = count * startPage;
         int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size() % count == 0 ? result.size()/count - 1 : result.size())
+                .totalPages(size % count == 0 ? size/count - 1 : size/count)
                 .totalElements((long) result.size())
                 .currentPage(startPage+1)
                 .currentElements(result.size())

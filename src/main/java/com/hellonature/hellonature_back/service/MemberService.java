@@ -155,11 +155,12 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
 
         List<Member> result = query.getResultList();
         int count = 10;
+        int size = result.size();
         int start = count * startPage;
         int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages(result.size() % count == 0 ? result.size() / count - 1 : result.size() / count)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)

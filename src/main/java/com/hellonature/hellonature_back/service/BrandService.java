@@ -62,7 +62,7 @@ public class BrandService {
                     brand.setDateStart(brandApiRequest.getDateStart());
                     brand.setDateEnd(brandApiRequest.getDateEnd());
 
-                    if (!multipartFiles.isEmpty()){
+                    if (multipartFiles != null && !multipartFiles.isEmpty()){
                         List<String> pathList = fileService.imagesUploads(multipartFiles, "brand");
                         if (pathList.get(0) != null) brand.setLogo(pathList.get(0));
                         if (pathList.get(1) != null) brand.setBanner(pathList.get(1));
