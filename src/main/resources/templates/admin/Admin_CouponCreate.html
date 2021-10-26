@@ -35,6 +35,14 @@
                 }
             }).then(function () {
                 alert("쿠폰 등록에 성공하셨습니다.")
+                $.ajax({
+                    type:"GET",
+                    url : "/admin/CouponList",
+                    datatype : "html/text",
+                    success: function(result){
+                        $("#content").html(result).trigger("create");
+                    }
+                });
             }).catch(function (err) {
                 console.log(err)
             })

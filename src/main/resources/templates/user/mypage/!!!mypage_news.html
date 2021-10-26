@@ -27,7 +27,8 @@ r<html xmlns:th="http://www.thymeleaf.org"
 
     $(function (){
 
-        axios.get('/api/notice/list',{
+        let page = $("#hidden_page").val()
+        axios.get('/api/notice/list?startPage=' + page,{
         }).then(function (response){
             for(let i in response.data.data){
                 let $title=response.data.data[i].title;
@@ -42,6 +43,9 @@ r<html xmlns:th="http://www.thymeleaf.org"
                     '<a href="/user/mypage_newsDetail" class="news_highlight">' + $title + '</a></div>'
                 )
                 $('.contents_box1').after(row);
+
+
+
             }
         }).catch(function (err){
             console.log(err)
@@ -50,6 +54,7 @@ r<html xmlns:th="http://www.thymeleaf.org"
 </script>
 <body>
 <div id="mypage-box">
+    <input type="hidden" id="hidden_page" value="0">
     <div class="container">
         <div th:replace="/user/fragment/header::header"></div>
         <div class="contents">

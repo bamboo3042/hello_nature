@@ -257,7 +257,7 @@
                     let couponTtile = response.data.data.couponList[i].title;
                     let couponDiscount = response.data.data.couponList[i].discount;
                     let couponEnd = response.data.data.couponList[i].dateEnd;
-                    let ctIdx = response.data.data.couponList[i].ctIdx;
+                    let ctIdx = response.data.data.couponList[i].idx;
 
                     let discount_val;
                     if(couponDiscount > 100){
@@ -362,6 +362,7 @@
             let hellocash = $("#order_hello").text()
             let cardNum = $("#hidden_real_cardNum").val()
             let cpIdx = $("#select_coupon").val()
+
             if(cpIdx === "쿠폰을 선택하세요"){
                 cpIdx = null;
             }
@@ -392,7 +393,7 @@
                     }
                 }).then(function () {
                     alert("주문에 성공하셨습니다.")
-                    location.href = "/user/index";
+                    location.href = "/user/index/";
                 }).catch(function (err) {
                     console.log(err)
                 })

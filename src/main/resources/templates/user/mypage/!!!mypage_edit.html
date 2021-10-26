@@ -42,11 +42,13 @@
                     password : userpw
                 }
             }).then(function(res) {
-                console.log(res);
-                alert('확인되었습니다.');
-                // location.href = '/user/mypage_editMyinfo';
+                if(res.data.resultCode === "OK") {
+                    alert("확인되었습니다")
+                    location.href = '/user/mypage_editMyinfo';
+                }else if(res.data.resultCode === "NO"){
+                    alert("비밀번호가 틀렸습니다 한번 더 확인해주세요")
+                }
             }).catch(function (err){
-                alert('비밀번호를 한번 더 확인해주세요')
                 console.log(err)
             })
         });

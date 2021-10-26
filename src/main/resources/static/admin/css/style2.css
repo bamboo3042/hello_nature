@@ -279,8 +279,8 @@ form[name="pro_review_search"] select  { height: 38px;}
 
 form[name="pro_review"] table, form[name="pro_question"] table { margin-top: 40px; }
 form[name="pro_review"] { margin-top: 25px;}
-form #pro_review tr th { font-size: 14px; text-align: center; border: 1px solid #999; }
-form #pro_review tr td { padding: 14px 10px; border: 1px solid #999; font-size: 14px; background-color: rgb(240, 240, 240);}
+form #pro_review tr th { font-size: 14px; text-align: center; border: 1px solid #999; width: 140px; height: 55px;}
+form #pro_review tr td { padding: 14px 10px; border: 1px solid #999; font-size: 14px; background-color: rgb(240, 240, 240); width: 300px; }
 form #pro_review input[type="text"] { width: 322px;}
 form #pro_review input[type="date"] { width: 155px;}
 form #pro_review span  { font-size: 13px;}

@@ -44,7 +44,16 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function () {
-            const offset = new Date().getTimezoneOffset() * 60000;
+
+            $(".overview").click(function (e){
+                if( $(".contents_hellocash_box3").css("display") === "none") {
+                    $(".contents_hellocash_box3").css("display", "block");
+                }else{
+                    $(".contents_hellocash_box3").css("display", "none");
+                }
+            })
+
+        const offset = new Date().getTimezoneOffset() * 60000;
             const now = new Date(Date.now() - offset);
             const now_result = now.toISOString().substring(0, 10);
 
@@ -137,6 +146,7 @@
                 })
             })
         })
+
     </script>
 </head>
 <body>

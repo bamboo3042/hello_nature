@@ -66,6 +66,7 @@
             let dateEnd = response.data.data.dateEnd;
             let origin = response.data.data.origin;
             let sizeWeight = response.data.data.sizeWeight;
+            let bestFlag = response.data.data.bestFlag;
             let temp = response.data.data.temp;
             let count = response.data.data.count;
             let delivery = response.data.data.delivery;
@@ -86,15 +87,16 @@
             $('#brIdx').val();
             $("#netPrice").val(netPrice);
             $("#salePrice").val(salePrice);
-            $("input:radio[name='product_status']:checked").val(state);
+            $('input:radio[name="best_flag"][value="' + bestFlag + '"]').prop("checked", true);
+            $('input:radio[name="product_status"][value="' + state + '"]').prop("checked", true);
             $("#dateStart").val(dateStart);
             $("#dateEnd").val(dateEnd);
             $("#origin").val(origin);
             $("#sizeWeight").val(sizeWeight);
             $("#temp").val(temp);
             $("#count").val(count);
-            $("input:radio[name='shipping']:checked").val(delivery);
-            $("input:radio[name='pack_type']:checked").val(packing);
+            $('input:radio[name="shipping"][value="' + delivery + '"]').prop("checked", true);
+            $('input:radio[name="pack_type"][value="' + packing + '"]').prop("checked", true);
             $("#PL_sel_2").val(cateIdx);
             $("#proType").val(proType);
             $("#proName").val(proName);
@@ -103,6 +105,7 @@
             $("#location").val(location);
             $("#dateBuilt").val(dateBuilt);
             $("#dateValid").val(dateValid);
+            CKEDITOR.instances.PE_editor.setData(proDes);
 
 
 
@@ -184,8 +187,15 @@
         axios.put('/api/product/update', formData, {
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(function (){
-            alert("브랜드 정보가 수정되었습니다.")
-            location.reload();
+            alert("상품 정보가 수정되었습니다.")
+            $.ajax({
+                type:"GET",
+                url : "/admin/productlist/",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         })
     }
 
@@ -320,8 +330,8 @@
                 <td colspan="3"><input type="text" name="text" placeholder="숫자만 입력 가능합니다" id="netPrice"><span>원</span></td>
             </tr>
             <tr>
-                <th>할인가</th>
-                <td colspan="3"><input type="text" name="text" placeholder="숫자만 입력 가능합니다" id="salePrice"><span>원</span></td>
+                <th>할인율</th>
+                <td colspan="3"><input type="text" name="text" placeholder="0~100%" id="salePrice"><span>%</span></td>
             </tr>
             <tr>
                 <th>판매상태</th>

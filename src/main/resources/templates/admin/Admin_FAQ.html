@@ -70,6 +70,7 @@
                     '<td>' + $type + '</td>' +
                     '<td><p><input type="button" value="수정" class="edit"><input type="hidden" value="' + $id + '"></p></td></tr>'
                 )
+                console.log($('input:checkbox[name="faq"]:checked').val())
                 tb.append(row)
             }
             $('.thead').after(tb)
@@ -356,6 +357,27 @@
         })
     }
 
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='faq']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/faq/deleteList/" + id,  {
+            }).then(function (){
+                alert("faq 삭제 성공")
+                location.reload();
+            })
+        }).catch(function (err){
+            console.log(err)
+        })
+    })
+
 </script>
 <body>
     <!--cotent_title 시작-->
@@ -386,11 +408,11 @@
         <!--FAQ_c2 시작-->
         <div class="FAQ_c2">
             <div id="FAQ_c2_title" class="green_title_s">
-                <p>FAQ 목록 <span>(<span>현재 등록 FAQ : 2개</span>)</span></p>
+                <p>FAQ 목록</p>
             </div>
             <!--FAQ_c2_fqlist 시작-->
                 <form name="FAQ_list">
-                    <input type="button" value="선택삭제" class="FAQ_c2_delBtn" name="delete">
+                    <input type="button" value="선택삭제" class="FAQ_c2_delBtn" name="delete" id="delbtn">
                     <table class="FAQ_c2_fqlist" border="1px" width="100%">
                         <thead class="thead">
                             <tr>

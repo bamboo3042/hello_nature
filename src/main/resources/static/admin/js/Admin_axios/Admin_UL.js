@@ -455,3 +455,24 @@ function sc() {
         })
     })
 }
+
+$(function () {
+    //선택삭제
+    $('#delbtn').click(function (){
+        alert('클릭')
+        let id = [];
+        ($("input:checkbox[name='user']:checked").each(function (e){
+            id.push($(this).val())
+        }));
+        id = String(id)
+        console.log(id)
+
+        axios.delete("/api/user/deleteList/" + id,  {
+        }).then(function (){
+            alert("회원 삭제 성공")
+            location.reload();
+        })
+    }).catch(function (err){
+        console.log(err)
+    })
+})

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class FaqApiController extends CrudController<FaqApiRequest, FaqApiRespon
         return faqService.list(type, subject, title, content, startPage);
     }
 
+    @Transactional
     @DeleteMapping("/deleteList/{idx}")
     public Header delete(@PathVariable("idx") List<Long> idx) {
         return faqService.deletePost(idx);

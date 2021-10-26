@@ -22,7 +22,6 @@
 
         }).then(function(response){
             let tb = $('<tbody class="tbody">');
-
             for(let i in response.data.data){
                 let id = response.data.data[i].idx;
                 let name = response.data.data[i].name;
@@ -34,6 +33,8 @@
                 let k = parseInt(i + 6);
 
                 regdate = regdate.toString().substring(0, 10);
+
+                console.log(price)
 
                 if(state == 1){
                     state = '입금완료'
@@ -64,7 +65,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
+                    '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
                     '<td>'+ name +'</td>' +
                     '<td>'+ member +'</td>' +
                     '<td>'+ proList +'</td>' +
@@ -154,7 +155,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" value="cou_list" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_' + k + '"></td>' +
+                                '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + member + '</td>' +
                                 '<td>' + proList + '</td>' +
@@ -292,7 +293,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="cou_list" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_'+ k +'"></td>' +
+                        '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
                         '<td>'+ name +'</td>' +
                         '<td>'+ member +'</td>' +
                         '<td>'+ proList +'</td>' +
@@ -379,7 +380,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" value="cou_list" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()"><label for="OL_check_' + k + '"></td>' +
+                                '<td><input type="checkbox"  id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + member + '</td>' +
                                 '<td>' + proList + '</td>' +
@@ -412,6 +413,26 @@
         }).catch(function(err){
             console.log(err)
             alert('업로드 실패')
+        })
+    })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='order']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/orderList/deleteList/" + id,  {
+            }).then(function (){
+                alert("주문목록 삭제 성공")
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     })
 
@@ -489,7 +510,7 @@
         <!--form 시작-->
         <form name="order_list">
                 <span>
-                    <input type="button" name="button" value="선택삭제" id="delbtn">
+<!--                    <input type="button" name="button" value="선택삭제" id="delbtn">-->
                 </span>
             <!--table 시작-->
             <table width="100%" class="list_table">

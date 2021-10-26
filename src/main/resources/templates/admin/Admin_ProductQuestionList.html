@@ -41,7 +41,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
+                    '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()" value="'+ $id +'"><label for="PQ_check_'+ k +'"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'" ></td>' +
                     '<td>' + $content + '</td>' +
@@ -109,7 +109,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
+                            '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()" value="'+$id+'"><label for="PQ_check_'+ k +'"></label></td>' +
                             '<td>' + j + '</td>' +
                             '<td><input type="button" class="detail" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'" </td>' +
                             '<td>' + $content + '</td>' +
@@ -152,26 +152,6 @@
                     })
                 })
 
-            })
-        })
-
-        $(function () {
-            $('#delbtn').click(function (){
-                let id = [];
-                ($("input:checkbox[name='pquestion']:checked").each(function (e){
-                    id.push($(this).val())
-                }));
-                console.log(id)
-
-                axios.delete("/api/productquestion/delete", {
-                    data:{
-                        id: id,
-                    }
-                }).then(function (){
-                    alert("선택된 상품문의 삭제 성공")
-                })
-            }).catch(function (err){
-                console.log(err)
             })
         })
 
@@ -274,7 +254,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PQ_check_' + k + '" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_' + k + '"></label></td>' +
+                        '<td><input type="checkbox" id="PQ_check_' + k + '" name="pquestion" onclick="PQ_checkSelectAll()" value="'+$id+'"><label for="PQ_check_' + k + '"></label></td>' +
                         '<td>' + j + '</td>' +
                         '<td><input type="button" class="detail" onclick="PQL_location()" value=' + $ansFlag + '><input type="hidden" value="'+ $id +'"></td>' +
                         '<td>' + $content + '</td>' +
@@ -286,6 +266,7 @@
                 tb.append('</tbody>');
                 $('.thead').after(tb);
 
+                $("#Maxprev").siblings(".page_num").remove();
                 for(let i = response.data.pagination.totalPages; i > 0; i--){
                     let pages = $('<li class="page_num" id="page_num '+ i +'" value="' + (i - 1) +'">').append(
                         i + '</li>'
@@ -320,7 +301,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()"><label for="PQ_check_'+ k +'"></label></td>' +
+                                '<td><input type="checkbox" id="PQ_check_'+ k +'" name="pquestion" onclick="PQ_checkSelectAll()" value="'+$id+'"><label for="PQ_check_'+ k +'"></label></td>' +
                                 '<td>' + j + '</td>' +
                                 '<td><input type="button" class="detail" onclick="PQL_location()" value=' + $ansFlag + ' ><input type="hidden" value="'+ $id +'"></td>' +
                                 '<td>' + $content + '</td>' +
@@ -352,6 +333,27 @@
                     })
                 })
             })
+        })
+    })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='pquestion']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/productquestion/deleteList/" + id,  {
+            }).then(function (){
+                alert("상품문의 삭제 성공")
+                location.reload();
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     })
 </script>

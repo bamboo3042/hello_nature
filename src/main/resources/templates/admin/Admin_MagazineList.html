@@ -125,19 +125,23 @@
         })
     })
 
-    $(function (){
-        $("#delbtn").click(function(){
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
             let id = [];
-            ($("input:checkbox[name='magazine']:checked").each(function (e) {
+            ($("input:checkbox[name='magazine']:checked").each(function (e){
                 id.push($(this).val())
             }));
+            id = String(id)
             console.log(id)
 
-            axios.delete("/api/magazine/deleteList" + id, {
-            }).then(function () {
+            axios.delete("/api/magazine/deleteList/" + id,  {
+            }).then(function (){
                 alert("매거진 삭제 성공")
+                location.reload();
             })
-        }).catch(function (err) {
+        }).catch(function (err){
             console.log(err)
         })
     })

@@ -18,6 +18,8 @@
         let page = searchParams.get("page");
         let order = searchParams.get("order");
 
+        let memIdx = $("#hidden_user").val();
+
         axios.get('/api/product/user/list?saleFlag=TRUE&page='+page+'&order='+order, {
 
         }).then(function (res){

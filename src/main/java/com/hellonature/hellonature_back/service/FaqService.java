@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -158,6 +159,8 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
         return Header.OK(faqApiResponseList, pagination);
     }
 
+
+    @Transactional
     public Header deletePost(List<Long> idx) {
         faqRepository.deleteAllByIdxIn(idx);
         return Header.OK();

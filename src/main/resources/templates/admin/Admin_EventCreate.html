@@ -50,6 +50,14 @@
             headers: {'Content-Type': 'multipart/form-data'},
         }).then(function () {
             alert("기획전/이벤트가 등록되었습니다")
+            $.ajax({
+                type:"GET",
+                url : "/admin/EventList",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         }).catch(function (err) {
             console.log(err)
         })

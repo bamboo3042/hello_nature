@@ -56,7 +56,14 @@
             }
         }).then(function (){
             alert('답변상태가 수정되었습니다');
-            location.reload();
+            $.ajax({
+                type:"GET",
+                url : "/admin/ProductReview/",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         })
     }
 

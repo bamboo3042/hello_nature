@@ -28,9 +28,10 @@
                 $("#mem_helloPass").val("미가입")
             }else{
                 $("#mem_helloPass").val("이용중")
+                $("#mem_helloPass").css("color", "white")
             }
             $("#mem_name").text(name + "님")
-            $("#mem_hellocash").text(hellocash + " cash")
+            $("#mem_hellocash").text(hellocash + " 원")
             $(".coupon_total").text(couponCount + " 개")
         })
     })

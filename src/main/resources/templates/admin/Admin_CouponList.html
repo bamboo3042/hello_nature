@@ -23,7 +23,7 @@
                 let k = parseInt(i) + 2
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
+                    '<td><input type="checkbox"  id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()" value="'+id+'"><label for="CP_check_' + k + '"></label></td>' +
                     '<td>' + id + '</td>' +
                     '<td>' + title + '</td>' +
                     '<td>' + minPrice + '원</td>' +
@@ -60,7 +60,7 @@
                         let k = parseInt(i) + 2
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="cou_list" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
+                            '<td><input type="checkbox" value="'+id+'" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
                             '<td>' + id + '</td>' +
                             '<td>' + title + '</td>' +
                             '<td>' + minPrice + '원</td>' +
@@ -152,7 +152,7 @@
                 let k = parseInt(i) + 2
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
+                    '<td><input type="checkbox" value="'+id+'" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
                     '<td>' + id + '</td>' +
                     '<td>' + title + '</td>' +
                     '<td>' + minPrice + '원</td>' +
@@ -212,7 +212,7 @@
                         let k = parseInt(i) + 2
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="cou_list" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
+                            '<td><input type="checkbox" value="'+id+'" id="CP_check_' + k + '" name="coupon" onclick="CL_checkSelectAll()"><label for="CP_check_' + k + '"></label></td>' +
                             '<td>' + id + '</td>' +
                             '<td>' + title + '</td>' +
                             '<td>' + minPrice + '원</td>' +
@@ -233,6 +233,27 @@
                     }
                 })
             })
+        })
+    })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='coupon']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/memberCouponType/deleteList/" + id,  {
+            }).then(function (){
+                alert("쿠폰 삭제 성공")
+                location.reload();
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     })
 </script>
@@ -281,7 +302,7 @@
         <!--CL_c2_title 끝-->
         <!--form 시작-->
         <form name="coupon_list">
-                <span><input type="button" name="button" value="선택 삭제">
+                <span><input type="button" name="button" value="선택 삭제" id="delbtn">
                 </span>
             <!--table 시작-->
             <table width="100%">
