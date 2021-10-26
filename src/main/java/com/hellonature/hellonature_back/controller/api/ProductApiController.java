@@ -13,7 +13,6 @@ import com.hellonature.hellonature_back.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
 
     @RequestMapping(value = "/update" , method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public Header<ProductApiResponse> update(@RequestPart(value = "key") ProductApiRequest request,
-                                             @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+                                             @RequestPart(value = "files", required = false) List<MultipartFile> fileList) throws Exception {
         return productService.update(request, fileList);
     }
 

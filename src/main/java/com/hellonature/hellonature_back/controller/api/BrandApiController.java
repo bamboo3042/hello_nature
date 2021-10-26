@@ -2,18 +2,11 @@ package com.hellonature.hellonature_back.controller.api;
 
 import com.hellonature.hellonature_back.controller.CrudController;
 import com.hellonature.hellonature_back.model.entity.Brand;
-import com.hellonature.hellonature_back.model.entity.Faq;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.BrandApiRequest;
-import com.hellonature.hellonature_back.model.network.request.ProductApiRequest;
 import com.hellonature.hellonature_back.model.network.response.BrandApiResponse;
-import com.hellonature.hellonature_back.model.network.response.FaqApiResponse;
-import com.hellonature.hellonature_back.model.network.response.ProductApiResponse;
 import com.hellonature.hellonature_back.service.BrandService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,7 +33,7 @@ public class BrandApiController extends CrudController<BrandApiRequest, BrandApi
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public Header<BrandApiResponse> update(@RequestPart(value = "key") BrandApiRequest request,
-                                           @RequestPart(value = "files") List<MultipartFile> fileList) throws Exception {
+                                           @RequestPart(value = "files", required = false) List<MultipartFile> fileList) throws Exception {
         return brandService.update(request, fileList);
     }
 

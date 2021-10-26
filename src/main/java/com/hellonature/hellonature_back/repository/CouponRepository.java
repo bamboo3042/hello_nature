@@ -12,6 +12,5 @@ import java.util.Optional;
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
     Long countAllByMemberAndUsedFlag(Member member, Flag usedFlag);
     List<Coupon> findAllByMemberAndUsedFlagOrderByIdxDesc(Member member, Flag usedFlag);
-    List<Coupon> findAllByMemberOrderByIdxDesc(Member member);
     Optional<Coupon> findByCouponType(CouponType couponType);
 }
