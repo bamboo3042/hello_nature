@@ -137,8 +137,9 @@ public class BrandService {
 
         List<Brand> result = query.getResultList();
 
-        Integer start = (count * startPage);
-        Integer end = Math.min(result.size(), start + count);
+        int size = result.size();
+        int start = (count * startPage);
+        int end = Math.min(size, start + count);
 
         List<BrandApiResponse> list = new ArrayList<>();
 
@@ -150,10 +151,10 @@ public class BrandService {
         }
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()%count==0 ? result.size()/count : (result.size()/count)+1 ) // 리스트가 홀수일 때
-                .totalElements(brandRepository.count())
+                .totalPages( size % count == 0 ? size/count - 1 : size / count ) // 리스트가 홀수일 때
+                .totalElements((long) size)
                 .currentPage(startPage)
-                .currentElements(result.size())
+                .currentElements(end - start)
                 .build();
 
         return Header.OK(list, pagination);
