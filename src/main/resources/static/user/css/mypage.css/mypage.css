@@ -463,7 +463,9 @@ mantoman_button:hover{ background-color: #11b082;}
 .post_info > p:last-child > span { color: #333; display: inline-block;}
 .post_info > p span::before { content: ''; background-color: #a8e2d7; border-radius: 3px; width: 100%; height: 6px; display: block; position: relative; bottom: -23px; opacity: 0.6;}
 .post_info { margin-bottom: 24px;}
-.enroll_post_box2 h3 { font-size: 18px; line-height: 1.5; letter-spacing: -.6px; color: #333; margin-top: 24px;}
+.enroll_post_box2 h3 { font-size: 18px; line-height: 1.5; letter-spacing: -.6px; color: #333; margin-top: 24px; margin-bottom: 10px;}
+.enroll_post_box2 #rv_like_tit { font-size: 14px; line-height: 1.5; letter-spacing: -.6px; color: #333; margin-right: 5px;}
+.enroll_post_box2 #rv_like { width: 100px; height: 25px; border-radius: 3px; border: 1px solid #ccc; margin-bottom: 10px; cursor: pointer;}
 /* 만족도 라디오 박스 */
 .enroll_post_radiobox { display: table; width: 100%; justify-content: space-between; align-items: center; padding-left: 35px; padding-top: 20px;}
 .enroll_post_radiobox > li { display: table-cell; text-align: center; z-index: 100;}
@@ -500,7 +502,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .post_upload_guide > p { font-size: 12px; color: #555; font-weight: 400; line-height: 1.58; letter-spacing: -.5px;}
 .post_upload_guide { margin-top: 12px; padding-right: 20px;}
 .warning_list_box > p { font-size: 12px; line-height: 1.58; letter-spacing: -.5px; color: #555;}
-.warning_list_box > p:first-child > a { color: #00B081 !important;}
+.warning_list_box > p:first-child > a { color: #00B081 !important; display: inline;}
 .warning_list_box { margin-top: 24px; padding-left: 9px;}
 /* 구매후기 운영안내 */
 .post_guide_box_inner { vertical-align: middle; display: flex; align-items: center;}
