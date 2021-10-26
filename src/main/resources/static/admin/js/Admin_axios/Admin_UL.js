@@ -470,6 +470,7 @@ $(function () {
         axios.delete("/api/user/deleteList/" + id,  {
         }).then(function (){
             alert("회원 삭제 성공")
+            location.reload();
         })
     }).catch(function (err){
         console.log(err)

@@ -139,6 +139,7 @@
             axios.delete("/api/magazine/deleteList/" + id,  {
             }).then(function (){
                 alert("매거진 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

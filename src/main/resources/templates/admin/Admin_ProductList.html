@@ -377,6 +377,7 @@
             axios.delete("/api/product/deleteList/" + id,  {
             }).then(function (){
                 alert("상품 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

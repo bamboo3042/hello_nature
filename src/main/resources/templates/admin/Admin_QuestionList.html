@@ -467,6 +467,7 @@
             axios.delete("/api/Question/deleteList/" + id,  {
             }).then(function (){
                 alert("상품후기 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

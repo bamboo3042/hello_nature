@@ -398,6 +398,7 @@
             axios.delete("/api/notice/deleteList/" + id,  {
             }).then(function (){
                 alert("공지사항 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

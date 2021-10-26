@@ -350,6 +350,7 @@
             axios.delete("/api/productquestion/deleteList/" + id,  {
             }).then(function (){
                 alert("상품문의 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

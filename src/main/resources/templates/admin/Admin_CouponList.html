@@ -250,6 +250,7 @@
             axios.delete("/api/memberCouponType/deleteList/" + id,  {
             }).then(function (){
                 alert("쿠폰 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

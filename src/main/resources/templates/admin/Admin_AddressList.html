@@ -363,6 +363,7 @@
             axios.delete("/api/membersAddresses/deleteList/" + id,  {
             }).then(function (){
                 alert("주소지 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

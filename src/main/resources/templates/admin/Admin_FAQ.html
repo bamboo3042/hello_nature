@@ -371,6 +371,7 @@
             axios.delete("/api/faq/deleteList/" + id,  {
             }).then(function (){
                 alert("faq 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

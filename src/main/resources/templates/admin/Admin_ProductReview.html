@@ -253,6 +253,7 @@
                 axios.delete("/api/productReview/deleteList/" + id,  {
                 }).then(function (){
                     alert("상품후기 삭제 성공")
+                    location.reload();
                 })
             }).catch(function (err){
                 console.log(err)

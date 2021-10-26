@@ -352,6 +352,7 @@
             axios.delete("/api/memberPayment/deleteList/" + id,  {
             }).then(function (){
                 alert("결제내역 삭제 성공")
+                location.reload();
             })
         }).catch(function (err){
             console.log(err)

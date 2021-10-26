@@ -354,6 +354,7 @@ $(function () {
         axios.delete("/api/brand/deleteList/" + id,  {
         }).then(function (){
             alert("브랜드 삭제 성공")
+            location.reload();
         })
     }).catch(function (err){
         console.log(err)
