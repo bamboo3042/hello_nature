@@ -105,7 +105,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="BL_check_'+ k +'"><label for="BL_check_'+ k +'"></label></td>' +
+                    '<td><input type="checkbox" value="cou_list" id="BL_check_'+ k +'"  name="brand_edit" onclick="BE_checkSelectAll2()"><label for="BL_check_'+ k +'"></label></td>' +
                     '<td>'+ id +'</td>' +
                     '<td>'+ name +'</td>' +
                     '<td>'+ des +'</td>' +
@@ -152,7 +152,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"  name="brand_edit" onclick="BE_checkSelectAll2()"><label for="BL_check_' + k + '"></label></td>' +
                             '<td>' + id + '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + des + '</td>' +
@@ -213,7 +213,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                    '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"  name="brand_edit" onclick="BE_checkSelectAll2()"><label for="BL_check_' + k + '"></label></td>' +
                     '<td>' + id + '</td>' +
                     '<td>' + name + '</td>' +
                     '<td>' + des + '</td>' +
@@ -273,7 +273,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '"><label for="BL_check_' + k + '"></label></td>' +
+                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + k + '" name="brand_edit" onclick="BE_checkSelectAll2()"><label for="BL_check_' + k + '"></label></td>' +
                             '<td>' + id + '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + des + '</td>' +
@@ -409,7 +409,7 @@
             <table width="100%" class="list_table">
                 <thead class="thead">
                     <tr>
-                        <th width="5%"><input type="checkbox" value="cou_list" id="BL_check_8"><label for="BL_check_8"></label></th>
+                        <th width="5%"><input type="checkbox" value="cou_list" id="BL_check_8" name="selectall" onclick="BE_selectAll2(this)"><label for="BL_check_8"></label></th>
                         <th width="15%">상품번호</th>
                         <th width="20%">상품명</th>
                         <th width="25%">상세설명</th>

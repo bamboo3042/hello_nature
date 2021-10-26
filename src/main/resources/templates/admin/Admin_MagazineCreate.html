@@ -390,7 +390,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td height="80px"><input type="checkbox" name="mc_list2" id="check_'+ (i + 9) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_'+ (i + 9) +'"></label></td>' +
+                        '<td height="80px"><input type="checkbox" name="mc_list2" id="check_'+ (i + 9) +'" onclick="MC_checkSelectAll2()" value="'+id+'"><label for="check_'+ (i + 9) +'"></label></td>' +
                         '<td><img src="' + img + '"></td>' +
                         '<td>'+ name +'</td>' +
                         '<td>'+ state +'</td></tr>'
@@ -465,7 +465,7 @@
                                 img = img.replace("\\", "/");
 
                                 let row = $('<tr>').append(
-                                    '<td height="80px"><input type="checkbox" name="mc_list2" id="check_' + (i + 9) + '" onclick="MC_checkSelectAll()"  value="'+id+'"><label for="check_' + (i + 9) + '"></label></td>' +
+                                    '<td height="80px"><input type="checkbox" name="mc_list2" id="check_' + (i + 9) + '" onclick="MC_checkSelectAll2()"  value="'+id+'"><label for="check_' + (i + 9) + '"></label></td>' +
                                     '<td><img src="' + img + '"></td>' +
                                     '<td>' + name + '</td>' +
                                     '<td>' + state + '</td></tr>'
@@ -702,7 +702,7 @@
                         <table width="100%" style="text-align: center;" class="MCT_c3_p_list">
                             <thead id="thead">
                             <tr>
-                                <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check" name="selectall" onclick="MC_selectAll(this)"><label for="check"></th>
+                                <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check" name="selectall2" onclick="MC_selectAll2(this)"><label for="check"></th>
                                 <th width="40%">상품 이미지</th>
                                 <th width="28%">상품명</th>
                                 <th width="25%">판매상태</th>

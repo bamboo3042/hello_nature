@@ -344,7 +344,7 @@
                             img = img.replace("\\", "/");
 
                             let row = $('<tr>').append(
-                                '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_' + (i + 12) + '" onclick="MC_checkSelectAll()" value="'+id+'"><label for="RC_check_' + (i + 12) + '"></label></td>' +
+                                '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_' + (i + 12) + '" onclick="RC_checkSelectAll()" value="'+id+'"><label for="RC_check_' + (i + 12) + '"></label></td>' +
                                 '<td><img src="' + img + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + state + '</td></tr>'
@@ -529,7 +529,7 @@
                             img = img.replace("\\", "/");
 
                             let row = $('<tr>').append(
-                                '<td height="80px"><input type="checkbox" name="RC_list" id="check_' + (i + 12) + '" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_' + (i + 12) + '"></label></td>' +
+                                '<td height="80px"><input type="checkbox" name="RC_list2" id="check_' + (i + 12) + '" onclick="RC_checkSelectAll2()" value="'+id+'"><label for="check_' + (i + 12) + '"></label></td>' +
                                 '<td><img src="' + img + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + state + '</td></tr>'
@@ -698,7 +698,7 @@
                             <table width="100%" style="text-align: center;" class="RC_p_list">
                                 <thead class="thead">
                                     <tr>
-                                        <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="RC_check_12" name="RC_list"><label for="RC_check_12"></label></th>
+                                        <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="RC_check_12" name="selectall" onclick="RC_selectAll(this)"><label for="RC_check_12"></label></th>
                                         <th width="40%">상품 이미지</th>
                                         <th width="28%">상품명</th>
                                         <th width="25%">카테고리</th>
@@ -772,7 +772,7 @@
                             <table width="100%" style="text-align: center;" class="RC_p_list">
                                 <thead id="thead">
                                 <tr>
-                                    <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check_12" name="RC_list2"><label for="check_12"></label></th>
+                                    <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check_12" name="selectall2" onclick="RC_selectAll2(this)"><label for="check_12"></label></th>
                                     <th width="40%">상품 이미지</th>
                                     <th width="28%">상품명</th>
                                     <th width="25%">카테고리</th>
