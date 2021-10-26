@@ -62,7 +62,7 @@ public class MultipleSecurityConfig {
                     .and()
                     .logout()
                     .logoutUrl("/user/logout")
-                    .logoutSuccessUrl("/user/index.html")
+                    .logoutSuccessUrl("/user/index")
                     .invalidateHttpSession(true)
                     .deleteCookies("remember-me", "JSESSIONID")
                     .and()
