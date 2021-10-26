@@ -42,7 +42,6 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         Hellocash hellocash;
 
         MemberOrderApiRequest memberOrderApiRequest = request.getData();
-        System.out.println(memberOrderApiRequest);
 
         Optional<Member> optionalMember = memberRepository.findById(memberOrderApiRequest.getMemIdx());
         if (optionalMember.isEmpty()) return Header.ERROR("회원 정보가 잘못되었습니다");

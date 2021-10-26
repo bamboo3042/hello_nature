@@ -102,7 +102,7 @@ public class ProductQuestionService  {
     }
 
     public Header<List<ProductQuestionListResponse>> list(Flag ansFlag, String content, String name, String dateStart, String dateEnd, Integer startPage){
-        String jpql = "select pq from ProductQuestion pq left join Member m ON pq.member = m";
+        String jpql = "select pq from ProductQuestion pq join pq.member m";
         boolean check = false;
 
         if(ansFlag!= null || content != null || name != null || dateStart != null || dateEnd != null){
@@ -118,7 +118,7 @@ public class ProductQuestionService  {
             }
             if (name != null){
                 if (check) jpql += " and";
-                jpql += " mem_name like :name";
+                jpql += " m.name like :name";
                 check = true;
             }
             if (dateStart != null){
