@@ -50,13 +50,12 @@ public class QuestionApiController extends CrudController<QuestionApiRequest, Qu
     }
 
     @GetMapping("/list")
-    public Header<List<QuestionApiResponse>> list(//@RequestParam(name="idx", required = false) Long idx,
-                                                  @RequestParam(name="dateStart", required = false) String dateStart,
+    public Header<List<QuestionApiResponse>> list(@RequestParam(name="dateStart", required = false) String dateStart,
                                                   @RequestParam(name="dateEnd", required = false) String dateEnd,
                                                   @RequestParam(name="ansFlag", required = false) Flag ansFlag,
                                                   @RequestParam(name="type", required = false) Integer type,
                                                   @RequestParam(name="memEmail", required = false) String memEmail,
-                                                  @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
+                                                  @RequestParam(name="page", defaultValue = "0") Integer startPage){
         return questionService.list(dateStart, dateEnd, ansFlag, type, memEmail, startPage);
     }
 

@@ -330,7 +330,6 @@ public class ProductService{
 
     @Transactional
     public Header<List<ProductUserListResponse>> userList(Long cateIdx, Long brIdx, Flag saleFlag, Integer page, Integer order){
-
         List<Category> categoryList = new ArrayList<>();
         boolean check = false;
 

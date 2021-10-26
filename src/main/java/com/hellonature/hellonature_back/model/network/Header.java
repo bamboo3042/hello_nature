@@ -49,6 +49,7 @@ public class Header<T> {
     }
 
     public static <T> Header<T> OK(T data, Pagination pagination){
+        pagination.totlaPagePlus();
         return (Header<T>)Header.builder()
                 .transactionTime(LocalDateTime.now())
                 .resultCode("OK")

@@ -14,4 +14,8 @@ public class Pagination {
     private Long totalElements;
     private Integer currentPage;
     private Integer currentElements;
+
+    public void totlaPagePlus(){
+        totalPages += 1;
+    }
 }

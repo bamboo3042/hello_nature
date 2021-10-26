@@ -52,7 +52,7 @@ public class EventApiController extends CrudController<EventApiRequest, EventApi
                                                @RequestParam(name="dateStart", required = false) String dateStart,
                                                @RequestParam(name="dateEnd", required = false) String dateEnd,
                                                @RequestParam(name = "ingFlag", required = false) Flag ingFlag,
-                                               @RequestParam(name="startPage", defaultValue = "0") Integer page){
+                                               @RequestParam(name="page", defaultValue = "0") Integer page){
         return eventService.list(typeFlag, title, dateStart, dateEnd, ingFlag, page);
     }
 
