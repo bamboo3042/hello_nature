@@ -115,7 +115,7 @@ a:focus { color: #444;}
 #find_email_area{ width:340px; margin: 0 auto; }
 #hp_chk_box{ width: 100%; margin-bottom: 50px; }
 #find_email_area .hp_chk_msg { font-size: 18px; text-align: center; padding: 20px 0; letter-spacing: -0.5px; color: #444; font-weight: 500;}
-#find_email_cont_box button{ width: 340px; height: 54px; font-size: 16px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+#find_email_cont_box button{ box-shadow: 5px 5px 5px #ccc; width: 340px; height: 45px; font-size: 16px; cursor: pointer; border-radius: 3px; font-weight: bold; color: white; border: 1px solid #5dab99; background-color: #5dab99; color: white;}
 .hp_chk_btn { color: #ffffff; background-color: #5dab99; border-radius: 3px; font-weight: bold; border: 1px solid #5dab99; width: 340px; height: 54px; font-size: 16px; border-radius: 3px; cursor: pointer; }
 .emailInfo_msg{font-size: 19px; text-align: center; padding-bottom: 10px; letter-spacing: -0.5px; color: #444; font-weight: 500;}
 #emailInfo{ background-color: #f4f4f4; padding: 10px 20px 10px 20px; margin-bottom: 10px;}
