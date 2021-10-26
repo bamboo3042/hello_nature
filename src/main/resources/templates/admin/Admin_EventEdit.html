@@ -68,7 +68,7 @@
         let idx = sessionStorage.getItem("brand_idx");
         axios.get("/api/event/read/" + idx, {}).then(function (response){
             let id = response.data.data.id;
-            let eventFlag  = response.data.data.eventFlag;
+            let eventFlag  = response.data.data.typeFlag;
             let title = response.data.data.title;
             let ingFlag = response.data.data.ingFlag;
             let dateStart = response.data.data.dateStart;

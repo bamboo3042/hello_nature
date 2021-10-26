@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SendMailService {
-
     @Autowired
     private JavaMailSender mailSender;
 
     private static final String FROM_ADDRESS = "korpg95274@gmail.com";
 
     public SendMailDTO createMail(String userEmail){
+
         String str = getTempPassword();
         SendMailDTO sendMailDTO = new SendMailDTO();
         sendMailDTO.setAddress(userEmail);

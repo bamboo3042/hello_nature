@@ -1,6 +1,8 @@
 package com.hellonature.hellonature_back.config.security;
 
-import com.hellonature.hellonature_back.config.security.main.*;
+import com.hellonature.hellonature_back.config.security.main.MemberAuthenticationProvider;
+import com.hellonature.hellonature_back.config.security.main.MemberLoginFailureHandler;
+import com.hellonature.hellonature_back.config.security.main.MemberSuccessHandler;
 import com.hellonature.hellonature_back.service.AdminDetailsService;
 import com.hellonature.hellonature_back.service.MemberDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +12,6 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -61,7 +62,7 @@ public class MultipleSecurityConfig {
                     .and()
                     .logout()
                     .logoutUrl("/user/logout")
-                    .logoutSuccessUrl("/user/index")
+                    .logoutSuccessUrl("/user/index.html")
                     .invalidateHttpSession(true)
                     .deleteCookies("remember-me", "JSESSIONID")
                     .and()

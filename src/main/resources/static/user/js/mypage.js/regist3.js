@@ -150,10 +150,10 @@ function sendit() {
             requestMemo1: "삭제할 컬럼",          // 삭제예정컬럼3
         }
     }).then(function () {
-        // 페이지 권한 (링크 이동 불가)
+        alert('회원가입이 완료되었습니다.');
+        location.href = "/user/mypage_userLogin"
     }).catch(function (err) {
+        alert('회원가입에 실패했습니다 정보를 다시 확인해주세요')
         console.log(err)
     });
-    alert('회원가입이 완료되었습니다.');
-    location.href = "/user/mypage_userLogin"
 }
