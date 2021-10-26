@@ -144,7 +144,7 @@ public class ProductQuestionService  {
         List<ProductQuestion> result = query.getResultList();
 
         int count = 10;
-
+        int size = result.size();
         int start = count * startPage;
         int end = Math.min(result.size(), start + count);
 
@@ -156,7 +156,7 @@ public class ProductQuestionService  {
         }
 
         Pagination pagination = new Pagination().builder()
-                .totalPages(result.size() / count)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)
@@ -205,7 +205,7 @@ public class ProductQuestionService  {
         }
 
         Pagination pagination = Pagination.builder()
-                .totalPages(size % 5 == 0 ? size - 1 : size)
+                .totalPages(size % count == 0 ? size / count - 1 : size / count)
                 .totalElements((long) size)
                 .currentPage(page)
                 .currentElements(end - start)

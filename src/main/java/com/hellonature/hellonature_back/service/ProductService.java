@@ -102,7 +102,7 @@ public class ProductService{
             product.setDelivery(productApiRequest.getDelivery());
             product.setPacking(productApiRequest.getPacking());
 
-            if(!multipartFiles.isEmpty()){
+            if(multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
                 if(multipartFiles.get(0) != null) product.setImg1(pathList.get(0));
                 if(multipartFiles.get(1) != null) product.setImg2(pathList.get(1));

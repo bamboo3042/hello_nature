@@ -103,9 +103,9 @@
 
 
             <!-- 페이지네이션 -->
-            for(let i=res.data.pagination.totalPages; i>=0; i--){
+            for(let i=res.data.pagination.totalPages; i>0; i--){
                 let pages = $('<div class="page_num">').append(
-                    (i+1)+'</div>'
+                    i+'</div>'
                 )
                 $('.page_prev').after(pages);   // 다음으로 들어가야하는 위치
 
@@ -210,7 +210,7 @@
                                     <span class="txt">신상품</span></div>
                                 <div class="mold">
                                     <ul class="list">
-                                        <li class="prod_cate">전체</li>
+                                        <li class="prod_cate" style="font-weight: bold; color: #0db081;">전체</li>
                                     </ul>
                                 </div>
                                 <div class="list_ability">

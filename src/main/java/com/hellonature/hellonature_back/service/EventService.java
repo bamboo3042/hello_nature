@@ -62,9 +62,9 @@ public class EventService{
             event.setIngFlag(eventApiRequest.getIngFlag());
             event.setDateStart(eventApiRequest.getDateStart());
             event.setDateEnd(eventApiRequest.getDateEnd());
-            if (!multipartFiles.isEmpty()){
+            if (multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "event");
-                event.setImg(pathList.get(0));
+                if (pathList.get(0) != null) event.setImg(pathList.get(0));
             }
             event.setTitle(eventApiRequest.getTitle());
             event.setDes(eventApiRequest.getDes());
