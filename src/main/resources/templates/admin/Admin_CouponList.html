@@ -239,7 +239,7 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='coupon']:checked").each(function (e){
                 id.push($(this).val())
@@ -247,11 +247,13 @@
             id = String(id)
             console.log(id)
 
-            axios.delete("/api/memberCouponType/deleteList/" + id,  {
-            }).then(function (){
-                alert("쿠폰 삭제 성공")
-                location.reload();
-            })
+            if(confirm){
+                axios.delete("/api/memberCouponType/deleteList/" + id,  {
+                }).then(function (){
+                    alert("쿠폰이 삭제되었습니다")
+                    location.reload();
+                })
+            }
         }).catch(function (err){
             console.log(err)
         })

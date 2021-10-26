@@ -174,6 +174,14 @@
         })
     })
 
+    $('input[name="order_state"]').click(function(e){
+        let count = $('input:checked[name="order_state"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
+
     $(function(){
         let now = new Date();
         let now_result = now.toISOString().substring(0,10);
@@ -419,7 +427,7 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='order']:checked").each(function (e){
                 id.push($(this).val())
@@ -427,10 +435,12 @@
             id = String(id)
             console.log(id)
 
-            axios.delete("/api/orderList/deleteList/" + id,  {
-            }).then(function (){
-                alert("주문목록 삭제 성공")
-            })
+            if(confirm){
+                axios.delete("/api/orderList/deleteList/" + id,  {
+                }).then(function (){
+                    alert("주문목록 삭제 성공")
+                })
+            }
         }).catch(function (err){
             console.log(err)
         })

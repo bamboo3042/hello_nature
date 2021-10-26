@@ -366,7 +366,7 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='product']:checked").each(function (e){
                 id.push($(this).val())
@@ -374,11 +374,13 @@
             id = String(id)
             console.log(id)
 
-            axios.delete("/api/product/deleteList/" + id,  {
-            }).then(function (){
-                alert("상품 삭제 성공")
-                location.reload();
-            })
+            if(confirm){
+                axios.delete("/api/product/deleteList/" + id,  {
+                }).then(function (){
+                    alert("상품 삭제 성공")
+                    location.reload();
+                })
+            }
         }).catch(function (err){
             console.log(err)
         })

@@ -30,14 +30,14 @@
                         $name + '</option>'
                     )
                     console.log(row)
-                    $('#Pl_sel_1').append(row)
+                    $('#MC_sel_1').append(row)
                 }
             })
         })
 
         //2차 카테고리 다중셀렉트
         function categoryChange(e) {
-            $('#PL_sel_2').empty();
+            $('#MC_sel_2').empty();
             axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
                 for (let i in response.data.data) {
                     console.log(response)
@@ -48,7 +48,7 @@
                         $name + '</option>'
                     )
                     console.log(row)
-                    $('#PL_sel_2').append(row)
+                    $('#MC_sel_2').append(row)
                 }
             })
         }
@@ -63,14 +63,14 @@
                         $name + '</option>'
                     )
                     console.log(row)
-                    $('#MC_sel_1').append(row)
+                    $('#MC_sel_3').append(row)
                 }
             })
         })
 
         //2차 카테고리 다중셀렉트
         function categoryChange2(e) {
-            $('#MC_sel_2').empty();
+            $('#MC_sel_4').empty();
             axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
                 for (let i in response.data.data) {
                     console.log(response)
@@ -81,7 +81,7 @@
                         $name + '</option>'
                     )
                     console.log(row)
-                    $('#MC_sel_2').append(row)
+                    $('#MC_sel_4').append(row)
                 }
             })
         }
@@ -145,13 +145,9 @@
 
             let url = '/api/product/list?page=' + page;
 
-            if(cateIdx == null){
-                cateIdx = $('#PL_sel_1').val();
-                url = url + "&cateIdx=" + cateIdx;
-                if(cateIdx == null){
+            if(cateIdx == undefined){
                     url = url;
-                }
-            }else if(cateIdx != null){
+                } else if(cateIdx != undefined){
                 url = url + "&cateIdx=" + cateIdx;
             }
 
@@ -184,21 +180,20 @@
                     let name = response.data.data[i].name;
                     let state = response.data.data[i].state;
                     img = img.replace("\\", "/");
-                    console.log(img)
                     console.log(state)
-                    if(state == 0){
-                        state = '판매대기'
-                    }else if(state == 1){
-                        state = '판매중'
-                    }else if(state == 2){
-                        state = '판매중지'
-                    }else if(state == 3){
-                        state = '판매종료'
-                    }else if(state == 4){
-                        state = '품절'
-                    }else{
-                        state = ""
-                    }
+                    // if(state == 0){
+                    //     state = '판매대기'
+                    // }else if(state == 1){
+                    //     state = '판매중'
+                    // }else if(state == 2){
+                    //     state = '판매중지'
+                    // }else if(state == 3){
+                    //     state = '판매종료'
+                    // }else if(state == 4){
+                    //     state = '품절'
+                    // }else{
+                    //     state = ""
+                    // }
 
                     let row = $('<tr>').append(
                         '<td height="80px"><input type="checkbox" name="mc_list" id="MCT_c3_check_'+ (i + 9) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="MCT_c3_check_'+ (i + 9) +'"></label></td>' +
@@ -210,6 +205,7 @@
                 }
                 $('.thead').after(tb)
 
+                $("#Maxprev").siblings(".page_num").remove();
                 for(let i = response.data.pagination.totalPages; i > 0; i--){
                     let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                         i + '</li>'
@@ -227,19 +223,19 @@
                         let name = $('#MCT_c3_scName').val();
                         let url = '/api/product/list?page=' + page;
 
-                        if(state == 0){
-                            state = '판매대기'
-                        }else if(state == 1){
-                            state = '판매중'
-                        }else if(state == 2){
-                            state = '판매중지'
-                        }else if(state == 3){
-                            state = '판매종료'
-                        }else if(state == 4){
-                            state = '품절'
-                        }else{
-                            state = ""
-                        }
+                        // if(state == 0){
+                        //     state = '판매대기'
+                        // }else if(state == 1){
+                        //     state = '판매중'
+                        // }else if(state == 2){
+                        //     state = '판매중지'
+                        // }else if(state == 3){
+                        //     state = '판매종료'
+                        // }else if(state == 4){
+                        //     state = '품절'
+                        // }else{
+                        //     state = ""
+                        // }
 
                         if(cateIdx == ""){
                             url = url;
@@ -335,12 +331,9 @@
             let name = $('#MCT_c3_Name').val();
             let url = '/api/product/list?page=' + page;
 
-            if(cateIdx == null){
-                cateIdx = $('#MC_sel_1').val();
-                if(cateIdx == null){
-                    url = url;
-                }
-            }else if(cateIdx != null){
+            if(cateIdx == undefined){
+                url = url;
+            } else if(cateIdx != undefined){
                 url = url + "&cateIdx=" + cateIdx;
             }
 
@@ -375,19 +368,19 @@
                     img = img.replace("\\", "/");
                     console.log(img)
                     console.log(state)
-                    if(state == 0){
-                        state = '판매대기'
-                    }else if(state == 1){
-                        state = '판매중'
-                    }else if(state == 2){
-                        state = '판매중지'
-                    }else if(state == 3){
-                        state = '판매종료'
-                    }else if(state == 4){
-                        state = '품절'
-                    }else if(state == ""){
-                        state = '전체'
-                    }
+                    // if(state == 0){
+                    //     state = '판매대기'
+                    // }else if(state == 1){
+                    //     state = '판매중'
+                    // }else if(state == 2){
+                    //     state = '판매중지'
+                    // }else if(state == 3){
+                    //     state = '판매종료'
+                    // }else if(state == 4){
+                    //     state = '품절'
+                    // }else if(state == ""){
+                    //     state = '전체'
+                    // }
 
                     let row = $('<tr>').append(
                         '<td height="80px"><input type="checkbox" name="mc_list2" id="check_'+ (i + 9) +'" onclick="MC_checkSelectAll2()" value="'+id+'"><label for="check_'+ (i + 9) +'"></label></td>' +
@@ -399,6 +392,7 @@
                 }
                 $('#thead').after(tb)
 
+                $("#Maxprev").siblings(".page_num").remove();
                 for(let i = response.data.pagination.totalPages; i > 0; i--){
                     let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                         i + '</li>'
@@ -416,23 +410,23 @@
                         let name = $('#MCT_c3_Name').val();
                         let url = '/api/product/list?page=' + page;
 
-                        if(state == 0){
-                            state = '판매대기'
-                        }else if(state == 1){
-                            state = '판매중'
-                        }else if(state == 2){
-                            state = '판매중지'
-                        }else if(state == 3){
-                            state = '판매종료'
-                        }else if(state == 4){
-                            state = '품절'
-                        }else if(state == ""){
-                            state = "전체"
-                        }
+                        // if(state == 0){
+                        //     state = '판매대기'
+                        // }else if(state == 1){
+                        //     state = '판매중'
+                        // }else if(state == 2){
+                        //     state = '판매중지'
+                        // }else if(state == 3){
+                        //     state = '판매종료'
+                        // }else if(state == 4){
+                        //     state = '품절'
+                        // }else if(state == ""){
+                        //     state = "전체"
+                        // }
 
-                        if(cateIdx == ""){
+                        if(cateIdx == undefined){
                             url = url;
-                        }else if(cateIdx != ""){
+                        }else if(cateIdx != undefined){
                             url = url + '&cateIdx=' + cateIdx;
                         }
 
@@ -448,9 +442,9 @@
                             url = url + '&order=' + order;
                         }
 
-                        if (name == "") {
+                        if (name == undefined) {
                             url = url;
-                        } else if (name != "") {
+                        } else if (name != undefined) {
                             url = url + '&name=' + name;
                         }
                         console.log(url)
@@ -520,6 +514,38 @@
                 $('#MC_type_hidden').val(($(this).children("input").val()));
             })
         })
+
+        $('input[name="d_status2"]').click(function(e){
+            let count = $('input:checked[name="d_status2"]').length;
+            if(count > 1){
+                $(this).prop('checked', false);
+                alert('한개만 선택해주세요')
+            }
+        })
+
+        $('input[name="status2"]').click(function(e){
+            let count = $('input:checked[name="status2"]').length;
+            if(count > 1){
+                $(this).prop('checked', false);
+                alert('한개만 선택해주세요')
+            }
+        })
+
+        $('input[name="filter"]').click(function(e){
+            let count = $('input:checked[name="filter"]').length;
+            if(count > 1){
+                $(this).prop('checked', false);
+                alert('한개만 선택해주세요')
+            }
+        })
+
+        $('input[name="filter2"]').click(function(e){
+            let count = $('input:checked[name="filter2"]').length;
+            if(count > 1){
+                $(this).prop('checked', false);
+                alert('한개만 선택해주세요')
+            }
+        })
     </script>
 </head>
 <body>
@@ -586,10 +612,10 @@
                             <tr height="70">
                                 <th width="150">상품분류</th>
                                 <td>
-                                    <select onchange="categoryChange(this)" id="Pl_sel_1">
+                                    <select onchange="categoryChange(this)" id="MC_sel_1">
                                         <option>대분류</option>
                                     </select>
-                                    <select id="PL_sel_2">
+                                    <select id="MC_sel_2">
                                         <option id="PL_sel_stand">중분류</option>
                                     </select>
                                 </td>
@@ -659,10 +685,10 @@
                             <tr height="70">
                                 <th width="150">상품분류</th>
                                 <td>
-                                    <select onchange="categoryChange2(this)" id="MC_sel_1">
+                                    <select onchange="categoryChange2(this)" id="MC_sel_3">
                                         <option value="대분류">대분류</option>
                                     </select>
-                                    <select id="MC_sel_2">
+                                    <select id="MC_sel_4">
                                         <option id="MC_sel_stand">중분류</option>
                                     </select>
                                 </td>

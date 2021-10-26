@@ -360,3 +360,11 @@ $(function () {
         console.log(err)
     })
 })
+
+$('input[name="enter_state"]').click(function(e){
+    let count = $('input:checked[name="enter_state"]').length;
+    if(count > 1){
+        $(this).prop('checked', false);
+        alert('한개만 선택해주세요')
+    }
+})

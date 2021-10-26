@@ -28,6 +28,7 @@
                     let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
                     let $writer = response.data.data[i].memName;
+                    $regdate = $regdate.toString().substring(0, 10);
                     let k = parseInt(i)
 
                     if($ansFlag == 'TRUE'){
@@ -91,6 +92,7 @@
                             let $regdate = response.data.data[i].regdate;
                             let $ansFlag = response.data.data[i].ansFlag;
                             let $writer = response.data.data[i].memName;
+                            $regdate = $regdate.toString().substring(0, 10);
                             let k = parseInt(i)
 
                             if($ansFlag == 'TRUE'){
@@ -149,6 +151,7 @@
                     let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
                     let $writer = response.data.data[i].writer;
+                    $regdate = $regdate.toString().substring(0, 10);
                     let k = parseInt(i)
                     if($ansFlag == 'TRUE'){
                         $ansFlag = '답변완료'
@@ -212,6 +215,8 @@
                             let $regdate = response.data.data[i].regdate;
                             let $ansFlag = response.data.data[i].ansFlag;
                             let $writer = response.data.data[i].memName;
+                            $regdate = $regdate.toString().substring(0, 10);
+
                             let k = parseInt(i)
                             if($ansFlag == 'TRUE'){
                                 $ansFlag = '답변완료'
@@ -242,7 +247,7 @@
         $(function () {
             //선택삭제
             $('#delbtn').click(function (){
-                alert('클릭')
+                confirm("정말 삭제하시겠습니까?")
                 let id = [];
                 ($("input:checkbox[name='review']:checked").each(function (e){
                     id.push($(this).val())
@@ -250,11 +255,13 @@
                 id = String(id)
                 console.log(id)
 
-                axios.delete("/api/productReview/deleteList/" + id,  {
-                }).then(function (){
-                    alert("상품후기 삭제 성공")
-                    location.reload();
-                })
+                if(confirm){
+                    axios.delete("/api/productReview/deleteList/" + id,  {
+                    }).then(function (){
+                        alert("상품후기 삭제 성공")
+                        location.reload();
+                    })
+                }
             }).catch(function (err){
                 console.log(err)
             })
