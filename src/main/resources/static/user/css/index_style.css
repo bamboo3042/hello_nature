@@ -289,13 +289,13 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /* -------------------------------------------------------------------------- */
 
 /* aside 시작 */
-.quick_area {position: fixed; bottom: 50px; right: 10px; width: 152px; z-index: 100;}
-.q_bnr_deli { width: 150.5px; height: 150.5px; margin-bottom: -1px;}
+/*.quick_area {position: fixed; bottom: 50px; right: 10px; width: 152px; z-index: 100;}*/
+/*.q_bnr_deli { width: 150.5px; height: 150.5px; margin-bottom: -1px;}*/
 
-.q_bnr_list1, .q_bnr_list2, .q_bnr_list3 {border: 1px solid #979798; background-color: #fff; display: inline-block; height: 34px; width: 33%; margin-right: -5.5px; text-align: center; align-items: center; margin-top: 0;}
-.q_bnr_list1, .q_bnr_list2 {border-right: none;}
-.q_bnr_list1 a, .q_bnr_list2 a, .q_bnr_list3 a {padding-top: 7px; margin-right: 2px;}
-.q_bnr_list label a {font-size: 13px; font-weight: 300; letter-spacing: -0.8px; }
+/*.q_bnr_list1, .q_bnr_list2, .q_bnr_list3 {border: 1px solid #eee; background-color: #fff; display: inline-block; height: 34px; width: 33.5%; margin-right: -5.5px; text-align: center; align-items: center; margin-top: 0;}*/
+/*.q_bnr_list1, .q_bnr_list2 {border-right: none;}*/
+/*.q_bnr_list1 a, .q_bnr_list2 a, .q_bnr_list3 a {padding-top: 8px; margin-right: 2px;}*/
+/*.q_bnr_list label a {font-size: 13px; font-weight: 300; letter-spacing: -0.8px; }*/
 /* aside 끝 */
 /* -------------------------------------------------------------------------- */
 

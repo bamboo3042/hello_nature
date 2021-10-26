@@ -33,21 +33,21 @@
             color: #5dab99;
         }
     </style>
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous">
-    </script>
     <script type="text/javascript" th:src="@{user/js/mypage.js/script2.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
     <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
     <script>
         $(function () {
             let memIdx = $("#hidden_user").val();
             axios.get('/api/card/list/' + memIdx, {}).then(function (response) {
-                    console.log(response.data.data)
+                console.log(response.data.data)
                 for (let i in response.data.data) {
                     let numList = response.data.data[i].num;
                     let bankType = response.data.data[i].bank;
@@ -56,18 +56,18 @@
                     let baseFlag = response.data.data[i].baseFlag;
                     let busiFlag = response.data.data[i].busiFlag;
 
-                    if(baseFlag === "TRUE"){
+                    if (baseFlag === "TRUE") {
                         baseFlag = 'checked'
-                    }else{
-                        baseFlag ='';
+                    } else {
+                        baseFlag = '';
                     }
 
                     let show_busiFlag;
-                    if(busiFlag === "TRUE"){
+                    if (busiFlag === "TRUE") {
                         busiFlag = "법인"
-                        show_busiFlag ="block"
-                    }else{
-                        show_busiFlag ="none"
+                        show_busiFlag = "block"
+                    } else {
+                        show_busiFlag = "none"
                     }
 
                     let num = numList.split("-");
@@ -106,68 +106,65 @@
                     }
 
                     let row = $('<div class="contents_hellopay_inputcard">').append(
-                        '<div class="hellopay_radio_box"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="'+cardIdx+'"'+baseFlag+'/>' +
-                        '<label for="hellopay_radio"></label></div><div class="hellopay_card_edit_del"><p id="hellopayEditNickname">별칭수정</p><div class="hellopay_line"></div>' +
-                        '<p id="hellopayDelete">삭제</p><input type="hidden" value="'+cardIdx+'"></div>' +
+                        '<div class="hellopay_radio_box"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" class="hellopay_radio_s" id="hello_radio_'+i+'" value="' + cardIdx + '"' + baseFlag + '/>' +
+                        '<label for="hello_radio_'+i+'"></label></div><div class="hellopay_card_edit_del"><p class="hellopayEditNickname">별칭수정</p><div class="hellopay_line"></div>' +
+                        '<p class="hellopayDelete">삭제</p><input type="hidden" value="' + cardIdx + '"></div>' +
                         '</div><div class="hellopay_cardname"><input type="text" id="cardname_1" placeholder="바꿀 별칭 이름을 입력하세요" style="display: none"></div>' +
-                        '<div class="hellopay_card_info"><span class="hellopay_bankname">'+name+'</span><span style="display:'+show_busiFlag+'">'+busiFlag+'</span></div>' +
-                        '<div class="hellopay_card_info"><span class="hellopay_bankname">'+bank+'</span>' +
-                        '<span class="hellopay_star"><i>**** **** ****</i><span>'+lastNum+'</span></span></div></div>'
+                        '<div class="hellopay_card_info"><span class="hellopay_bankname">' + name + '</span><span style="display:' + show_busiFlag + '" class="busiFlag">' + busiFlag + '</span></div>' +
+                        '<div class="hellopay_card_info"><span class="hellopay_bankname">' + bank + '</span>' +
+                        '<span class="hellopay_star"><i>**** **** ****</i><span>' + lastNum + '</span></span></div></div>'
                     )
                     $(".ifHasCard").append(row);
                 }
 
-                $("#hellopayEditNickname").click(function (e){
-                    if($(this).text() === "별칭수정") {
+                let baseIdx = $("input[name='radio_id']:checked").val();
+                console.log(baseIdx)
+
+                $("input[name='radio_id']").click(function (e) {
+                    let idx = $(this).val()
+                    console.log(idx)
+                    axios.get("/api/card/changeBaseCard?idx=" + idx + "&baseIdx=" + baseIdx, {}).then(function () {
+                        alert("기본 카드가 변경되었습니다")
+                        location.reload();
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                })
+
+                $(".hellopayDelete").click(function (e) {
+                    let idx = $(this).next("input").val()
+                    axios.delete("/api/card/delete/" + idx, {}).then(function () {
+                        alert("삭제에 성공하셨습니다")
+                        location.reload()
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                })
+
+
+                $(".hellopayEditNickname").click(function (e) {
+                    if ($(this).text() === "별칭수정") {
                         $(this).parents(".hellopay_radio_box").siblings(".hellopay_cardname").children("input").css("display", "block")
                         $(this).text("수정하기")
-                    } else if ($(this).text() === "수정하기"){
+                    } else if ($(this).text() === "수정하기") {
 
                         let idx = $(this).siblings("input").val()
                         let name = $(this).parents(".hellopay_radio_box").siblings(".hellopay_cardname").children("input").val()
                         console.log(idx)
                         console.log(name)
-                        axios.get("/api/card/changeName?idx="+idx+"&name=" + name, {}).then(function (){
+                        axios.get("/api/card/changeName?idx=" + idx + "&name=" + name, {}).then(function () {
                             alert("별칭이 수정되었습니다")
                             location.reload()
-                        }).catch(function (err){
+                        }).catch(function (err) {
                             console.log(err)
                         })
                     }
-
                 })
-
-                $("#hellopayDelete").click(function (){
-                    let idx = $(this).next("input").val()
-                    axios.delete("/api/card/delete/" + idx, {}).then(function (){
-                        alert("삭제에 성공하셨습니다")
-                        location.reload()
-                    }).catch(function (err){
-                        console.log(err)
-                    })
-                })
-
-                let baseIdx = $("input[name='radio_id']:checked").val();
-                $("input[name='radio_id']").click(function (e){
-
-                    let idx = $(this).val()
-
-                    console.log(idx)
-
-                    axios.get("/api/card/changeBaseCard?idx="+idx+"&baseIdx="+baseIdx, {
-                    }).then(function (){
-                        alert("기본 카드가 변경되었습니다")
-                    }).catch(function (err){
-                        console.log(err)
-                    })
-                })
-
-            }).catch(function (err){
+            }).catch(function (err) {
                 console.log(err)
             });
         })
     </script>
-    <!-- axios -->
 </head>
 <body>
 <div id="mypage-box">
@@ -177,8 +174,6 @@
             <div th:replace="/user/fragment/section::section"></div>
         </div>
         <div class="main">
-            <!-- tb_members id -->
-            <input type="hidden" id="memIdx" class="memIdx" th:value="${idx}"/>
             <!-- main_leftaside 시작 -->
             <div class="main_leftaside3">
                 <div th:replace="/user/fragment/sidebar3::sidebar3"></div>
@@ -194,31 +189,7 @@
                 </h5>
                 <!-- 카드 -->
                 <div class="ifHasCard">
-<!--                    <div class="contents_hellopay_inputcard">-->
-<!--                        <div class="hellopay_radio_box">-->
-<!--                            <div class="hellopay_radio_box_inner">-->
-<!--                                <input type="radio" name="radio_id" id="hellopay_radio"/>-->
-<!--                                <label for="hellopay_radio"></label>-->
-<!--                            </div>-->
-<!--                            <div class="hellopay_card_edit_del">-->
-<!--                                <p id="hellopayEditNickname">별칭수정</p>-->
-<!--                                <div class="hellopay_line"></div>-->
-<!--                                <p id="hellopayDelete" onClick="deleteHellopay()">삭제</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="hellopay_cardname">-->
-<!--                            <input type="text" id="cardname" maxlength="10" readonly>-->
-<!--                        </div>-->
-<!--                        <div class="hellopay_card_info">-->
-<!--                                <span class="hellopay_bankname">-->
-<!--                                     KB국민카드-->
-<!--                                </span>-->
-<!--                            <span class="hellopay_star">-->
-<!--                                    <i>**** **** ****</i>-->
-<!--                                    <span><1234</span>-->
-<!--                                </span>-->
-<!--                        </div>-->
-<!--                    </div>-->
+
                 </div>
                 <!-- 카드 -->
                 <div class="hellopay_button_area">

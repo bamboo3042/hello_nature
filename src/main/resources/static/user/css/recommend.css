@@ -7,7 +7,7 @@
 
 
 
-/* 전체 적용ㅎ */
+/* 전체 적용 */
 * { margin: 0; padding: 0; }
 h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 div, p, label, a {margin: 0; padding: 0; display: block;}
@@ -473,9 +473,9 @@ img { border: none; vertical-align: top; }
 .popup_best_brand p { width: 1050px; margin: 0 auto; text-align: center; font-size: 15px; font-weight: bold; color: #D35300; padding-bottom: 30px; }
 .best_brand_wrap { position: relative; width: 1050px; margin: 0 auto; height: 325px; overflow: hidden; }
 .best_brand_box { position: absolute; top: 0; left: 0; transition: left 0.5s ease-out; }
-.best_brand img { width: 515px; height: 325px; border-radius: 8px; }
+.best_brand img { width: 525px; height: 325px; border-radius: 8px; }
 .best_brand { display: inline-block; border-radius: 8px; }
-.best_brand:not(:last-child) { float: left; margin-right: 10px; }
+.best_brand:not(:last-child) { float: left; margin-right: 0px; }
 .best_brand_controls { width: 1050px; margin: 0 auto; position: relative; z-index: 1; }
 .best_brand_btn_prev { position: absolute; top: 140px; right: calc(97%); cursor: pointer; }
 .best_brand_btn_prev:hover, .best_brand_btn_next:hover { background: #EEE; border-radius: 50%; }

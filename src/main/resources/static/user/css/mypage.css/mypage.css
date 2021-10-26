@@ -179,11 +179,11 @@ mantoman_button:hover{ background-color: #11b082;}
 .contents_hellopay_inputcard_h:hover {background-color: #ebebeb}
 
 /* 라디오 버튼 기능 삭제 */
-#hellopay_radio { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; box-shadow:none; border: none;}
+.hellopay_radio_s { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; box-shadow:none; border: none; with:30px;}
 /* (라디오 커스터마이징) 체크되기 전 */
-#hellopay_radio + label:before { background: url("/user/images/mypage.img/hellopay_radio_unchecked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
+.hellopay_radio_s + label:before { width:30px; background: url("/user/images/mypage.img/hellopay_radio_unchecked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
 /* (라디오 커스터마이징) 체크된 후 */
-#hellopay_radio:checked + label:before { background: url("/user/images/mypage.img/hellopay_radio_checked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
+.hellopay_radio_s:checked + label:before { width:30px; background: url("/user/images/mypage.img/hellopay_radio_checked.png") no-repeat; background-size: contain; content: ''; display: inline-block; width: 30px; height: 30px; border-radius: 100%; vertical-align: middle; cursor: pointer;}
 .hellopay_radio_box_h { width: 650px; display: flex; justify-content:space-between; margin-bottom: 5px;}
 
 .hellopay_card_edit_del { display: flex; align-items: center; justify-self: center;}
@@ -446,7 +446,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .post_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer; margin-top: 30px;}
 .post_button:hover {background: #0db081}
 .product_post_line { border-right: 1px solid #888; height: 8px; margin: 5px; margin: 7px;}
-.product_info_post { padding-left: 10px;}
+.product_info_post { margin-left: 10px;}
 .product_post_firstline > p { font-size:     14px; line-height: 1.6;}
 .contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .product_post_lastline { display: flex; justify-content: start; align-items: center;}
@@ -790,7 +790,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .enrollProductButton { padding: 5px 10px; display: flex; justify-content: flex-end; border: none; border-radius: 8px; font-size: 12px; margin-left: 320px; background-color: #11b082; outline: none; color: #fff; font-weight: 600; cursor: pointer;}
 .enrollProductButton:active { opacity: 0.5;}
 #hellopayEditNickname, #hellopayEditNickname { cursor: pointer;}
-
+.busiFlag{width: 30px; text-align: center; display: inline-block; height: 16px; border-radius: 10px; font-size: 11px; font-weight: 500; letter-spacing: -.5px; color: white; padding: 0 10px; margin-right: 5px; background-color: black; }
 
 
 

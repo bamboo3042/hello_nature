@@ -362,9 +362,11 @@
             let hellocash = $("#order_hello").text()
             let cardNum = $("#hidden_real_cardNum").val()
             let cpIdx = $("#select_coupon").val()
-
+            console.log(cpIdx)
             if(cpIdx === "쿠폰을 선택하세요"){
                 cpIdx = null;
+            }else{
+
             }
 
             if (paymentType === "1" && paymentType === "8") {
@@ -522,7 +524,7 @@
             let requestMemo1 = $(".insert_door_pwd").val()              // 배송 요청사항
             let requestMemo2 = $("#remark_sir").val();                  // 배송기사님께
             let dawnFlag;
-            let urlidx = $("#section_hidden").val()
+            let urlidx = $("#hidden_user").val()
             let greenFlag = $("input:radio[name='Thegreen']:checked").val()
             console.log(parseInt(postcode.substring(1, 2)));
             console.log(parseInt(postcode.substring(0, 1)));
