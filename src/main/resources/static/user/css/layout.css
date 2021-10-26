@@ -14,7 +14,7 @@
 .top_bnr_mold div a span {color: #fff; font-weight: 300; letter-spacing: 0.5px; font-size: 15px; }
 .bnr_arr { width: 6px; height: 11.5px; margin-left: 24px; font-size: 15px; vertical-align: inherit; }
 .top_brn_close img {width: 12px; height: 12px; vertical-align: inherit; }
-.top_bnr_box button {background: none; border: 0;}
+.top_bnr_box button {background: none; border: 0; margin-top: 5px;}
 /* nav 시작 */
 .nav_bg {width: 100%; height: 130px; }
 .nav_mold {width: 1050px; height: 100%; margin: 0 auto;}
@@ -35,8 +35,8 @@
 .dropdown-content a:last-child {padding-bottom: 10px;}
 .dropdown:hover .dropdown-content {display: block; }
 .dropdown:hover .dropbtn {background-color: #fff; }
-.regist, .login, .header_callcenter {margin-top: -3px; font-size: 12px; display: inline-block; }
-.regist:link, .regist:visited, .regist:hover, .regist:focus {color: #155c65;}
+.regist, .login, .header_callcenter {font-family: 'Noto Sans KR', sans-serif; margin-top: -3px; font-size: 12px; display: inline-block; }
+.regist:link, .regist:visited, .regist:hover, .regist:focus {color: #155c65; font-family: 'Noto Sans KR', sans-serif;}
 .login_wrap {margin-top: 14px; height: 13px; float: right; padding: 0; display: flex; justify-content: space-between; position: relative;}
 /* nav 헬로네이처 메인 로고 */
 .logo_top_wrap {width: 1050px; padding-top: 31.5px; }
@@ -51,7 +51,7 @@
 .category { float: left; }
 .category .cate_menu1 a {width: 110px; float: left; text-align: left; }
 .category li {display: inline-block;}
-.category a {font-weight: 500; background-color: transparent; text-decoration: none; overflow: hidden; float: left; width: 100px; height: 40px; padding: 18px 0 0; font-size: 16px; color: var(--hello_font_1); line-height: 20px; text-align: center;}
+.category a {font-family: 'Noto Sans KR', sans-serif; font-weight: 500; background-color: transparent; text-decoration: none; overflow: hidden; float: left; width: 100px; height: 40px; padding: 18px 0 0; font-size: 16px; color: var(--hello_font_1); line-height: 20px; text-align: center;}
 .category .cate_menu1 .ico { float: left; width: 16px; height: 14px; margin: 4.5px 14px 0 0; background: url(../images/icon/ico_category.png) no-repeat;}
 .category .cate_menu1 a.on .ico, .category .cate_menu1 a:hover .ico {background: url(../images/icon/ico_category_h.png) no-repeat 0 0;}
 .category .cate_menu1 a:hover span { border-bottom: none;}
@@ -61,7 +61,7 @@
 .search_my_cart_box img { width: 27.5px; height: 26px;}
 .icon_mypage img, .icon_cart img { width: 34px; height: 35px;}
 .searchbar_wrap {width: 245px; height: 35px; border-radius: 17px; background-color: var(--hello_bg_1); position: relative;}
-.searchbar_wrap img { width: 33.5px; height: 35px; margin-left: 15px; position: absolute;}
+.searchbar_wrap img { width: 33.5px; height: 35px; margin-left: 25px; position: absolute;}
 .searchbar_wrap input[type="text"] {padding:2px 0 0 17px ; width: 170px; height: 33px;background-color: rgba(255, 255, 255, 0.1); border: 0px solid #fff; color: var(--hello_font_1);}
 .searchbar_wrap input[type="text"]:focus {border: 0px solid #fff;}
 /* header 끝 */
@@ -93,31 +93,24 @@
 .footer_info_line3 {position: absolute; border-right: 1.7px solid #979798; width: 2px; height: 14px; margin: 1px 0 0 325px;}
 /* footer 끝 */
 
+
 /* aside 시작 */
-
-/* .quick_area {position: fixed; bottom: 50px; right: 10px; width: 152px; z-index: 100;} */
 .quick_area { position: fixed; bottom: 50px; right: 10px; width: 152px; z-index: 100;}
-
 .q_bnr_deli { width: 150.5px; height: 150.5px; margin-bottom: -1px;}
-.q_bnr_list1, .q_bnr_list2, .q_bnr_list3 {border: 1px solid #979798; background-color: #fff; display: inline-block; height: 34px; width: 33%; margin-right: -5.5px; text-align: center; align-items: center; margin-top: 0;}
+.q_bnr_list1, .q_bnr_list2, .q_bnr_list3 {font-family: 'Noto Sans KR', sans-serif;border: 1px solid #eee; background-color: #fff; display: inline-block; height: 34px; width: 33%; margin-right: -5.5px; text-align: center; align-items: center; margin-top: 0;}
 .q_bnr_list1, .q_bnr_list2 {border-right: none;}
 .q_bnr_list1 a, .q_bnr_list2 a, .q_bnr_list3 a {padding-top: 7px; margin-right: 2px;}
 .q_bnr_list label a {font-size: 13px; font-weight: 300; letter-spacing: -0.8px; }
 /* aside 끝 */
 
 
-
 /* 2depth category */
 .gnb_bg {width: 1050px; margin: 0 auto; /*border:1px solid red;*/ z-index: 100;}
-
 .gnb_box {position: absolute; width: 550px; margin-top: 55px; z-index: 100;}
-
 #gnb_nav .fir_dep_box {width: 275px; height: 36px; background-color: pink; padding: 7px 0; display: inline-block; z-index: 100;}
 #gnb_nav .cate-parent {width: 275px; height: 30px; padding: 10px 0px; background: #f7f7f7;}
 #gnb_nav .cate-parent img {width: 33px; margin-left: 32px; margin-top: -3px;}
 #gnb_nav .cate-parent div {position: absolute; display: inline-block; margin: 0 0 0 13px;}
-
 .cate_1dep {width: 275px; height: 600px;}
-.cate_2dep {position: absolute; margin-left: 275px; width: 275px; height: 600px; background: #f0f0f0; margin-top: -600px;}
-
+.cate_2dep {position: absolute; margin-left: 275px; width: 275px; height: 550px; background: #f0f0f0; margin-top: -600px;}
 #gnb_nav .menu {padding: 10px 0 16px 20px; width: 255px; height: 24px;}
