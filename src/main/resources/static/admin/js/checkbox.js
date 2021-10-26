@@ -299,3 +299,83 @@ function MC_selectAll(selectAll)  {
         checkbox.checked = selectAll.checked
     })
 }
+
+// RecipeCreate
+function RC_checkSelectAll() {
+    const cbox = document.querySelectorAll('input[name="RC_list"]');
+    const checked = document.querySelectorAll('input[name="RC_list"]:checked');
+    const selectAll = document.querySelector('input[name="selectall"]');
+
+    if(cbox.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
+}
+function RC_selectAll(selectAll)  {
+    const cbox = document.getElementsByName('RC_list');
+
+    cbox.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+}
+
+// RecipeCreate
+function RC_checkSelectAll2() {
+    const cbox = document.querySelectorAll('input[name="RC_list2"]');
+    const checked = document.querySelectorAll('input[name="RC_list2"]:checked');
+    const selectAll = document.querySelector('input[name="selectall2"]');
+
+    if(cbox.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
+}
+function RC_selectAll2(selectAll)  {
+    const cbox = document.getElementsByName('RC_list2');
+
+    cbox.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+}
+
+// MagazineCreate
+function MC_checkSelectAll2() {
+    const cbox = document.querySelectorAll('input[name="mc_list2"]');
+    const checked = document.querySelectorAll('input[name="mc_list2"]:checked');
+    const selectAll = document.querySelector('input[name="selectall2"]');
+
+    if(cbox.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
+}
+function MC_selectAll2(selectAll)  {
+    const cbox = document.getElementsByName('mc_list2');
+
+    cbox.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+}
+
+// BrandEdit
+function BE_checkSelectAll2() {
+    const cbox = document.querySelectorAll('input[name="brand_edit"]');
+    const checked = document.querySelectorAll('input[name="brand_edit"]:checked');
+    const selectAll = document.querySelector('input[name="selectall"]');
+
+    if(cbox.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
+}
+function BE_selectAll2(selectAll)  {
+    const cbox = document.getElementsByName('brand_edit');
+
+    cbox.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+}

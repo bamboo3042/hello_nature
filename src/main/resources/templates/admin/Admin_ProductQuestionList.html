@@ -29,6 +29,8 @@
                 let $content = response.data.data[i].content;
                 let $name = response.data.data[i].name;
                 let $regdate = response.data.data[i].regdate;
+                $content.toString().substring(0, 15);
+                $content = $content + "..."
 
                 $regdate = $regdate.toString().substring(0, 10);
                 let j = parseInt(i) + 1
@@ -99,6 +101,8 @@
                         let $name = response.data.data[i].name;
                         let $regdate = response.data.data[i].regdate;
                         $regdate = $regdate.toString().substring(0, 10);
+                        $content.toString().substring(0, 15);
+                        $content = $content + "..."
                         let j = parseInt(i) + 1
                         let k = parseInt(i)
 
@@ -245,6 +249,8 @@
                     let $name = response.data.data[i].name;
                     let $regdate = response.data.data[i].regdate;
                     $regdate = $regdate.toString().substring(0, 10);
+                    $content.toString().substring(0, 15);
+                    $content = $content + "..."
                     let j = parseInt(i) + 1
                     let k = parseInt(i)
                     if($ansFlag === "TRUE") {
@@ -291,6 +297,8 @@
                             let $name = response.data.data[i].name;
                             let $regdate = response.data.data[i].regdate;
                             $regdate = $regdate.toString().substring(0, 10);
+                            $content.toString().substring(0, 15);
+                            $content = $content + "..."
                             let j = parseInt(i) + 1
                             let k = parseInt(i)
 
@@ -339,7 +347,7 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='pquestion']:checked").each(function (e){
                 id.push($(this).val())
@@ -347,14 +355,24 @@
             id = String(id)
             console.log(id)
 
-            axios.delete("/api/productquestion/deleteList/" + id,  {
-            }).then(function (){
-                alert("상품문의 삭제 성공")
-                location.reload();
-            })
+            if(confirm){
+                axios.delete("/api/productquestion/deleteList/" + id,  {
+                }).then(function (){
+                    alert("상품문의 삭제 성공")
+                    location.reload();
+                })
+            }
         }).catch(function (err){
             console.log(err)
         })
+    })
+
+    $('input[name="answer_state"]').click(function(e){
+        let count = $('input:checked[name="answer_state"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
     })
 </script>
 <body>

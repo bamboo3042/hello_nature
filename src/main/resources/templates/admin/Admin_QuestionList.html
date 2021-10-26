@@ -248,11 +248,6 @@
         let ansFlag = $('#QL_c1_sel_1').val();
         let type = $('#QL_c1_sel_3').val();
         let email = $('#email').val();
-        if(ansFlag == 1){
-            ansFlag = 'TRUE'
-        }else if(ansFlag == 0){
-            ansFlag = 'FALSE'
-        }
         let url = '/api/Question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
 
         if(dateStart == "" && dateEnd == ""){
@@ -265,9 +260,9 @@
             url = url + '&page=' + page;
         }
 
-        if(ansFlag == ""){
+        if(ansFlag == null){
             url = url;
-        }else if(ansFlag != ""){
+        }else if(ansFlag != null){
             url = url + '&ansFlag=' + ansFlag;
         }
 
@@ -456,7 +451,7 @@
     $(function () {
         //선택삭제
         $('#Q1_c2_delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='question']:checked").each(function (e){
                 id.push($(this).val())
@@ -498,12 +493,11 @@
                 <p>
                     <select class="QL_c1_sel" id="QL_c1_sel_1">
                         <option value="">답변상태</option>
-                        <option value="0">답변대기</option>
-                        <option value="1">답변완료</option>
+                        <option value="FALSE">답변대기</option>
+                        <option value="TRUE">답변완료</option>
                     </select>
                     <select class="QL_c1_sel" id="QL_c1_sel_3">
                         <option value="">문의유형</option>
-                        <option value="0">전체</option>
                         <option value="1">취소/환불</option>
                         <option value="2">반품/교환</option>
                         <option value="3">배송관련</option>

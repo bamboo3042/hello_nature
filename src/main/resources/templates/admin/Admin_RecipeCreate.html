@@ -31,14 +31,14 @@
                     $name + '</option>  '
                 )
                 console.log(row)
-                $('#PL_sel_1').append(row)
+                $('#RC_sel_1').append(row)
             }
         })
     })
 
     //2차 카테고리 다중셀렉트
     function categoryChange(e) {
-        $('#PL_sel_2').empty();
+        $('#RC_sel_2').empty();
         axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
             for (let i in response.data.data) {
                 console.log(response)
@@ -48,7 +48,7 @@
                     $name + '</option>'
                 )
                 console.log(row)
-                $('#PL_sel_2').append(row)
+                $('#RC_sel_2').append(row)
             }
         })
     }
@@ -63,14 +63,14 @@
                     $name + '</option>'
                 )
                 console.log(row)
-                $('#RC_sel_1').append(row)
+                $('#RC_sel_3').append(row)
             }
         })
     })
 
     //2차 카테고리 다중셀렉트
     function categoryChange2(e) {
-        $('#RC_sel_2').empty();
+        $('#RC_sel_4').empty();
         axios.get("/api/category/list/second/?idx=" + e.value + "&lifeFlag=FALSE", {}).then(function (response) {
             for (let i in response.data.data) {
                 console.log(response)
@@ -80,7 +80,7 @@
                     $name + '</option>'
                 )
                 console.log(row)
-                $('#RC_sel_2').append(row)
+                $('#RC_sel_4').append(row)
             }
         })
     }
@@ -283,6 +283,7 @@
             }
             $('.thead').after(tb)
 
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                     i + '</li>'
@@ -344,7 +345,7 @@
                             img = img.replace("\\", "/");
 
                             let row = $('<tr>').append(
-                                '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_' + (i + 12) + '" onclick="MC_checkSelectAll()" value="'+id+'"><label for="RC_check_' + (i + 12) + '"></label></td>' +
+                                '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_' + (i + 12) + '" onclick="RC_checkSelectAll()" value="'+id+'"><label for="RC_check_' + (i + 12) + '"></label></td>' +
                                 '<td><img src="' + img + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + state + '</td></tr>'
@@ -468,6 +469,7 @@
             }
             $('#thead').after(tb)
 
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                     i + '</li>'
@@ -529,7 +531,7 @@
                             img = img.replace("\\", "/");
 
                             let row = $('<tr>').append(
-                                '<td height="80px"><input type="checkbox" name="RC_list" id="check_' + (i + 12) + '" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_' + (i + 12) + '"></label></td>' +
+                                '<td height="80px"><input type="checkbox" name="RC_list2" id="check_' + (i + 12) + '" onclick="RC_checkSelectAll2()" value="'+id+'"><label for="check_' + (i + 12) + '"></label></td>' +
                                 '<td><img src="' + img + '"></td>' +
                                 '<td>' + name + '</td>' +
                                 '<td>' + state + '</td></tr>'
@@ -545,6 +547,35 @@
             alert('리스트 불러오기 실패')
         })
     }
+
+    $('input[name="filter2"]').click(function(e){
+        let count = $('input:checked[name="filter2"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
+    $('input[name="filter2"]').click(function(e){
+        let count = $('input:checked[name="filter2"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
+    $('input[name="filter2"]').click(function(e){
+        let count = $('input:checked[name="filter2"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
+    $('input[name="filter2"]').click(function(e){
+        let count = $('input:checked[name="filter2"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
 
 </script>
     <!--content_title 시작-->
@@ -634,7 +665,7 @@
                 <div class="RC_c3_editlist">
                     <p>만드는 법</p>
                     <div class='RC_c3_htmllist'>
-                        <div class='create_html'><span>HTML</   span></div>
+                        <div class='create_html'><span>HTML</span></div>
                         <textarea class='textarea' name='textarea'></textarea>
                     </div>
                     <script type="text/javascript">
@@ -650,15 +681,15 @@
                         <div class='RC_addTitle'>
                             <p>상품추가<span> + 원하는 상품을 추가해주세요</span></p>
                         </div>
-                        <form class='RC_addlist'>
+                        <div class='RC_addlist'>
                             <table border="1px" class='RC_scbox'>
                                 <tr height="70">
                                     <th width="150">상품분류</th>
                                     <td>
-                                        <select onchange="categoryChange(this)" id="PL_sel_1">
+                                        <select onchange="categoryChange(this)" id="RC_sel_1">
                                             <option value="대분류">대분류</option>
                                         </select>
-                                        <select id="PL_sel_2">
+                                        <select id="RC_sel_2">
                                             <option value="중분류">중분류</option>
                                         </select>
                                     </td>
@@ -698,7 +729,7 @@
                             <table width="100%" style="text-align: center;" class="RC_p_list">
                                 <thead class="thead">
                                     <tr>
-                                        <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="RC_check_12" name="RC_list"><label for="RC_check_12"></label></th>
+                                        <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="RC_check_12" name="selectall" onclick="RC_selectAll(this)"><label for="RC_check_12"></label></th>
                                         <th width="40%">상품 이미지</th>
                                         <th width="28%">상품명</th>
                                         <th width="25%">카테고리</th>
@@ -714,7 +745,7 @@
                                 </ul>
                                 <input type="hidden" value="0" class="page">
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <!--재료담기 상품추가-->
                     <div class='RC_prodlist'>
@@ -724,15 +755,15 @@
                         <div class='RC_addTitle'>
                             <p>상품추가<span> + 원하는 상품을 추가해주세요</span></p>
                         </div>
-                        <form class='RC_addlist'>
+                        <div class='RC_addlist'>
                             <table border="1px" class='RC_scbox'>
                                 <tr height="70">
                                     <th width="150">상품분류</th>
                                     <td>
-                                        <select onchange="categoryChange2(this)" id="RC_sel_1">
+                                        <select onchange="categoryChange2(this)" id="RC_sel_3">
                                             <option value="대분류">대분류</option>
                                         </select>
-                                        <select id="RC_sel_2">
+                                        <select id="RC_sel_4">
                                             <option value="중분류">중분류</option>
                                         </select>
                                     </td>
@@ -772,7 +803,7 @@
                             <table width="100%" style="text-align: center;" class="RC_p_list">
                                 <thead id="thead">
                                 <tr>
-                                    <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check_12" name="RC_list2"><label for="check_12"></label></th>
+                                    <th width="7%" height="40px"><input type="checkbox" value="cou_list" id="check_12" name="selectall2" onclick="RC_selectAll2(this)"><label for="check_12"></label></th>
                                     <th width="40%">상품 이미지</th>
                                     <th width="28%">상품명</th>
                                     <th width="25%">카테고리</th>
@@ -788,7 +819,7 @@
                                 </ul>
                                 <input type="hidden" value="0" class="page2">
                             </div>
-                        </form>
+                        </div>
                     </div>
                 <!--PC_c1_btnBox 시작-->
                 <div id="RC_c1_btnBox" class="bottom_btn">

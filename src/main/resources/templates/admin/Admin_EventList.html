@@ -42,7 +42,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                    '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td>'+ eventFlag +'</td>' +
                     '<td>' + title + '</td>' +
@@ -109,7 +109,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                            '<td><input type="checkbox"  id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                             '<td>' + j + '</td>' +
                             '<td>'+ eventFlag +'</td>' +
                             '<td>' + title + '</td>' +
@@ -145,19 +145,20 @@
         })
 
         $(function () {
+            //선택삭제
             $('#delbtn').click(function (){
+                alert('클릭')
                 let id = [];
-                ($("input:checkbox[name='pquestion']:checked").each(function (e){
+                ($("input:checkbox[name='event']:checked").each(function (e){
                     id.push($(this).val())
                 }));
+                id = String(id)
                 console.log(id)
 
-                axios.delete("/api/productquestion/delete", {
-                    data:{
-                        id: id,
-                    }
+                axios.delete("/api/event/deleteList/" + id,  {
                 }).then(function (){
-                    alert("선택된 상품문의 삭제 성공")
+                    alert("기획전/이벤트 삭제 성공")
+                    location.reload();
                 })
             }).catch(function (err){
                 console.log(err)
@@ -261,7 +262,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                        '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                         '<td>' + j + '</td>' +
                         '<td>'+ eventFlag +'</td>' +
                         '<td>' + title + '</td>' +
@@ -342,7 +343,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" value="ELCheck" id="EL_check_1" name="event" onclick="EL_checkSelectAll()"><label for="EL_check_1"></label></td>' +
+                                '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                                 '<td>' + j + '</td>' +
                                 '<td>'+ eventFlag +'</td>' +
                                 '<td>' + title + '</td>' +
@@ -434,7 +435,7 @@
             <!--form 시작-->
             <form name="event_list">
                 <span>
-                    <input type="button" name="button" value="선택삭제">
+                    <input type="button" name="button" value="선택삭제" id="delbtn">
                 </span>
                 <!--table 시작-->
                 <table width="100%" class="list_table">

@@ -30,7 +30,7 @@ $(function () {
             console.log($state);
 
             let row = $('<tr>').append(
-                '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                '<td><input type="checkbox" value="'+$id+'" id="check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="check_' + i + '"></label></td>' +
                 '<td>' + $name + '</td>' +
                 '<td>' + $proCount + '</td>' +
                 '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -92,7 +92,7 @@ $(function () {
                         $state = ""
                     }
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                        '<td><input type="checkbox" value="'+$id+'" id="check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="check_' + i + '"></label></td>' +
                         '<td>' + $name + '</td>' +
                         '<td>' + $proCount + '</td>' +
                         '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -237,7 +237,7 @@ $(function () {
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                    '<td><input type="checkbox" value="'+$id+'" id="check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="check_' + i + '"></label></td>' +
                     '<td>' + $name + '</td>' +
                     '<td>' + $proCount + '</td>' +
                     '<td>' + $dateStart + ' - ' + $dateEnd + '</td>' +
@@ -305,7 +305,7 @@ $(function () {
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                            '<td><input type="checkbox" value="'+$id+'" id="check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="check_' + i + '"></label></td>' +
                             '<td>' + $name + '</td>' +
                             '<td>' + $proCount + '</td>' +
                             '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -359,4 +359,12 @@ $(function () {
     }).catch(function (err){
         console.log(err)
     })
+})
+
+$('input[name="enter_state"]').click(function(e){
+    let count = $('input:checked[name="enter_state"]').length;
+    if(count > 1){
+        $(this).prop('checked', false);
+        alert('한개만 선택해주세요')
+    }
 })

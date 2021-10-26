@@ -28,6 +28,8 @@
                 let $regdate = response.data.data[i].regdate;
                 let $content = response.data.data[i].content;
                 $regdate = $regdate.toString().substring(0, 10);
+                $content.toString().substring(0, 15);
+                $content = $content + "..."
                 console.log($id)
                 console.log($regdate)
                 console.log($title)
@@ -65,7 +67,7 @@
 
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" id="FAQ_check_' + k + '"name="faq" onclick="FAQ_checkSelectAll()" value="' + $id + '"><label for="FAQ_check_' + k + '"></label></td>' +
-                    '<td><p>' + $title + '</p><p>' + $content + '</p></td>' +
+                    '<td><p>' + $title + '</p><p></p><p>' + $content + '</p></td>' +
                     '<td><p>' + $regdate + '</p></td>' +
                     '<td>' + $type + '</td>' +
                     '<td><p><input type="button" value="수정" class="edit"><input type="hidden" value="' + $id + '"></p></td></tr>'
@@ -112,6 +114,8 @@
                         let $regdate = response.data.data[i].regdate;
                         let $content = response.data.data[i].content;
                         $regdate = $regdate.toString().substring(0, 10);
+                        $content.toString().substring(0, 15);
+                        $content = $content + "..."
                         console.log($regdate)
                         let k = parseInt(i) + 1;
 
@@ -144,7 +148,7 @@
 
                         let row = $('<tr>').append(
                             '<td><input type="checkbox" id="FAQ_check_' + k + '"name="faq" onclick="FAQ_checkSelectAll()" value="' + $id + '"><label for="FAQ_check_' + k + '"></label></td>' +
-                            '<td><p>' + $title + '</p><p>' + $content + '</p></td>' +
+                            '<td><p>' + $title + '</p><p></p><p>' + $content + '</p></td>' +
                             '<td><p>' + $regdate + '</p></td>' +
                             '<td>' + $type + '</td>' +
                             '<td><p><input type="button" value="수정" class="edit"><input type="hidden" value="' + $id + '"></p></td></tr>'
@@ -207,6 +211,8 @@
                 let $regdate = response.data.data[i].regdate;
                 let $content = response.data.data[i].content;
                 $regdate = $regdate.toString().substring(0, 10);
+                $content.toString().substring(0, 15);
+                $content = $content + "..."
                 console.log($id)
                 console.log($regdate)
                 console.log($title)
@@ -244,7 +250,7 @@
 
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" id="FAQ_check_' + k + '"name="faq" onclick="FAQ_checkSelectAll()" value="' + $id + '"><label for="FAQ_check_' + k + '"></label></td>' +
-                    '<td><p>' + $title + '</p><p>' + $content + '</p></td>' +
+                    '<td><p>' + $title + '</p><p></p><p>' + $content + '</p></td>' +
                     '<td><p>' + $regdate + '</p></td>' +
                     '<td>' + $type + '</td>' +
                     '<td><p><input type="button" value="수정" class="edit"><input type="hidden" value="' + $id + '"></p></td></tr>'
@@ -289,6 +295,8 @@
                         let $type = response.data.data[i].type;
                         let $regdate = response.data.data[i].regdate;
                         let $content = response.data.data[i].content;
+                        $content.toString().substring(0, 15);
+                        $content = $content + "..."
                         $regdate = $regdate.toString().substring(0, 10);
                         console.log($regdate)
                         let k = parseInt(i) + 1;
@@ -322,7 +330,7 @@
 
                         let row = $('<tr>').append(
                             '<td><input type="checkbox" id="FAQ_check_' + k + '"name="faq" onclick="FAQ_checkSelectAll()" value="' + $id + '"><label for="FAQ_check_' + k + '"></label></td>' +
-                            '<td><p>' + $title + '</p><p>' + $content + '</p></td>' +
+                            '<td><p>' + $title + '</p><p></p><p>' + $content + '</p></td>' +
                             '<td><p>' + $regdate + '</p></td>' +
                             '<td>' + $type + '</td>' +
                             '<td><p><input type="button" value="수정" class="edit"><input type="hidden" value="' + $id + '"></p></td></tr>'
@@ -360,19 +368,20 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
+            confirm("정말 삭제하시겠습니까?")
             let id = [];
             ($("input:checkbox[name='faq']:checked").each(function (e){
                 id.push($(this).val())
             }));
             id = String(id)
             console.log(id)
-
-            axios.delete("/api/faq/deleteList/" + id,  {
-            }).then(function (){
-                alert("faq 삭제 성공")
-                location.reload();
-            })
+            if(confirm){
+                axios.delete("/api/faq/deleteList/" + id,  {
+                }).then(function (){
+                    alert("faq가 삭제되었습니다")
+                    location.reload();
+                })
+            }
         }).catch(function (err){
             console.log(err)
         })
