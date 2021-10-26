@@ -121,9 +121,9 @@
                     ul.append($('</ul>'));
                     $('#goods_list_bg').append(ul);
 
-                    for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                    for (let i=res.data.pagination.totalPages; i>0; i--) {
                         let pageNumbering = $('<div class="page_num" value="'+i+'">').append(
-                            (i+1) +'</div>'
+                            i +'</div>'
                         )
                         $(".page_prev").after(pageNumbering);
                     }
@@ -250,9 +250,9 @@
                             ul.append($('</ul>'));
                             $('#goods_list_bg').append(ul);
 
-                            for (let i=res.data.pagination.totalPages; i>=0; i--) {
+                            for (let i=res.data.pagination.totalPages; i>0; i--) {
                                 let pageNumbering = $('<div class="page_num" value="'+i+'">').append(
-                                    (i+1) +'</div>'
+                                    i +'</div>'
                                 )
                                 $(".page_prev").after(pageNumbering);
                             }
