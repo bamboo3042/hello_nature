@@ -16,5 +16,6 @@ public interface ProductReviewRepository extends JpaRepository<ProductReview, Lo
         List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdx(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
         List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdx(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
         Long countAllByAnsFlag(Flag flag);
-        List<ProductReview> findTop4ByOrderByIdxDesc();
+        Long countAllByAnsFlagAndRegdateBetween(Flag flag, LocalDateTime start, LocalDateTime end);
+        List<ProductReview> findTop4ByContentIsNotNullOrderByIdxDesc();
 }
