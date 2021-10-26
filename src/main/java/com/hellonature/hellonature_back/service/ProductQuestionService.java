@@ -123,16 +123,16 @@ public class ProductQuestionService  {
             }
             if (dateStart != null){
                 if(check) jpql += " and";
-                jpql += " TO_char(regdate, 'YYYY-MM-DD') >= :dateStart";
+                jpql += " TO_char(pq.regdate, 'YYYY-MM-DD') >= :dateStart";
                 check = true;
             }
             if(dateEnd != null){
                 if (check) jpql += " and";
-                jpql += " TO_char(regdate, 'YYYY-MM-DD') <= :dateEnd";
+                jpql += " TO_char(pq.regdate, 'YYYY-MM-DD') <= :dateEnd";
             }
         }
 
-        jpql += " order by idx desc";
+        jpql += " order by pq.idx desc";
         TypedQuery<ProductQuestion> query = em.createQuery(jpql, ProductQuestion.class);
 
         if (ansFlag != null) query = query.setParameter("ansFlag", ansFlag);
