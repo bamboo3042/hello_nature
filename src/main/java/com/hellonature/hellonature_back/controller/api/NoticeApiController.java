@@ -49,13 +49,11 @@ public class NoticeApiController extends CrudController<NoticeApiRequest, Notice
 
 
     @GetMapping("/list")
-    public Header<List<Notice>> list(//@RequestParam(name="idx", required = false) Long idx,
-                                     @RequestParam(name="type", required = false) Integer type,
+    public Header<List<Notice>> list(@RequestParam(name="type", required = false) Integer type,
                                      @RequestParam(name="title", required = false) String title,
-                                     //@RequestParam(name = "content", required = false) String content,
                                      @RequestParam(name="dateStart", required = false) String dateStart,
                                      @RequestParam(name="dateEnd", required = false) String dateEnd,
-                                     @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
+                                     @RequestParam(name="page", defaultValue = "0") Integer startPage){
         return noticeService.list(type, title, dateStart, dateEnd, startPage);
     }
 

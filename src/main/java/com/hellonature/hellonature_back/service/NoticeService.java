@@ -100,11 +100,6 @@ public class NoticeService extends BaseService<NoticeApiRequest, NoticeApiRespon
                 jpql += " title like :title";
                 check = true;
             }
-//            if (content != null){
-//                if (check) jpql += " and";
-//                jpql += " content like :content";
-//                check = true;
-//            }
             if (dateStart != null){
                 if(check) jpql += " and";
                 jpql += " TO_char(regdate, 'YYYY-MM-DD') >= :dateStart";
@@ -128,11 +123,11 @@ public class NoticeService extends BaseService<NoticeApiRequest, NoticeApiRespon
 
         int count = 10;
 
-        Integer start = (count * startPage);
-        Integer end = Math.min(result.size(), start + count);
+        int start = (count * startPage);
+        int end = Math.min(result.size(), start + count);
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size() % count == 0 ? result.size()/count : (result.size()/count)+1 ) // 리스트가 홀수일 때
+                .totalPages(result.size()/count)
                 .totalElements(noticeRepository.count())
                 .currentPage(startPage)
                 .currentElements(result.size())

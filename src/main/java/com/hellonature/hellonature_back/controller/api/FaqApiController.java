@@ -52,12 +52,11 @@ public class FaqApiController extends CrudController<FaqApiRequest, FaqApiRespon
 
 
     @GetMapping("/list")
-    public Header<List<FaqApiResponse>> list(//@RequestParam(name="idx", required = false) Long idx,
-                                  @RequestParam(name="type", required = false) Integer type,
-                                  @RequestParam(name="subject", required = false) String subject,
-                                  @RequestParam(name="title", required = false) String title,
-                                  @RequestParam(name="content", required = false) String content,
-                                  @RequestParam(name="startPage", defaultValue = "0") Integer startPage){
+    public Header<List<FaqApiResponse>> list(@RequestParam(name="type", required = false) Integer type,
+                                             @RequestParam(name="subject", required = false) String subject,
+                                             @RequestParam(name="title", required = false) String title,
+                                             @RequestParam(name="content", required = false) String content,
+                                             @RequestParam(name="page", defaultValue = "0") Integer startPage){
         return faqService.list(type, subject, title, content, startPage);
     }
 

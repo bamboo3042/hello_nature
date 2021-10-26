@@ -128,7 +128,7 @@ public class FaqService extends BaseService<FaqApiRequest, FaqApiResponse, Faq> 
         int end = Math.min(result.size(), start + count); // 그 페이지으 ㅣ마지막 element
 
         Pagination pagination = new Pagination().builder()
-                .totalPages( result.size()%count==0 ? result.size()/count : (result.size()/count) - 1) // 리스트가 홀수일 때
+                .totalPages(result.size()/count) // 리스트가 홀수일 때
                 .totalElements((long) result.size())
                 .currentPage(startPage)
                 .currentElements(end - start)
