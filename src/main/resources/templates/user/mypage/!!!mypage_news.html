@@ -1,4 +1,5 @@
-r<html xmlns:th="http://www.thymeleaf.org"
+r
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
@@ -10,11 +11,34 @@ r<html xmlns:th="http://www.thymeleaf.org"
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
-        #mypage-box { overflow: hidden; height: 100%;}
-        .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
-        .list li:nth-child(2) { background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%; background-size: 6px 11px; font-weight: 700; color: #5dab99;}
-        .list li:nth-child(2) > a { color: #5dab99;}
-        .faq_clicked_button > input[type="button"] { background-color: #5dab99 !important; color: #fff !important; border: 1px solid #5dab99 !important;}
+        #mypage-box {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .container {
+            min-width: 1050px;
+            margin: 0 auto;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .list li:nth-child(2) {
+            background: #e2e2e2 url("/user/images/mypage.img/hover_right.png") no-repeat 174px 52%;
+            background-size: 6px 11px;
+            font-weight: 700;
+            color: #5dab99;
+        }
+
+        .list li:nth-child(2) > a {
+            color: #5dab99;
+        }
+
+        .faq_clicked_button > input[type="button"] {
+            background-color: #5dab99 !important;
+            color: #fff !important;
+            border: 1px solid #5dab99 !important;
+        }
     </style>
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -25,36 +49,104 @@ r<html xmlns:th="http://www.thymeleaf.org"
 </head>
 <script>
 
-    $(function (){
+    $(function () {
 
-        let page = $("#hidden_page").val()
-        axios.get('/api/notice/list?startPage=' + page,{
-        }).then(function (response){
-            for(let i in response.data.data){
-                let $title=response.data.data[i].title;
+        axios.get('/api/notice/list?startPage=0', {}).then(function (response) {
+            for (let i in response.data.data) {
+                let $title = response.data.data[i].title;
                 let $date = response.data.data[i].regdate;
 
-                $date = $date.toString().substring(0,10)
+                $date = $date.toString().substring(0, 10)
 
-                let row = $('<div class="center_link_move_box" id="center_news'+ i + '">').append(
+                let row = $('<div class="center_link_move_box" id="center_news' + i + '">').append(
                     '<div class="center_link_txt">' +
                     '<div class="news_upload_date">' +
                     '<p id="date">' + $date + '</p></div>' +
                     '<a href="/user/mypage_newsDetail" class="news_highlight">' + $title + '</a></div>'
                 )
                 $('.contents_box1').after(row);
-
-
-
             }
-        }).catch(function (err){
+
+            $("#notice_MaxPage").text(response.data.pagination.totalPages)
+            $("#notice_MinPage").text(1)
+
+        }).catch(function (err) {
             console.log(err)
+        })
+
+        $(".next_page").click(function () {
+            $('.center_link_move_box').remove()
+            if($("#notice_MinPage").text() <  $("#notice_MaxPage").text()) {
+                let page = $("#hidden_page").val()
+                $("#notice_MinPage").text(parseInt(page) + 1)
+                $("#hidden_page").val($("#notice_MinPage").text());
+                page = $("#hidden_page").val()
+
+                axios.get('/api/notice/list?startPage=' + page, {}).then(function (response) {
+                    for (let i in response.data.data) {
+                        let $title = response.data.data[i].title;
+                        let $date = response.data.data[i].regdate;
+
+                        $date = $date.toString().substring(0, 10)
+
+                        let row = $('<div class="center_link_move_box" id="center_news' + i + '">').append(
+                            '<div class="center_link_txt">' +
+                            '<div class="news_upload_date">' +
+                            '<p id="date">' + $date + '</p></div>' +
+                            '<a href="/user/mypage_newsDetail" class="news_highlight">' + $title + '</a></div>'
+                        )
+                        $('.contents_box1').after(row);
+                    }
+                }).catch(function (err) {
+                    console.log(err)
+                })
+
+
+
+            }else if( $("#notice_MinPage").text() >=  $("#notice_MaxPage").text()){
+                alert("마지막 페이지입니다")
+                return false;
+            }
+        })
+
+
+        $(".prev_page").click(function () {
+            $('.center_link_move_box').remove()
+            if($("#notice_MinPage").text() > 1 ) {
+                let page = $("#hidden_page").val()
+                $("#notice_MinPage").text(parseInt(page) - 1)
+                $("#hidden_page").val($("#notice_MinPage").text());
+
+                page = $("#hidden_page").val()
+                axios.get('/api/notice/list?startPage=' + page, {}).then(function (response) {
+                    for (let i in response.data.data) {
+                        let $title = response.data.data[i].title;
+                        let $date = response.data.data[i].regdate;
+
+                        $date = $date.toString().substring(0, 10)
+
+                        let row = $('<div class="center_link_move_box" id="center_news' + i + '">').append(
+                            '<div class="center_link_txt">' +
+                            '<div class="news_upload_date">' +
+                            '<p id="date">' + $date + '</p></div>' +
+                            '<a href="/user/mypage_newsDetail" class="news_highlight">' + $title + '</a></div>'
+                        )
+                        $('.contents_box1').after(row);
+                    }
+                }).catch(function (err) {
+                    console.log(err)
+                })
+
+            }else if( $("#notice_MinPage").text() >=  1){
+                alert("마지막 페이지입니다")
+                return false;
+            }
         })
     });
 </script>
 <body>
 <div id="mypage-box">
-    <input type="hidden" id="hidden_page" value="0">
+    <input type="hidden" id="hidden_page" value="1">
     <div class="container">
         <div th:replace="/user/fragment/header::header"></div>
         <div class="contents">
@@ -86,7 +178,7 @@ r<html xmlns:th="http://www.thymeleaf.org"
                 <div class="center_faq_paging">
                     <ul>
                         <li class="prev_page"><a href="#">이전</a></li>
-                        <li class="now_page"><span>1</span> / 47</li>
+                        <li class="now_page"><span id="notice_MinPage"></span> / <span id="notice_MaxPage"></span></li>
                         <li class="next_page"><a href="#">다음</a></li>
                     </ul>
                     <!-- 페이징 끝 -->

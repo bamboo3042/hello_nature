@@ -21,7 +21,7 @@
             let tb = $('<tbody class="tbody">');
             for(let i in response.data.data) {
                 let id = response.data.data[i].idx
-                let eventFlag  = response.data.data[i].eventFlag;
+                let eventFlag  = response.data.data[i].typeFlag;
                 let title = response.data.data[i].title;
                 let ingFlag = response.data.data[i].ingFlag;
                 let dateStart = response.data.data[i].dateStart;
@@ -88,7 +88,7 @@
                     let tb = $('<tbody class="tbody">');
                     for(let i in response.data.data) {
                         let id = response.data.data[i].idx
-                        let eventFlag  = response.data.data[i].eventFlag;
+                        let eventFlag  = response.data.data[i].typeFlag;
                         let title = response.data.data[i].title;
                         let ingFlag = response.data.data[i].ingFlag;
                         let dateStart = response.data.data[i].dateStart;
@@ -240,7 +240,7 @@
                 let tb = $('<tbody class="tbody">');
                 for(let i in response.data.data) {
                     let id = response.data.data[i].idx
-                    let eventFlag  = response.data.data[i].eventFlag;
+                    let eventFlag  = response.data.data[i].typeFlag;
                     let title = response.data.data[i].title;
                     let ingFlag = response.data.data[i].ingFlag;
                     let dateStart = response.data.data[i].dateStart;
@@ -321,7 +321,7 @@
                         let tb = $('<tbody class="tbody">');
                         for(let i in response.data.data) {
                             let id = response.data.data[i].idx
-                            let eventFlag  = response.data.data[i].eventFlag;
+                            let eventFlag  = response.data.data[i].typeFlag;
                             let title = response.data.data[i].title;
                             let ingFlag = response.data.data[i].ingFlag;
                             let dateStart = response.data.data[i].dateStart;
@@ -454,7 +454,7 @@
                     <ul>
                         <li id="Maxprev"><a href="#"><<</a></li>
                         <li id="prev"><</li>
-                        <li></li>
+                        <li>></li>
                         <li id="Maxnext"><a href="#">>></a></li>
                     </ul>
                     <input type="hidden" value="0" class="page">
