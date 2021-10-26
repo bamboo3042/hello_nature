@@ -10,7 +10,6 @@ import com.hellonature.hellonature_back.model.network.response.AddressApiRespons
 import com.hellonature.hellonature_back.repository.AddressRepository;
 import com.hellonature.hellonature_back.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -139,7 +138,7 @@ public class AddressService extends BaseService<AddressApiRequest, AddressApiRes
 
     private Boolean isSeoul(String addr){
         String[] temp = addr.split(" ");
-        return temp[0].equals("서울시");
+        return temp[0].equals("서울시") || temp[0].equals("서울");
     }
 
     public Header<List<AddressApiResponse>> list(String name, Integer startPage){

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -22,22 +23,23 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class EventService extends BaseService<EventApiRequest, EventApiResponse, Event> {
+public class EventService{
 
     private final EntityManager em;
     private final EventRepository eventRepository;
+    private final FileService fileService;
 
 
-    @Override
-    public Header<EventApiResponse> create(Header<EventApiRequest> request) {
-        EventApiRequest eventApiRequest = request.getData();
+
+    public Header<EventApiResponse> create(EventApiRequest eventApiRequest, List<MultipartFile> multipartFiles) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "event");
 
         Event event = Event.builder()
                 .typeFlag(eventApiRequest.getTypeFlag())
                 .ingFlag(eventApiRequest.getIngFlag())
                 .dateStart(eventApiRequest.getDateStart())
                 .dateEnd(eventApiRequest.getDateEnd())
-                .img(eventApiRequest.getImg())
+                .img(pathList.isEmpty() ? null : pathList.get(0))
                 .title(eventApiRequest.getTitle())
                 .des(eventApiRequest.getDes())
                 .content(eventApiRequest.getContent())
@@ -46,36 +48,34 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
         return Header.OK();
     }
 
-    @Override
     public Header<EventApiResponse> read(Long idx) {
         return eventRepository.findById(idx)
-                .map(event -> response(event))
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()->Header.ERROR("No data"));
     }
 
-    @Override
-    public Header<EventApiResponse> update(Header<EventApiRequest> request) {
-        EventApiRequest eventApiRequest = request.getData();
+    public Header<EventApiResponse> update(EventApiRequest eventApiRequest, List<MultipartFile> multipartFiles) {
+        List<String> pathList = fileService.imagesUploads(multipartFiles, "event");
+
         Optional<Event> optional = eventRepository.findById(eventApiRequest.getIdx());
         return optional.map(event -> {
             event.setTypeFlag(eventApiRequest.getTypeFlag());
             event.setIngFlag(eventApiRequest.getIngFlag());
             event.setDateStart(eventApiRequest.getDateStart());
             event.setDateEnd(eventApiRequest.getDateEnd());
-            event.setImg(eventApiRequest.getImg());
+            event.setImg(pathList.isEmpty() ? null : pathList.get(0));
             event.setTitle(eventApiRequest.getTitle());
             event.setDes(eventApiRequest.getDes());
             event.setContent(eventApiRequest.getContent());
 
             return event;
-        }).map(event -> eventRepository.save(event))
-                .map(event -> response(event))
+        }).map(eventRepository::save)
+                .map(this::response)
                 .map(Header::OK)
                 .orElseGet(()-> Header.ERROR("No data"));
     }
 
-    @Override
     public Header delete(Long idx) {
         Optional<Event> optional = eventRepository.findById(idx);
 
@@ -86,7 +86,7 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
     }
 
     private EventApiResponse response(Event event){
-        EventApiResponse eventApiResponse = EventApiResponse.builder()
+        return EventApiResponse.builder()
                 .idx(event.getIdx())
                 .typeFlag(event.getTypeFlag())
                 .ingFlag(event.getIngFlag())
@@ -97,7 +97,6 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
                 .des(event.getDes())
                 .content(event.getContent())
                 .build();
-        return eventApiResponse;
     }
 
     public Header<List<EventApiResponse>> list(Flag typeFlag, String title, String dateStart, String dateEnd, Flag ingFlag, Integer page){
@@ -165,7 +164,7 @@ public class EventService extends BaseService<EventApiRequest, EventApiResponse,
     public Header<List<EventApiResponse>> search(Pageable pageable){
         Page<Event> event = eventRepository.findAll(pageable);
         List<EventApiResponse> eventApiResponseList = event.stream()
-                .map(events -> response(events))
+                .map(this::response)
                 .collect(Collectors.toList());
         Pagination pagination = Pagination.builder()
                 .totalPages(event.getTotalPages()-1)
