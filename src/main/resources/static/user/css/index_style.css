@@ -264,6 +264,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /* main 매거진 끝 */
 /* -------------------------------------------------------------------------- */
 
+
 /* main 레시피 시작 */
 /*.list_bg {width: 100%; height: 508px;}*/
 /*.list_mold {width: 1050px; height: 100%; margin: 0 auto;}*/
@@ -286,8 +287,8 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 /* 마지막 배너 */
 .main_mid_bnr_wrap {margin-top: 18px; margin-bottom: 18px; width: 100%; height: 160px; display: flex; justify-content: center;}
 .main_mid_bnr_wrap img {height: 100%; width: 1050px;}
-/* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
 /* aside 시작 */
 /*.quick_area {position: fixed; bottom: 50px; right: 10px; width: 152px; z-index: 100;}*/
 /*.q_bnr_deli { width: 150.5px; height: 150.5px; margin-bottom: -1px;}*/
