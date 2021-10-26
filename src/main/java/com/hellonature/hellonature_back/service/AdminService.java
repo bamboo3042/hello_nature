@@ -11,7 +11,7 @@ import com.hellonature.hellonature_back.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,12 +31,8 @@ public class AdminService {
     private final QuestionRepository questionRepository;
     private final NoticeRepository noticeRepository;
     private final MemberRepository memberRepository;
-    private LocalDate tempTime;
 
     public Header<AdminMainResponse> mainPage(){
-
-        tempTime = LocalDate.now();
-
         AdminDailyResponse adminDailyResponse = adminDailyResponse();
         AdminPreviewResponse adminPreviewResponse = adminPreviewResponse();
         AdminUsersResponse adminUsersResponse = adminUsersResponse();
@@ -49,6 +45,12 @@ public class AdminService {
     }
 
     private AdminDailyResponse adminDailyResponse(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        LocalDateTime end = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
+        calendar.add(Calendar.DATE, -1);
+        LocalDateTime start = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
+
         return AdminDailyResponse.builder()
                 .product1(productRepository.countAllByState(1))
                 .product2(productRepository.countAllByState(2))
@@ -57,10 +59,10 @@ public class AdminService {
                 .brand2(brandRepository.countAllByState(3))
                 .magazine1(magazineRepository.countAllByShowFlag(Flag.TRUE))
                 .magazine2(magazineRepository.countAllByShowFlag(Flag.FALSE))
-                .order1(memberOrderRepository.countAllByRegdate(tempTime))
-                .order2(memberOrderRepository.countAllByStateAndRegdate(1, tempTime))
-                .order3(memberOrderRepository.countAllByStateAndRegdate(5, tempTime))
-                .order4(memberOrderRepository.countAllByStateOrStateOrStateAndRegdate(6, 7, 9, tempTime))
+                .order1(memberOrderRepository.countAllByRegdateBetween(start, end))
+                .order2(memberOrderRepository.countAllByStateAndRegdateBetween(1, start, end))
+                .order3(memberOrderRepository.countAllByStateAndRegdateBetween(5, start, end))
+                .order4(memberOrderRepository.countAllByRegdateBetweenAndStateIsGreaterThanEqual(start, end, 6))
                 .productQuestion1(productQuestionRepository.countAllByAnsFlag(Flag.FALSE))
                 .productQuestion2(productReviewRepository.countAllByAnsFlag(Flag.FALSE))
                 .question1(questionRepository.countAllByAnsFlag(Flag.FALSE))
@@ -71,7 +73,7 @@ public class AdminService {
         return AdminPreviewResponse.builder()
                 .notices(noticeRepository.findTop4ByOrderByIdxDesc().stream().map(this::noticeApiResponse).collect(Collectors.toList()))
                 .questions(questionRepository.findTop4ByOrderByIdxDesc().stream().map(this::questionApiResponse).collect(Collectors.toList()))
-                .productReviews(productReviewRepository.findTop4ByOrderByIdxDesc().stream().map(this::productReviewApiResponse).collect(Collectors.toList()))
+                .productReviews(productReviewRepository.findTop4ByContentIsNotNullOrderByIdxDesc().stream().map(this::productReviewApiResponse).collect(Collectors.toList()))
                 .productQuestions(productQuestionRepository.findTop4ByOrderByIdxDesc().stream().map(this::productQuestionApiResponse).collect(Collectors.toList()))
                 .build();
     }
@@ -85,10 +87,12 @@ public class AdminService {
         List<Long> orderCount = new ArrayList<>();
 
         for (int i = 0; i < 7 ; i++){
-            memberCount.add(memberRepository.countAllByRegdate(calendar.getTime()));
-            claimCount.add(memberOrderRepository.countAllByRegdateAndStateIsGreaterThanEqual(calendar.getTime(), 6));
-            orderCount.add(memberOrderRepository.countAllByRegdateAndStateIsLessThanEqual(calendar.getTime(), 5));
+            LocalDateTime end = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
             calendar.add(Calendar.DATE, -1);
+            LocalDateTime start = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
+            memberCount.add(memberRepository.countAllByRegdateBetween(start, end));
+            claimCount.add(memberOrderRepository.countAllByRegdateBetweenAndStateIsGreaterThanEqual(start, end, 6));
+            orderCount.add(memberOrderRepository.countAllByRegdateBetweenAndStateIsLessThanEqual(start, end, 5));
         }
         return AdminUsersResponse.builder()
                 .claimCount(claimCount)
