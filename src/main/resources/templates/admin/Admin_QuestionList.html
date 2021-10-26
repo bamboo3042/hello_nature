@@ -18,7 +18,7 @@
     $(function(){
         let page = $('.page').val();
 
-        axios.get('/api/Question/list?startPage=' + page, {
+        axios.get('/api/Question/list?page=' + page, {
 
         }).then(function(response){
             let tb = $('<tbody class="tbody">');
@@ -33,6 +33,8 @@
                 $regdate = $regdate.toString().substring(0, 10);
                 let $ansFlag = response.data.data[i].ansFlag;
                 let k = parseInt(i) + 1
+                console.log($id)
+                console.log($regdate)
                 if($ansDate == null){
                     $ansDate = "..."
                 }
@@ -68,7 +70,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
+                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()" value="'+$id+'"><label for="QL_check_'+ k +'"></td>' +
                     '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
                     '<td align="center"><p>'+ $type +'</p></td>' +
                     '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
@@ -110,7 +112,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?page=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -158,7 +160,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
+                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()" value="'+$id+'"><label for="QL_check_' + k + '"></td>' +
                             '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
                             '<td align="center"><p>' + $type + '</p></td>' +
                             '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
@@ -254,13 +256,13 @@
         let url = '/api/Question/list?dateStart=' + dateStart + '&dateEnd=' + dateEnd;
 
         if(dateStart == "" && dateEnd == ""){
-            url = '/api/Question/list?startPage=' + page;
+            url = '/api/Question/list?page=' + page;
         }else if(dateStart == "" && dateEnd != ""){
-            url = '/api/Question/list?startPage=' + page + '&dateEnd=' + dateEnd;
+            url = '/api/Question/list?page=' + page + '&dateEnd=' + dateEnd;
         }else if(dateStart != "" && dateEnd == ""){
-            url = '/api/Question/list?startPage=' + page + '&dateStart=' + dateStart;
+            url = '/api/Question/list?page=' + page + '&dateStart=' + dateStart;
         }else if(dateStart != "" && dateEnd != ""){
-            url = url + '&startPage=' + page;
+            url = url + '&page=' + page;
         }
 
         if(ansFlag == ""){
@@ -330,7 +332,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_'+ k +'"></td>' +
+                    '<td style="width: 5%;"><input type="checkbox" id="QL_check_'+ k +'" name="question" onclick="QL_checkSelectAll()" value="'+$id+'"><label for="QL_check_'+ k +'"></td>' +
                     '<td class="QL_c2_ListUser"><p>'+ $email +'</p><p>'+ $hp +'</p></td>' +
                     '<td align="center"><p>'+ $type +'</p></td>' +
                     '<td align="center"><p>' + $regdate +'</p><p>'+ $ansDate +'</p></td>' +
@@ -341,7 +343,7 @@
             $('.thead').after(tb);
 
             $(".detail").click(function (e) {
-                alert("뭘봐")
+                alert("클릭")
                 $("#ajax_hidden").val($(this).next().val());
                 let id = $("#ajax_hidden").val();
                 console.log(id)
@@ -372,7 +374,7 @@
                 $('.page').val($(this).val())
                 let page = $('.page').val()
 
-                axios.get('/api/Question/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/Question/list?page=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
 
                     for (let i in response.data.data) {
@@ -420,7 +422,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()"><label for="QL_check_' + k + '"></td>' +
+                            '<td style="width: 5%;"><input type="checkbox" id="QL_check_' + k + '" name="question" onclick="QL_checkSelectAll()" value="'+$id+'"><label for="QL_check_' + k + '"></td>' +
                             '<td class="QL_c2_ListUser"><p>' + $email + '</p><p>' + $hp + '</p></td>' +
                             '<td align="center"><p>' + $type + '</p></td>' +
                             '<td align="center"><p>' + $regdate + '</p><p>' + $ansDate + '</p></td>' +
@@ -450,6 +452,27 @@
                 })
         })
     })
+
+    $(function () {
+        //선택삭제
+        $('#Q1_c2_delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='question']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/Question/deleteList/" + id,  {
+            }).then(function (){
+                alert("상품후기 삭제 성공")
+            })
+        }).catch(function (err){
+            console.log(err)
+        })
+    })
+
 </script>
 <body>
     <!--content_title 시작-->

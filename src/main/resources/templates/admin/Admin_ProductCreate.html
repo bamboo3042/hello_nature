@@ -78,7 +78,7 @@
             dateBuilt: $("#dateBuilt").val(),
             dateValid: $("#dateValid").val()
         }
-        console.log(data)
+        console.log(data.name)
 
         let files = ($('input[name=file]'));
 
@@ -96,10 +96,16 @@
 
         axios.post('/api/product/create', formData, {
             headers: {'Content-Type': 'multipart/form-data'}
-        }).then(function (response) {
-            console.log(response)
-            console.log(response.data)
-            alert("업로드가 이루어졌습니다");
+        }).then(function () {
+            alert("상품이 등록되었습니다");
+            $.ajax({
+                type:"GET",
+                url : "/admin/productlist/",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         }).catch(function (err) {
             console.log(err)
         })
@@ -168,7 +174,7 @@
 <div class="content_title_click">
     <a onclick="PL_location()" id="product_click_1">상품 등록</a>
     <a onclick="PL_location_1()">상품 목록</a>
-    <a onclick="PL_location_2()">공통문구 </a>
+<!--    <a onclick="PL_location_2()">공통문구 </a>-->
 </div>
 <div class="Pcreate">
     <!--form 시작-->

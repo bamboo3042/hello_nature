@@ -28,19 +28,10 @@
 
             $('#name').val($name);
             $('#des').val($des);
-            $('input[name="state"]').val($state);
+            $('input:radio[name="state"][value="' + $state + '"]').prop("checked", true);
             $('#date_start').val($dateStart);
             $('#date_end').val($dateEnd);
 
-            if($state === 1){
-                $('input:radio[name="state"]').prop("checked", true);
-            }else if($state === 2){
-                $('input:radio[name="state"]').prop("checked", true);
-            }else if($state === 3) {
-                $('input:radio[name="state"]').prop("checked", true);
-            }else if($state === 4) {
-                $('input:radio[name="state"]').prop("checked", true);
-            }
 
         }).catch(function (err){
             console.log(err);
@@ -49,7 +40,7 @@
     })
 
     function edit(){
-        alert("햄버거")
+        alert("클릭")
         let id = sessionStorage.getItem("brIdx");
         let data = {
             idx: id,
@@ -76,7 +67,14 @@
 
         }).then(function (){
             alert("브랜드 정보가 수정되었습니다.")
-            location.reload();
+            $.ajax({
+                type:"GET",
+                url : "/admin/BrandList",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         })
     }
 

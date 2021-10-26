@@ -43,7 +43,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
+                    '<td><input type="checkbox"  id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()" value="'+id+'"><label for="No_check_'+ j+'"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td>'+ title +'</td>' +
                     '<td>' + content + '</td>' +
@@ -115,7 +115,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
+                            '<td><input type="checkbox"  id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()" value="'+id+'"><label for="No_check_'+ j+'"></label></td>' +
                             '<td>' + j + '</td>' +
                             '<td>'+ title +'</td>' +
                             '<td>' + content + '</td>' +
@@ -267,7 +267,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
+                        '<td><input type="checkbox" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()" value="'+id+'"><label for="No_check_'+ j+'"></label></td>' +
                         '<td>' + j + '</td>' +
                         '<td>'+ title +'</td>' +
                         '<td>' + content + '</td>' +
@@ -351,7 +351,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" value="notice" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()"><label for="No_check_'+ j+'"></label></td>' +
+                                '<td><input type="checkbox" id="No_check_'+ j+'" name="notice" onclick="No_checkSelectAll()" value="'+id+'"><label for="No_check_'+ j+'"></label></td>' +
                                 '<td>' + j + '</td>' +
                                 '<td>'+ title +'</td>' +
                                 '<td>' + content + '</td>' +
@@ -381,6 +381,26 @@
                     })
                 })
             })
+        })
+    })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='notice']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/notice/deleteList/" + id,  {
+            }).then(function (){
+                alert("공지사항 삭제 성공")
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     })
 </script>

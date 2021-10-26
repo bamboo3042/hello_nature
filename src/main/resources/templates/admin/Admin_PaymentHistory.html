@@ -59,7 +59,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="PH_check_'+ i +'" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_'+ i +'"></td>' +
+                    '<td><input type="checkbox" id="PH_check_'+ i +'" name="pay" onclick="PH_checkSelectAll()" value="'+$id+'"><label for="PH_check_'+ i +'"></td>' +
                     '<td>'+ $id +'</td>' +
                     '<td>'+ $mordName +'</td>' +
                     '<td>'+ $state +'</td>' +
@@ -128,7 +128,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_' + i + '"></td>' +
+                            '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()" value="'+$id+'"><label for="PH_check_' + i + '"></td>' +
                             '<td>' + $id + '</td>' +
                             '<td>' + $mordName + '</td>' +
                             '<td>' + $state + '</td>' +
@@ -252,7 +252,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_' + i + '"></td>' +
+                        '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()" value="'+$id+'"><label for="PH_check_' + i + '"></td>' +
                         '<td>' + $id + '</td>' +
                         '<td>' + $mordName + '</td>' +
                         '<td>' + $state + '</td>' +
@@ -320,7 +320,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()"><label for="PH_check_' + i + '"></td>' +
+                                '<td><input type="checkbox" id="PH_check_' + i + '" name="pay" onclick="PH_checkSelectAll()" value="'+$id+'"><label for="PH_check_' + i + '"></td>' +
                                 '<td>' + $id + '</td>' +
                                 '<td>' + $mordName + '</td>' +
                                 '<td>' + $state + '</td>' +
@@ -335,6 +335,26 @@
                     })
                 })
             })
+        })
+    })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='pay']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/memberPayment/deleteList/" + id,  {
+            }).then(function (){
+                alert("결제내역 삭제 성공")
+            })
+        }).catch(function (err){
+            console.log(err)
         })
     })
 
@@ -402,7 +422,7 @@
             <table width="100%" class="list_table">
                 <thead class="thead">
                 <tr>
-                    <th width="5%"><input type="checkbox" value="cou_list" id="PH_check" name="selectall" onclick="PH_selectAll(this)"><label for="PH_check"></th>
+                    <th width="5%"><input type="checkbox" id="PH_check" name="selectall" onclick="PH_selectAll(this)"><label for="PH_check"></th>
                     <th width="10%">고객번호</th>
                     <th width="12%">이름</th>
                     <th width="15%">결제상태</th>

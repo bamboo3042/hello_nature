@@ -43,8 +43,15 @@
         axios.post('/api/brand/create', formData, {
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(function(response){
-            console.log(response)
-            alert('업로드 성공')
+            alert('브랜드가 등록되었습니다')
+            $.ajax({
+                type:"GET",
+                url : "/admin/BrandList",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
 
         }).catch(function (err){
             console.log(err)

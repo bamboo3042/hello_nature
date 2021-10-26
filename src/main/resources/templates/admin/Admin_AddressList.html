@@ -50,7 +50,7 @@
 
 
                 let row = $('<tr>').append(
-                    '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()"><label for="AL_check_'+k+'"></td>' +
+                    '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()" value="' + id +'"><label for="AL_check_'+k+'"></td>' +
                     '<td>' + addrName + baseFlag + '</td>' +
                     '<td>' + zipcode + '</td>' +
                     '<td>' + addr1 + '' + addr2 + '</td>' +
@@ -83,7 +83,7 @@
 
             $("#Maxprev").siblings(".page_num").remove();
             for (let i = response.data.pagination.totalPages; i > 0; i--) {
-                let pages = $('<li class="page_num" id="page_num ' + i + '" value="' + (i - 1) + '">').append(
+                let pages = $('<li class="page_num" value="' + (i - 1) + '">').append(
                     i + '</li>'
                 )
                 $('#prev').after(pages);
@@ -128,9 +128,8 @@
                             greenFlag = 'N';
                         }
 
-
                         let row = $('<tr>').append(
-                            '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()"><label for="AL_check_'+k+'"></td>' +
+                            '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()" value="' + id +'"><label for="AL_check_'+k+'"></td>' +
                             '<td>' + addrName + baseFlag + '</td>' +
                             '<td>' + zipcode + '</td>' +
                             '<td>' + addr1 + '' + addr2 + '</td>' +
@@ -161,13 +160,6 @@
                         })
                     })
 
-                    $("#Maxprev").siblings(".page_num").remove();
-                    for (let i = response.data.pagination.totalPages; i > 0; i--) {
-                        let pages = $('<li class="page_num" id="page_num ' + i + '" value="' + (i - 1) + '">').append(
-                            i + '</li>'
-                        )
-                        $('#prev').after(pages);
-                    }
                 })
             })
         })
@@ -224,7 +216,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()"><label for="AL_check_'+k+'"></td>' +
+                    '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()" value="' + id +'"><label for="AL_check_'+k+'"></td>' +
                     '<td>' + addrName + baseFlag + '</td>' +
                     '<td>' + zipcode + '</td>' +
                     '<td>' + addr1 + '' + addr2 + '</td>' +
@@ -314,7 +306,7 @@
 
 
                         let row = $('<tr>').append(
-                            '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()"><label for="AL_check_'+k+'"></td>' +
+                            '<td height="80px"><input type="checkbox" id="AL_check_'+k+'" name="addr" onclick="AL_checkSelectAll()" value="' + id +'"><label for="AL_check_'+k+'"></td>' +
                             '<td>' + addrName + baseFlag + '</td>' +
                             '<td>' + zipcode + '</td>' +
                             '<td>' + addr1 + '' + addr2 + '</td>' +
@@ -356,6 +348,26 @@
             })
         })
     })
+
+    $(function () {
+        //선택삭제
+        $('#delbtn').click(function (){
+            alert('클릭')
+            let id = [];
+            ($("input:checkbox[name='addr']:checked").each(function (e){
+                id.push($(this).val())
+            }));
+            id = String(id)
+            console.log(id)
+
+            axios.delete("/api/membersAddresses/deleteList/" + id,  {
+            }).then(function (){
+                alert("주소지 삭제 성공")
+            })
+        }).catch(function (err){
+            console.log(err)
+        })
+    })
 </script>
 <body>
 <!--content_title 시작-->
@@ -394,7 +406,7 @@
                 <span>* 김성용</span>님의 등록 주소지 - 총 <span>4</span>건
             </div>
             <div class="AL_c2_btnBox">
-                <input type="button" value="선택삭제">
+                <input type="button" value="선택삭제" id="delbtn">
             </div>
             <!--AL_c2_btnBox 끝-->
             <!--table 시작-->

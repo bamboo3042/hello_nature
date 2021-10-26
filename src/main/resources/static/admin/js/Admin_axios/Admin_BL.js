@@ -30,7 +30,7 @@ $(function () {
             console.log($state);
 
             let row = $('<tr>').append(
-                '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
                 '<td>' + $name + '</td>' +
                 '<td>' + $proCount + '</td>' +
                 '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -92,7 +92,7 @@ $(function () {
                         $state = ""
                     }
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                        '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
                         '<td>' + $name + '</td>' +
                         '<td>' + $proCount + '</td>' +
                         '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -237,7 +237,7 @@ $(function () {
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                    '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
                     '<td>' + $name + '</td>' +
                     '<td>' + $proCount + '</td>' +
                     '<td>' + $dateStart + ' - ' + $dateEnd + '</td>' +
@@ -305,7 +305,7 @@ $(function () {
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox" value="cou_list" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
+                            '<td><input type="checkbox" value="'+$id+'" id="BL_check_' + i + '" name="brand" onclick="BL_checkSelectAll()"><label for="BL_check_' + i + '"></label></td>' +
                             '<td>' + $name + '</td>' +
                             '<td>' + $proCount + '</td>' +
                             '<td>' + $dateStart + ' ~ ' + $dateEnd + '</td>' +
@@ -337,5 +337,25 @@ $(function () {
             console.log(err);
             alert("검색 결과가 없습니다.")
         })
+    })
+})
+
+$(function () {
+    //선택삭제
+    $('#delbtn').click(function (){
+        alert('클릭')
+        let id = [];
+        ($("input:checkbox[name='brand']:checked").each(function (e){
+            id.push($(this).val())
+        }));
+        id = String(id)
+        console.log(id)
+
+        axios.delete("/api/brand/deleteList/" + id,  {
+        }).then(function (){
+            alert("브랜드 삭제 성공")
+        })
+    }).catch(function (err){
+        console.log(err)
     })
 })

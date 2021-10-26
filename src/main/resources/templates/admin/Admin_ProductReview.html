@@ -28,19 +28,16 @@
                     let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
                     let $writer = response.data.data[i].memName;
-                    let k = parseInt(i) + 1
+                    let k = parseInt(i)
 
-                    let ansFlag = document.querySelectorAll(".ansFlag");
-                    for (let i =0; ansFlag.length; i++){
-                        if(ansFlag[i].innerText==1){
-                            ansFlag[i].innerText="답변완료"
-                        }else{
-                            ansFlag[i].innerText="답변대기"
-                        }
+                    if($ansFlag == 'TRUE'){
+                        $ansFlag = '답변완료'
+                    }else if($ansFlag == 'FALSE'){
+                        $ansFlag = '답변대기'
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" ><label for="PR_check_' + k + '"></label></td>' +
+                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="'+$id+'"><label for="PR_check_' + k + '"></label></td>' +
                         '<td>'+$name+'</td>' +
                         '<td>'+$proIdx+'</td>' +
                         '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
@@ -94,19 +91,16 @@
                             let $regdate = response.data.data[i].regdate;
                             let $ansFlag = response.data.data[i].ansFlag;
                             let $writer = response.data.data[i].memName;
-                            let k = parseInt(i) + 1
+                            let k = parseInt(i)
 
-                            let ansFlag = document.querySelectorAll(".ansFlag");
-                            for (let i =0; ansFlag.length; i++){
-                                if(ansFlag[i].innerText==1){
-                                    ansFlag[i].innerText="답변완료"
-                                }else{
-                                    ansFlag[i].innerText="답변대기"
-                                }
+                            if($ansFlag == 'TRUE'){
+                                $ansFlag = '답변완료'
+                            }else if($ansFlag == 'FALSE'){
+                                $ansFlag = '답변대기'
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
+                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="'+$id+'"><label for="PR_check_' + k + '"></label></td>' +
                                 '<td>'+$name+'</td>' +
                                 '<td>'+$proIdx+'</td>' +
                                 '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
@@ -155,18 +149,15 @@
                     let $regdate = response.data.data[i].regdate;
                     let $ansFlag = response.data.data[i].ansFlag;
                     let $writer = response.data.data[i].writer;
-                    let k = parseInt(i) + 1
-                    let ansFlag = document.querySelectorAll(".ansFlag");
-                    for (let i =0; ansFlag.length; i++){
-                        if(ansFlag[i].innerText==1){
-                            ansFlag[i].innerText="답변완료"
-                        }else{
-                            ansFlag[i].innerText="답변대기"
-                        }
+                    let k = parseInt(i)
+                    if($ansFlag == 'TRUE'){
+                        $ansFlag = '답변완료'
+                    }else if($ansFlag == 'FALSE'){
+                        $ansFlag = '답변대기'
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
+                        '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="'+$id+'"><label for="PR_check_' + k + '"></label></td>' +
                         '<td>'+$name+'</td>' +
                         '<td>'+$proIdx+'</td>' +
                         '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
@@ -221,10 +212,15 @@
                             let $regdate = response.data.data[i].regdate;
                             let $ansFlag = response.data.data[i].ansFlag;
                             let $writer = response.data.data[i].memName;
-                            let k = parseInt(i) + 1
+                            let k = parseInt(i)
+                            if($ansFlag == 'TRUE'){
+                                $ansFlag = '답변완료'
+                            }else if($ansFlag == 'FALSE'){
+                                $ansFlag = '답변대기'
+                            }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()"><label for="PR_check_' + k + '"></label></td>' +
+                                '<td><input type="checkbox" id="PR_check_' + k + '"name="review" onclick="PR_checkSelectAll()" value="'+$id+'"><label for="PR_check_' + k + '"></label></td>' +
                                 '<td>'+$name+'</td>' +
                                 '<td>'+$proIdx+'</td>' +
                                 '<td>'+ $userid + '/ <br>' + $hp +'/ <br>' + $writer +'</td>' +
@@ -242,6 +238,26 @@
                 alert('검색실패')
             })
         }
+
+        $(function () {
+            //선택삭제
+            $('#delbtn').click(function (){
+                alert('클릭')
+                let id = [];
+                ($("input:checkbox[name='review']:checked").each(function (e){
+                    id.push($(this).val())
+                }));
+                id = String(id)
+                console.log(id)
+
+                axios.delete("/api/productReview/deleteList/" + id,  {
+                }).then(function (){
+                    alert("상품후기 삭제 성공")
+                })
+            }).catch(function (err){
+                console.log(err)
+            })
+        })
     </script>
 </head>
 <body>
@@ -292,13 +308,13 @@
             <!--form 시작-->
             <form name="review_list">
                 <span>
-                    <input type="button" name="button" value="선택삭제">
+                    <input type="button" name="button" value="선택삭제" id="delbtn">
                 </span>
                 <!--table 시작-->
                 <table width="100%" class="list_table">
                     <thead class="thead">
                         <tr>
-                            <th width="5%"><input type="checkbox" id="PR_check_1" name="selectall" onclick="PR_selectAll(this)"><label for="PR_check_1"></label></th>
+                            <th width="5%"><input type="checkbox" id="PR_check" name="selectall" onclick="PR_selectAll(this)"><label for="PR_check_1"></label></th>
                             <th width="15%">상품명</th>
                             <th width="15%">상품번호</th>
                             <th width="25%">아이디/연락처/작성자</th>
