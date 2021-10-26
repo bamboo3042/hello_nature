@@ -214,30 +214,26 @@
 
     function search(){
 
-        let cateIdx = $('#PL_sel_2').val();
+        let cateIdx = $('#RC_sel_2').val();
         let page = $('.page').val();
         let state = $('input:checkbox[name="d_status2"]:checked').val();
         let order = $('input:checkbox[name="filter"]:checked').val();
         let name = $('#RC_scName').val();
         let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
-        if(cateIdx == ""){
-            cateIdx = $('#PL_sel_1').val();
-        }
-        console.log(cateIdx);
-        if(cateIdx == ""){
+        if(cateIdx == "중분류"){
             url = '/api/product/list?page=' + page;
-        }else if(cateIdx != ""){
-            url = url + '&cateIdx=' + cateIdx;
-        }
-        if(state == ""){
+        }else if(cateIdx != "중분류"){
             url = url;
-        } else if(state != ""){
+        }
+        if(state == undefined){
+            url = url;
+        } else if(state != undefined){
             url = url + '&state=' + state;
         }
-        if(order == ""){
+        if(order == undefined){
             url = url;
-        }else if(order != ""){
+        }else if(order != undefined){
             url = url + '&order=' + order;
         }
         if(name == ""){
@@ -296,41 +292,30 @@
 
                     $('.page').val($(this).val())
                     let page = $('.page').val();
+                    let cateIdx = $('#RC_sel_2').val();
                     let state = $('input:checkbox[name="d_status2"]:checked').val();
                     let order = $('input:checkbox[name="filter"]:checked').val();
                     let name = $('#RC_scName').val();
-                    let url = '/api/product/list?page=' + page;
+                    let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
-                    if(state == 0){
-                        state = '판매대기'
-                    }else if(state == 1){
-                        state = '판매중'
-                    }else if(state == 2){
-                        state = '판매중지'
-                    }else if(state == 3){
-                        state = '판매종료'
-                    }else if(state == 4){
-                        state = '품절'
-                    }else{
-                        state = ""
-                    }
-
-                    console.log(state)
-
-                    if (state == "") {
+                    if(cateIdx == "중분류"){
+                        url = '/api/product/list?page=' + page;
+                    }else if(cateIdx != "중분류"){
                         url = url;
-                    } else if (state != "") {
+                    }
+                    if(state == undefined){
+                        url = url;
+                    } else if(state != undefined){
                         url = url + '&state=' + state;
                     }
-                    if (order == "") {
+                    if(order == undefined){
                         url = url;
-                    } else if (order != "") {
+                    }else if(order != undefined){
                         url = url + '&order=' + order;
                     }
-
-                    if (name == "") {
+                    if(name == ""){
                         url = url;
-                    } else if (name != "") {
+                    }else if(name != ""){
                         url = url + '&name=' + name;
                     }
                     console.log(url)
@@ -343,6 +328,19 @@
                             let name = response.data.data[i].name;
                             let state = response.data.data[i].state;
                             img = img.replace("\\", "/");
+                            if(state == 0){
+                                state = '판매대기'
+                            }else if(state == 1){
+                                state = '판매중'
+                            }else if(state == 2){
+                                state = '판매중지'
+                            }else if(state == 3){
+                                state = '판매종료'
+                            }else if(state == 4){
+                                state = '품절'
+                            }else{
+                                state = ""
+                            }
 
                             let row = $('<tr>').append(
                                 '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_' + (i + 12) + '" onclick="RC_checkSelectAll()" value="'+id+'"><label for="RC_check_' + (i + 12) + '"></label></td>' +
@@ -396,35 +394,28 @@
 
     function search2(){
 
-        let cateIdx = $('#RC_sel_2').val();
+        let cateIdx = $('#RC_sel_4').val();
         let page = $('.page').val();
         let state = $('input:checkbox[name="status2"]:checked').val();
         let order = $('input:checkbox[name="filter2"]:checked').val();
         let name = $('#RC_Name').val();
-        let url = '/api/product/list?';
+        let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
-        if(cateIdx == ""){
-            cateIdx = $('#RC_sel_1').val();
-        }
-
-        if(cateIdx == ""){
+        if(cateIdx == "중분류"){
             url = '/api/product/list?page=' + page;
-        }else if(cateIdx != ""){
-            url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
-        }
-        console.log(url)
-        if(state == ""){
+        }else if(cateIdx != "중분류"){
             url = url;
-        } else if(state != ""){
+        }
+        if(state == undefined){
+            url = url;
+        } else if(state != undefined){
             url = url + '&state=' + state;
         }
-        console.log(url)
-        if(order == ""){
+        if(order == undefined){
             url = url;
-        }else if(order != ""){
+        }else if(order != undefined){
             url = url + '&order=' + order;
         }
-
         if(name == ""){
             url = url;
         }else if(name != ""){
@@ -443,8 +434,6 @@
                 let name = response.data.data[i].name;
                 let state = response.data.data[i].state;
                 img = img.replace("\\", "/");
-                console.log(img)
-                console.log(state)
                 if(state == 0){
                     state = '판매대기'
                 }else if(state == 1){
@@ -482,41 +471,30 @@
 
                     $('.page2').val($(this).val())
                     let page = $('.page2').val();
+                    let cateIdx = $('#RC_sel_4')
                     let state = $('input:checkbox[name="status2"]:checked').val();
                     let order = $('input:checkbox[name="filter2"]:checked').val();
                     let name = $('#RC_scName').val();
-                    let url = '/api/product/list?page=' + page;
+                    let url = '/api/product/list?page=' + page + '&cateIdx=' + cateIdx;
 
-                    if(state == 0){
-                        state = '판매대기'
-                    }else if(state == 1){
-                        state = '판매중'
-                    }else if(state == 2){
-                        state = '판매중지'
-                    }else if(state == 3){
-                        state = '판매종료'
-                    }else if(state == 4){
-                        state = '품절'
-                    }else if(state == ""){
-                        state = '전체'
-                    }
-
-                    console.log(state)
-
-                    if (state == "") {
+                    if(cateIdx == "중분류"){
+                        url = '/api/product/list?page=' + page;
+                    }else if(cateIdx != "중분류"){
                         url = url;
-                    } else if (state != "") {
+                    }
+                    if(state == undefined){
+                        url = url;
+                    } else if(state != undefined){
                         url = url + '&state=' + state;
                     }
-                    if (order == "") {
+                    if(order == undefined){
                         url = url;
-                    } else if (order != "") {
+                    }else if(order != undefined){
                         url = url + '&order=' + order;
                     }
-
-                    if (name == "") {
+                    if(name == ""){
                         url = url;
-                    } else if (name != "") {
+                    }else if(name != ""){
                         url = url + '&name=' + name;
                     }
                     console.log(url)
@@ -528,6 +506,20 @@
                             let img = response.data.data[i].img1;
                             let name = response.data.data[i].name;
                             let state = response.data.data[i].state;
+
+                            if(state == 0){
+                                state = '판매대기'
+                            }else if(state == 1){
+                                state = '판매중'
+                            }else if(state == 2){
+                                state = '판매중지'
+                            }else if(state == 3){
+                                state = '판매종료'
+                            }else if(state == 4){
+                                state = '품절'
+                            }else{
+                                state = ""
+                            }
                             img = img.replace("\\", "/");
 
                             let row = $('<tr>').append(
