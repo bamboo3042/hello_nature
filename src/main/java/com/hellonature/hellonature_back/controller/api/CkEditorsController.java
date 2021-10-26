@@ -61,7 +61,7 @@ public class CkEditorsController {
 
         FileCopyUtils.copy(upload.getInputStream(), new FileOutputStream(files2.getPath()+File.separator+randomfilename));
 
-        String ckUploadPath = "C:/Seongyong/project/hello_nature6.6/src/main/resources/static/uploads/CKimg/product/" + randomfilename;
+        String ckUploadPath = "C:/Users/이예솔/Desktop/새 폴더 (2)/src/main/resources/static/uploads/CKimg/product/" + randomfilename;
         upload.transferTo(new File(ckUploadPath));
 
         return "/uploads/CKimg/product/" + randomfilename;
@@ -109,15 +109,15 @@ public class CkEditorsController {
 
         FileCopyUtils.copy(upload.getInputStream(), new FileOutputStream(files2.getPath()+File.separator+randomfilename));
 
-        String ckUploadPath = "C:/Seongyong/project/hello_nature6.6/src/main/resources/static/uploads/CKimg/magazine/" + randomfilename;
+        String ckUploadPath = "C:/Users/이예솔/Desktop/새 폴더 (2)/src/main/resources/static/uploads/CKimg/magazine/" + randomfilename;
         upload.transferTo(new File(ckUploadPath));
 
         return "/uploads/CKimg/magazine/" + randomfilename;
     }
 
-    @PostMapping("/image/upload/recipe")
+    @PostMapping("/image/upload/popupstore")
     @SneakyThrows
-    public String uploadRC(@RequestPart MultipartFile upload, HttpServletRequest request){
+    public String uploadPOP(@RequestPart MultipartFile upload, HttpServletRequest request){
         OutputStream out = null;
 
         String filename = upload.getOriginalFilename();
@@ -145,7 +145,7 @@ public class CkEditorsController {
             }
         }
 
-        String path3 = path2 + "/recipe/";
+        String path3 = path2 + "/popupstore/";
         File files2 = new File(path3);
         if(!files2.exists()){
             try{
@@ -157,9 +157,12 @@ public class CkEditorsController {
 
         FileCopyUtils.copy(upload.getInputStream(), new FileOutputStream(files2.getPath()+File.separator+randomfilename));
 
-        String ckUploadPath = "C:/Seongyong/project/hello_nature6.6/src/main/resources/static/uploads/CKimg/recipe/" + randomfilename;
+        String ckUploadPath = "C:/Users/이예솔/Desktop/새 폴더 (2)/src/main/resources/static/uploads/CKimg/popupstore/" + randomfilename;
         upload.transferTo(new File(ckUploadPath));
 
-        return "/uploads/CKimg/recipe/" + randomfilename;
+        return "/uploads/CKimg/popupstore/" + randomfilename;
     }
+
+
 }
+

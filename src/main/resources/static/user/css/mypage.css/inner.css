@@ -230,6 +230,7 @@ a:focus { color: #444;}
 .order_section_order_address{ margin-top: 10px; border: 1px solid #cccccc; border-radius: 10px; padding: 10px;}
 .addr_edit_btn{float: right; width: 60px; height:30px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; font-size: 14px; font-weight: 500;border-radius: 3px;cursor: pointer;}
 #input_detail_addr{float: right; width: 60px; height:30px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; font-size: 14px; font-weight: 500;border-radius: 3px;cursor: pointer;}
+.addr_info_table #name, .addr_info_table #hp {border-radius: 3px; border: 1px solid #ccc; padding-left: 10px; height: 25px; margin-right: 10px;}
 /* 배송방법 / 배송알림*/
 .ship_type_select_box label{font-size: 14px; margin-left: 10px;}
 .ship_type_select {display: flex; margin-bottom: 10px; align-items: center; border-top: 1px solid #eee; margin-top: 10px;}
@@ -240,7 +241,7 @@ a:focus { color: #444;}
 /* 쿠폰 / 적립금 */
 .hello_coupon_cash_tit { font-size: 16px; margin-top: 10px;}
 #select_coupon { width: 500px; height: 50px; background-color: #f4f4f4; border-radius: 3px; border: 1px solid #ccc; margin: 10px 0 20px 0; padding-left: 10px; color: #888;}
-.input_hcash{width: 490px; height: 50px; border-radius: 3px; border: 1px solid #ccc; margin: 10px 0 20px 0; padding-left: 10px;}
+.input_hcash{width: 500px; height: 50px; border-radius: 3px; border: 1px solid #ccc; margin: 10px 0 20px 0; padding-left: 10px;}
 .use_all_hcash{width: 130px; height: 50px;border-radius: 3px;cursor: pointer; margin-left: 10px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; font-size: 14px; font-weight: 500;}
 #showHelloCash { color: #5dab99; font-weight: 600;}
 
@@ -303,7 +304,7 @@ a:focus { color: #444;}
 
 /* 결제 버튼 */
 #payment_btns{ width: 100%; text-align: center; margin: 20px 0 120px 0;}
-#payment_btns button { font-size: 16px; font-weight:bold;}
+#payment_btns { font-size: 18px; font-weight:bold;}
 .cancel_payment{width: 250px; height: 50px; border: 1px solid #5dab99; background-color: #ffffff; cursor: pointer; border-radius: 3px; color: #5dab99;}
 .do_payment{width: 250px; height: 50px; border: 1px solid #5dab99; background-color: #5dab99; cursor: pointer; color: #ffffff; border-radius: 3px;}
 

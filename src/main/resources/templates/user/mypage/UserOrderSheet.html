@@ -787,7 +787,7 @@
                                         </tr>
                                         <tr>
                                             <th>정보</th>
-                                            <td>받는 분: <input type="text" id="name">/연락처: <input type="text" id="hp">
+                                            <td>받는 분 : <input type="text" id="name" placeholder="받는 분 이름을 입력하세요">  연락처 : <input type="text" id="hp" placeholder="휴대폰번호를 입력하세요">
                                             </td>
                                         </tr>
                                         <tr>
@@ -1003,7 +1003,7 @@
                                                 <div>
                                                     <input type="button" value="배송지 추가" id="add_address_btn"
                                                            style="width: 580px; color:#5dab99; border-radius: 5px; text-align: center; cursor: pointer;
-                                                           margin: 0px 30px; border: 1px solid black; background-color: white; height: 50px;">
+                                                           margin: 0px 30px; border: 1px solid #5dab99; background-color: white; height: 50px; font-size: 15px; font-weight: 500;">
                                                 </div>
                                             </div>
                                             <!--배송지추가 팝업 끝-->
@@ -1032,7 +1032,7 @@
                                             <div>
                                                 <input type="button" value="헬로페이 추가" id="add_hello_btn"
                                                        style="width: 580px; color:#5dab99; border-radius: 5px; text-align: center; cursor: pointer;
-                                                           margin: 0px 30px; border: 1px solid black; background-color: white; height: 50px;"
+                                                           margin: 0px 30px; border: 1px solid #5dab99; background-color: white; height: 50px; font-size: 15px; font-weight: 500;"
                                                        onclick="location.href='/user/mypage_enrollHellopay/'"
                                                 >
                                             </div>
@@ -1111,7 +1111,7 @@
                                             <div>
                                                 <input type="button" value="카드 등록" id="card_enroll_btn"
                                                        style="width: 580px; color:#5dab99; border-radius: 5px; text-align: center; cursor: pointer;
-                                                           margin: 0px 30px; border: 1px solid black; background-color: white; height: 50px;">
+                                                           margin: 0px 30px; border: 1px solid #5dab99; background-color: white; height: 50px; font-size: 15px; font-weight: 500;">
                                             </div>
                                         </div>
                                     </div>
@@ -1379,8 +1379,8 @@
                         </div>
                         <!-- 개인 정보 수집 및 이용 동의 끝 -->
                         <div id="payment_btns">
-                            <button class="cancel_payment">취소</button>
-                            <input type="submit" class="do_payment" onclick="order_check()" value="결제하기"></bu>
+                            <input type="button" class="cancel_payment" value="취소">
+                            <input type="submit" class="do_payment" onclick="order_check()" value="결제하기">
                         </div>
                     </div>
                 </div>

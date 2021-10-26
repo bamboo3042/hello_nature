@@ -9,7 +9,7 @@
 
 /* 전체 적용 */
 * { margin: 0; padding: 0; }
-h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size: inherit; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 div, p, label, a {margin: 0; padding: 0; display: block;}
 ul, ol, li { list-style: none; }
 a { text-decoration: none;}
@@ -464,11 +464,11 @@ img { border: none; vertical-align: top; }
 .popup_content { width: 1050px; margin: 0 auto; }
 .popup_cont_html { font-size: 20px; line-height: 30px; }
 .popup_cont_html img { width: 1050px; }
-.popup_cont_html p {  padding: 70px; }
+.popup_cont_html p {  padding: 50px; }
 .popup_cont_html p:nth-child(5) { font-size: 40px; font-weight: bold; color: rgb(228, 84, 58); line-height: 50px; }
 .popup_cont_html p:nth-child(10), .popup_cont_html p:nth-child(13), .popup_cont_html p:nth-child(16) { padding-bottom: 0; font-size: 40px; font-weight: bold; color: #000; line-height: 50px; }
 .popup_cont_html p:nth-child(11), .popup_cont_html p:nth-child(14), .popup_cont_html p:nth-child(17) { padding-top: 20px; }
-.line_01 { margin: 100px 0; border-color: #D35300; }
+.line_01 { margin: 50px 0; border-color: #D35300; }
 .line_02 { margin: 100px 0; border-color: #D35300; }
 .popup_best_brand p { width: 1050px; margin: 0 auto; text-align: center; font-size: 15px; font-weight: bold; color: #D35300; padding-bottom: 30px; }
 .best_brand_wrap { position: relative; width: 1050px; margin: 0 auto; height: 325px; overflow: hidden; }
@@ -568,3 +568,6 @@ img { border: none; vertical-align: top; }
 .event_list_item .event_title .event_name { padding-bottom: 15px; font-size: 25px; font-weight: bold; letter-spacing: 1.5px; }
 
 .list_on { display: none; }
+
+
+.q_bnr_list { font-size: 12px; }
