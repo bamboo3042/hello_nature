@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/index_style.css}">
     <style>
         #mypage-box { overflow: hidden; height: 100%;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y: scroll;}
@@ -29,7 +30,7 @@
                 <!-- main_contents 시작 -->
                 <div class="main_contents">
                     <div class="contents_box1_center">
-                        <p><span id="center_visitor">홍진혁님</span></p>
+                        <p><span id="center_visitor" th:text="${session['name']} + '님'" sec:authorize="isAuthenticated()"></span></p>
                         <h2 class="contents_name">무엇을 도와드릴까요?<span>매일<div class="center_operation_line"></div>08:00-18:00</span></h2>                        
                     </div> 
                     <ul class="form_area center_form_area"> 

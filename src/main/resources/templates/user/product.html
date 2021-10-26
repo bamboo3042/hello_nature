@@ -247,6 +247,12 @@
                         name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
                     let proCount = res.data.data[i].proCount;
                     let files = res.data.data[i].files;
+                    let file_icon;
+                    if(files == "" || files == null) {
+                        file_icon = "none";
+                    } else {
+                        file_icon = "inline-block";
+                    }
                     let score = res.data.data[i].like;
                     let like = "";
                     switch(score) {
@@ -268,9 +274,8 @@
 
                     $("#prod_review_tbody").append(
                         '<tr class="review_click">'+
-                        '<td>'+0+'</td>'+
                         '<td>'+sizeWeight+' | '+proCount+'</td>'+
-                        '<td>'+content+'</td>'+
+                        '<td><img src="/user/images/icon/ico_attach2.gif" style="display:'+file_icon+'; padding-right: 5px;">'+content+'</td>'+
                         '<td>'+like+'</td>'+
                         '<td>'+name+'</td>'+
                         '<td>'+regdate+'</td></tr>'+
@@ -313,6 +318,12 @@
                                 name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
                                 let proCount = res.data.data[i].proCount;
                                 let files = res.data.data[i].files;
+                                let file_icon;
+                                if(files == "" || files == null) {
+                                    file_icon = "none";
+                                } else {
+                                    file_icon = "inline-block";
+                                }
                                 let score = res.data.data[i].like;
                                 let like = "";
                                 switch(score) {
@@ -334,9 +345,8 @@
 
                                 $("#prod_review_tbody").append(
                                     '<tr class="review_click">'+
-                                    '<td>'+0+'</td>'+
                                     '<td>'+sizeWeight+' | '+proCount+'</td>'+
-                                    '<td>'+content+'</td>'+
+                                    '<td><img src="/user/images/icon/ico_attach2.gif" style="display:'+file_icon+'; padding-right: 5px;">'+content+'</td>'+
                                     '<td>'+like+'</td>'+
                                     '<td>'+name+'</td>'+
                                     '<td>'+regdate+'</td></tr>'+
@@ -388,6 +398,12 @@
                             name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
                             let proCount = res.data.data[i].proCount;
                             let files = res.data.data[i].files;
+                            let file_icon;
+                            if(files == "" || files == null) {
+                                file_icon = "none";
+                            } else {
+                                file_icon = "inline-block";
+                            }
                             let score = res.data.data[i].like;
                             let like = "";
                             switch(score) {
@@ -409,9 +425,8 @@
 
                             $("#prod_review_tbody").append(
                                 '<tr class="review_click">'+
-                                '<td>'+0+'</td>'+
                                 '<td>'+sizeWeight+' | '+proCount+'</td>'+
-                                '<td>'+content+'</td>'+
+                                '<td><img src="/user/images/icon/ico_attach2.gif" style="display:'+file_icon+'; padding-right: 5px;">'+content+'</td>'+
                                 '<td>'+like+'</td>'+
                                 '<td>'+name+'</td>'+
                                 '<td>'+regdate+'</td></tr>'+
@@ -454,6 +469,12 @@
                                         name = name.replace(/(?<=.{1})./gi, "*"); // 이름 마스킹처리
                                         let proCount = res.data.data[i].proCount;
                                         let files = res.data.data[i].files;
+                                        let file_icon;
+                                        if(files == "" || files == null) {
+                                            file_icon = "none";
+                                        } else {
+                                            file_icon = "inline-block";
+                                        }
                                         let score = res.data.data[i].like;
                                         let like = "";
                                         switch(score) {
@@ -475,9 +496,8 @@
 
                                         $("#prod_review_tbody").append(
                                             '<tr class="review_click">'+
-                                            '<td>'+0+'</td>'+
                                             '<td>'+sizeWeight+' | '+proCount+'</td>'+
-                                            '<td>'+content+'</td>'+
+                                            '<td><img src="/user/images/icon/ico_attach2.gif" style="display:'+file_icon+'; padding-right: 5px;">'+content+'</td>'+
                                             '<td>'+like+'</td>'+
                                             '<td>'+name+'</td>'+
                                             '<td>'+regdate+'</td></tr>'+
@@ -1012,16 +1032,14 @@
                             <div class="review_box" id="review_list_box">
                                 <table class="review_board">
                                     <colgroup>
-                                        <col width="70">
                                         <col width="120">
-                                        <col width="">
-                                        <col width="80">
+                                        <col width="550">
+                                        <col width="120">
                                         <col width="120">
                                         <col width="100">
                                     </colgroup>
                                     <thead id="prod_review_thead">
                                     <tr>
-                                        <th>번호</th>
                                         <th>중량/개수</th>
                                         <th>내용</th>
                                         <th>만족도</th>

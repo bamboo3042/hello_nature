@@ -4,16 +4,16 @@ import com.hellonature.hellonature_back.model.entity.*;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
 import com.hellonature.hellonature_back.model.network.Header;
 import com.hellonature.hellonature_back.model.network.request.MemberOrderApiRequest;
-import com.hellonature.hellonature_back.model.network.response.*;
+import com.hellonature.hellonature_back.model.network.response.AddressApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberCouponApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberOrderApiResponse;
+import com.hellonature.hellonature_back.model.network.response.MemberOrderLoadResponse;
 import com.hellonature.hellonature_back.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -49,9 +49,13 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         Member member = optionalMember.get();
 
-        Optional<Coupon> optionalCoupon = Optional.empty();
+        Coupon coupon = null;
         if (memberOrderApiRequest.getCpIdx() != null) {
-            optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
+            Optional<Coupon> optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
+            if (optionalCoupon.isEmpty()) return Header.ERROR("존재하지 않는 쿠폰입니다");
+            coupon = optionalCoupon.get();
+            coupon.setUsedFlag(Flag.TRUE);
+            coupon = couponRepository.save(coupon);
         }
 
         MemberOrder memberOrder = MemberOrder.builder()
@@ -68,7 +72,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .requestMemo2(memberOrderApiRequest.getRequestMemo2())
                 .greenFlag(memberOrderApiRequest.getGreenFlag())
                 .member(member)
-                .coupon(optionalCoupon.isEmpty() ? null : optionalCoupon.get())
+                .coupon(coupon)
                 .build();
         MemberOrder newMemberOrder = memberOrderRepository.save(memberOrder);
 
