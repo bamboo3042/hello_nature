@@ -6,6 +6,7 @@ $(function () {
             if (flag === "TRUE") {
                 alert("이미 존재하는 이메일입니다.");
                 $("#email_check_btn").css("background", "#ffffff")
+                $("#email_check_btn").css("color", "#5dab99");
             } else {
                 alert("사용 가능한 이메일입니다.");
                 $("#email_check_btn").css("background", "#5dab99");

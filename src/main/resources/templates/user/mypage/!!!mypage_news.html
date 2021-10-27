@@ -50,7 +50,7 @@
 
     $(function () {
 
-        axios.get('/api/notice/list?startPage=0', {}).then(function (response) {
+        axios.get('/api/notice/list?page=0', {}).then(function (response) {
             for (let i in response.data.data) {
                 let $title = response.data.data[i].title;
                 let $date = response.data.data[i].regdate;
@@ -74,14 +74,16 @@
         })
 
         $(".next_page").click(function () {
-            $('.center_link_move_box').remove()
             if($("#notice_MinPage").text() <  $("#notice_MaxPage").text()) {
+                $('.center_link_move_box').remove()
                 let page = $("#hidden_page").val()
                 $("#notice_MinPage").text(parseInt(page) + 1)
                 $("#hidden_page").val($("#notice_MinPage").text());
-                page = $("#hidden_page").val()
+                page = $("#hidden_page").val() - 1;
+                console.log(page)
 
-                axios.get('/api/notice/list?startPage=' + page, {}).then(function (response) {
+                axios.get('/api/notice/list?page=' + page, {}).then(function (response) {
+                    console.log(response)
                     for (let i in response.data.data) {
                         let $title = response.data.data[i].title;
                         let $date = response.data.data[i].regdate;
@@ -110,14 +112,14 @@
 
 
         $(".prev_page").click(function () {
-            $('.center_link_move_box').remove()
             if($("#notice_MinPage").text() > 1 ) {
+                $('.center_link_move_box').remove()
                 let page = $("#hidden_page").val()
                 $("#notice_MinPage").text(parseInt(page) - 1)
                 $("#hidden_page").val($("#notice_MinPage").text());
-
-                page = $("#hidden_page").val()
-                axios.get('/api/notice/list?startPage=' + page, {}).then(function (response) {
+                page = $("#hidden_page").val() -1;
+                axios.get('/api/notice/list?page=' + page, {}).then(function (response) {
+                    console.log(response)
                     for (let i in response.data.data) {
                         let $title = response.data.data[i].title;
                         let $date = response.data.data[i].regdate;
@@ -161,19 +163,6 @@
                 <div class="contents_box1">
                     <h2 class="contents_name">NEWS</h2>
                 </div>
-                <!--                    <div class="center_link_move_box" id="center_news1">                        -->
-                <!--                        <div class="center_link_txt">                            -->
-                <!--                            <div class="news_upload_date">-->
-                <!--                                <p id="date">2021.06.28</p>-->
-                <!--                            </div>-->
-                <!--                            <a href="/mypage_newsDetail" class="news_highlight">일요일 새벽배송 운영 안내 (2021.07.04 부터~)</a>-->
-                <!--                        </div>-->
-                <!--                        <div class="link_move">-->
-                <!--                            <a href="#" alt="news1"></a>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-
-                <!-- 페이징 시작 -->
                 <div class="center_faq_paging">
                     <ul>
                         <li class="prev_page"><a href="#">이전</a></li>
