@@ -193,6 +193,7 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
                 .hellopassFlag(cards.isEmpty() ? Flag.FALSE : Flag.TRUE)
                 .hellopassFlag(member.getMemberHellopass() != null ? Flag.TRUE : Flag.FALSE)
                 .theGreenFlag(member.getGreenFlag())
+                .regdate(member.getRegdate())
                 .build();
     }
 
