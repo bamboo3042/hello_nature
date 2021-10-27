@@ -512,7 +512,7 @@ form[name="coupon_search"] table input[type="date"] { width: 220px;}
 
 /* Admin_RecipeCreate.html */
 .RCreate {  margin: 11px;  }
-.RCreate form { margin-bottom: 11px; }
+.RCreate .RC_form { margin-bottom: 11px; }
 .RC_c1 { background-color: white; padding: 30px 80px 0;}
 .RC_c2 { background-color: white; }
 .RC_table { margin:25px 0 0 80px;}
