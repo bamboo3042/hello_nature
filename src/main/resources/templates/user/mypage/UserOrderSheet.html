@@ -201,7 +201,7 @@
 
             for (let i = 0; i < prodIdx.length; i++) {
                 let row = $('<div id="order_item_list">').append(
-                    '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '"></div>' +
+                    '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '" style="width: 60px; height: 60px;"></div>' +
                     '<div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
                     '<div class="item_count_k">' + proEA[i] + '개' + '</div>' +
                     '<div class="item_price_k"><del>' + totalPrice[i] + '</del><p>' + realPriceList[i] + '</p></div></div>'
@@ -1303,7 +1303,7 @@
                             </dl>
                             <dl class="point_save_up">
                                 <span class="hello_cash_txt">헬로캐시</span>
-                                <span class="hncash">183<span class="won">원</span></span><span>적립예정</span>
+                                <span class="hncash"><span class="won">원</span></span><span>적립예정</span>
                             </dl>
                             <dl class="price_view" id="order_item_price">
                                 <dt class="price_title">주문 금액</dt>
