@@ -77,7 +77,7 @@ public class ProductReviewService  {
             productReview.setAnsContent(productReviewApiRequest.getAnsContent());
             productReview.setAnsDate(productReviewApiRequest.getAnsDate());
 
-            if (!multipartFiles.isEmpty()){
+            if (multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
                 productReview.setFiles(pathList.get(0));
             }
@@ -123,6 +123,7 @@ public class ProductReviewService  {
         if(ansFlag!= null ||proIdx != null){
             jpql += " where";
             if(ansFlag != null){
+                jpql += " rv_content is not null and";
                 jpql += " ans_flag = :ansFlag";
                 check = true;
             }

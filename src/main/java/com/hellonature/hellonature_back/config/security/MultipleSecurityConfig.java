@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -50,6 +51,7 @@ public class MultipleSecurityConfig {
                     .httpBasic().disable()
                     .csrf().disable()
                     .authorizeRequests()
+                    .antMatchers("/user/mypage*").hasRole("MEMBER")
                     .anyRequest().permitAll()
                     .and().formLogin()
                     .loginPage("/user/mypage_userLogin")
@@ -61,6 +63,7 @@ public class MultipleSecurityConfig {
                     .permitAll()
                     .and()
                     .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                     .logoutUrl("/user/logout")
                     .logoutSuccessUrl("/user/index")
                     .invalidateHttpSession(true)
