@@ -11,6 +11,87 @@
     <title>HelloNature-Recommend-fresh</title>
     <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        /*
+        $(function() {
+
+            axios.get('/api/event/list?ingFlag=FALSE', {}).then(function(res) {
+
+                let ul1 = $(".list1");
+                for (let i in res.data.data) {
+                    let idx = res.data.data.idx;
+                    let typeFlag = res.data.data.typeFlag;
+                    if (typeFlag == "TRUE") {
+                        typeFlag = "이벤트";
+                    } else {
+                        typeFlag = "기획전";
+                    }
+                    let title = res.data.data.title;
+                    let des = res.data.data.des;
+                    let img = res.data.data.img;
+                    let dateStart = res.data.data.dateStart;
+                    let dateEnd = res.data.data.dateEnd;
+
+                    let li1 = $('<li class="event_list_item">').append(
+                        '<a href="/brand_goods_list">'+
+                        '<div class="event_dday" style="display: none">'+
+                        '<span>종료</span>'+
+                        '<span>1일전</span></div>'+
+                        '<div class="event_image">'+
+                        '<img src="'+img+'"></div>'+
+                        '<div class="event_title">'+
+                        '<p class="event_name">'+title+'</p>'+
+                        '<p class="event_period">'+
+                        '<span>'+dateStart+' ~ '+dateEnd+'</span>'+
+                        '<span>'+typeFlag+'</span></p></div></a></li>'
+                    )
+                    ul1.append(li1);
+                }
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+            axios.get('/api/event/list?ingFlag=TRUE', {}).then(function(res) {
+
+                let ul2 = $(".list2");
+                for (let i in res.data.data) {
+                    let idx = res.data.data.idx;
+                    let typeFlag = res.data.data.typeFlag;
+                    if (typeFlag == "TRUE") {
+                        typeFlag = "이벤트";
+                    } else {
+                        typeFlag = "기획전";
+                    }
+                    let title = res.data.data.title;
+                    let des = res.data.data.des;
+                    let img = res.data.data.img;
+                    let dateStart = res.data.data.dateStart;
+                    let dateEnd = res.data.data.dateEnd;
+
+                    let li2 = $('<li class="event_list_item">').append(
+                        '<a href="">'+
+                        '<div class="event_image">'+
+                        '<img src="'+img+'"></div>'+
+                        '<div class="event_title">'+
+                        '<p class="event_name">'+title+'</p>'+
+                        '<p class="event_period">'+
+                        '<span>'+dateStart+' ~ '+dateEnd+'</span>'+
+                        '<span>'+typeFlag+'</span></p></div></a></li>'
+                    )
+                    ul2.append(li2);
+                }
+            }).catch(function(err) {
+                console.log(err);
+            });
+
+        });
+         */
+    </script>
+    <!-- axios -->
 </head>
 <!-- head 끝 -->
 <body>

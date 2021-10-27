@@ -19,14 +19,14 @@ a:hover {color: #333;}
 a:focus {color: #333;}
 div, th, td, li, dt, dd, p { word-break: break-all; }
 body { word-wrap: break-word; word-break: normal; /* word-break: keep-all; */ white-space: normal; -webkit-overflow-scrolling: touch; -webkit-text-size-adjust: none; }
-body, input, select, textarea, button { line-height: 1; letter-spacing: -.05em; color: #4c4c4c; font-size: 12px; max-width: 100%; }
+body, input, select, textarea, button { letter-spacing: -.05em; color: #4c4c4c; max-width: 100%; }
 #recommend_wrapper { border-bottom: 1px solid #F7F7F7; }
 #recommend_content { main-width: 1050px; padding-bottom: 40px; }
 img { border: none; vertical-align: top; }
 .page_article { width: 1050px; margin: 0 auto; }
 
 /* 헬로네이처 추천 카테고리 */
-.recommend_top_menu { box-sizing: border-box; width: 965px; margin: 0 auto; padding-top: 40px; }
+.recommend_top_menu { box-sizing: border-box; width: 965px; margin: 0 auto; padding-top: 40px; line-height: 1; }
 .recommend_category { display: flex; justify-content: space-between; width: 100%; margin: 0 auto; }
 .recommend_category li { position: relative; width: 230px; height: 150px; cursor: pointer; }
 .recommend_category li img { width: 230px; }
@@ -563,7 +563,7 @@ img { border: none; vertical-align: top; }
 .event_list_item .event_dday { box-sizing: border-box; position: absolute; top: 0; right: 0; z-index: 1; width: 70px; height: 70px; margin: 10px; padding: 17px 5px; border-radius: 50%; background: #FFF; color: #007874; }
 .event_list_item .event_image { max-width: 1050px; max-height: 300px; overflow: hidden; }
 .event_list_item .event_image img { position: relative; top: -500px; width: 100%; }
-.event_list_item .event_title { box-sizing: border-box; position: absolute; bottom: 0; z-index: 1; width: 100%; height: 100px; padding: 22px 20px 0px 20px; font-size: 15px; background: rgba(0, 0, 0, 0.5); color: #FFF; }
+.event_list_item .event_title { box-sizing: border-box; position: absolute; bottom: 0; z-index: 1; width: 100%; height: 100px; padding: 22px 20px 0px 20px; font-size: 15px; line-height: 1; background: rgba(0, 0, 0, 0.5); color: #FFF; }
 .event_list_item .event_title span:first-child::after { content: " | "; font-size: 13px; vertical-align: top; margin: 0 5px; }
 .event_list_item .event_title .event_name { padding-bottom: 15px; font-size: 25px; font-weight: bold; letter-spacing: 1.5px; }
 
