@@ -2,6 +2,7 @@ package com.hellonature.hellonature_back.config.security;
 
 import com.hellonature.hellonature_back.config.security.main.MemberAuthenticationProvider;
 import com.hellonature.hellonature_back.config.security.main.MemberLoginFailureHandler;
+import com.hellonature.hellonature_back.config.security.main.MemberLogoutHandler;
 import com.hellonature.hellonature_back.config.security.main.MemberSuccessHandler;
 import com.hellonature.hellonature_back.service.AdminDetailsService;
 import com.hellonature.hellonature_back.service.MemberDetailsService;
@@ -65,7 +66,7 @@ public class MultipleSecurityConfig {
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                     .logoutUrl("/user/logout")
-                    .logoutSuccessUrl("/user/index")
+                    .logoutSuccessHandler(memberLogoutHandler())
                     .invalidateHttpSession(true)
                     .deleteCookies("remember-me", "JSESSIONID")
                     .and()
@@ -106,6 +107,11 @@ public class MultipleSecurityConfig {
         @Bean
         public AuthenticationFailureHandler memberAuthenticationFailureHandler() {
             return new MemberLoginFailureHandler();
+        }
+
+        @Bean
+        public MemberLogoutHandler memberLogoutHandler() {
+            return new MemberLogoutHandler();
         }
 
 //        @Override
