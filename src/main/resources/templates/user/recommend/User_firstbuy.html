@@ -11,6 +11,42 @@
     <title>HelloNature-Recommend-fresh</title>
     <link rel="stylesheet" th:href="@{/user/css/recommend.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script>
+        $(function() {
+
+            let memIdx = $("#hidden_user").val();
+            let coupon_btn = document.getElementById("coupon_btn");
+
+            if (memIdx == null || memIdx == "") {
+                coupon_btn.addEventListener('click', function() {
+                    location.href = '/user/mypage_userRegist';
+                });
+            } else {
+                axios.get('/api/memberCoupon/list?memIdx='+memIdx+'&usedFlag=FALSE', {  // 사용하지 않은 쿠폰 목록을 불러와서
+                }).then(function(res) {
+                    for (let i in res.data.data) {                                      // 여러개가 있을 수 있으니 포문을 돌리고
+                        let coupon_code = res.data.data[i].ctIdx;                       // 변수에 담은 값이
+                        if (coupon_code == 2) {                                         // 회원가입 쿠폰번호와 같다면
+                            coupon_btn.style.backgroundColor = '#DDD';                  // 배경을 회색으로 바꾸기
+                            coupon_btn.style.cursor = 'default';                        // 커서 비활성화
+                            coupon_btn.innerText = coupon_code;                         // 버튼에 코드 띄우기
+                        } else if (coupon_code !== 2) {                                 // 회원가입 쿠폰번호가 존재하지 않으면
+                            coupon_btn.style.backgroundColor = '#DDD';                  // 배경을 회색으로 바꾸기
+                            coupon_btn.style.cursor = 'default';                        // 커서 비활성화
+                            coupon_btn.innerText = "사용 완료";                           // 버튼에 텍스트 띄우기
+                        }
+                    }
+                }).catch(function(err) {
+                    console.log(err);
+                })
+            }
+        });
+    </script>
+    <!-- axios -->
 </head>
 <!-- head 끝 -->
 <body>
@@ -63,7 +99,7 @@
                                 *일부 상품 적용 제외
                             </p>
                             <div class="benefit_btn">
-                                <a class="btn1" id="coupon_btn">가입하고 쿠폰받기</a>
+                                <a class="btn1" id="coupon_btn" style="cursor: pointer;">가입하고 쿠폰받기</a>
                             </div>
                         </div>
                         <!-- 혜택1 끝 -->
@@ -95,19 +131,19 @@
                         <!-- 혜택2 끝 -->
 
                         <!-- 혜택3 -->
-                        <div class="benefit_div benefit3">
-                            <strong>혜택 3</strong>
-                            <h3>첫 구매 무료배송</h3>
-                            <p class="benefit_text">
-                                구매 금액과 개수에 상관 없이 무조건 무료배송해드립니다.
-                            </p>
-                            <div class="benefit_btn">
-                                <a href="">배송서비스 자세히 보기</a>
-                            </div>
-                            <div class="benefit_img">
-                                <img src="/user/images/recommend/firstbuy/benefit_no03_img.webp" alt="">
-                            </div>
-                        </div>
+<!--                        <div class="benefit_div benefit3">-->
+<!--                            <strong>혜택 3</strong>-->
+<!--                            <h3>첫 구매 무료배송</h3>-->
+<!--                            <p class="benefit_text">-->
+<!--                                구매 금액과 개수에 상관 없이 무조건 무료배송해드립니다.-->
+<!--                            </p>-->
+<!--                            <div class="benefit_btn">-->
+<!--                                <a href="">배송서비스 자세히 보기</a>-->
+<!--                            </div>-->
+<!--                            <div class="benefit_img">-->
+<!--                                <img src="/user/images/recommend/firstbuy/benefit_no03_img.webp" alt="">-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <!-- 혜택3 끝 -->
 
                         <!-- 혜택4 -->

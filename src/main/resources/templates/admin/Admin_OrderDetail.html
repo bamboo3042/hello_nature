@@ -111,6 +111,14 @@
             });
         })
     }
+
+    $('input[name="order_state"]').click(function(e){
+        let count = $('input:checked[name="order_state"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
 </script>
 <body>
 <!--content_title 시작-->
@@ -166,6 +174,11 @@
                         <span><input type="checkbox" name="order_state" value="3"  id="OL_check_3"><label for="OL_check_3">배송준비중</label></span>
                         <span><input type="checkbox" name="order_state" value="4"  id="OL_check_4"><label for="OL_check_4">배송중</label></span>
                         <span><input type="checkbox" name="order_state" value="5"  id="OL_check_5"><label for="OL_check_5">배송완료</label></span><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
                         <span><input type="checkbox" name="order_state" value="6"  id="OL_check_6"><label for="OL_check_6">취소</label></span>
                         <span><input type="checkbox" name="order_state" value="7"  id="OL_check_7"><label for="OL_check_7">반품요청</label></span>
                         <span><input type="checkbox" name="order_state" value="8"  id="OL_check_8"><label for="OL_check_8">반품</label></span>

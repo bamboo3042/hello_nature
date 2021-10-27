@@ -19,6 +19,9 @@
                         let basket_list = res.data.data.product.length;
                         console.log(basket_list)
                         $("#basket_list").text(basket_list)
+                        if(basket_list === 0){
+                            $("#basket_list").css("display", 'none')
+                        }
                     })
                 }
 

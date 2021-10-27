@@ -46,6 +46,7 @@
                 let ansFlag = response.data.data.ansFlag;
                 let ansContent = response.data.data.ansContent;
                 let ansDate = response.data.data.ansDate;
+                let files = response.data.data.files;
                 if(ansDate !== null) {
                     ansDate = ansDate.toString().substring(0, 10);
                 }
@@ -57,6 +58,7 @@
                     ansSHOW = 'block'
                 }
 
+                $("#review_deail_img").attr("src", files)
                 $("#rev_detail_like").text("만족도 : "+like+"점")
                 $("#post_review").text(content)
                 $("#rev_answer").css("display", ansSHOW);
@@ -99,7 +101,7 @@
                             </div>
                             <div id="rev_detail_img">
                                 <!-- <h5>사진</h5> -->
-                                <img src style="width: 150px; height: 150px; margin-top: -170px; margin-left: 10px;" id="review_deail_img">
+                                <img src="" style="width: 150px; height: 150px; margin-top: -170px; margin-left: 10px;" id="review_deail_img">
                             </div>
                             <div id="rev_answer">
                                 <p id="rev_answer_title" style="margin: 50px 0 30px; font-weight: 500; font-size: 17.5px;">답변</p>

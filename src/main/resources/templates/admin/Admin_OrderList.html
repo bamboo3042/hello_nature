@@ -25,7 +25,6 @@
             for(let i in response.data.data){
                 let id = response.data.data[i].idx;
                 let name = response.data.data[i].name;
-                let member = response.data.data[i].member;
                 let proList = response.data.data[i].proList;
                 let price = response.data.data[i].price;
                 let regdate = response.data.data[i].regdate;
@@ -58,16 +57,9 @@
                     state = '환불'
                 }
 
-                if(member == 1){
-                    member = '회원'
-                }else if(member == 2){
-                    member = '비회원'
-                }
-
                 let row = $('<tr>').append(
                     '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
                     '<td>'+ name +'</td>' +
-                    '<td>'+ member +'</td>' +
                     '<td>'+ proList +'</td>' +
                     '<td>'+ price +' 원</td>' +
                     '<td>'+ regdate +'</td>' +
@@ -117,7 +109,6 @@
                         for (let i in response.data.data) {
                             let id = response.data.data[i].idx;
                             let name = response.data.data[i].name;
-                            let member = response.data.data[i].member;
                             let proList = response.data.data[i].proList;
                             let price = response.data.data[i].price;
                             let state = response.data.data[i].state;
@@ -148,16 +139,10 @@
                                 state = '환불'
                             }
 
-                            if (member == 1) {
-                                member = '회원'
-                            } else if (member == 2) {
-                                member = '비회원'
-                            }
 
                             let row = $('<tr>').append(
                                 '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
                                 '<td>' + name + '</td>' +
-                                '<td>' + member + '</td>' +
                                 '<td>' + proList + '</td>' +
                                 '<td>' + price + ' 원</td>' +
                                 '<td>'+ regdate +'</td>' +
@@ -224,7 +209,6 @@
             let dateStart = $('#date_start').val();
             let dateEnd = $('#date_end').val()
             let state = $('input:checkbox[name="order_state"]:checked').val();
-            let member = $('#member').val();
             let orderIdx = $('#orderIdx').val();
             let url = '/api/orderList?page=' + page;
 
@@ -243,11 +227,6 @@
             }else if(state != undefined){
                 url = url + '&state=' + state;
             }
-            if(member == ""){
-                url = url;
-            }else if(member != ""){
-                url = url + '&member=' + member;
-            }
             if(orderIdx == ""){
                 url = url;
             }else if(orderIdx != ""){
@@ -263,7 +242,6 @@
                 for(let i in response.data.data){
                     let id = response.data.data[i].idx;
                     let name = response.data.data[i].name;
-                    let member = response.data.data[i].member;
                     let proList = response.data.data[i].proList;
                     let price = response.data.data[i].price;
                     let state = response.data.data[i].state;
@@ -294,16 +272,10 @@
                         state = '환불'
                     }
 
-                    if(member == 1){
-                        member = '회원'
-                    }else if(member == 2){
-                        member = '비회원'
-                    }
 
                     let row = $('<tr>').append(
                         '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
                         '<td>'+ name +'</td>' +
-                        '<td>'+ member +'</td>' +
                         '<td>'+ proList +'</td>' +
                         '<td>'+ price +' 원</td>' +
                         '<td>'+ regdate +'</td>' +
@@ -350,7 +322,6 @@
                         for (let i in response.data.data) {
                             let id = response.data.data[i].idx;
                             let name = response.data.data[i].name;
-                            let member = response.data.data[i].member;
                             let proList = response.data.data[i].proList;
                             let price = response.data.data[i].price;
                             let state = response.data.data[i].state;
@@ -381,16 +352,9 @@
                                 state = '환불'
                             }
 
-                            if (member == 1) {
-                                member = '회원'
-                            } else if (member == 2) {
-                                member = '비회원'
-                            }
-
                             let row = $('<tr>').append(
                                 '<td><input type="checkbox"  id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
                                 '<td>' + name + '</td>' +
-                                '<td>' + member + '</td>' +
                                 '<td>' + proList + '</td>' +
                                 '<td>' + price + ' 원</td>' +
                                 '<td>' + regdate + '</td>' +
@@ -489,12 +453,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>검색어</th>
+                    <th>주문번호</th>
                     <td>
-                        <select style="width: 155px; padding-left: 10px;" id="member">
-                            <option value="1">회원</option>
-                            <option value="2">비회원</option>
-                        </select>
                         <input type="text" name="text" placeholder="주문번호를 입력하세요" id="orderIdx">
                     </td>
                 </tr>
@@ -528,7 +488,6 @@
                     <tr>
                         <th width="5%"><input type="checkbox" value="cou_list" id="OL_check" name="selectall" onclick="OL_selectAll(this)"><label for="OL_check"></th>
                         <th width="14%">구매자</th>
-                        <th width="10%">회원여부</th>
                         <th width="22%">주문정보</th>
                         <th width="14%">결제금액</th>
                         <th width="20%">구매일자</th>
