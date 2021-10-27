@@ -184,7 +184,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 
 #event_list_1 .event1_img {background: url(../images/born.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
-#event_list_1 .event2_img {background: url(../images/recommend/store/20210910122744964.jpg); height: 100%; height: 338px;
+#event_list_1 .event2_img {background: url(../images/recommend/store/20211021152640325.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
 #event_list_1 .event3_img {background: url(../images/recommend/event/ing/20210127174258717.jpg); height: 100%; height: 338px;
     display: block; margin: 0 auto; background-position: 50% 50%; background-size: cover; transform: scale(1); transition: all 0.3s ease-in-out; border-radius: 8px 8px 0 0 / 8px 8px 0 0;}
