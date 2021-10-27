@@ -14,6 +14,7 @@
     <script src="/admin/js/Admin.cate.js"></script>
     <script src="/admin/js/popup.js"></script>
     <script src="/admin/js/Admin.imeage.js"></script>
+    <script src="/admin/js/checkbox.js"></script>
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -382,7 +383,7 @@
                 }
                 $('#thead').after(tb)
 
-                $("#Maxprev").siblings(".page_num").remove();
+                $("#Maxprev2").siblings(".page_num").remove();
                 for(let i = response.data.pagination.totalPages; i > 0; i--){
                     let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                         i + '</li>'
@@ -728,10 +729,5 @@
         </div>
     </div>
 </div>
-<!--MCreaTe 끝-->
-<!--MCT_popup 시작-->
-<!--문제점 추가 눌렀을 때마다 다른 아이디 값의 팝업이 떠야함 즉 클래스를 생성해야하만 함-->
-<!--팝업을 안썼더라도 만들었어야함-->
-<!--MCT_popup 끝-->
 </body>
 </html>
