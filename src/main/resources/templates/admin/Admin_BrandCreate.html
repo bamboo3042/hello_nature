@@ -83,7 +83,7 @@
 <!--Bcreate 시작-->
 <div class="Bcreate">
     <!--form 시작-->
-    <form name="brand_create" onsubmit="return sendit()" enctype="multipart/form-data">
+    <form name="brand_create" enctype="multipart/form-data">
         <p class="product_title" id="BC_c1_title"><label>브랜드 등록</label></p>
         <!--table 시작-->
         <table class="brand">
@@ -140,7 +140,7 @@
         <!--BC_c1_btnBox 시작-->
         <div id="BC_c1_btnBox" class="bottom_btn">
             <span><input type="reset" name="reset" value="초기화"></span>
-            <span><input type="button" name="submit" value="등록"></span>
+            <span><input type="button" name="submit" value="등록" onclick="sendit()"></span>
         </div>
         <!--BC_c1_btnBox 끝-->
     </form>
