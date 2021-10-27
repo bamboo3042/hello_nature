@@ -77,7 +77,7 @@ public class ProductReviewService  {
             productReview.setAnsContent(productReviewApiRequest.getAnsContent());
             productReview.setAnsDate(productReviewApiRequest.getAnsDate());
 
-            if (!multipartFiles.isEmpty()){
+            if (multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "productReview");
                 productReview.setFiles(pathList.get(0));
             }
@@ -123,6 +123,7 @@ public class ProductReviewService  {
         if(ansFlag!= null ||proIdx != null){
             jpql += " where";
             if(ansFlag != null){
+                jpql += " rv_content is not null and";
                 jpql += " ans_flag = :ansFlag";
                 check = true;
             }
@@ -252,8 +253,8 @@ public class ProductReviewService  {
         LocalDateTime end = LocalDateTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]), 23, 59);
 
         List<ProductReview> productReviews = new ArrayList<>();
-        if (flag == Flag.TRUE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdx(member, start, end);
-        else if (flag == Flag.FALSE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdx(member, start, end);
+        if (flag == Flag.TRUE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdxDesc(member, start, end);
+        else if (flag == Flag.FALSE) productReviews = productReviewRepository.findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdxDesc(member, start, end);
 
         List<MyPageOrderResponse> list = new ArrayList<>();
 

@@ -197,7 +197,7 @@ public class ProductService{
             }
             if (name != null){
                 if (check) jpql += " and";
-                jpql += " name = :name";
+                jpql += " title like :name";
                 check = true;
 
             }
@@ -229,7 +229,7 @@ public class ProductService{
 
         TypedQuery<Product> query = em.createQuery(jpql, Product.class);
         if (state != null) query = query.setParameter("state", state);
-        if (name != null) query = query.setParameter("name", name);
+        if (name != null) query = query.setParameter("name", "%" + name + "%");
         if (id != null) query = query.setParameter("id", id);
         for (int i = 0; i < categories.size(); i++){
             query = query.setParameter("cateIdx"+i, categories.get(i).getIdx());
