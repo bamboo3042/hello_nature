@@ -16,6 +16,7 @@
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
     <script src="/admin/js/Admin.imeage.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src=""></script>
 </head>
 <body>
 <script>
@@ -172,12 +173,13 @@
             alert("레시피 등록에 성공했습니다")
             $.ajax({
                 type:"GET",
-                url : "admin/Admin_RecipeCreate.html",
+                url : "/admin/recipe",
                 datatype : "html/text",
                 success: function(result){
                     $("#content").html(result).trigger("create");
                 }
             });
+            location.reload();
         })
     }
 

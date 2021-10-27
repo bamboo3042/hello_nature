@@ -124,12 +124,13 @@
                 alert("매거진 등록에 성공했습니다")
                 $.ajax({
                     type: "GET",
-                    url: "admin/Admin_MagazineCreate.html",
+                    url: "/admin/MagazineCreate/",
                     datatype: "html/text",
                     success: function (result) {
                         $("#content").html(result).trigger("create");
                     }
                 })
+                location.reload();
             }).catch(function (err) {
                 console.log(err)
             })
