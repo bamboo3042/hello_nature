@@ -32,7 +32,6 @@
             }
         })
     })
-
     //2차 카테고리 다중셀렉트
     function categoryChange(e) {
         $('#PL_sel_2').empty();
@@ -178,7 +177,7 @@
 </div>
 <div class="Pcreate">
     <!--form 시작-->
-    <form name="product_create" onsubmit="return sendit()" target="_blank" enctype="multipart/form-data">
+    <form name="product_create" target="_blank" enctype="multipart/form-data">
         <input type="hidden" id="PRC_catevalue_1" value="null">
         <input type="hidden" id="PRC_catevalue_2" value="null">
         <p class="product_title" id="PC_c1_title"><label>상품 등록</label></p>
@@ -410,7 +409,7 @@
         <!--PC_c1_btnBox 시작-->
         <div id="PC_c1_btnBox" class="bottom_btn">
             <span><input type="reset" name="reset" value="초기화"></span>
-            <span><input type="button" name="submit" value="등록"></span>
+            <span><input type="button" name="submit" value="등록" onclick="sendit()"></span>
         </div>
         <!--PC_c1_btnBox 끝-->
     </form>
