@@ -53,7 +53,6 @@
                 }
                 let foodType = res.data.data.foodType;
                 let img1 = res.data.data.img1;
-                let star = res.data.data.star;
                 let likeFlag = res.data.data.likeFlag;
                 let proDes = res.data.data.proDes;
                 let location = res.data.data.location;
@@ -101,7 +100,19 @@
                 let img1_2 = img1_1.replace("\\", "/");
                 let img1_3 = img1_2.replace("\\", "/");
 
-                document.getElementById("total_prcie_hidden").value = totalPrice;
+                let star = res.data.data.star;
+                    star = Math.floor(star);        // 소수점 버림
+                let stars = "";
+                if ( star == 0 ) { stars = "☆☆☆☆☆"; star = "0"; }
+                else if ( star == 1 ) { stars = "★☆☆☆☆"; }
+                else if ( star == 2 ) { stars = "★★☆☆☆"; }
+                else if ( star == 3 ) { stars = "★★★☆☆"; }
+                else if ( star == 4 ) { stars = "★★★★☆"; }
+                else if ( star >= 5 ) { stars = "★★★★★"; star = "5"; }
+
+                document.getElementById("pro_score").innerText = star + "점";
+                document.getElementById("pro_star").innerText =  stars;
+                document.getElementById("total_price_hidden").value = totalPrice;
                 document.getElementById("prod_img").style.backgroundImage = "url(" + img1_3 + ")";
                 document.getElementById("prod_name").innerText = name;
                 document.getElementById("prod_price").innerText = salePrice + "원";
@@ -125,18 +136,6 @@
                 document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx +"&order=1";
                 document.getElementById("proDes").innerHTML = proDes;
                 document.getElementById("size_weight_1").innerText = sizeWeight + " | ";
-
-                star = Math.round(star);
-                let stars = "";
-                if ( star == 0 ) { stars = "☆☆☆☆☆"; }
-                else if ( star >= 1 && star <= 1.9 ) { stars = "★☆☆☆☆"; }
-                else if ( star >= 2 && star <= 2.9 ) { stars = "★★☆☆☆"; }
-                else if ( star >= 3 && star <= 3.9 ) { stars = "★★★☆☆"; }
-                else if ( star >= 4 && star <= 4.9 ) { stars = "★★★★☆"; }
-                else if ( star >= 5 ) { stars = "★★★★★"; star = "5"; }
-
-                document.getElementById("pro_score").innerText = star + "점";
-                document.getElementById("pro_star").innerText = stars;
 
             }).catch(function (err) {
                 console.log(err);
@@ -211,7 +210,7 @@
                 }
                 $('.item_ea').text(plusNum);
                 let itemea =  $('.item_ea').text()
-                let totalprice = $("#total_prcie_hidden").val()
+                let totalprice = $("#total_price_hidden").val()
                 let total = itemea * totalprice;
                 let total_1 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -267,7 +266,7 @@
                     let score = res.data.data[i].like;
                     let like = "";
                     switch(score) {
-                        case 1: case 2: case 3:
+                        case 0: case 1: case 2: case 3:
                             like = "별로에요";
                             break;
                         case 4: case 5: case 6:
@@ -281,6 +280,13 @@
                     let regdate = res.data.data[i].regdate;
                         regdate = regdate.substr(0, 10);
                     let content = res.data.data[i].content;
+                    let ansFlag = res.data.data[i].ansFlag;
+                    if (ansFlag == "FALSE") {
+                        ansFlag = "none";
+                    } else {
+                        ansFlag = "block"
+                    }
+                    let ansContent = res.data.data[i].ansContent;
 
                     $("#prod_review_tbody").append(
                         '<tr class="review_click">'+
@@ -290,7 +296,11 @@
                         '<td>'+name+'</td>'+
                         '<td>'+regdate+'</td></tr>'+
                         '<tr class="review_detail">'+
-                        '<td colspan="6"><div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                        '<td colspan="6">'+
+                        '<div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div>'+
+                        '<div style="display:'+ansFlag+'">'+
+                        '<span>헬로네이처</span>'+
+                        '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.<br>'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                     )
                 }
 
@@ -337,7 +347,7 @@
                                 let score = res.data.data[i].like;
                                 let like = "";
                                 switch(score) {
-                                    case 1: case 2: case 3:
+                                    case 0: case 1: case 2: case 3:
                                         like = "별로에요";
                                         break;
                                     case 4: case 5: case 6:
@@ -417,7 +427,7 @@
                             let score = res.data.data[i].like;
                             let like = "";
                             switch(score) {
-                                case 1: case 2: case 3:
+                                case 0: case 1: case 2: case 3:
                                     like = "별로에요";
                                     break;
                                 case 4: case 5: case 6:
@@ -488,7 +498,7 @@
                                         let score = res.data.data[i].like;
                                         let like = "";
                                         switch(score) {
-                                            case 1: case 2: case 3:
+                                            case 0: case 1: case 2: case 3:
                                                 like = "별로에요";
                                                 break;
                                             case 4: case 5: case 6:
@@ -747,6 +757,7 @@
                         <!-- 상품정보(1) 끝 -->
 
                         <!-- 상품정보(2) -->
+                        <input type="hidden" id="hidden_sizeWeight" value="">
                         <div class="goods_info">
                             <dl class="list fst">
                                 <dt class="tit">원산지</dt>
@@ -805,7 +816,7 @@
                                         </div>
                                         <div class="total">
                                             <div class="price">
-                                                <input type="hidden" id="total_prcie_hidden">
+                                                <input type="hidden" id="total_price_hidden">
                                                 <strong class="tit">총 상품금액 :</strong>
                                                 <span class="sum">
                                                         <span class="num" id="total_price"></span>
