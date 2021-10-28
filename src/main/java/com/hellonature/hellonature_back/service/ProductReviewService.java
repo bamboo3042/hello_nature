@@ -236,7 +236,7 @@ public class ProductReviewService  {
                 .memIdx(productReview.getMember().getIdx())
                 .memName(productReview.getMember().getName())
                 .like(productReview.getLike())
-//                .proCount(productReview.getMemberOrderProduct().getProCount())
+                .proCount(productReview.getMemberOrderProduct().getProCount())
                 .content(productReview.getContent())
                 .ansFlag(productReview.getAnsFlag())
                 .ansContent(productReview.getAnsContent())
