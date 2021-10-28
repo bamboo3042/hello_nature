@@ -105,10 +105,10 @@ public class ProductService{
 
             if(multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
-                if(productApiRequest.getImg1().equals("") && pathList.get(0) != null) product.setImg1(pathList.get(0));
-                if(productApiRequest.getImg2().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(1));
-                if(productApiRequest.getImg3().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(2));
-                if(productApiRequest.getImg4().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(3));
+                if(productApiRequest.getImg1() != null && productApiRequest.getImg1().equals("") && pathList.get(0) != null) product.setImg1(pathList.get(0));
+                if(productApiRequest.getImg2() != null && productApiRequest.getImg2().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(1));
+                if(productApiRequest.getImg3() != null && productApiRequest.getImg3().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(2));
+                if(productApiRequest.getImg4() != null && productApiRequest.getImg4().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(3));
             }
 
             product.setProDes(productApiRequest.getProDes());
