@@ -197,6 +197,7 @@ public class ProductReviewService  {
         jpql += " pro_idx = :proIdx";
 
         if (like != null){
+            jpql += " and";
             if(like == 1) jpql += " rv_like < 4";
             else if(like == 2) jpql += " rv_like > 3 and rv_like < 7";
             else if(like == 3) jpql += " rv_like > 6";
