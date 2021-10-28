@@ -137,20 +137,19 @@
     function delInfo(){
 
         let memIdx = $("#hidden_user").val();
-        confirm("회원 탈퇴를 진행하시겠습니까?")
-        if(confirm){
+        if(confirm("회원 탈퇴를 진행하시겠습니까?")){
             alert("탈퇴 시 철회가 불가능합니다")
-            confirm("정말 탈퇴하시겠습니까?")
-            if(confirm) {
+            if(confirm("정말 탈퇴하시겠습니까?")) {
                 axios.delete('/api/member/delete/' + memIdx, {
                 }).then(function (){
                     alert("정상적으로 탈퇴되었습니다.")
+                    location.href = '/user/logout';
                 });
             }else{
-                return false;
+                return;
             }
         }else{
-            return false;
+            return;
         }
     }
 </script>
