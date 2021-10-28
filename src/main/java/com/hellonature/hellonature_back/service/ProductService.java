@@ -68,7 +68,7 @@ public class ProductService{
                 .dateValid(request.getDateValid())
                 .build();
 
-//        if(productApiRequest.getEveCateIdx() != null) product.setEveCategory(categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
+//        if(request.getEveCateIdx() != null) product.setEveCategory(categoryRepository.findById(request.getEveCateIdx()).get());
 
         productRepository.save(product);
         return Header.OK();
