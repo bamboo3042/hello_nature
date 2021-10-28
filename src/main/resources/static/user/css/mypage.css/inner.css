@@ -63,8 +63,8 @@ a:focus { color: #444;}
 
 
 /* ----------------------------------- inner_login.html  -------------------------------  */
-#login_cont_box { width: 340px; margin: 0 auto; text-align: center; padding: 50px 100px; border: 3px solid #5dab99; border-radius: 8px; background-color: #f1f6f9; margin-top: 50px;}
-#login_cont_title h1 { font-size: 20px; margin-top: 50px; margin-bottom: 20px; text-align: center; font-weight: 700;}
+#login_cont_box { width: 340px; margin: 0 auto; text-align: center; padding: 50px 100px;}
+#login_cont_title h1 { font-size: 20px; margin-top: 50px; margin-bottom: 20px; text-align: center; font-weight: 700; letter-spacing: 2px;}
 .member_choice{display: inline-block;}
 .member_choice .member_line{width: 168px; border-bottom: 2px solid #cccccc; float: left; padding: 20px 0 5px 0; margin-bottom: 10px; font-size: 17px;}
 
@@ -362,6 +362,7 @@ a:focus { color: #444;}
 .goods_cart_dail_date { box-sizing: border-box; margin: 0px 15px 0 0px; padding: 15px; display: flex; justify-content: space-between; border-top: 1px solid #CCC; background: #f4f4f4; }
 .goods_cart_dail_date span:last-child { color: red; font-weight: bold; padding: 0 10px; }
 
+/* 수정된부분 */
 /* 장바구니 리스트 */
 .goods_cart_itembox { margin-right: 15px; }
 .goods_cart_item { box-sizing: border-box; padding: 20px 0px; }
@@ -384,6 +385,7 @@ a:focus { color: #444;}
 .ship_type_opt label { cursor: pointer; }
 #ship_type01_first, #ship_type01_second, #ship_type02_first, #ship_type02_second  { margin-left: 20px; }
 #ship_type02_second { margin-left: 29px; }
+/* 수정된부분 */
 
 
 /* 로그인페이지 (회원/비회원) 체크효과 */
@@ -438,7 +440,7 @@ a:focus { color: #444;}
     padding-left: 10px;
 }
 .modal_search { text-align: center; }
-button[type="submit"] { width: 70px; height: 38px; font-size: 15px; background-color: #5dab99; box-shadow: 5px 5px 5px #ccc; margin-top: 20px; color: white; cursor: pointer; border: none; }
+button[type="submit"] { width: 70px; height: 38px; font-size: 15px; background-color: #5dab99; margin-top: 20px; color: white; cursor: pointer; border: none; }
 .modal_btn { margin-top: 20px;  text-align: center; }
 .modal_btn input[type="reset"],.modal_btn input[type="button"] { box-shadow: 3px 3px 3px #999; height: 34px; width: 80px; background-color: #5dab99; color: white; border: 1px solid #5dab99; border-radius: 5px; cursor: pointer;}
 .modal_closeBtn{width: 30px; height:30px; float: right; cursor: pointer; margin-top: -1px;}
