@@ -227,7 +227,7 @@ public class MagazineService {
     }
 
     public Header<List<MagazineApiResponse>> userList(MagazineType magazineType, Integer page){
-        List<Magazine> magazines = magazineRepository.findAllByTypeAndAndShowFlagOrderByIdx(magazineType, Flag.TRUE);
+        List<Magazine> magazines = magazineRepository.findAllByTypeAndAndShowFlagOrderByIdxDesc(magazineType, Flag.TRUE);
         List<MagazineApiResponse> magazineApiResponses = new ArrayList<>();
 
         int count = 8;
