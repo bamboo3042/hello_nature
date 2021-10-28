@@ -8,7 +8,7 @@
 .name { font-size: 30px; line-height: 34px; font-weight: 700; letter-spacing: -.5px; padding: 8px 0 33px 1px;}
 .hello_info > p { font-size: 30px; line-height: 34px; letter-spacing: -.5px; padding: 8px 0 33px 1px;}
 .section_name { font-size: 20px; font-weight: 700;}
-.section_bar { width: 80px; height: 35px; border: 1px solid #5dab99; border-radius: 20px; background-color: #11b082; color: #e2e2e2; font-weight: 700; font-size: 15px; outline: none;}
+.section_bar { width: 80px; height: 35px; border: 1px solid #5dab99; border-radius: 20px; background-color: #11b082; color: #fff; font-weight: 700; font-size: 15px; outline: none;}
 .hellopay_button, .hellopass_button { box-sizing: border-box; padding-top: 48.33px;}
 .hellocash_total, .coupon_total { box-sizing: border-box; padding-top: 48.33px;}
 /* section_mypage_div > div 처음부터 4번째 요소까지  */
