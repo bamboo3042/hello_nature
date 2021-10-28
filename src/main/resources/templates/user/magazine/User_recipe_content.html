@@ -334,7 +334,7 @@
                     let recItemMargin = 16.7;
                     let last_item_li = document.querySelector('.rec_item:last-child');
 
-                    // g last_item_li.style.marginRight = -recItemMargin + 'px';
+                    // last_item_li.style.marginRight = -recItemMargin + 'px';
                     recItemBox.style.width = (recItemWidth + recItemMargin) * recItemCnt - recItemMargin + 'px';
 
                     if (recItemCnt <= 4) {                                // 총 길이가 4 와 같거나 넘지 않는다면
@@ -409,45 +409,45 @@
 <!-- head 끝 -->
 
 <body>
-    <!-- container -->
-    <div id="container">
-            <!-- header -->
-        <div th:replace="/user/fragment/header::header"></div>
-            <!-- header 끝 -->
+<!-- container -->
+<div id="container">
+    <!-- header -->
+    <div th:replace="/user/fragment/header::header"></div>
+    <!-- header 끝 -->
 
-            <!-- main -->
-            <main>
-                <!-- magazine_content -->
-                <section id="magazine_content" class="clearfix">
-                    <div id="rec_title" class="mg_cont_tit width clearfix">레시피</div>
+    <!-- main -->
+    <main>
+        <!-- magazine_content -->
+        <section id="magazine_content" class="clearfix">
+            <div id="rec_title" class="mg_cont_tit width clearfix">레시피</div>
 
-                    <!-- 레시피 소개 -->
-                    <div class="rec_cont_info">
-                        <table class="width">
-                            <tr>
-                                <td>제목</td>
-                                <td id="cook_title_1"></td>
-                            </tr>
-                            <tr>
-                                <td>설명</td>
-                                <td id="cook_des"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!-- 레시피 소개 끝 -->
+            <!-- 레시피 소개 -->
+            <div class="rec_cont_info">
+                <table class="width">
+                    <tr>
+                        <td>제목</td>
+                        <td id="cook_title_1"></td>
+                    </tr>
+                    <tr>
+                        <td>설명</td>
+                        <td id="cook_des"></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 레시피 소개 끝 -->
 
-                    <!-- 레시피명 -->
-                    <div class="rec_cont_title width">
-                        <p>Hello Nature</p>
-                        <hr class="divider02">
-                        <p id="cook_title_2"></p>
-                    </div>
-                    <!-- 레시피명 끝 -->
+            <!-- 레시피명 -->
+            <div class="rec_cont_title width">
+                <p>Hello Nature</p>
+                <hr class="divider02">
+                <p id="cook_title_2"></p>
+            </div>
+            <!-- 레시피명 끝 -->
 
-                    <!-- 레시피 재료 -->
-                    <div class="rec_cont_ingredient width">
-                        <span class="rec_cont_img"><img id="cook_img" src=""></span>
-                        <span class="rec_require">
+            <!-- 레시피 재료 -->
+            <div class="rec_cont_ingredient width">
+                <span class="rec_cont_img"><img id="cook_img" src=""></span>
+                <span class="rec_require">
                             <table class="rec_inner_require">
                                 <tr id="cook_ingredients">
                                     <td>필요한 재료 <span>2인분 기준</span></td>
@@ -455,142 +455,142 @@
                                 </tr>
                             </table>
                         </span>
-                    </div>
-                    <!-- 레시피 재료 끝 -->
+            </div>
+            <!-- 레시피 재료 끝 -->
 
-                    <!-- 레시피 시간, 난이도, 칼로리, 좋아요 -->
-                    <div class="rec_cont_spec width clearfix">
-                        <p class="rec_spec_item">
-                            <span class="rec_spec_item_img spec_time_img"></span>
-                            <span class="rec_spec_txt" id="cook_time"></span>
-                        </p>
-                        <p class="rec_spec_item">
-                            <span class="rec_spec_item_img spec_grade_img"></span>
-                            <span class="rec_spec_txt" id="cook_level"></span>
-                        </p>
-                        <p class="rec_spec_item">
-                            <span class="rec_spec_item_img spec_kcal_img"></span>
-                            <span class="rec_spec_txt" id="cook_kcal"></span>
-                        </p>
-                        <p class="rec_spec_item">
-                            <span class="rec_spec_item_img spec_like_img" id="likeBtn"></span>
-                            <span class="rec_cont_like_cnt" id="cook_like"></span>
-                        </p>
-                    </div>
-                    <!-- 레시피 시간, 난이도, 칼로리, 좋아요 끝 -->
+            <!-- 레시피 시간, 난이도, 칼로리, 좋아요 -->
+            <div class="rec_cont_spec width clearfix">
+                <p class="rec_spec_item">
+                    <span class="rec_spec_item_img spec_time_img"></span>
+                    <span class="rec_spec_txt" id="cook_time"></span>
+                </p>
+                <p class="rec_spec_item">
+                    <span class="rec_spec_item_img spec_grade_img"></span>
+                    <span class="rec_spec_txt" id="cook_level"></span>
+                </p>
+                <p class="rec_spec_item">
+                    <span class="rec_spec_item_img spec_kcal_img"></span>
+                    <span class="rec_spec_txt" id="cook_kcal"></span>
+                </p>
+                <p class="rec_spec_item">
+                    <span class="rec_spec_item_img spec_like_img" id="likeBtn"></span>
+                    <span class="rec_cont_like_cnt" id="cook_like"></span>
+                </p>
+            </div>
+            <!-- 레시피 시간, 난이도, 칼로리, 좋아요 끝 -->
 
-                    <!-- 만드는 법 (2 column slide) -->
-                    <div class="recipe_cooking clearfix">
-                        <p class="rec_cook_tlt">만드는 법</p>
-                        <div class="rec_cook_controls width">
-                            <div class="rec_cook_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
-                            <div class="rec_cook_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
-                        </div>
-                        <div class="rec_cook_wrap" id="rec_content_wrap">
-                        </div>
-                    </div>
-                    <!-- 만드는 법 (2 column slide) 끝 -->
+            <!-- 만드는 법 (2 column slide) -->
+            <div class="recipe_cooking clearfix">
+                <p class="rec_cook_tlt">만드는 법</p>
+                <div class="rec_cook_controls width">
+                    <div class="rec_cook_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                    <div class="rec_cook_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                </div>
+                <div class="rec_cook_wrap" id="rec_content_wrap">
+                </div>
+            </div>
+            <!-- 만드는 법 (2 column slide) 끝 -->
 
-                    <!-- 재료담기 (4 column slide) -->
-                    <div class="recipe_product width clearfix">
-                        <p>재료담기</p>
-                        <div class="rec_prod_controls">
-                            <div class="rec_prod_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
-                            <div class="rec_prod_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
-                        </div>
-                        <div class="rec_prod_wrap">
-                            <ul class="rec_prod_box">
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 재료담기 (4 column slide) 끝 -->
+            <!-- 재료담기 (4 column slide) -->
+            <div class="recipe_product width clearfix">
+                <p>재료담기</p>
+                <div class="rec_prod_controls">
+                    <div class="rec_prod_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                    <div class="rec_prod_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                </div>
+                <div class="rec_prod_wrap">
+                    <ul class="rec_prod_box">
+                    </ul>
+                </div>
+            </div>
+            <!-- 재료담기 (4 column slide) 끝 -->
 
-                    <hr class="divider01">
+            <hr class="divider01">
 
-                    <!-- 관련상품 (4 column slide) -->
-                    <div class="recipe_item width clearfix">
-                        <p>관련상품</p>
-                        <div class="rec_item_controls">
-                            <div class="rec_item_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
-                            <div class="rec_item_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
-                        </div>
-                        <div class="rec_item_wrap">
-                            <ul class="rec_item_box">
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 관련상품 (4 column slide) 끝 -->
+            <!-- 관련상품 (4 column slide) -->
+            <div class="recipe_item width clearfix">
+                <p>관련상품</p>
+                <div class="rec_item_controls">
+                    <div class="rec_item_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                    <div class="rec_item_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                </div>
+                <div class="rec_item_wrap">
+                    <ul class="rec_item_box">
+                    </ul>
+                </div>
+            </div>
+            <!-- 관련상품 (4 column slide) 끝 -->
 
-                    <hr class="divider01">
+            <hr class="divider01">
 
-                    <!-- 비슷한 레시피 (3 column slide) -->
-                    <div class="recipe_another width clearfix">
-                        <p>추천 레시피</p>
-                        <div class="rec_ano_controls">
-                            <div class="rec_ano_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
-                            <div class="rec_ano_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
-                        </div>
-                        <div class="rec_ano_wrap">
-                            <ul class="rec_ano_box">
-                                <li class="rec_ano">
-                                    <a href="/user/magazine/recipe_content?idx=13">
-                                        <img src="/uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg" alt="">
-                                        <div class="rec_ano_info">
-                                            <p class="rec_ano_title">치즈왕계란말이</p>
-                                            <p class="rec_ano_spec">
-                                                <span class="rec_ano_grade">중급</span>
-                                                <span class="rec_ano_time">30분</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="rec_ano">
-                                    <a href="/user/magazine/recipe_content?idx=15">
-                                        <img src="/uploads/magazine/2021-10-25-15-01-09_20210604155322678.jpg" alt="">
-                                        <div class="rec_ano_info">
-                                            <p class="rec_ano_title">레몬 딜 버터</p>
-                                            <p class="rec_ano_spec">
-                                                <span class="rec_ano_grade">초급</span>
-                                                <span class="rec_ano_time">5분</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="rec_ano">
-                                    <a href="/user/magazine/recipe_content?idx=16">
-                                        <img src="/uploads/magazine/2021-10-25-15-34-36_20210610101620753.jpg" alt="">
-                                        <div class="rec_ano_info">
-                                            <p class="rec_ano_title">만두 그라탕</p>
-                                            <p class="rec_ano_spec">
-                                                <span class="rec_ano_grade">초급</span>
-                                                <span class="rec_ano_time">30분</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 비슷한 레시피 (3 column slide) 끝 -->
+            <!-- 비슷한 레시피 (3 column slide) -->
+            <div class="recipe_another width clearfix">
+                <p>추천 레시피</p>
+                <div class="rec_ano_controls">
+                    <div class="rec_ano_btn_prev"><img src="/user/images/magazine/main/btn_prev_default.png" alt=""></div>
+                    <div class="rec_ano_btn_next"><img src="/user/images/magazine/main/btn_next_default.png" alt=""></div>
+                </div>
+                <div class="rec_ano_wrap">
+                    <ul class="rec_ano_box">
+                        <li class="rec_ano">
+                            <a href="/user/magazine/recipe_content?idx=13">
+                                <img src="/uploads/magazine/2021-10-23-05-37-29_20211006114735725.jpg" alt="">
+                                <div class="rec_ano_info">
+                                    <p class="rec_ano_title">치즈왕계란말이</p>
+                                    <p class="rec_ano_spec">
+                                        <span class="rec_ano_grade">중급</span>
+                                        <span class="rec_ano_time">30분</span>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="rec_ano">
+                            <a href="/user/magazine/recipe_content?idx=15">
+                                <img src="/uploads/magazine/2021-10-25-15-01-09_20210604155322678.jpg" alt="">
+                                <div class="rec_ano_info">
+                                    <p class="rec_ano_title">레몬 딜 버터</p>
+                                    <p class="rec_ano_spec">
+                                        <span class="rec_ano_grade">초급</span>
+                                        <span class="rec_ano_time">5분</span>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="rec_ano">
+                            <a href="/user/magazine/recipe_content?idx=16">
+                                <img src="/uploads/magazine/2021-10-25-15-34-36_20210610101620753.jpg" alt="">
+                                <div class="rec_ano_info">
+                                    <p class="rec_ano_title">만두 그라탕</p>
+                                    <p class="rec_ano_spec">
+                                        <span class="rec_ano_grade">초급</span>
+                                        <span class="rec_ano_time">30분</span>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 비슷한 레시피 (3 column slide) 끝 -->
 
-                    <!-- 목록버튼 -->
-                    <div class="board_page_btn width">
-                        <input type="button" onclick="location.href='/user/magazine/recipe?page=0'" value="목록" id="backBtn">
-                    </div>
-                    <!-- 목록버튼 끝 -->
+            <!-- 목록버튼 -->
+            <div class="board_page_btn width">
+                <input type="button" onclick="location.href='/user/magazine/recipe?page=0'" value="목록" id="backBtn">
+            </div>
+            <!-- 목록버튼 끝 -->
 
-                </section>
-                <!-- magazine_content 끝 -->
-            </main>
-            <!-- main 끝 -->
+        </section>
+        <!-- magazine_content 끝 -->
+    </main>
+    <!-- main 끝 -->
 
-        <div th:replace="/user/fragment/footer::footer"></div>
+    <div th:replace="/user/fragment/footer::footer"></div>
 
-        </div>
-    <!-- container 끝 -->
-    <script type="text/javascript" th:src="@{/user/js/common.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/recipe.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index.js}"></script>
-    <script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
+</div>
+<!-- container 끝 -->
+<script type="text/javascript" th:src="@{/user/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/recipe.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/user/js/index_q.js}"></script>
 </body>
 </html>
