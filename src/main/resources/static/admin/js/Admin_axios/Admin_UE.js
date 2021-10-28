@@ -58,6 +58,14 @@ function sendit() {
             }
         }).then(function () {
             alert("수정에 성공하셨습니다")
+            $.ajax({
+                type:"GET",
+                url : "/admin/userlist",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
         })
     } else if (password == null) {
         console.log(gender)
@@ -75,6 +83,14 @@ function sendit() {
             }
         }).then(function () {
             alert("수정에 성공하셨습니다")
+            $.ajax({
+                type:"GET",
+                url : "/admin/userlist",
+                datatype : "html/text",
+                success: function(result){
+                    $("#content").html(result).trigger("create");
+                }
+            });
             sessionStorage.clear();
         })
     }
