@@ -255,5 +255,11 @@ public class MagazineService {
         Optional<Like> optionalLike = likeRepository.findByMemberAndMagazine(optionalMember.get(), magazine);
         return optionalLike.isPresent();
     }
+
+    @Transactional
+    public Header deletePost(List<Long> idx) {
+        magazineRepository.deleteAllByIdxIn(idx);
+        return Header.OK();
+    }
 }
 
