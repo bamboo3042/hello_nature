@@ -19,8 +19,8 @@
 </head>
 <body>
 <script>
-    let prodlist = new Array();
-    let ingreList = new Array();
+    let prodList2 = new Array();
+    let ingreList2 = new Array();
 
     //1차 카테고리 다중셀렉트
     $(function () {
@@ -109,9 +109,9 @@
     }
 
     function sendit(){
-        prodlist = prodlist.join("-");
-        ingreList = ingreList.join("-");
-        console.log(prodlist)
+        prodList2 = prodList2.join("-");
+        ingreList2 = ingreList2.join("-");
+        console.log(prodlist2)
 
         let product = document.querySelectorAll('.RC_proBox');
         let products = [];
@@ -145,8 +145,8 @@
             cookLevel : $('#cookLevel').val(),
             cookIngredient : String(row),
             content :  CKEDITOR.instances.textarea.getData(),
-            relList : prodlist,
-            ingreList: ingreList
+            relList : prodList2,
+            ingreList: ingreList2
         }
 
         console.log(data.title)
