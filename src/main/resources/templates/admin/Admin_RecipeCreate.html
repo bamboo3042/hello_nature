@@ -19,8 +19,8 @@
 </head>
 <body>
 <script>
-    let prodList2 = new Array();
-    let ingreList2 = new Array();
+    let prodlist = new Array();
+    let ingreList = new Array();
 
     //1차 카테고리 다중셀렉트
     $(function () {
@@ -109,9 +109,9 @@
     }
 
     function sendit(){
-        prodList2 = prodList2.join("-");
-        ingreList2 = ingreList2.join("-");
-        console.log(prodlist2)
+        prodlist = prodlist.join("-");
+        ingreList = ingreList.join("-");
+        console.log(prodlist)
 
         let product = document.querySelectorAll('.RC_proBox');
         let products = [];
