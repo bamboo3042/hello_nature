@@ -171,7 +171,7 @@
             alert("레시피 등록에 성공했습니다")
             $.ajax({
                 type:"GET",
-                url : "/admin/MagazineList",
+                url : "admin/MagazineList.html",
                 datatype : "html/text",
                 success: function(result){
                     $("#content").html(result).trigger("create");
