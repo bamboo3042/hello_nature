@@ -20,7 +20,6 @@
 <script>
     function sendit(){
 
-        alert("소민이바보")
         let data = {
             title: $('#title').val(),
             des: $('#des').val(),
@@ -77,7 +76,7 @@
     })
 
     $(function(){
-        axios.get('/api/popupstore/read/3', {
+        axios.get('/api/popupstore/read/1', {
 
         }).then(function(response){
             let title = response.data.data.title;
@@ -101,7 +100,7 @@
     function edit(){
         alert('클릭');
         let data = {
-            idx: 3,
+            idx: 1,
             title: $('#title').val(),
             des: $('#des').val(),
             brIdx : $('#br_id_hidden').val(),

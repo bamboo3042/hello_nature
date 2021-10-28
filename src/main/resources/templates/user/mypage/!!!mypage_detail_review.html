@@ -63,7 +63,7 @@
                 $("#post_review").text(content)
                 $("#rev_answer").css("display", ansSHOW);
                 $("#rev_date").text(ansDate);
-                $("#rev_answer_content").text(ansContent);
+                $("#rev_answer_content").html(ansContent);
             }).catch(function (err){
                 console.log(err)
             })
@@ -105,7 +105,6 @@
                             </div>
                             <div id="rev_answer">
                                 <p id="rev_answer_title" style="margin: 50px 0 30px; font-weight: 500; font-size: 17.5px;">답변</p>
-                                <p id="rev_date" style="margin-left: 10px; margin-top: 30px; font-size: 14.5px;">2021.10.26</p>
                                 <div id="rev_answer_content" style="width: 775px; height: 300px; background-color: #eee; border-radius: 8px; padding: 35px 10px 10px 10px; margin-top: -30px;">
                                 </div>
                             </div>

@@ -52,6 +52,7 @@
 
         axios.get('/api/notice/list?page=0', {}).then(function (response) {
             for (let i in response.data.data) {
+                let idx = response.data.data[i].idx;
                 let $title = response.data.data[i].title;
                 let $date = response.data.data[i].regdate;
 
@@ -61,13 +62,19 @@
                     '<div class="center_link_txt">' +
                     '<div class="news_upload_date">' +
                     '<p id="date">' + $date + '</p></div>' +
-                    '<a href="/user/mypage_newsDetail" class="news_highlight">' + $title + '</a></div>'
+                    '<a class="news_highlight" style="cursor: pointer"><input type="hidden" value="'+idx+'">' + $title + '</a></div>'
                 )
                 $('.contents_box1').after(row);
             }
-
+s
             $("#notice_MaxPage").text(response.data.pagination.totalPages)
             $("#notice_MinPage").text(1)
+
+            $(".news_highlight").click(function (){
+                let idx = $(this).children("input").val()
+                sessionStorage.setItem("notice_idx", idx)
+                location.href="/user/mypage_newsDetail"
+            })
 
         }).catch(function (err) {
             console.log(err)

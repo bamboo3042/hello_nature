@@ -24,7 +24,8 @@
 </head>
 <script>
     $(function (){
-        axios.get('/api/notice/read/1',{
+        let idx = sessionStorage.getItem("notice_idx")
+        axios.get('/api/notice/read/' +idx``,{
         }).then(function (response){
             console.log(response)
                 let $title =response.data.data.title;

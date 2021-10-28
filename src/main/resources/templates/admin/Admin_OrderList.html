@@ -18,7 +18,7 @@
     $(function(){
 
         let page = $('.page').val()
-        axios.get('/api/orderList?page=' + page, {
+            axios.get('/api/orderList?page=' + page, {
 
         }).then(function(response){
             let tb = $('<tbody class="tbody">');
