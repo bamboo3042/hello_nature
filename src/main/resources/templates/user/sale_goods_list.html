@@ -42,6 +42,15 @@
                 }
 
                 let star = res.data.data[i].star;
+                    star = Math.round(star);                    // 소수점 반올림
+                let stars = "";
+                if ( star == 0 ) { stars = "☆☆☆☆☆"; }
+                else if ( star >= 1 && star <= 1.9 ) { stars = "★☆☆☆☆"; }
+                else if ( star >= 2 && star <= 2.9 ) { stars = "★★☆☆☆"; }
+                else if ( star >= 3 && star <= 3.9 ) { stars = "★★★☆☆"; }
+                else if ( star >= 4 && star <= 4.9 ) { stars = "★★★★☆"; }
+                else if ( star == 5 ) { stars = "★★★★★"; }
+
                 let temp = res.data.data[i].temp;
                 let text = "";
                 switch (temp){
@@ -80,13 +89,7 @@
                     '<div class="item_storage"><span>'+ text +'</span></div>' +
                     '<div class="like_area">' +
                     '<span class="item_star">'+ star +'점</span>' +
-                    '<div class="rating" data-rate="'+ star + '">' +
-                    '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
-                    '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
-                    '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
-                    '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
-                    '<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>' +
-                    '</div>' +
+                    '<div class="rating">'+ stars +'</div>' +
                     '<a href="#">' +
                     '<input type="hidden" value="' + idx + '">'+
                     '<button class="price_cart">카트에 담기</button>' +

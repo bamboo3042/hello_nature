@@ -68,8 +68,4 @@ public class MagazineApiController extends CrudController<MagazineApiRequest, Ma
         return magazineService.userList(type, page);
     }
 
-    @DeleteMapping("/deleteList/{idx}")
-    public Header delete(@PathVariable("idx") List<Long> idx) {
-        return magazineService.deletePost(idx);
-    }
 }

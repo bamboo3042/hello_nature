@@ -13,4 +13,5 @@ public interface MagazineRepository extends JpaRepository<Magazine, Long> {
     List<Magazine> findAllByTypeAndAndShowFlagOrderByIdxDesc(MagazineType magazineType, Flag flag);
     Long countAllByShowFlag(Flag flag);
     void deleteAllByIdxIn(List<Long> idx);
+
 }

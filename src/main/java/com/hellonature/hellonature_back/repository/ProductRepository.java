@@ -21,4 +21,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByIdxInOrderByIdxDesc(List<Long> idx);
     Long  countAllByState(Integer state);
     Long countAllByCount(Integer count);
+    void deleteAllByIdxIn(List<Long> idxList);
 }

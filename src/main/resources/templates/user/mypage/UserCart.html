@@ -48,6 +48,12 @@
                     let totPrice = price * count;
                     let totNetPrice = netPrice * count;
                     let salePrice = res.data.data.product[i].salePrice;
+                    let style = "";
+                    if (salePrice == 0 || salePrice == null) {
+                        style = "none";
+                    } else {
+                        style = "block";
+                    }
 
                     let li = $('<li class="goods_cart_item">').append(
                         '<input type="hidden" id="hidden_basIdx" value="' + basIdx + '">' +
@@ -56,12 +62,12 @@
                         '<div><img src="' + img + '" class="pro_img"></div>' +
                         '<div><span class="prod_name">' + name + '</span></div>' +
                         '<div class="item_count">' +
-                        '<button class="minus_btn"><img src="/user/images/icon/ico_minus_on.svg"></button>' +
+                        '<button class="minus_btn"><img src="/user/images/icon/ico_minus_on.svg" style="width: 25px;"></button>' +
                         '<span class="item_ea">' + count + '</span>' +
-                        '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg"></button>' +
+                        '<button class="plus_btn"><img src="/user/images/icon/ico_plus_on.svg" style="width: 25px;"></button>' +
                         '</div>' +
                         '<div id="totalPrice" class="totalPrice">' +
-                        '<del class="total_net">' + count * netPrice + '원</del>' +
+                        '<del class="total_net" style="display:'+style+'">' + count * netPrice + '원</del>' +
                         '<p class="total_real">' +  count * price + '원</p>' +
                         '</div>' +
                         '<input type="hidden" id="hidden_price" value="' + price + '">' +               // 할인가
