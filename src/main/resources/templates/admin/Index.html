@@ -105,9 +105,6 @@
                 let orderCount = response.data.data.users.orderCount;
                 let claimCount = response.data.data.users.claimCount;
 
-                $("#memberCount_hidden").val(memberCount)
-                $("#orderCount_hidden").val(orderCount)
-                $("#claimCount_hidden").val(claimCount)
 
                 console.log($("#memberCount_hidden").val());
             })
@@ -307,9 +304,6 @@
                 <!--Am_c2 시작-->
                 <div class="Am_c2">
                     <div class="content_title"><p>이용자 현황<span>(오전 8시 업데이트)</span></p></div>
-                    <input type="hidden" id="memberCount_hidden">
-                    <input type="hidden" id="orderCount_hidden">
-                    <input type="hidden" id="claimCount_hidden">
                     <ul>
                         <li><a href="#" id="Am_c2_chart_1">가입자 수(일주일 간)<span>예시</span></a></li>
                         <li><a href="#" id="Am_c2_chart_2">주문건 수(일주일 간)<span>예시</span></a></li>
