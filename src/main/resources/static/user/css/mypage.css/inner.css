@@ -28,9 +28,9 @@ a:focus { color: #444;}
 #gender_field label { font-size: 14px;}
 #birth_field th, #birth_field td{ padding-bottom: 20px;}
 
-#join_table tr td input[type=text], #join_table tr td input[type=password], #join_table tr td input[type=tel] {width: 332px; height: 44px; padding-left: 14px;  border:1px solid #cccccc; border-radius: 3px;}
+#join_table tr td input[type=text], #join_table tr td input[type=password], #join_table tr td input[type=tel] {width: 332px; height: 44px; padding-left: 14px;  border:1px solid #cccccc; border-radius: 3px; outline:none;}
 #email_check_btn {width: 120px; height: 44px;  margin-left: 7px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold; cursor:pointer;}
-#hp_check_btn {width: 120px; height: 44px; margin-left: 7px; border: 1px solid #cccccc; color: #cccccc; background-color: #ffffff; border-radius: 3px; font-weight: bold; cursor:pointer;}
+#hp_check_btn {width: 120px; height: 44px; margin-left: 7px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold; cursor:pointer;}
 #address_search_btn{width: 332px; height: 44px; margin-bottom: 20px; border: 1px solid #5dab99; color: #5dab99; background-color: #ffffff; border-radius: 3px; font-weight: bold;cursor: pointer;}
 #join_table tr td .gender_radio { width: 24px; height: 24px; margin-right: 12px;}
 #gender_field td label{margin-right: 100px;}
@@ -72,7 +72,7 @@ a:focus { color: #444;}
 .member_choice .member_line:hover{border-bottom: 2px solid #5dab99; color: #5dab99; cursor: pointer;}
 .write_login_form{width: 340px;}
 #login_cont_area button {width: 340px; height: 54px; border-radius: 4px;}
-.loginForm > input:first-child, .loginForm > input:nth-child(2) { font-size: 14px;padding-left: 14px; background-color: #f4f4f4; border: 1px solid #cccccc; width: 324px; height: 52px; border-radius: 4px; margin-bottom: 10px;}
+.loginForm > input:first-child, .loginForm > input:nth-child(2) { font-size: 14px;padding-left: 14px; background-color: #f4f4f4; border: 1px solid #cccccc; width: 324px; height: 52px; border-radius: 4px; margin-bottom: 15px; outline: none;}
 
 /* 이메일 저장 / 자동 로그인 체크 */
 #login_option_line{display: flex;align-items: center; justify-content: space-between;}
@@ -84,8 +84,8 @@ a:focus { color: #444;}
 #login_search{ display: flex; align-items: center; justify-content: space-between; width: 130px;}
 #login_option_line #login_search a{ float: left; font-size: 13px;}
 #login_option_line #login_search .bar { width: 1px;  height: 10px;float: left;  margin: 2px 6px 0;background-color: #ccc;}
-#login_btn{ background-color: rgb(93, 171, 153); border: 1px solid rgb(197, 197, 197); cursor: pointer; color:#ffffff; font-weight: bold;font-size: 16px; margin-bottom: 10px; margin-top: 28px;}
-#join_btn{ border: 1px solid #5dab99; cursor: pointer; background-color: #ffffff; color: #5dab99; font-weight: bold;font-size: 16px; margin-bottom: 20px;}
+#login_btn{ background-color: rgb(93, 171, 153); border: 1px solid rgb(197, 197, 197); cursor: pointer; color:#ffffff; font-weight: bold;font-size: 16px; margin-top: 28px;}
+#join_btn{ border: 1px solid #5dab99; cursor: pointer; background-color: #ffffff; color: #5dab99; font-weight: bold;font-size: 16px;}
 #login_cont_area .login_option { width: 13px; height: 13px;}
 #login_cont_area .login_option span { float: right; }
 #login_cont_area #join_or { font-size: 16px;letter-spacing: -0.5px; overflow: hidden; padding-bottom: 15px;}
