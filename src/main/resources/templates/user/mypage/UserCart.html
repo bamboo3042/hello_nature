@@ -31,6 +31,7 @@
     </style>
     <script>
         $(function () {
+
             let memIdx = $("#hidden_user").val();   // 헤더에서 가져온 로그인된 회원번호
 
             axios.get('/api/basket/member/list?memIdx=' + memIdx, {}).then(function (res) {
@@ -107,7 +108,7 @@
 
                 document.getElementById("net_price").innerText = String(sum_1);
                 document.getElementById("sale_price").innerText = String(sum_2);
-                document.getElementById("final_price").innerText = String(sum_1 - sum_2 + 2000);
+                document.getElementById("final_price").innerText = String(sum_2 + 2000);
 
                 $(".emph").text("구매 시" + parseInt($("#final_price").text()) * 0.01 + "원 적립")
 
@@ -296,7 +297,7 @@
                                     <dl class="amount">
                                         <dt class="tit">배송비</dt>
                                         <dd class="price">
-                                            <span class="num" id="num">2000</span>
+                                            <span class="num" id="num">2,000</span>
                                             <span class="won">원</span>
                                         </dd>
                                     </dl>
