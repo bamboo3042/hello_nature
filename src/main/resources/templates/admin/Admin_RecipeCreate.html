@@ -15,7 +15,6 @@
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
     <script src="/admin/js/Admin.imeage.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src=""></script>
 </head>
 <body>
 <script>
@@ -112,7 +111,6 @@
         prodlist = prodlist.join("-");
         ingreList = ingreList.join("-");
         console.log(prodlist)
-        alert('클릭')
 
         let product = document.querySelectorAll('.RC_proBox');
         let products = [];
@@ -172,7 +170,7 @@
             alert("레시피 등록에 성공했습니다")
             $.ajax({
                 type:"GET",
-                url : "/admin/recipe",
+                url : "/admin/MagazineList",
                 datatype : "html/text",
                 success: function(result){
                     $("#content").html(result).trigger("create");
