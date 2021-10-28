@@ -37,7 +37,7 @@ public class FileService {
 
         try {
             for (MultipartFile multipartFile : multipartFiles) {
-                if (multipartFile.isEmpty()) pathList.add(null);
+                if (multipartFile == null || multipartFile.isEmpty()) pathList.add(null);
                 else {
                     String path = request.getServletContext().getRealPath("/") + "/uploads/";
 

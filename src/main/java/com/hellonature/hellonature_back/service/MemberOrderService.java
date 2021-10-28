@@ -48,6 +48,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         Member member = optionalMember.get();
 
+//       사용한 쿠폰처리
         Coupon coupon = null;
         if (memberOrderApiRequest.getCpIdx() != null) {
             Optional<Coupon> optionalCoupon = couponRepository.findById(memberOrderApiRequest.getCpIdx());
@@ -57,6 +58,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             coupon = couponRepository.save(coupon);
         }
 
+//        주문 정보 생성
         MemberOrder memberOrder = MemberOrder.builder()
                 .state(1)
                 .dawnFlag(memberOrderApiRequest.getDawnFlag())
@@ -75,8 +77,8 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
                 .build();
         MemberOrder newMemberOrder = memberOrderRepository.save(memberOrder);
 
+//        주문 상품 목록 생성, 장바구니 삭제, 구매내역 생성, 리뷰 생성
         List<Product> products = productRepository.findAllByIdxIn(memberOrderApiRequest.getProIdxList());
-
         for (int i = 0; i < products.size(); i++){
             MemberOrderProduct memberOrderProduct = MemberOrderProduct.builder()
                     .order(newMemberOrder)
@@ -108,6 +110,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             productReviewRepository.save(productReview);
         }
 
+//        결제 내역 생성
         MemberPayment memberPayment = MemberPayment.builder()
                 .order(newMemberOrder)
                 .member(member)
@@ -120,6 +123,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         MemberPayment newMemberPayment = memberPaymentRepository.save(memberPayment);
         newMemberOrder.setPayment(newMemberPayment);
 
+//        헬로캐쉬 사용시 헬로캐쉬 감소
         if (memberOrderApiRequest.getHellocash() != 0){
             int point = memberOrderApiRequest.getHellocash();
             hellocash = Hellocash.builder()
@@ -136,6 +140,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
             memberRepository.save(member);
         }
 
+//        상품 구매 헬로캐쉬 적립
         calendar.add(Calendar.YEAR, 1);
         int point = (int)(memberOrderApiRequest.getPrice() * 0.01);
         hellocash = Hellocash.builder()
