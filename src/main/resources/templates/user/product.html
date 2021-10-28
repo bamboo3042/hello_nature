@@ -132,7 +132,7 @@
                 else if ( star >= 2 && star <= 2.9 ) { stars = "★★☆☆☆"; }
                 else if ( star >= 3 && star <= 3.9 ) { stars = "★★★☆☆"; }
                 else if ( star >= 4 && star <= 4.9 ) { stars = "★★★★☆"; }
-                else if ( star == 5 ) { stars = "★★★★★"; }
+                else if ( star >= 5 ) { stars = "★★★★★"; star = "5"; }
 
                 document.getElementById("pro_score").innerText = star + "점";
                 document.getElementById("pro_star").innerText = stars;
@@ -259,7 +259,7 @@
                     let proCount = res.data.data[i].proCount;
                     let files = res.data.data[i].files;
                     let file_icon;
-                    if(files == "" || files == null) {
+                    if(files == null) {
                         file_icon = "none";
                     } else {
                         file_icon = "inline-block";
@@ -291,7 +291,7 @@
                         '<td>'+name+'</td>'+
                         '<td>'+regdate+'</td></tr>'+
                         '<tr class="review_detail">'+
-                        '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                        '<td colspan="6"><div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
                     )
                 }
 
@@ -410,7 +410,7 @@
                             let proCount = res.data.data[i].proCount;
                             let files = res.data.data[i].files;
                             let file_icon;
-                            if(files == "" || files == null) {
+                            if(files == null) {
                                 file_icon = "none";
                             } else {
                                 file_icon = "inline-block";
@@ -442,7 +442,7 @@
                                 '<td>'+name+'</td>'+
                                 '<td>'+regdate+'</td></tr>'+
                                 '<tr class="review_detail">'+
-                                '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                '<td colspan="6"><div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
                             )
                         }
 
@@ -545,10 +545,9 @@
             });
 
 
-
-
-
-
+            $('#qna_btn').click(function (){
+                $('#qna_box').toggle();
+            });
 
             /* 상품문의 */
             $("#prod_question_btn").on('click', function() {
@@ -621,9 +620,9 @@
                     }
                 });
 
-                for (let i=res.data.pagination.totalPages; i>0; i--) {
+                for (let i=res.data.pagination.totalPages; i>=0; i--) {
                     let pages = $('<div id="prod_qna_page_num" class="page_num">').append(
-                        i+'</div>'
+                        (i+1)+'</div>'
                     )
                     $('#prod_qna_page_prev').after(pages);
                 }
