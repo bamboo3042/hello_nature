@@ -86,7 +86,8 @@ public class MultipleSecurityConfig {
                     .antMatchers("/user/css/**")
                     .antMatchers("/user/images/**")
                     .antMatchers("/user/js/**")
-                    .antMatchers("/user/mypage/mypage_layout/**");
+                    .antMatchers("/user/mypage/mypage_layout/**")
+                    .antMatchers("/user/mypage_userRegist");
         }
 
         @Override
