@@ -100,9 +100,9 @@
                 ul.append(li);
             }
 
-            for(let i=res.data.pagination.totalPages; i>0; i--){
+            for(let i=res.data.pagination.totalPages; i>=0; i--){
                 let pages = $('<div class="page_num">').append(
-                    i+'</div>'
+                    (i+1)+'</div>'
                 )
                 $('.page_prev').after(pages);
             }
