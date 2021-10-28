@@ -147,26 +147,6 @@
         })
 
         $(function () {
-            $('#delbtn').click(function (){
-                let id = [];
-                ($("input:checkbox[name='notice']:checked").each(function (e){
-                    id.push($(this).val())
-                }));
-                console.log(id)
-
-                axios.delete("/api/notice/delete", {
-                    data:{
-                        id: id,
-                    }
-                }).then(function (){
-                    alert("선택된 상품문의 삭제 성공")
-                })
-            }).catch(function (err){
-                console.log(err)
-            })
-        })
-
-        $(function () {
             let now = new Date();
             let now_result = now.toISOString().substring(0, 10);
 
@@ -387,7 +367,6 @@
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){
-            alert('클릭')
             let id = [];
             ($("input:checkbox[name='notice']:checked").each(function (e){
                 id.push($(this).val())

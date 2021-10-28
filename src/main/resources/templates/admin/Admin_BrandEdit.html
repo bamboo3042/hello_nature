@@ -40,7 +40,6 @@
     })
 
     function edit(){
-        alert("클릭")
         let id = sessionStorage.getItem("brIdx");
         let data = {
             idx: id,
@@ -169,7 +168,7 @@
         })
     })
 
-    function search(){
+    function search() {
         $('.tbody').empty();
         let page = $('.page').val();
         let state = $('#state').val();
@@ -177,21 +176,19 @@
         let id = sessionStorage.getItem("brIdx");
         let url = '/api/product/list?page=' + page + '&brIdx=' + id;
 
-        if(state == ""){
+        if (state == "") {
             url = url;
-        }else if(state != ""){
+        } else if (state != "") {
             url = url + '&state=' + state;
         }
-        if(name == ""){
+        if (name == "") {
             url = url;
-        }else if(name != ""){
+        } else if (name != "") {
             url = url + '&name=' + name;
         }
 
         console.log(url)
-        axios.get(url, {
-
-        }).then(function(response) {
+        axios.get(url, {}).then(function (response) {
             let tb = $('<tbody class="tbody">');
             for (let i in response.data.data) {
                 let id = response.data.data[i].idx;
@@ -241,14 +238,14 @@
                 let id = sessionStorage.getItem("brIdx");
                 let url = '/api/product/list?page=' + page + '&brIdx=' + id;
 
-                if(state == ""){
+                if (state == "") {
                     url = url;
-                }else if(state != ""){
+                } else if (state != "") {
                     url = url + '&state=' + state;
                 }
-                if(name == ""){
+                if (name == "") {
                     url = url;
-                }else if(name != ""){
+                } else if (name != "") {
                     url = url + '&name=' + name;
                 }
 
@@ -287,11 +284,7 @@
                 })
             })
         })
-
     }
-
-
-
 
 </script>
 <body>

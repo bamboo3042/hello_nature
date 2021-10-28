@@ -210,8 +210,6 @@ $(function () {
             url = '/api/brand/list?startPage=' + page + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd;
         }
         console.log(url);
-
-        alert('눌럿다')
         $('.tbody').empty();
 
         axios.get(url, {}).then(function (response) {

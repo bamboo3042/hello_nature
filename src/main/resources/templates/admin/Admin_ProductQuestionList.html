@@ -57,7 +57,6 @@
 
 
             $(".detail").click(function (e) {
-                alert("뭘봐")
                 $("#ajax_hidden").val($(this).next().val());
                 let id = $("#ajax_hidden").val();
 
@@ -126,7 +125,6 @@
                     $('.thead').after(tb);
 
                     $(".detail").click(function (e) {
-                        alert("뭘봐")
                         $("#ajax_hidden").val($(this).next().val());
                         let id = $("#ajax_hidden").val();
                         // let memIdx = $("#memIdx_hidden").val();
@@ -227,7 +225,6 @@
             }else if(answer != undefined){
                 url = url +'&ansFlag=' + answer;
             }
-            console.log(answer);
 
             if(searchType == ""){
                 url = url;

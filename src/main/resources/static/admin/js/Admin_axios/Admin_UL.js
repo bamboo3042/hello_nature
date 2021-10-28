@@ -459,7 +459,6 @@ function sc() {
 $(function () {
     //선택삭제
     $('#delbtn').click(function (){
-        alert('클릭')
         let id = [];
         ($("input:checkbox[name='user']:checked").each(function (e){
             id.push($(this).val())
