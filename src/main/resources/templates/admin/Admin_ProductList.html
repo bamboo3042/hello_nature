@@ -58,7 +58,7 @@
             let tb = $('<tbody class="tbody">');
             for(let i in response.data.data){
                 let id = response.data.data[i].idx;
-                let $cate = response.data.data[i].cateIdx;
+                let $cate = response.data.data[i].cateName;
                 let $name = response.data.data[i].name;
                 let $state = response.data.data[i].state;
                 let $price = response.data.data[i].price;
@@ -111,6 +111,9 @@
                 })
             })
 
+            let pagination = response.data.pagination.totalPages;
+            console.log(pagination);
+            if(pagination )
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
                     i + '</li>'
@@ -130,7 +133,7 @@
                     let tb = $('<tbody class="tbody">');
                     for (let i in response.data.data) {
                         let id = response.data.data[i].idx;
-                        let $cate = response.data.data[i].cateIdx;
+                        let $cate = response.data.data[i].cateName;
                         let $name = response.data.data[i].name;
                         let $state = response.data.data[i].state;
                         let $price = response.data.data[i].price;
@@ -215,7 +218,7 @@
             let tb = $('<tbody class="tbody">');
             for(let i in response.data.data){
                 let id = response.data.data[i].idx;
-                let $cate = response.data.data[i].cateIdx;
+                let $cate = response.data.data[i].cateName;
                 let $name = response.data.data[i].name;
                 let $state = response.data.data[i].state;
                 let $price = response.data.data[i].price;
@@ -263,7 +266,7 @@
                     }
                 })
             })
-
+            $("#Maxprev").siblings(".page_num").remove();
             for(let i = response.data.pagination.totalPages; i > 0; i--){
                 let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
                     i + '</li>'
@@ -302,7 +305,7 @@
                         let tb = $('<tbody class="tbody">');
                         for (let i in response.data.data) {
                             let id = response.data.data[i].idx;
-                            let $cate = response.data.data[i].cateIdx;
+                            let $cate = response.data.data[i].cateName;
                             let $name = response.data.data[i].name;
                             let $state = response.data.data[i].state;
                             let $price = response.data.data[i].price;
@@ -473,12 +476,12 @@
                 <tr>
                     <th width="5%"><input type="checkbox" value="prod_list" id="PL_check" name="selectall"
                                           onclick="PL_selectAll(this)"><label for="PL_check"></label></th>
-                    <th width="10%">분류</th>
+                    <th width="15%">분류</th>
                     <th width="25%">상품명</th>
                     <th width="15%">판매상태</th>
                     <th width="10%">재고수량</th>
                     <th width="15%">판매가</th>
-                    <th width="20%">수정</th>
+                    <th width="15%">수정</th>
                 </tr>
                 </thead>
             </table>
