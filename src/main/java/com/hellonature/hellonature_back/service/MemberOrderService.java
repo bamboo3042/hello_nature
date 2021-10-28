@@ -278,8 +278,8 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         memberOrderRepository.save(memberOrder);
 
         if (state >= 6){
-            Optional<ProductReview> optionalProductReview = productReviewRepository.findByMemberOrder(memberOrder);
-            Optional<MemberPayment> optionalMemberPayment = memberPaymentRepository.findByMemberOrder(memberOrder);
+            Optional<ProductReview> optionalProductReview = productReviewRepository.findByOrder(memberOrder);
+            Optional<MemberPayment> optionalMemberPayment = memberPaymentRepository.findByOrder(memberOrder);
             if (optionalProductReview.isEmpty() || optionalMemberPayment.isEmpty()) return Header.ERROR("상태를 변경할 수 없습니다");
             ProductReview productReview = optionalProductReview.get();
             productReviewRepository.delete(productReview);

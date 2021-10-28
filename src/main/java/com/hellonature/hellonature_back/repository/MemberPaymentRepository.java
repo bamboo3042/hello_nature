@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface MemberPaymentRepository extends JpaRepository<MemberPayment, Long> {
     void deleteAllByIdxIn(List<Long> idx);
-    Optional<MemberPayment> findByMemberOrder(MemberOrder memberOrder);
+    Optional<MemberPayment> findByOrder(MemberOrder memberOrder);
 }
