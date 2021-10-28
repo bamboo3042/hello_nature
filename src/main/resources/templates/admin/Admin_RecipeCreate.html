@@ -14,6 +14,7 @@
     </script>
     <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
     <script src="/admin/js/Admin.imeage.js"></script>
+    <script src="/admin/js/checkbox.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -270,7 +271,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_'+ (i + 12) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="RC_check_'+ (i + 12) +'"></label></td>' +
+                    '<td height="80px"><input type="checkbox" name="RC_list" id="RC_check_'+ (i + 12) +'" onclick="RC_checkSelectAll()" value="'+id+'"><label for="RC_check_'+ (i + 12) +'"></label></td>' +
                     '<td><img src="' + img + '"></td>' +
                     '<td>'+ name +'</td>' +
                     '<td>'+ state +'</td></tr>'
@@ -449,7 +450,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td height="80px"><input type="checkbox" name="RC_list2" id="check_'+ (i + 12) +'" onclick="MC_checkSelectAll()" value="'+id+'"><label for="check_'+ (i + 12) +'"></label></td>' +
+                    '<td height="80px"><input type="checkbox" name="RC_list2" id="check_'+ (i + 12) +'" onclick="RC_checkSelectAll2()" value="'+id+'"><label for="check_'+ (i + 12) +'"></label></td>' +
                     '<td><img src="' + img + '"></td>' +
                     '<td>'+ name +'</td>' +
                     '<td>'+ state +'</td></tr>'
@@ -540,22 +541,22 @@
         })
     }
 
-    $('input[name="filter2"]').click(function(e){
-        let count = $('input:checked[name="filter2"]').length;
+    $('input[name="d_status2"]').click(function(e){
+        let count = $('input:checked[name="d_status2"]').length;
         if(count > 1){
             $(this).prop('checked', false);
             alert('한개만 선택해주세요')
         }
     })
-    $('input[name="filter2"]').click(function(e){
-        let count = $('input:checked[name="filter2"]').length;
+    $('input[name="filter"]').click(function(e){
+        let count = $('input:checked[name="filter"]').length;
         if(count > 1){
             $(this).prop('checked', false);
             alert('한개만 선택해주세요')
         }
     })
-    $('input[name="filter2"]').click(function(e){
-        let count = $('input:checked[name="filter2"]').length;
+    $('input[name="status2"]').click(function(e){
+        let count = $('input:checked[name="status2"]').length;
         if(count > 1){
             $(this).prop('checked', false);
             alert('한개만 선택해주세요')
