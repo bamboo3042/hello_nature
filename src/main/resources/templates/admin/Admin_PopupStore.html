@@ -45,7 +45,7 @@
         axios.post('/api/popupstore/create', formData, {
             headers: {'Content-type': 'multipart/form-data'}
         }).then(function (){
-            alert("팝업스토어 등록완료")
+            alert("팝업스토어가 등록되었습니다")
         }).catch(function (err){
             console.log(err)
         })
@@ -98,7 +98,6 @@
     })
 
     function edit(){
-        alert('클릭');
         let data = {
             idx: 1,
             title: $('#title').val(),

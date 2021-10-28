@@ -42,7 +42,7 @@
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
+                    '<td><input type="checkbox" id="EL_check_'+ i +'" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                     '<td>' + j + '</td>' +
                     '<td>'+ eventFlag +'</td>' +
                     '<td>' + title + '</td>' +
@@ -109,7 +109,7 @@
                         }
 
                         let row = $('<tr>').append(
-                            '<td><input type="checkbox"  id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
+                            '<td><input type="checkbox" id="EL_check_'+ i +'" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                             '<td>' + j + '</td>' +
                             '<td>'+ eventFlag +'</td>' +
                             '<td>' + title + '</td>' +
@@ -147,7 +147,6 @@
         $(function () {
             //선택삭제
             $('#delbtn').click(function (){
-                alert('클릭')
                 let id = [];
                 ($("input:checkbox[name='event']:checked").each(function (e){
                     id.push($(this).val())
@@ -262,7 +261,7 @@
                     }
 
                     let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
+                        '<td><input type="checkbox" id="EL_check_'+ i +'" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                         '<td>' + j + '</td>' +
                         '<td>'+ eventFlag +'</td>' +
                         '<td>' + title + '</td>' +
@@ -343,7 +342,7 @@
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="EL_check_1" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
+                                '<td><input type="checkbox" id="EL_check_'+ i +'" name="event" onclick="EL_checkSelectAll()" value="'+id+'"><label for="EL_check_1"></label></td>' +
                                 '<td>' + j + '</td>' +
                                 '<td>'+ eventFlag +'</td>' +
                                 '<td>' + title + '</td>' +

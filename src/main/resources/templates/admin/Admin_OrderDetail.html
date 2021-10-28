@@ -71,7 +71,6 @@
 
     function sendit(){
 
-        alert('클릭')
         let id = sessionStorage.getItem("idx4");
         let state = $('input:checkbox[name="order_state"]:checked').val();
         if(state == '입금완료') {
@@ -95,8 +94,6 @@
         }else if(state == '환불완료'){
             state = 0
         }
-        console.log(id)
-        console.log(state)
 
         axios.get('/api/memberOrder/update/state?idx=' + id + '&state=' + state, {
         }).then(function (){
@@ -169,7 +166,7 @@
                 <tr>
                     <th>주문 상태</th>
                     <td>
-                        <span><input type="checkbox" name="order_state" value="1" id="OL_check_1"><label for="OL_check_1">입금완료</label></span>
+                        <span><input type="checkbox" name="order_state" value="1" id="OL_check_1" checked><label for="OL_check_1">입금완료</label></span>
                         <span><input type="checkbox" name="order_state" value="2"  id="OL_check_2"><label for="OL_check_2">상품준비중</label></span>
                         <span><input type="checkbox" name="order_state" value="3"  id="OL_check_3"><label for="OL_check_3">배송준비중</label></span>
                         <span><input type="checkbox" name="order_state" value="4"  id="OL_check_4"><label for="OL_check_4">배송중</label></span>

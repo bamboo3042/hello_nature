@@ -30,7 +30,6 @@
                 let regdate = response.data.data[i].regdate;
                 let state = response.data.data[i].state;
                 let k = parseInt(i + 6);
-
                 regdate = regdate.toString().substring(0, 10);
 
                 console.log(price)
@@ -139,7 +138,6 @@
                                 state = '환불'
                             }
 
-
                             let row = $('<tr>').append(
                                 '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
                                 '<td>' + name + '</td>' +
@@ -227,6 +225,7 @@
             }else if(state != undefined){
                 url = url + '&state=' + state;
             }
+
             if(orderIdx == ""){
                 url = url;
             }else if(orderIdx != ""){

@@ -117,7 +117,6 @@
 
     function edit(){
         let id = sessionStorage.getItem("proIdx")
-        alert("클릭")
         let data = {
             idx: id,
             name: $("#name").val(),
@@ -237,7 +236,6 @@
                 $('.brand_list').append(row)
             }
             $('.brand_list > li').click(function (e) {
-                alert("소민이바보")
                 $(this).add(".brand_list > li").addClass("on")
                 $(".brand_list > li").not($(this)).removeClass("on")
 
@@ -352,7 +350,7 @@
                 <th>베스트 설정</th>
                 <td colspan="3">
                     <span><input type="radio" name="best_flag" value="TRUE">YES</span>
-                    <span><input type="radio" name="best_flag" value="FALSE">NO</span>
+                    <span><input type="radio" name="best_flag" value="FALSE" checked>NO</span>
                 </td>
             </tr>
             <tr>
