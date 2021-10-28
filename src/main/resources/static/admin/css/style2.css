@@ -187,7 +187,7 @@ form[name="product_create"] table tr th { padding-right: 60px; text-align: left;
 form[name="product_create"] table tr td { padding: 20px 50px 20px 50px; font-size: 14px; }
 form[name="product_create"] table tr td label {  margin-left: 70px; padding-left: 30px;}
 form[name="product_create"] table input[type="text"] { width: 420px;  }
-form[name="product_create"] table span { margin-left: 10px;  }
+form[name="product_create"] table span { }
 form[name="product_create"] table input[type="text"]:nth-child(1) { margin-right: 0;}
 form[name="product_create"] table select { width: 208px; height: 38px; padding-left: 8px;}
 form[name="product_create"] table input[type="file"] { padding: 60px 0 60px 5px;}
