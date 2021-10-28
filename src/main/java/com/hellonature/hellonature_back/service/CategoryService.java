@@ -89,7 +89,6 @@ public class CategoryService  {
 
     public Header<List<CategoryApiResponse>> first(Flag lifeFlag){
         Optional<List<Category>> optional = categoryRepository.findAllByRootIdxIsNullAndLifeFlagOrderByIdx(lifeFlag);
-        System.out.println(optional);
         List<Category> list = optional.get();
         List<CategoryApiResponse> newList = new ArrayList<>();
         for (Category category:

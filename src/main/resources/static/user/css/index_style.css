@@ -607,7 +607,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 #cartPut .cart_option .group_btn { overflow: hidden; width: 100%; }
 #cartPut .cart_type2 .view_function { display: block; float: left; }
 /*#cartPut .cart_option .view_function .btn.buy_now { border: 1px solid #ddd; color: #ddd; }*/
-#cartPut .cart_option .view_function .btn { overflow: hidden; float: right; width: 138px; height: 56px; margin-right: 12px; padding-bottom: 2px; border: 1px solid var(--hello_main_1); border-radius: 3px; background: #fff; font-weight: 700; font-size: 16px; color: var(--hello_main_1); line-height: 52px; letter-spacing: -.1px; text-align: center; }
+#cartPut .cart_option .view_function .btn { overflow: hidden; float: right; width: 138px; height: 56px; margin-right: 12px; padding-bottom: 2px; border: 1px solid white/*var(--hello_main_1)*/; border-radius: 3px; background: #fff; font-weight: 700; font-size: 16px; color: white/*var(--hello_main_1)*/; line-height: 52px; letter-spacing: -.1px; text-align: center; }
 #cartPut .cart_option .group_btn .btn_type1 { width: auto; height: 56px; }
 #cartPut * { font-family: noto sans; color: var(--hello_font_1); letter-spacing: 0; }
 .btn_type1 { border: 1px solid var(--hello_main_1); background-color: var(--hello_main_1); }
@@ -800,7 +800,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .fa-star {color: var(--hello_main_1);}
 .rating .star-wrap {width: 13px; display: inline-block; font-size: 11px;}
 .rating .star {width: 0; overflow: hidden;}
-.rating {display: inline-block; margin-left: 6px;}
+.rating {display: inline-block; margin-left: 6px; vertical-align: 3px; color: #0db081; }
 
 /* 민지 ====================================================================== */
 
@@ -909,7 +909,7 @@ body { background-color: #fff; margin: 0; width: 100%; font-family: 'Noto Sans K
 .item_count button:first-child { width: 150px; background: url('../images/icon/ico_minus_on.svg') center no-repeat; background-size: contain; }
 .item_count button:last-child { width: 150px; background: url('../images/icon/ico_plus_on.svg') center no-repeat; background-size: contain; }
 
-.item_ea { position: relative; top: 20%; font-size: 15px; }
+.item_ea { position: relative; top: 5%; font-size: 15px; }
 
 /* 장바구니 카운트 (디폴트: 히든) */
 .icon_cart { position: relative; }

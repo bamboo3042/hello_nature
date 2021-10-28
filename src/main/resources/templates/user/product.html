@@ -122,9 +122,19 @@
                 document.getElementById("brand_img").style.bacgkroundImage = "url:(" + brLogo + ")";
                 document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx +"&order=1";
                 document.getElementById("proDes").innerHTML = proDes;
-                document.getElementById("pro_score").innerText = star + "점";
 
-                $("#pro_star").rate(parseInt(star));
+                star = Math.round(star);
+                let stars = "";
+                if ( star == 0 ) { stars = "☆☆☆☆☆"; }
+                else if ( star >= 1 && star <= 1.9 ) { stars = "★☆☆☆☆"; }
+                else if ( star >= 2 && star <= 2.9 ) { stars = "★★☆☆☆"; }
+                else if ( star >= 3 && star <= 3.9 ) { stars = "★★★☆☆"; }
+                else if ( star >= 4 && star <= 4.9 ) { stars = "★★★★☆"; }
+                else if ( star == 5 ) { stars = "★★★★★"; }
+
+                document.getElementById("pro_score").innerText = star + "점";
+                document.getElementById("pro_star").innerText = stars;
+
 
             }).catch(function (err) {
                 console.log(err);
@@ -713,22 +723,22 @@
                         <p class="goods_name" id="prod_name"></p>
                         <div class="goods_star">
                             <span class="item_star review" id="pro_score"></span>
-                            <div class="rating" id="pro_star" data-rate="4.5">
-                                <div class="star-wrap">
-                                    <div class="star"><i class="fas fa-star"></i></div>
-                                </div>
-                                <div class="star-wrap">
-                                    <div class="star"><i class="fas fa-star"></i></div>
-                                </div>
-                                <div class="star-wrap">
-                                    <div class="star"><i class="fas fa-star"></i></div>
-                                </div>
-                                <div class="star-wrap">
-                                    <div class="star"><i class="fas fa-star"></i></div>
-                                </div>
-                                <div class="star-wrap">
-                                    <div class="star"><i class="fas fa-star"></i></div>
-                                </div>
+                            <div class="rating" id="pro_star">
+<!--                                <div class="star-wrap">-->
+<!--                                    <div class="star"><i class="fas fa-star"></i></div>-->
+<!--                                </div>-->
+<!--                                <div class="star-wrap">-->
+<!--                                    <div class="star"><i class="fas fa-star"></i></div>-->
+<!--                                </div>-->
+<!--                                <div class="star-wrap">-->
+<!--                                    <div class="star"><i class="fas fa-star"></i></div>-->
+<!--                                </div>-->
+<!--                                <div class="star-wrap">-->
+<!--                                    <div class="star"><i class="fas fa-star"></i></div>-->
+<!--                                </div>-->
+<!--                                <div class="star-wrap">-->
+<!--                                    <div class="star"><i class="fas fa-star"></i></div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                         <p class="goods_price">
@@ -811,7 +821,7 @@
                                     </div>
                                     <div class="group_btn off">
                                         <div class="view_function">
-                                            <button class="btn buy_now" onclick="location.href='/user/mypage_userOrdersheet'">바로 구매</button>
+<!--                                            <button class="btn buy_now" onclick="location.href='/user/mypage_userOrdersheet'">바로 구매</button>-->
                                         </div>
                                         <span class="btn_type1">
                                             <button type="button" class="txt_type" id="goods_cart">장바구니 담기</button>
