@@ -61,4 +61,8 @@ public class BrandApiController extends CrudController<BrandApiRequest, BrandApi
     }
 
 
+    @DeleteMapping("/deleteList/{idx}")
+    public Header delete(@PathVariable("idx") List<Long> idx) {
+        return brandService.deletePost(idx);
+    }
 }

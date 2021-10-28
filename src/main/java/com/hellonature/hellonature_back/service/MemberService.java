@@ -274,4 +274,10 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
         String[] temp = addr.split(" ");
         return temp[0].equals("서울시");
     }
+
+    @Transactional
+    public Header deletePost(List<Long> idx) {
+        memberRepository.deleteAllByIdxIn(idx);
+        return Header.OK();
+    }
 }

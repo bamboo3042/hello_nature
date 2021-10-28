@@ -10,6 +10,7 @@ import com.hellonature.hellonature_back.repository.BrandRepository;
 import com.hellonature.hellonature_back.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -161,6 +162,12 @@ public class BrandService {
     }
 
     public Header<List<BrandApiResponse>> allList(){
+        return Header.OK();
+    }
+
+    @Transactional
+    public Header deletePost(List<Long> idx) {
+        brandRepository.deleteAllByIdxIn(idx);
         return Header.OK();
     }
 }

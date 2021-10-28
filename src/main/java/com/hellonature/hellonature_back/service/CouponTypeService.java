@@ -8,6 +8,7 @@ import com.hellonature.hellonature_back.model.network.response.CouponTypeApiResp
 import com.hellonature.hellonature_back.repository.CouponTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -135,5 +136,10 @@ public class CouponTypeService extends BaseService<CouponTypeApiRequest, CouponT
                 .build();
 
         return Header.OK(couponTypeApiResponses, pagination);
+    }
+    @Transactional
+    public Header deletePost(List<Long> idx) {
+        couponTypeRepository.deleteAllByIdxIn(idx);
+        return Header.OK();
     }
 }

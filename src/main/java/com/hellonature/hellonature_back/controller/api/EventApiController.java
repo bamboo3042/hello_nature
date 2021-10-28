@@ -62,4 +62,9 @@ public class EventApiController extends CrudController<EventApiRequest, EventApi
         return eventService.search(pageable);
 
     }
+
+    @DeleteMapping("/deleteList/{idx}")
+    public Header delete(@PathVariable("idx") List<Long> idx) {
+        return eventService.deletePost(idx);
+    }
 }

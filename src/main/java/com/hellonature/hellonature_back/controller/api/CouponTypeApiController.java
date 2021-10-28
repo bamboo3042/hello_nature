@@ -49,4 +49,9 @@ public class CouponTypeApiController extends CrudController<CouponTypeApiRequest
                                                     @RequestParam(name = "page", defaultValue = "0") Integer page){
         return couponTypeService.list(title, dateStart, dateEnd, page);
     }
+
+    @DeleteMapping("/deleteList/{idx}")
+    public Header delete(@PathVariable("idx") List<Long> idx) {
+        return couponTypeService.deletePost(idx);
+    }
 }

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -174,6 +175,12 @@ public class EventService{
                 .currentElements(event.getNumberOfElements())
                 .build();
         return Header.OK(eventApiResponseList, pagination);
+    }
+
+    @Transactional
+    public Header deletePost(List<Long> idx) {
+        eventRepository.deleteAllByIdxIn(idx);
+        return Header.OK();
     }
 }
 

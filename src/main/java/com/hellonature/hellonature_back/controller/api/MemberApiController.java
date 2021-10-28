@@ -80,4 +80,9 @@ public class MemberApiController extends CrudController<MemberApiRequest, Member
                                 @RequestParam(name = "password") String password){
         return memberService.editPassword(email, password);
     }
+
+    @DeleteMapping("/deleteList/{idx}")
+    public Header delete(@PathVariable("idx") List<Long> idx) {
+        return memberService.deletePost(idx);
+    }
 }
