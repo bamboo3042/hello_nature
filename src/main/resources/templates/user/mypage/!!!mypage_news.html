@@ -50,7 +50,12 @@
 
     $(function () {
 
-        axios.get('/api/notice/list?page=0', {}).then(function (response) {
+        let page = $("#hidden_page").val()
+        $("#notice_MinPage").text(parseInt(page) + 1)
+        $("#hidden_page").val($("#notice_MinPage").text());
+        page = $("#hidden_page").val() - 1;
+
+        axios.get('/api/notice/list?page=' + page, {}).then(function (response) {
             for (let i in response.data.data) {
                 let idx = response.data.data[i].idx;
                 let $title = response.data.data[i].title;
@@ -154,7 +159,7 @@
 </script>
 <body>
 <div id="mypage-box">
-    <input type="hidden" id="hidden_page" value="1">
+    <input type="hidden" id="hidden_page" value="0">
     <div class="container">
         <div th:replace="/user/fragment/header::header"></div>
         <div class="contents">
