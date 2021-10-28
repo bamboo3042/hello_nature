@@ -166,6 +166,7 @@ public class ProductService{
                 .bestFlag(product.getBestFlag())
                 .proDes(product.getProDes())
                 .cateIdx(product.getCategory().getIdx())
+                .cateName(product.getCategory().getName())
                 .eveCateIdx(product.getEveCategory() == null ? null : product.getEveCategory().getIdx())
                 .proType(product.getProType())
                 .proName(product.getProName())

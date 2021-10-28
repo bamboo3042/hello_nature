@@ -47,5 +47,7 @@ public class ProductApiResponse {
     private Long cateIdx;
     private Long eveCateIdx;
 
+    private String cateName;
+
     private LocalDateTime regdate;
 }
