@@ -163,6 +163,7 @@ public class ProductService{
                 .img3(product.getImg3())
                 .img4(product.getImg4())
                 .like(product.getLike())
+                .bestFlag(product.getBestFlag())
                 .proDes(product.getProDes())
                 .cateIdx(product.getCategory().getIdx())
                 .eveCateIdx(product.getEveCategory() == null ? null : product.getEveCategory().getIdx())
