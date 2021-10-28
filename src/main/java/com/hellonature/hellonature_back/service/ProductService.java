@@ -140,6 +140,16 @@ public class ProductService{
         }).orElseGet(() -> Header.ERROR("삭제 실패"));
     }
 
+    @Transactional
+    public Header deleteList(List<Long> idxList){
+        try {
+            productRepository.deleteAllByIdxIn(idxList);
+        }catch (Exception e){
+            return Header.ERROR("상품 삭제를 실패하였습니다");
+        }
+        return Header.OK();
+    }
+
     private ProductApiResponse response(Product product){
         return ProductApiResponse.builder()
                 .idx(product.getIdx())

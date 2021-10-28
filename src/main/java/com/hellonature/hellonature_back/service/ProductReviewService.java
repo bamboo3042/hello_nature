@@ -193,9 +193,10 @@ public class ProductReviewService  {
 
     public Header<List<MemberReviewResponse>> userReviewList(Long proIdx, Integer like, Integer page){
         String jpql = "select r from ProductReview r";
+        jpql += " where";
+        jpql += " pro_idx = :proIdx";
 
         if (like != null){
-            jpql += " where";
             if(like == 1) jpql += " rv_like < 4";
             else if(like == 2) jpql += " rv_like > 3 and rv_like < 7";
             else if(like == 3) jpql += " rv_like > 6";
@@ -204,6 +205,7 @@ public class ProductReviewService  {
         jpql += " order by idx desc";
 
         TypedQuery<ProductReview> query = em.createQuery(jpql, ProductReview.class);
+        query.setParameter("proIdx", proIdx);
 
         List<ProductReview> result = query.getResultList();
 

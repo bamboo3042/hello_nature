@@ -47,6 +47,11 @@ public class ProductApiController extends CrudController<ProductApiRequest, Prod
         return productService.delete(idx);
     }
 
+    @DeleteMapping("deleteList/{idxList}")
+    public Header deleteList(@PathVariable(name = "idxList") List<Long> idxList){
+        return productService.deleteList(idxList);
+    }
+
     @GetMapping("list")
     public Header<List<ProductApiResponse>> list(@RequestParam(name = "state", required = false) Integer state,
                                                  @RequestParam(name = "cateIdx", required = false) Long cateIdx,
