@@ -27,6 +27,8 @@
             let memIdx = $("#hidden_user").val();
             console.log(memIdx);
 
+            let sizeWeight;
+
             axios.get('/api/product/detail?proIdx=' + prodIdx + '&memIdx=' + memIdx, {}).then(function (res) {
                 console.log(res.data.data);
                 let name = res.data.data.name;
@@ -60,7 +62,7 @@
                 let proType = res.data.data.proType;
                 let proName = res.data.data.proName;
                 let producer = res.data.data.producer;
-                let sizeWeight = res.data.data.sizeWeight;
+                sizeWeight = res.data.data.sizeWeight;
                 let temp = res.data.data.temp;
                 let tempText = "";
                 switch (temp) {
@@ -248,7 +250,6 @@
             /* 구매후기 리스트 */
             axios.get('/api/productReview/userReview/list?proIdx='+prodIdx+'&page=0', {
             }).then(function(res) {
-                console.log(res.data.data);
                 let totalReview = res.data.data.length;
                 document.getElementById("review_total").innerText = "("+totalReview+")";
 
@@ -280,7 +281,7 @@
                     let regdate = res.data.data[i].regdate;
                         regdate = regdate.substr(0, 10);
                     let content = res.data.data[i].content;
-                    let sizeWeight = $("#size_weight").text();
+                    // let sizeWeight = $("#size_weight").text();
 
                     $("#prod_review_tbody").append(
                         '<tr class="review_click">'+
@@ -798,7 +799,7 @@
                                                     <span class="tit_item">구매수량</span>
                                                     <div class="item_count">
                                                         <button class="minus_btn"></button>
-                                                        <span class="item_ea">1</span>
+                                                        <span class="item_ea" style="top: 15%">1</span>
                                                         <button class="plus_btn"></button>
                                                     </div>
                                                 </li>
