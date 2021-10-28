@@ -359,6 +359,14 @@
         })
     }
 
+    $('input[name="d_status"]').click(function(e){
+        let count = $('input:checked[name="d_status"]').length;
+        if(count > 1){
+            $(this).prop('checked', false);
+            alert('한개만 선택해주세요')
+        }
+    })
+
     $(function () {
         //선택삭제
         $('#delbtn').click(function (){

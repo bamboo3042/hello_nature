@@ -56,13 +56,12 @@
             alert('답변상태가 수정되었습니다');
             $.ajax({
                 type:"GET",
-                url : "/admin/productquestionlist/",
+                url : "/admin/productquestionlist",
                 datatype : "html/text",
                 success: function(result){
                     $("#content").html(result).trigger("create");
                 }
             });
-            location.reload();
         })
     }
 
