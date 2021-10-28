@@ -544,7 +544,7 @@ public class ProductService{
     public Header<ProductDetailResponse> detail(Long proIdx, Long memIdx){
         Optional<Member> member = memIdx == null ? Optional.empty() : memberRepository.findById(memIdx);
         return productRepository.findById(proIdx)
-                .map(product -> detailResponse(product, productReviewRepository.findAllByProduct(product), member.isEmpty() ? Optional.empty() : likeRepository.findByMemberAndProduct(member.get(), product)))
+                .map(product -> detailResponse(product, productReviewRepository.findAllByProductAndLikeIsNotNull(product), member.isEmpty() ? Optional.empty() : likeRepository.findByMemberAndProduct(member.get(), product)))
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("상품이 없습니다"));
     }

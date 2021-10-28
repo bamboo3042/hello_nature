@@ -2,7 +2,6 @@ package com.hellonature.hellonature_back.controller.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -351,10 +350,10 @@ public class MypageController {
     }
 
     // 로그인 실패 시 띄울 페이지
-    @RequestMapping(value = "/mypage_userLogin_re", method = {RequestMethod.GET, RequestMethod.POST})
-    public String mypageUserLoginFail(){
-        return "user/mypage/UserLogin_fail.html";
-    }
+//    @RequestMapping(value = "/mypage_userLogin_re", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String mypageUserLoginFail(){
+//        return "user/mypage/UserLogin_fail.html";
+//    }
 
     // 배송팝업
     @GetMapping("/shipping_popup")

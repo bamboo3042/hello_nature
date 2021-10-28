@@ -1,7 +1,6 @@
 package com.hellonature.hellonature_back.config.security.main;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,10 +28,6 @@ public class MemberLoginFailureHandler implements AuthenticationFailureHandler {
         else{
             request.setAttribute("loginFailMsg", "로그인 실패");
         }
-
-        System.out.println(33);
-        System.out.println(request.getAttribute("loginFailMsg"));
-
-        request.getRequestDispatcher("/user/mypage_userLogin?error").forward(request, response);
+        request.getRequestDispatcher("/mypage_userLogin_re").forward(request, response);
     }
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ProductReviewRepository extends JpaRepository<ProductReview, Long> {
         Optional<ProductReview> findById(Long id);
         List<ProductReview> findAllByProduct(Product product);
+        List<ProductReview> findAllByProductAndLikeIsNotNull(Product product);
         List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNullOrderByIdxDesc(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
         List<ProductReview> findAllByMemberAndRegdateBetweenAndContentIsNotNullOrderByIdxDesc(Member member, LocalDateTime dateStart, LocalDateTime dateEnd);
         Long countAllByAnsFlag(Flag flag);
