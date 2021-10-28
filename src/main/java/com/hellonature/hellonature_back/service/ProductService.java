@@ -101,6 +101,7 @@ public class ProductService{
             product.setCount(productApiRequest.getCount());
             product.setDelivery(productApiRequest.getDelivery());
             product.setPacking(productApiRequest.getPacking());
+            product.setBestFlag(productApiRequest.getBestFlag());
 
             if(multipartFiles != null && !multipartFiles.isEmpty()){
                 List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
