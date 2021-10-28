@@ -1,6 +1,7 @@
 package com.hellonature.hellonature_back.repository;
 
 import com.hellonature.hellonature_back.model.entity.Member;
+import com.hellonature.hellonature_back.model.entity.MemberOrder;
 import com.hellonature.hellonature_back.model.entity.Product;
 import com.hellonature.hellonature_back.model.entity.ProductReview;
 import com.hellonature.hellonature_back.model.enumclass.Flag;
@@ -18,4 +19,5 @@ public interface ProductReviewRepository extends JpaRepository<ProductReview, Lo
         Long countAllByAnsFlag(Flag flag);
         Long countAllByAnsFlagAndRegdateBetween(Flag flag, LocalDateTime start, LocalDateTime end);
         List<ProductReview> findTop4ByContentIsNotNullOrderByIdxDesc();
+        Optional<ProductReview> findByMemberOrder(MemberOrder memberOrder);
 }

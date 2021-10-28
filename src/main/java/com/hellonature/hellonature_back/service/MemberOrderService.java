@@ -268,6 +268,7 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
         return Header.OK(memberOrderLoadResponse);
     }
 
+    @Transactional
     public Header updateState(Long idx, Integer state){
         Optional<MemberOrder> optional = memberOrderRepository.findById(idx);
         if (optional.isEmpty()) return Header.ERROR("주문 정보가 없습니다");
@@ -275,6 +276,14 @@ public class MemberOrderService extends BaseService<MemberOrderApiRequest, Membe
 
         memberOrder.setState(state);
         memberOrderRepository.save(memberOrder);
+
+        if (state >= 5){
+            Optional<ProductReview> optionalProductReview = productReviewRepository.findByMemberOrder(memberOrder);
+            if (optionalProductReview.isEmpty()) return Header.ERROR("상태를 변경할 수 없습니다");
+            ProductReview productReview = optionalProductReview.get();
+            productReviewRepository.delete(productReview);
+        }
+
         return Header.OK();
     }
 }
