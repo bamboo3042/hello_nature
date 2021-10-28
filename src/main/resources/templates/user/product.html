@@ -124,6 +124,7 @@
                 document.getElementById("brand_img").style.bacgkroundImage = "url:(" + brLogo + ")";
                 document.getElementById("brand_url").href = "/user/brand_goods_list?brIdx=" + brIdx +"&order=1";
                 document.getElementById("proDes").innerHTML = proDes;
+                document.getElementById("size_weight_1").innerText = sizeWeight + " | ";
 
                 star = Math.round(star);
                 let stars = "";
@@ -136,7 +137,6 @@
 
                 document.getElementById("pro_score").innerText = star + "점";
                 document.getElementById("pro_star").innerText = stars;
-
 
             }).catch(function (err) {
                 console.log(err);
@@ -281,11 +281,10 @@
                     let regdate = res.data.data[i].regdate;
                         regdate = regdate.substr(0, 10);
                     let content = res.data.data[i].content;
-                    // let sizeWeight = $("#size_weight").text();
 
                     $("#prod_review_tbody").append(
                         '<tr class="review_click">'+
-                        '<td>'+sizeWeight+' | '+proCount+'</td>'+
+                        '<td><span id="size_weight_1"></span>'+proCount+'</td>'+
                         '<td><img src="/user/images/icon/ico_attach2.gif" style="display:'+file_icon+'; padding-right: 5px;">'+content+'</td>'+
                         '<td>'+like+'</td>'+
                         '<td>'+name+'</td>'+
