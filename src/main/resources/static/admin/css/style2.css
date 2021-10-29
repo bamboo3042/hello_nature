@@ -288,6 +288,7 @@ form #pro_review span input[type="checkbox"] { margin-right: 7px; }
 form[name="pro_review"] p:nth-child(3) { margin-top: 50px; }
 #review_answer { margin: 30px 60px; text-align: left; font-size: 15px;}
 #review_answer tr th { padding: 10px 0;}
+form #pro_review #files img{ width: 300px;}
 
 /* 4-1 Admin_Fresh.html */
 .Fresh { margin: 11px; background-color: white; padding-bottom: 20px;}
