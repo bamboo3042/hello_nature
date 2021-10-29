@@ -381,7 +381,7 @@ img { border: none; vertical-align: top; }
 .benefit5_items:nth-child(3) .benefit5_item_img { width: 95%; height: 400px; margin: 0 auto; border-top-left-radius: 30px; border-top-right-radius: 30px; background: url('../images/recommend/firstbuy/benefit_no05_img03.png') no-repeat; background-size: cover;  }
 .benefit5_items:nth-child(4) .benefit5_item_img { width: 95%; height: 400px; margin: 0 auto; border-top-left-radius: 30px; border-top-right-radius: 30px; background: url('../images/recommend/firstbuy/benefit_no05_img04.png') no-repeat; background-size: cover; }
 .benefit5_items:last-child .benefit5_item_img { width: 95%; height: 400px; margin: 0 auto; border-top-left-radius: 30px; border-top-right-radius: 30px; background: url('../images/recommend/firstbuy/benefit_no05_img05.png') no-repeat; background-size: cover; }
-.benefit5_item_txt { box-sizing: border-box; width: 95%; height: 100px; margin: 0 auto; padding: 23px 18px 10px 18px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; text-align: start; background: #FFF; }
+.benefit5_item_txt { box-sizing: border-box; width: 95%; height: 100px; margin: 0 auto; padding: 23px 18px 10px 18px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; text-align: start; line-height: 1; background: #FFF; }
 .benefit5_item_txt > span { display: block; font-size: 15px; }
 .benefit5_item_txt > span:first-child { padding-bottom: 13px; font-size: 22px; font-weight: bold; }
 .benefit5_item_txt::after { content:''; float: right; position: relative; top: -35px; right: 5px; width: 20px; height: 20px; background: #FFF; border-top: 1.5px solid #CCC; border-left: 1.5px solid #CCC; transform: rotate(135deg); }

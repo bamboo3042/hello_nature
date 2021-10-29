@@ -7,7 +7,7 @@ a:link { color: #444;}
 a:hover { color: #444;}
 a:visited {color: #444;}
 a:focus { color: #444;}
-#content { width: 100%; margin: 0 auto; color: #333333; display: flex; justify-content: center; align-items: center;}
+#content { width: 100%; margin: 0 auto; color: #333333; display: flex; justify-content: center; align-items: center; }
 
 /* ----------------------------------- inner_regist.html  ------------------------------- */
 #join_cont_box{ width: 640px; margin: 0 auto;}

@@ -19,30 +19,35 @@
         $(function() {
 
             let memIdx = $("#hidden_user").val();
+                console.log('회원번호: '+memIdx);
             let coupon_btn = document.getElementById("coupon_btn");
 
-            if (memIdx == null || memIdx == "") {
-                coupon_btn.addEventListener('click', function() {
-                    location.href = '/user/mypage_userRegist';
+
+
+            // 1. 로그인 상태가 아니면 '가입하고 쿠폰 받기' 로 보여지고 버튼 활성화 > 클릭하면 회원가입 페이지로 이동하기
+            // 2. 로그인 상태면 '5000원 할인쿠폰 받기' 로 보여지고 버튼 활성화 > 클릭하면 쿠폰번호 보여주기
+            // 3. 로그인 상태에서 쿠폰을 받은 적이 있으면 쿠폰번호는 그대로 보여주고 버튼 비활성화하기
+
+            if (memIdx == null || memIdx == "") {                       // 비회원의 경우
+                coupon_btn.addEventListener('click', function() {       // '가입하고 쿠폰 받기' 버튼을 클릭하면
+                    location.href = '/user/mypage_userRegist';          // 회원가입 페이지로 이동
                 });
-            } else {
-                axios.get('/api/memberCoupon/list?memIdx='+memIdx+'&usedFlag=FALSE', {  // 사용하지 않은 쿠폰 목록을 불러와서
-                }).then(function(res) {
-                    for (let i in res.data.data) {                                      // 여러개가 있을 수 있으니 포문을 돌리고
-                        let coupon_code = res.data.data[i].ctIdx;                       // 변수에 담은 값이
-                        if (coupon_code == 2) {                                         // 회원가입 쿠폰번호와 같다면
-                            coupon_btn.style.backgroundColor = '#DDD';                  // 배경을 회색으로 바꾸기
-                            coupon_btn.style.cursor = 'default';                        // 커서 비활성화
-                            coupon_btn.innerText = coupon_code;                         // 버튼에 코드 띄우기
-                        } else if (coupon_code !== 2) {                                 // 회원가입 쿠폰번호가 존재하지 않으면
-                            coupon_btn.style.backgroundColor = '#DDD';                  // 배경을 회색으로 바꾸기
-                            coupon_btn.style.cursor = 'default';                        // 커서 비활성화
-                            coupon_btn.innerText = "사용 완료";                           // 버튼에 텍스트 띄우기
-                        }
-                    }
-                }).catch(function(err) {
-                    console.log(err);
-                })
+            } else {                                                    // 회원의 경우
+                coupon_btn.innerText = "5000원 할인쿠폰 받기"              // '5000원 할인쿠폰 받기' 로 이름을 바꿔주고
+
+                coupon_btn.addEventListener('click', function () {      // '5000원 할인쿠폰 받기' 버튼을 클릭하면
+                    coupon_btn.style.backgroundColor = "#DDD";          // 배경색 변경 및
+                    coupon_btn.style.cursor = "default";                // 커서포인터를 기본값으로 변경하고
+                    axios.get('/api/memberCouponType/read/31546878', {
+                    }).then(function(res) {
+                        let coupon_code = res.data.data.idx;
+                        coupon_btn.innerText = coupon_code;             // 버튼에 쿠폰번호 보여주기
+                        coupon_btn.style.color = "#666";                // 폰트색상 변경
+                        coupon_btn.style.fontWeight = "normal";         // 폰트굵기 변경
+                    }).catch(function(err) {
+                        console.log(err);
+                    });
+                });
             }
         });
     </script>
@@ -99,7 +104,7 @@
                                 *일부 상품 적용 제외
                             </p>
                             <div class="benefit_btn">
-                                <a class="btn1" id="coupon_btn" style="cursor: pointer;">가입하고 쿠폰받기</a>
+                                <a class="btn1" id="coupon_btn" style="cursor: pointer;">가입하고 쿠폰 받기</a>
                             </div>
                         </div>
                         <!-- 혜택1 끝 -->

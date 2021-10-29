@@ -286,6 +286,7 @@
                     } else {
                         ansFlag = "block"
                     }
+
                     let ansContent = res.data.data[i].ansContent;
 
                     $("#prod_review_tbody").append(
@@ -298,9 +299,9 @@
                         '<tr class="review_detail">'+
                         '<td colspan="6">'+
                         '<div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div>'+
-                        '<div style="display:'+ansFlag+'">'+
-                        '<span>헬로네이처</span>'+
-                        '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.<br>'+ansContent+'<br>감사합니다.</span></div></td></tr>'
+                        '<div style="display:'+ansFlag+'; border-top: 1px solid #DDD;">'+
+                        '<span style="font-weight: 600; font-size: 15px;">헬로네이처</span>'+
+                        '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                     )
                 }
 
@@ -361,6 +362,15 @@
                                 let regdate = res.data.data[i].regdate;
                                 regdate = regdate.substr(0, 10);
                                 let content = res.data.data[i].content;
+                                let ansFlag = res.data.data[i].ansFlag;
+                                if (ansFlag == "FALSE") {
+                                    ansFlag = "none";
+                                } else {
+                                    ansFlag = "block"
+                                }
+
+                                let ansContent = res.data.data[i].ansContent;
+
                                 let sizeWeight = $("#size_weight").text();
 
                                 $("#prod_review_tbody").append(
@@ -371,7 +381,11 @@
                                     '<td>'+name+'</td>'+
                                     '<td>'+regdate+'</td></tr>'+
                                     '<tr class="review_detail">'+
-                                    '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                    '<td colspan="6">'+
+                                    '<div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div>'+
+                                    '<div style="display:'+ansFlag+'; border-top: 1px solid #DDD;">'+
+                                    '<span style="font-weight: 600; font-size: 15px;">헬로네이처</span>'+
+                                    '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                                 )
                             }
 
@@ -441,6 +455,14 @@
                             let regdate = res.data.data[i].regdate;
                             regdate = regdate.substr(0, 10);
                             let content = res.data.data[i].content;
+                            let ansFlag = res.data.data[i].ansFlag;
+                            if (ansFlag == "FALSE") {
+                                ansFlag = "none";
+                            } else {
+                                ansFlag = "block"
+                            }
+
+                            let ansContent = res.data.data[i].ansContent;
                             let sizeWeight = $("#size_weight").text();
 
                             $("#prod_review_tbody").append(
@@ -451,7 +473,11 @@
                                 '<td>'+name+'</td>'+
                                 '<td>'+regdate+'</td></tr>'+
                                 '<tr class="review_detail">'+
-                                '<td colspan="6"><div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                '<td colspan="6">'+
+                                '<div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div>'+
+                                '<div style="display:'+ansFlag+'; border-top: 1px solid #DDD;">'+
+                                '<span style="font-weight: 600; font-size: 15px;">헬로네이처</span>'+
+                                '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                             )
                         }
 
@@ -490,7 +516,7 @@
                                         let proCount = res.data.data[i].proCount;
                                         let files = res.data.data[i].files;
                                         let file_icon;
-                                        if(files == "" || files == null) {
+                                        if(files == null) {
                                             file_icon = "none";
                                         } else {
                                             file_icon = "inline-block";
@@ -510,8 +536,16 @@
                                         }
 
                                         let regdate = res.data.data[i].regdate;
-                                        regdate = regdate.substr(0, 10);
+                                            regdate = regdate.substr(0, 10);
                                         let content = res.data.data[i].content;
+                                        let ansFlag = res.data.data[i].ansFlag;
+                                        if (ansFlag == "FALSE") {
+                                            ansFlag = "none";
+                                        } else {
+                                            ansFlag = "block"
+                                        }
+
+                                        let ansContent = res.data.data[i].ansContent;
                                         let sizeWeight = $("#size_weight").text();
 
                                         $("#prod_review_tbody").append(
@@ -522,7 +556,11 @@
                                             '<td>'+name+'</td>'+
                                             '<td>'+regdate+'</td></tr>'+
                                             '<tr class="review_detail">'+
-                                            '<td colspan="6"><div><p><img src="'+files+'"></p><p>'+content+'</p></div></td></tr>'
+                                            '<td colspan="6">'+
+                                            '<div><p style="display:'+file_icon+'"><img src="'+files+'"></p><p>'+content+'</p></div>'+
+                                            '<div style="display:'+ansFlag+'; border-top: 1px solid #DDD;">'+
+                                            '<span style="font-weight: 600; font-size: 15px;">헬로네이처</span>'+
+                                            '<span><br>안녕하세요, 오늘이 맛있는 탐험 헬로네이처입니다.'+ansContent+'<br>감사합니다.</span></div></td></tr>'
                                         )
                                     }
 
