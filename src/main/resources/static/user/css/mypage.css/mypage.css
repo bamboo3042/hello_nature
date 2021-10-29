@@ -40,7 +40,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 
 /* main_contents */
 .main_content div { box-sizing: border-box;}
-.contents_box1 { height: 75px; display: flex; font-size: 14px; letter-spacing: -.5px; font-weight: 700; padding: 8px 0 33px 1px; box-sizing: border-box; border-bottom: 3px solid black;}
+.contents_box1 { display: flex; font-size: 14px; letter-spacing: -.5px; font-weight: 700; padding-top: 45px; box-sizing: border-box; border-bottom: 2px solid #666;}
 .time { padding: 20px 0 20px 0;}
 .contents_category { display: flex; justify-content: space-between; margin-top: 20px; }
 .contents_category li { width: 200px; padding-top: 55px; border: 1px solid #cccccc; color: #11b082; cursor: pointer;}
@@ -64,14 +64,14 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .filter_outline { display: flex; justify-content: space-between; width: 816px;}
 .filter_outline div { width: 204px; border: 1px solid #cccccc; margin-right: -4px;}
 .filter_outline div > a { display: flex; justify-content: center; padding: 8px;}
-.filter_outline div > a:hover { background-color: #e2e2e2; font-weight: 700; color: #5dab99;}
+.filter_outline div > a:hover { background-color: #e2e2e2; }
 /* 첫번째요소와 마지막요소를 뺀 나머지에는 hover시 border-radius를 주지 않음 */
 .filter_outline div:not(:first-child:last-child) > a:hover { background-color: #e2e2e2; font-weight: 700; color: #5dab99;}
 
 /* contents_box4 */
 .contents_box4 { background-color: #f6f6f6; margin-top: 16px; padding: 20px 20px 14px; display: flex; justify-content: space-between;}
 .contents_box4 div { box-sizing: border-box;}
-.order_date > p { font-size: 18px; color: #333; font-weight: 800; line-height: 1.22; letter-spacing: -0.6px;}
+.order_date > p { font-size: 15px; color: #333; font-weight: 600; line-height: 1.22; letter-spacing: -0.6px;}
 .order_detail_button { display: flex; justify-content: center; align-items: center; width: 40px; background: #f6f6f6 url("/user/images/mypage.img/hover_right.png") no-repeat 20px 52%; background-size: 6px 11px;}
 
 /* contents_box5 */
@@ -85,17 +85,17 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 
 /* contents_box6 */
 .contents_box6 div { box-sizing: border-box;}
-.contents_box6 { width: 780px; height: 90px; border: 1px solid #cccccc; margin: 0 auto; border-radius: 8px; padding: 12px 12px 14px; display: flex; align-items: center;}
-.review_contents_box { width: 100%; margin: 0 auto; padding: 12px 12px 14px; display: block; align-items: center;}
+.contents_box6 { width: 780px; height: 90px; border: 1px solid #cccccc; margin: 0 auto; border-radius: 8px; padding: 12px 12px 14px; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 5px; }
+.review_contents_box { width: 100%; margin: 0 auto; display: block; align-items: center;}
 .contents_box6_inner { display: flex; align-items: center;}
 .product_info_line { border-right: 1px solid #000; height: 13px; margin: 10px;}
 .product_info { padding-left: 10px;}
 .product_info > p { font-size: 14px; line-height: 1.6;}
 .product_image { width: 60px; height: 60px; background-size: contain; border-radius: 10px;}
-.contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.contents_box6_inner > p, .product_post_lastline p { font-size: 12px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 /* ---------------------------------------------------------------- mypage_orderlist1 ~ 4 시작 ----------------------------------------------------------------*/
 /* mypage_orderlist1.html > 1:1문의 버튼 */
-.mantoman_button_box { margin-left: 500px;}
+.mantoman_button_box { position: relative; left: 440px; }
 .mantoman_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer;}
 /* mypage_orderlist2.html >주문취소 버튼 */
 
@@ -104,17 +104,17 @@ mantoman_button:hover{ background-color: #11b082;}
 .ordercancel_button_box { padding-left: 420px;}
 .ordercancel_button { width: 70px; height: 30px; border-radius:14px; font-size: 14px; font-weight: 700; background-color: #fafafa; border: 1px solid #cccccc;}
 /* mypage_orderlist3.html > 구매횟수 */
-.favorite_box { margin-left: auto; margin-right: 90px; height: 60px; float: right; align-items: start;}
-.favorite_count { font-size: 14px; color: #11b082; font-weight: 700; letter-spacing: -.5px; float: right}
+.favorite_box { margin-left: auto; margin-right: 90px; height: 60px; float: right; align-items: start; position: relative; top: 20px; }
+.favorite_count { font-size: 14px; color: #11b082; letter-spacing: -.5px; float: right}
 /* mypage_orderlist3.html > 필터 아래 공간 확보용 */
 .margin_bottom { margin-bottom: 20px; visibility: hidden;}
 /* mypage_orderlist4.html > 좋아요 리스트 */
 .like_list { width: 804px; border: 1px solid #cccccc; border-radius: 8px; margin: 0 auto; margin-top: 20px;}
 .like_list > div { border: none;}
-.like_box { display: flex; align-items: flex-end; margin-left:auto; margin-right: 60px; height: 60px;}
+.like_box { display: flex; align-items: center; margin-left:auto; margin-right: 60px; height: 60px;}
 .like_box > p { width: 50px;}
 .like_image { width: 20px; height: 15px; background: #fafafa url("/user/images/mypage.img/like_redicon.png") no-repeat; background-size: contain; margin-right: 5px; margin-bottom: 3px;}
-.like_count { color: red;}
+.like_count { color: red; position: relative; top: -2px; }
 /* ---------------------------------------------------------------- mypage_orderlist1 ~ 4 끝 ----------------------------------------------------------------*/
 
 /* ---------------------------------------------------------------- mypage_hellocash 시작 ----------------------------------------------------------------*/
@@ -211,7 +211,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .enrollpay_input { width: 100%; height: 50px; padding: 0 10px; border: 2px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; background-color: #f6f6f6; letter-spacing: -.3px; color: #555; caret-color: #1d988e; outline: none; margin-top: 6px;} 
 .form_area { display: table; width: 100%; table-layout: fixed; box-sizing: border-box;}
 .form_area > li { position: relative; display: table-cell; vertical-align: middle;}
-.form_area > li:not(:last-child) { padding-right: 4px;}
+.form_area > li:not(:last-child) { padding-right: 5px;}
 .enrollhellopay_box > div:not(:last-child) { margin-bottom: 20px;}
 .enrollhellopay_box > div:last-child { margin-bottom: 40px;}
 #card_num1, #card_num2, #card_num3, #card_num4 { font-family: password-mask;}
@@ -227,16 +227,16 @@ mantoman_button:hover{ background-color: #11b082;}
 .allow_button2:hover { width: 40px; height: 40px; background: white url("/user/images/mypage.img/up.png") no-repeat 20px 50%; background-size: 11px 6px; margin-left: 600px;}
 .enrollpay_allow_list { box-sizing: border-box; width: 820px; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 24px 20px; margin: 0 auto; margin-bottom: 50px; background-color: #f1f6f9; display: none;}
 .enrollpay_allow_list > h5 { margin-bottom: 8px; font-size: 15px; color: #555; font-weight: 700; line-height: 1.6; letter-spacing: -.6px;}
-.enrollpay_allow_list2 { box-sizing: border-box; width: 810px; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 24px 20px; margin: 0 auto; background-color: #f1f6f9; display: none;}
+.enrollpay_allow_list2 { box-sizing: border-box; width: 810px;  padding: 24px 20px; margin: 0 auto; background-color: #EEE; display: none;}
 .enrollpay_allow_list2 > h5 { margin-bottom: 8px; font-size: 15px; color: #555; font-weight: 700; line-height: 1.6; letter-spacing: -.6px;}
-.enrollpay_allow_list3 { box-sizing: border-box; width: 900px; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 24px 20px; margin: 0 auto; background-color: #f1f6f9; display: none;}
+.enrollpay_allow_list3 { box-sizing: border-box; width: 900px;  padding: 24px 20px; margin: 0 auto; background-color: #EEE; display: none;}
 .enrollpay_allow_list3 > h5 { margin-bottom: 8px; font-size: 15px; color: #555; font-weight: 700; line-height: 1.6; letter-spacing: -.6px;}
 .allow_contents1 { padding: 16px 0 24px; border-top: 1px solid #888; font-size: 14px; color: #555; font-weight: 400; line-height: 1.57; letter-spacing: -.6px; box-sizing: border-box;}
 .allow_table { border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; width: 100%; table-layout: fixed; border-collapse: collapse; border-spacing: 0;}
 .allow_table tbody tr th { width: 110px; border-right: 1px solid #eee; font-size: 13px; color: #555; font-weight: 500; text-align: center; vertical-align: middle; line-height: 1.38; letter-spacing: -.6px;}
 .allow_table th, td { word-wrap: break-word; word-break: break-all; vertical-align: middle;}
 .allow_table tbody tr td { padding: 12px 0 12px 16px; font-size: 12px; color: #888; font-weight: 400; line-height: 1.58; letter-spacing: -.5px;}
-.back_button { background: white url("/user/images/mypage.img/back_icon.png") center 1px no-repeat; background-size: contain; width: 30px; height: 30px; cursor: pointer}
+.back_button { background: white url("/user/images/mypage.img/back_icon.png") center 1px no-repeat; background-size: contain; width: 30px; height: 30px; cursor: pointer; display: none; }
 .back_button a { display: block; width: 100%; height: 100%;}
 /* ---------------------------------------------------------------- mypage_enroll_hellopay 끝 ---------------------------------------------------------------- */
 
@@ -281,9 +281,8 @@ mantoman_button:hover{ background-color: #11b082;}
 .faq_box1 { margin-top: 20px; margin-bottom: 20px; text-align: center; display: flex; flex-wrap: wrap; justify-content: space-between; width: 100%; table-layout: fixed; box-sizing: border-box; padding-right: 5px;}
 .faq_box1 li { display: inline-block; position: relative; margin: 10px 0 0 8px;}
 .faq_box1 li > span { display: block; position: relative; padding: 0px 12px; box-sizing: border-box;}
-.faq_category_box { width: 820px; box-sizing: border-box; display: flex; margin-top: 20px; align-items: center; justify-content: center; padding: 10px;}
+.faq_category_box { width: 820px; box-sizing: border-box; display: flex; margin-top: 20px; align-items: center; justify-content: space-between; padding: 10px;}
 .faq_category_box { box-sizing: border-box; margin-bottom: 30px;}
-.faq_category_box > div:not(:last-child) { margin-right: 10px;}
 .faq_category_box input[type="button"] { width: 100%; height: 30px; padding-right: 10px; padding-left: 10px; vertical-align: middle; text-align: center; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; font-size: 13.5px; font-weight: 400; letter-spacing: .5px;}
 .faq_category_box input[type="button"]:hover { background-color: #5dab99; color: #fff; border: 1px solid #5dab99;}        
 .faq_box1 li label { position: relative; display: block; width: 100%; height: 100%; line-height: 32px; text-align: center; font-size: 13px; cursor: pointer; margin-right: 5px;}
@@ -295,17 +294,17 @@ mantoman_button:hover{ background-color: #11b082;}
 .next_page a { background: url("/user/images/mypage.img/next_page.png") center center no-repeat; background-size: 12px !important; cursor: pointer;}
 .center_faq_paging > ul li > a { display: block; color: transparent;}
 .now_page > span { color: #333; font-weight: 700;}
-.center_faq_move { box-sizing: border-box; margin-right: -20px; width: 820px; text-overflow: ellipsis; overflow: hidden; border-bottom: 1px solid #ccc; padding: 10px 0px 10px 20px;}
-.center_faq_box { border-right: 1px solid #cccccc; border-left: 1px solid #cccccc; border-bottom: 1px solid #cccccc; padding: 24px 20px; background-color: #f1f6f9; display:none;}
-.center_faq_txt { display: flex; justify-content: space-between; align-items: center; padding-right: 20px; cursor: pointer;}
+.center_faq_move { box-sizing: border-box; margin-right: -20px; width: 820px; text-overflow: ellipsis; overflow: hidden; border-bottom: 1px solid #ccc; }
+.center_faq_box { padding: 24px 6px; display:none; }
+.center_faq_txt { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 0px 10px; }
 .center_faq_txt > a { font-size: 15px; color: #555; letter-spacing: -.6px;}
 .faq_list_title { font-size: 15px;  color: #555; line-height: 1.6; letter-spacing: -0.6px; font-weight: 700;}
 .faq_list_content { font-size: 15px; color: #555; font-weight: 400; line-height: 1.6; letter-spacing: -0.6px; padding: 8px 0 20px 5px;}
-.faq_list_title > p { line-height: 1.5; font-weight: 700; font-size: 18pt; color: rgb(0, 176, 129)}
+.faq_list_title > p { line-height: 1.8; font-weight: 700; font-size: 18pt; color: rgb(0, 176, 129)}
 .faq_list_linebox { width: 30px; height: 30px; box-sizing: border-box; padding-top: 15px;}
 .faq_list_line { border-bottom: 1px solid #cccccc;}
-.faq_list_answer { line-height: 1.5; font-weight: 700; font-size: 18pt; color: #000; margin-bottom: 20px;}
-.faq_list_content > p { line-height: 1.8; margin-bottom: 20px;}
+.faq_list_answer { line-height: 1.5; font-weight: 700; font-size: 18pt; color: #000; }
+.faq_list_content > p { line-height: 1.8; }
 .faq_list_content > p > span { margin-bottom: 10px; font-size: 9pt; margin-top: -30px;}
 /* ---------------------------------------------------------------- mypage_faq_center 끝 ---------------------------------------------------------------- */
 
@@ -344,7 +343,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .enroll_hellopass_box3 { padding: 20px 20px 40px 20px;}
 .enroll_hellopass_box3 > h5 { margin-bottom: 24px; font-size: 18px; color: #333; font-weight: 700; line-height: 1.44; letter-spacing: -.8px;}
 .hellopass_link_payment { position: relative; display: block; height: 50px; padding: 0 10px; border: 2px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; background: #f6f6f6; color: #888; caret-color: #1d988e; outline: none; line-height: 46px;}
-.hellopass_link_payment::after { content: ''; position: absolute; top: 50%; right: 8px; transform: translate(0, -50%); display: block; width: 24px; height: 24px; background: url("/user/images/mypage.img/hover_right.png") no-repeat center center / auto 24px;}
+.hellopass_link_payment::after { content: ''; position: absolute; top: 50%; right: 8px; transform: translate(0, -50%); display: block; width: 12px; height: 12px; background: url("/user/images/mypage.img/hover_right.png") no-repeat center center / auto 24px;}
 .hellopass_charge_price { display: flex; justify-content: space-between;}
 .hellopass_charge_price p:first-child { font-size: 16px; color: #333; font-weight: 700; line-height: 1.63; letter-spacing: -.6px;}
 .hellopass_charge_price p:last-child { font-size: 22px; color: #ff4a43; font-weight: 700; line-height: 1.32; letter-spacing: -.6px;}
@@ -414,15 +413,15 @@ mantoman_button:hover{ background-color: #11b082;}
 .cancel_hellopass_box2 > p:last-child, .cancel_hellopass_box2 > p:nth-child(4) { font-size: 16px; letter-spacing: -.6px; text-indent: 0.9em;}
 .cancel_hellopass_box2 > p:nth-child(even) { margin-bottom: 16px;}
 .cancel_hellopass_bigbox { padding: 20px 20px 60px 20px; border-right: 1px solid #ccc; border-left: 1px solid #ccc;}
-.button_submit_no_margin { display: block; width: 100%; background-color: #5dab99; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; cursor: pointer;}
+.button_submit_no_margin { margin-top: 20px; display: block; width: 100%; background-color: #5dab99; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; cursor: pointer;}
 /* ---------------------------------------------------------------- mypage_cancel_hellopass 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_shipping 시작 ---------------------------------------------------------------- */
 .shipping_box1 { padding: 24px 20px; border: 1.5px solid #dddddd; border-radius: 8px; box-sizing: border-box; margin-top: 20px;}
-.shipping_box1_line1 { display: flex; justify-content: space-between; align-items: center; width: 100%;} 
+.shipping_box1_line1 { display: flex; align-items: center; width: 100%; justify-content: space-between}
 .shipping_box1_line2 { display: block; margin-top: 5px;}
 .shipping_delivery_detail { margin-top: 14px; padding-top: 14px; display: block;}
-.shipping_txt { display: flex; justify-content: center; align-items: center;}
+.shipping_txt { display: flex; align-items: center; }
 .shipping_txt span:nth-child(1), .shipping_font { display: inline-block; font-size: 14px; font-weight: 700; line-height: 1.65; letter-spacing: -.6px; color: #333; margin-right: 10px;}
 .shipping_txt span:nth-child(2), .shipping_txt span:nth-child(3) { display: inline-block; height: 16px; border: 1px solid #11b082; border-radius: 10px; font-size: 11px; font-weight: 500; letter-spacing: -.5px; color: #fff; padding: 0 10px; margin-right: 5px; background-color: #11b082;}
 .shipping_edit_button { display: inline-block; font-size: 12px; font-weight: normal; letter-spacing: -.6px; color: #888;}
@@ -432,7 +431,6 @@ mantoman_button:hover{ background-color: #11b082;}
 .shipping_button_box { display: flex; width: 100%; height: 50px; box-sizing: border-box; color: #555; border: 1.5px solid #ddd; cursor: pointer; justify-content: center; align-items: center; margin: 0 auto; border-radius: 10px; margin-top: 20px;}
 .shipping_button_box > a { font-weight: 500; font-size: 15px; color: #333; letter-spacing: -.6px; display: flex; justify-content: center; margin: 0 auto;}
 .shipping_button_box > a::before { content: ''; width: 21px; height: 21px; background: url("/user/images/mypage.img/shipping_plus_icon.png") center center no-repeat; display: inline-block; margin-right: 5px; background-size: cover;}
-.shipping_button_box:hover { border: 3px solid #5dab99;}
 .just-line { box-sizing: border-box; display: inline-block; border-right: 2px solid #ccc; width: 10px; height: 10px; margin-right: 5px;}
 .shipping_edit_box > span { display: inline-block; font-size: 12px; font-weight: normal; letter-spacing: -.6px; color: #888; cursor: pointer;}
 
@@ -440,19 +438,18 @@ mantoman_button:hover{ background-color: #11b082;}
 
 /* ---------------------------------------------------------------- mypage_post 시작 ---------------------------------------------------------------- */
 .contents_post_box { display: flex; padding: 20px; cursor: pointer;}
-#post_filter_used, #post_filter_available { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 1px solid #cccccc;}
-.post_filter_available2 { color: #00B081 !important; font-weight: bold !important; padding: 7px 0 11px !important; font-size: 14px !important; background-color: #fff !important; text-align: center !important; box-sizing: border-box !important; letter-spacing: -0.6px !important; line-height: 1.73 !important; width: 410px !important; height: 46px !important; border-bottom: 3px solid #155c65 !important;}
-#post_filter_used:hover, #post_filter_available:hover { color: #00B081; font-weight: bold; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 3px solid #155c65;}
+#post_filter_used, #post_filter_available { color: #333; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 1px solid #cccccc;}
+.post_filter_available2 { color: #333; padding: 7px 0 11px !important; font-size: 14px !important; background-color: #fff !important; text-align: center !important; box-sizing: border-box !important; letter-spacing: -0.6px !important; line-height: 1.73 !important; width: 410px !important; height: 46px !important; border-bottom: 3px solid #155c65 !important;}
+#post_filter_used:hover, #post_filter_available:hover { color: #00B081; padding: 7px 0 11px; font-size: 14px; background-color: #fff; text-align: center; box-sizing: border-box; letter-spacing: -0.6px; line-height: 1.73; width: 410px; height: 46px; border-bottom: 1px solid #155c65; }
 .post_button_box { margin-left: 600px;}
-.post_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer; margin-top: 30px;}
-.post_button:hover {background: #0db081}
+.post_button { width: 98px; height: 32px; background-color: #00B081; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer; }
 .product_post_line { border-right: 1px solid #888; height: 8px; margin: 5px; margin: 7px;}
 .product_info_post { margin-left: 10px;}
 .product_post_firstline > p { font-size:     14px; line-height: 1.6;}
 .contents_box6_inner > p, .product_post_lastline p { font-size: 11px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .product_post_lastline { display: flex; justify-content: start; align-items: center;}
 .product_post_lastline p:first-child { margin-right: 10px;}
-.post_delete_button { width: 20px; height: 20px; background: url("/user/images/mypage.img/post_cancel_icon.png") center center no-repeat; background-size: 20px; color:transparent; display: block; position: relative; top: 3px; left: 80px;}
+.post_delete_button { width: 20px; height: 20px; background: url("/user/images/mypage.img/post_cancel_icon.png") center center no-repeat; background-size: 20px; color:transparent; display: block; position: relative; top: -50px; left: 80px;}
 /* ---------------------------------------------------------------- mypage_post 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_enrollpost 시작 ---------------------------------------------------------------- */
@@ -510,7 +507,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .post_guide_box div { box-sizing: border-box;}
 .post_guide_box { border-bottom: 1px solid #cccccc; border-top: 1px solid #cccccc; margin-top: 30px; padding: 20px; display: flex; justify-content: space-between; cursor: pointer;}
 .post_guide_help > p { font-size: 15px; font-weight: 700;}
-.post_guide_overview { border-right: 1px solid #cccccc; border-left: 1px solid #cccccc; border-bottom: 1px solid #cccccc; padding: 24px 20px; background-color: #f1f6f9; display: none;}
+.post_guide_overview { border-right: 1px solid #cccccc; border-left: 1px solid #cccccc; border-bottom: 1px solid #cccccc; padding: 24px 20px; background-color: #eee; display: none;}
 /* 구매후기 운영안내 오버뷰 */
 .post_guide_overview ul li { position: relative; padding-left: 9px; margin-top: 2px;}
 .post_guide_overview ul { font-size: 12px; line-height: 1.58; letter-spacing: -.5px; color: #555;}
@@ -575,29 +572,29 @@ mantoman_button:hover{ background-color: #11b082;}
 /* ---------------------------------------------------------------- mypage_mantoman 시작 ---------------------------------------------------------------- */
 .mantoman_title, .mantoman_list > h5 { font-size: 16px; color: #333; font-weight: 700; line-height: 1.2; letter-spacing: 0.3px; padding: 20px 0 0 20px; box-sizing: border-box;}
 .mantoman_title > a { color: #333;}
-.button_submit_new { margin-left: 20px; display: block; width: 95%; background-color: #5dab99; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer; text-align: center; outline: none; line-height: 45px; margin-bottom: 64px;}
+.button_submit_new { margin: 0 auto; display: block; width: 98%; background-color: #5dab99; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer; text-align: center; outline: none; line-height: 45px; margin-bottom: 45px;}
 .mantoman_list > h5 { margin-bottom: 18px; line-height: 1.44;}
 .mantoman_list { border-bottom: 1px solid #ccc;}
 .empha_faq { color: #5dab99;}
 /* 문의하신 내역 오버뷰 */
 .mantoman_q_line { border-right: 1px solid #333; width: 7px; height: 10px; margin-right: 7px; display: inline-block;}
 .mantoman_list_box div { box-sizing: border-box;}
-.mantoman_list_box { box-sizing: border-box; margin-right: -20px; width: 820px;  display: flex; justify-content: space-between; padding: 20px; cursor: pointer; border-bottom: 1px solid #ccc;}
+.mantoman_list_box { align-items: flex-end; box-sizing: border-box; margin-right: -20px; width: 820px;  display: flex; justify-content: space-between; padding: 20px; cursor: pointer; border-bottom: 1px solid #ccc;}
 .mantoman_list_txt > p { display: block; }
 .mantoman_list_txt > a { display: flex; justify-content: space-between; font-size: 17px; color: #333; letter-spacing: -.6px; line-height: 1.73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-.mantoman_list_overview { width: 60px; height: 60px; background: white url("/user/images/mypage.img/down.png") center center no-repeat; background-size: 20px 13px; cursor: pointer;}
+.mantoman_list_overview { width: 20px; height: 20px; background: white url("/user/images/mypage.img/down.png") center center no-repeat; background-size: 20px 13px; cursor: pointer;}
 .mantoman_post_date > p { font-size: 13px; color: #888; font-weight: 400; line-height: 1.58; letter-spacing: -.5px;}
 .mantoman_preview > a > p { margin-top: 4px; padding-right: 80px; font-size: 15px; color: #333; line-height: 1.63; letter-spacing: -.6px;}
 .mantoman_post_date { margin-bottom: 10px;}
 .mantoman_flag { color: #fff; background: #333; margin-left: 6px; padding: 5px 15px; border-radius: 11px; font-size: 11px; letter-spacing: -.5px; box-sizing: border-box;}
 .mantoman_flag_box { display: flex; justify-content: center; align-content: center;}
-.mantoman_contents_qna > div { display: block; box-sizing: border-box;}
-.mantoman_contents_qna { border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; background-color: #f1f6f9; display: none;}
+.mantoman_contents_qna > div { display: block; box-sizing: border-box; }
+.mantoman_contents_qna { display: none; font-size: 13px; }
 .mantoman_q { padding: 24px 20px 26px 20px;}
 .mantoman_a { padding: 24px 20px 26px 20px;}
 /* 문의 상세내역 아이콘 시작 */
-.q_flag { width: 30px; height: 30px; border-radius: 50%; background: #1d988e url('/user/images/mypage.img/mantoman/mantoman_q.png') center center no-repeat; background-size: 30px;}
-.a_flag { width: 30px; height: 30px; border-radius: 50%; background: #ffe380 url('/user/images/mypage.img/mantoman/mantoman_a.png') center center no-repeat; background-size: 30px;}
+.q_flag { width: 24px; height: 24px; border-radius: 50%; background: #1d988e url('/user/images/mypage.img/mantoman/mantoman_q.png') center center no-repeat; background-size: 30px;}
+.a_flag { width: 24px; height: 24px; border-radius: 50%; background: #ffe380 url('/user/images/mypage.img/mantoman/mantoman_a.png') center center no-repeat; background-size: 30px;}
 /* 문의 상세내역 아이콘 끝*/
 .mantoman_q > div { margin-top: 12px;}
 .mantoman_a > div { margin-top: 12px;}
@@ -620,7 +617,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .essbox::after { display: inline-block; position: absolute; top: 5px; right: -7px; width: 4px; height: 4px; background-color: #66d4c2; border-radius: 50%; content: '';}
 .shipping_form_list > li > h5 { font-size: 14px; color: #333; font-weight: 700; line-height: 1.57; letter-spacing: -.6px;}
 .edit_shipping_form div { box-sizing: border-box;}
-.edit_shipping_form { padding: 5px 20px; display: block; box-sizing: border-box;}
+.edit_shipping_form { padding: 20px; display: block; box-sizing: border-box;}
 .input_text { margin-top: 6px; width: 100%; height: 50px; padding: 0 10px; border: 2px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; background-color: #f6f6f6; letter-spacing: -.3px; color: #555; caret-color: #1d988e; outline: none;}
 .caution_not_input { color: #c20000; margin-top: 5px; font-size: 12px; line-height: 1.58; letter-spacing: -.5px; display: none;}
 .shipping_form_list li:not(:first-child) { margin-top: 24px; position: relative;}
@@ -634,7 +631,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .edit_shipping_guide_box > ul > li::before { content: ''; position: absolute; top: 11px; left: 0; width: 2px; height: 2px; border-radius: 50%; background-color: #555;}
 /* 중앙점 끝 */
 .edit_shipping_guide_box > ul > li:last-child { margin-top: 16px;}
-.edit_shipping_guide_box { margin: 20px -20px; border-radius: 0px; background-color: #f6f6f6; padding: 18px 35px;}
+.edit_shipping_guide_box { margin: 20px 0px; border-radius: 0px; background-color: #f6f6f6; padding: 18px 35px;}
 .edit_shipping_form, .shipping_store_box { border-right: 1px solid #ccc; border-left: 1px solid #ccc; width: 100%; margin: 0 auto;}
 .edit_shipping_allow { box-sizing: border-box; display: flex; align-items: center; padding: 20px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; width: 820px; margin: 0 auto; cursor: pointer;}
 .edit_shipping_allow > label { font-weight: 400; font-size: 16px; color: #333; line-height: 1.63; letter-spacing: -.6px;}
@@ -676,7 +673,7 @@ mantoman_button:hover{ background-color: #11b082;}
 /* ---------------------------------------------------------------- mypage_edit_shipping 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_enroll_mantoman 시작 ---------------------------------------------------------------- */
-.enroll_mantoman_form { border-right: 1px solid #ccc; border-left: 1px solid #ccc; padding: 24px 20px 20px 20px; display: block; margin: 0 auto; box-sizing: border-box;}
+.enroll_mantoman_form { padding: 24px 20px 20px 20px; display: block; margin: 0 auto; box-sizing: border-box;}
 .enroll_mantoman_form div { box-sizing: border-box;}
 .mantoman_form_list > ul > li { margin-top: 24px; position: relative;}
 .essbox, .mantoman_form_list > ul > li > h5 { font-size: 14px; color: #333; font-weight: 700; line-height: 1.57; letter-spacing: -.6px;}
@@ -705,7 +702,7 @@ mantoman_button:hover{ background-color: #11b082;}
 /* ---------------------------------------------------------------- mypage_edit2 시작 ---------------------------------------------------------------- */
 .edit2_myinfo_bigbox { display: block; padding: 24px 20px 20px 20px; box-sizing: border-box;}
 .edit2_myinfo_bigbox div { box-sizing: border-box; display: block;}
-.edit2_form_list1, .edit2_form_list2, .edit2_form_list3, .edit2_form_list4 { border-bottom: 1px solid rgb(146, 134, 134); padding: 0 20px 30px 0; display: block; margin-top: 24px;}
+.edit2_form_list1, .edit2_form_list2, .edit2_form_list3, .edit2_form_list4 { padding: 0 20px 30px 0; display: block; }
 .edit2_form_title { position: relative; margin-bottom: 20px; color: #333; font-size: 18px; font-weight: 700; line-height: 1.44; letter-spacing: -.8px; display: block;}
 .edit2_form_title dl { margin-bottom: 20px;}
 
@@ -731,9 +728,9 @@ mantoman_button:hover{ background-color: #11b082;}
 .switch_label:hover > .slider::before { background:#00B081; transform: translate(14px, -50%); transition: all 0.4s; box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);}
 .slide_clicked > .slider::before { background:#00B081; transform: translate(14px, -50%); transition: all 0.4s; box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%); z-index: 100;}
 .edit2_form_list3 p { display: block; margin-top: -5px; font-size: 12px; font-weight: 400; line-height: 1.58; letter-spacing: -.5px; color: #888;}
-.edit2_form_ad { border-radius: 8px; background-color: #e8f6f3; margin: 20px 0; padding: 20px;}
+/*.edit2_form_ad { border-radius: 8px; background-color: #e8f6f3; margin: 20px 0; padding: 20px;}*/
 .edit2_form_ad > p:first-child { font-size: 14px; font-weight: 700; line-height: 1.57; letter-spacing: -.6px; color: #555; }
-.edit2_form_ad > p:last-child { color: #1d988e; font-size: 12px; font-weight: 400; line-height: 1.58; letter-spacing: -.5px;}
+.edit2_form_ad > p:last-child { color: #1d988e; font-size: 12px; font-weight: 400; line-height: 1.58; letter-spacing: -.5px; padding-bottom: 25px; }
 .eidt2_form_list4 li dl dt { font-size: 15px; font-weight: 400; color: #333; letter-spacing: -.6px; line-height: 1.73;}
 .withdrawal_button { color: white; text-align: center; min-width: auto; height: 25px; padding: 0 14px; border-radius: 8px; background-color: #eeeeee; color: white; font-size: 14px; font-weight: 500; line-height: 25px; padding: 10px; margin-top: 20px; margin-left: 280px; width: 30%;}
 /* ---------------------------------------------------------------- mypage_edit2 끝 ---------------------------------------------------------------- */
@@ -766,7 +763,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .inq_button_box li a { display: block; font-size: 14px; font-weight: 400; line-height: 1.57; color: #555;}
 .inq_button_box li + li { padding-left: 17px; margin-left: 16px;}
 /*.inq_button_box li + li::before { content: ''; position: absolute; top: 50%; left: 0; display: block; width: 1px; height: 15px; background-color: #ccc; transform: translate(0, -50%);}*/
-.product_inq_listbox { display: block; border: 1px solid #ccc; padding: 20px; border-radius: 10px;}
+.product_inq_listbox { margin-top: 10px; display: block; border: 1px solid #ccc; padding: 20px; border-radius: 10px;}
 /* ---------------------------------------------------------------- mypage_product_inq 끝 ---------------------------------------------------------------- */
 
 
@@ -781,13 +778,13 @@ mantoman_button:hover{ background-color: #11b082;}
 .filter_outline2 { display: flex; justify-content: space-between; width: 816px;}
 .filter_outline2 div { width: 204px; border: 1px solid #cccccc; margin-right: -4px;}
 .filter_outline2 div > a { display: flex; justify-content: center; padding: 8px;}
-.filter_outline2 div > a:hover { background-color: #e2e2e2; font-weight: 700; color: #5dab99;}
+.filter_outline2 div > a:hover { background-color: #e2e2e2; }
 
 .filter_outline3 { display: flex; justify-content: space-between; width: 816px;}
 .filter_outline3 div { width: 408px; border: 1px solid #cccccc; margin-right: -4px;}
 .filter_outline3 div > a { display: flex; justify-content: center; padding: 8px;}
-.filter_outline3 div > a:hover { background-color: #e2e2e2; font-weight: 700; color: #5dab99;}
-.filter_outline_on a { background-color: #e2e2e2; font-weight: 700; color: #5dab99;}
+.filter_outline3 div > a:hover { background-color: #e2e2e2; }
+.filter_outline_on a { background-color: #e2e2e2; font-weight: 700; color: #5dab99; }
 .faq_category_box input[type="button"].faqClicked { background-color: #5dab99;  border: 1px solid #5dab99; color: #fff; }
 
 /* 0930 추가 */
@@ -808,3 +805,25 @@ mantoman_button:hover{ background-color: #11b082;}
 
 
 
+/* 2021.10.29 수정사항 */
+.default_ship > p { font-size: 13px; padding-top: 10px; }
+#main_contents { padding-top: 50px; }
+#mg_period { padding: 20px 0px 10px 0px;  }
+#mg_period > input[type="date"] { border: 1px solid #ddd; padding: 5px 10px; color: #666; cursor: pointer; }
+#mg_period > input[type="button"] { margin-left: 10px; padding: 5px 10px; border: 1px solid #ddd; color: #333; background: #ddd; cursor: pointer; }
+.review_contents_box { padding-top: 20px; }
+.shipping_txt { width: 160px; padding: 0 0 0 20px; }
+.shipping_box1_line2 { width: 420px; }
+.hellopass_link_payment { font-size: 13px; }
+.mantoman_q > p:last-child { padding-top: 5px; }
+.mantoman_a { font-size: 13px; }
+.mantoman_a_date { padding-top: 5px; }
+.contents_name { padding-bottom: 10px; }
+#userPhoneNum > input { padding: 5px 10px; border: 1px solid #ccc; width: 230px; }
+#userPassword > input { padding: 5px 10px; border: 1px solid #ccc; width: 230px; }
+.edit2_form_list3 { border-bottom: 1px solid #ccc; }
+.edit2_form_list1 { padding-top: 24px; }
+.edit2_form_list4 { padding-top: 48px; }
+.edit2_myinfo_bigbox { font-size: 13px; }
+.center_faq_box { border-top: 1px solid #ccc; }
+#rev_answer_title { padding-bottom: 20px; }
