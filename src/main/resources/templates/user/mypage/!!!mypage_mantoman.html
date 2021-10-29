@@ -48,9 +48,12 @@
                 // 답변상태 텍스트로 찍어주기
                 if($ansFlag === "FALSE"){
                     $ansFlag = "답변대기"
-                }else{
+
+                }else if($ansFlag === "TRUE"){
                     $ansFlag = "답변완료"
+
                 }
+
 
                 // 타입 텍스트로 찍어주기
                 if($type == 1){
@@ -146,7 +149,7 @@
                     </div>                    
                     <div class="mantoman_guide">
                         <h5 class="mantoman_title">
-                            <a href="/user/mypage_faq">FAQ</a>를 확인하시면<br>
+                            <a href="/user/mypage_faq"><strong class="empha_faq">FAQ</strong>를 확인하시면</a><br>
                             답변을 더 빠르게 찾을 수 있습니다.
                         </h5>
                     </div>
