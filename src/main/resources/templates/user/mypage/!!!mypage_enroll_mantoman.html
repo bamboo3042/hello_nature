@@ -89,7 +89,6 @@
         <div class="main">
             <!-- main_leftaside 시작 -->
             <div class="main_leftaside1">
-                <
                 <div th:replace="/user/fragment/sidebar1::sidebar1"></div>
                 <!-- main_leftaside 끝 -->
             </div>
@@ -177,7 +176,26 @@
                                     <div class="enroll_post_upload">
                                         <h5>사진</h5>
                                         <ul id="post_upload_file">
-                                             <input type="file" id="file" name="file">
+                                            <div>
+                                                <input type="file" id="file" name="file" onchange="setImage(event);"/>
+                                                <div id="img_container"></div>
+                                                <script>
+                                                    function setImage(event){
+                                                        var reader = new FileReader();
+
+                                                        reader.onload = function (event){
+                                                            var img = document.createElement("img");
+                                                            img.setAttribute("src", event.target.result);
+                                                            document.querySelector("div#img_container").appendChild(img);
+                                                            img.style.width = "300px";
+                                                            img.style.height = "300px";
+                                                        };
+
+                                                        reader.readAsDataURL(event.target.files[0]);
+
+                                                    }
+                                                </script>
+                                            </div>
                                         </ul>
                                     </div>
                                     <div class="post_upload_guide">

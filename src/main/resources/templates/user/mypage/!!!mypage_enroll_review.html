@@ -156,7 +156,21 @@
 <!--                            <ul id="post_upload_file">-->
 <!--                                <li class="input_image">-->
 <!--                                    <a href="#">업로드</a>-->
-                                        <input type="file" name="file">
+                                        <input type="file" name="file" onchange="setImage(event);"/>
+                                        <div id="img_container"></div>
+                                        <script>
+                                            function setImage(event){
+                                                var reader = new FileReader();
+                                                reader.onload = function (event){
+                                                    var img = document.createElement("img");
+                                                    img.setAttribute("src", event.target.result);
+                                                    document.querySelector("div#img_container").appendChild(img);
+                                                    img.style.width = "300px";
+                                                    img.style.height = "300px";
+                                                };
+                                                reader.readAsDataURL(event.target.files[0]);
+                                            }
+                                        </script>
 <!--                                     <input type="file" id="file" multiple accept="image/*, video/*">-->
 <!--                                     <input type="hidden" id="fileSave" data-ea="0" data-maxsize="0">-->
 <!--                                </li>-->

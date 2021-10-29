@@ -45,21 +45,23 @@
                     $ansFlag = "답변대기"
                     edit_display = "block"
                     ans_display = "none"
+
                 }else{
                     $ansFlag = "답변완료"
                     edit_display = "none"
                     ans_display ='block';
+
                 }
 
                 let row = $('<div class="product_inq_listbox">').append(
-                    '<div class="product_box"><div class="product_image" style="background: url("'+$proImg+'")"></div>' +
+                    '<div class="product_box"><div class="product_image" style="background: url('+$proImg+') no-repeat center / cover;"></div>' +
                     '<div class="product_info"><p>'+$proName+'</p></div></div>' +
                     '<span class="date">'+ $dateTime + '</span>' +
                     '<span class="answer_flag">'+ $ansFlag + '</span>' +
                     '<div class="product_inq_question"><p class="inq_title">'+ $content +'</p></div>' +
                     '<div class="product_inq_question" style="display:'+ans_display+'"><p class="date">답변 내용</p><p class="inq_title">'+ $ansContent +'</p></div>' +
-                    '<ul class="inq_button_box" style="display: flex;"><li style="display:'+edit_display+'"><a href="#" class="prodQ_edit"><input type="hidden" value="'+$idx+'" id="Que_id"><input type="hidden" value="'+$proIdx+'" id="prod_id">수정</a></li>' +
-                    '<li class="prodQ_del"><input type="hidden" value="'+$idx+'"><a href="#">삭제</a></li></ul></div>'
+                    '<ul class="inq_button_box"><li style="display:'+edit_display+'"><a href="#" class="prodQ_edit"><input type="hidden" value="'+$idx+'" id="Que_id"><input type="hidden" value="'+$proIdx+'" id="prod_id">수정</a></li>' +
+                    '<li class="prodQ_del"><input type="hidden" value="'+$idx+'"><a href="#" style="color:#8db8d9;">삭제</a></li></ul></div>'
                 )
                 $(".product_inq_title").after(row);
             }

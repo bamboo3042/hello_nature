@@ -10,7 +10,7 @@
 ol, ul, li { list-style: none; }
 a { text-decoration: none; color: black;}
 html, body{ height: 100%; min-height: 100%; overflow-x: hidden; overflow-y: hidden;}
-div { display: block;}  
+div { display: block;}
 .main, .footer { width: 1050px;}
 .container { min-width: 1050px; margin: 0 auto; height: 100%; overflow-y:scroll;}
 input { text-rendering: auto; word-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none; display: inline-block;}
@@ -421,12 +421,12 @@ mantoman_button:hover{ background-color: #11b082;}
 .shipping_box1 { padding: 24px 20px; border: 1.5px solid #dddddd; border-radius: 8px; box-sizing: border-box; margin-top: 20px;}
 .shipping_box1_line1 { display: flex; justify-content: space-between; align-items: center; width: 100%;} 
 .shipping_box1_line2 { display: block; margin-top: 5px;}
-.shipping_delivery_detail { border-top: 1px solid #eee; margin-top: 14px; padding-top: 14px; display: block;}
+.shipping_delivery_detail { margin-top: 14px; padding-top: 14px; display: block;}
 .shipping_txt { display: flex; justify-content: center; align-items: center;}
 .shipping_txt span:nth-child(1), .shipping_font { display: inline-block; font-size: 14px; font-weight: 700; line-height: 1.65; letter-spacing: -.6px; color: #333; margin-right: 10px;}
 .shipping_txt span:nth-child(2), .shipping_txt span:nth-child(3) { display: inline-block; height: 16px; border: 1px solid #11b082; border-radius: 10px; font-size: 11px; font-weight: 500; letter-spacing: -.5px; color: #fff; padding: 0 10px; margin-right: 5px; background-color: #11b082;}
 .shipping_edit_button { display: inline-block; font-size: 12px; font-weight: normal; letter-spacing: -.6px; color: #888;}
-#edit_button  { margin-top: 50px; width: 240px; height: 56px; border: 1px solid #5dab99; color: #ffffff; background-color: #5dab99; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 20px;}
+#edit_button  { margin-top: 50px; width: 245px; height: 45px; border: 1px solid #5dab99; color: #ffffff; background-color: #5dab99; border-radius: 8px; font-weight: 500; cursor: pointer; margin-left: 280px;}
 .shipping_box1_line2 > span { font-size: 14px; line-height: 1.6; letter-spacing: -.6px; color: #555;}
 .shipping_delivery_detail span:nth-child(2) { font-size: 14px; line-height: 1.6; letter-spacing: -.6px; color: #555;}
 .shipping_button_box { display: flex; width: 100%; height: 50px; box-sizing: border-box; color: #555; border: 1.5px solid #ddd; cursor: pointer; justify-content: center; align-items: center; margin: 0 auto; border-radius: 10px; margin-top: 20px;}
@@ -573,11 +573,12 @@ mantoman_button:hover{ background-color: #11b082;}
 /* ---------------------------------------------------------------- mypage_thegreen_shipping 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_mantoman 시작 ---------------------------------------------------------------- */
-.mantoman_title, .mantoman_list > h5 { font-size: 16px; color: #333; font-weight: 700; line-height: 1.44; letter-spacing: -.8px; padding: 20px 0 0 20px; box-sizing: border-box;}
+.mantoman_title, .mantoman_list > h5 { font-size: 16px; color: #333; font-weight: 700; line-height: 1.2; letter-spacing: 0.3px; padding: 20px 0 0 20px; box-sizing: border-box;}
 .mantoman_title > a { color: #333;}
-.button_submit_new { display: block; width: 100%; background-color: #5dab99; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer; text-align: center; outline: none; line-height: 45px; margin-bottom: 64px;}
+.button_submit_new { margin-left: 20px; display: block; width: 95%; background-color: #5dab99; color: #fff; height: 50px; padding: 0 10px; box-sizing: border-box; border-radius: 8px; font-size: 18px; font-weight: 700; text-align: center; letter-spacing: -0.8px; outline: none; border: 1px solid #5dab99; margin-top: 30px; cursor: pointer; text-align: center; outline: none; line-height: 45px; margin-bottom: 64px;}
 .mantoman_list > h5 { margin-bottom: 18px; line-height: 1.44;}
 .mantoman_list { border-bottom: 1px solid #ccc;}
+.empha_faq { color: #5dab99;}
 /* 문의하신 내역 오버뷰 */
 .mantoman_q_line { border-right: 1px solid #333; width: 7px; height: 10px; margin-right: 7px; display: inline-block;}
 .mantoman_list_box div { box-sizing: border-box;}
@@ -706,6 +707,8 @@ mantoman_button:hover{ background-color: #11b082;}
 .edit2_myinfo_bigbox div { box-sizing: border-box; display: block;}
 .edit2_form_list1, .edit2_form_list2, .edit2_form_list3, .edit2_form_list4 { border-bottom: 1px solid rgb(146, 134, 134); padding: 0 20px 30px 0; display: block; margin-top: 24px;}
 .edit2_form_title { position: relative; margin-bottom: 20px; color: #333; font-size: 18px; font-weight: 700; line-height: 1.44; letter-spacing: -.8px; display: block;}
+.edit2_form_title dl { margin-bottom: 20px;}
+
 /* 상위요소 > display: table */
 .edit2_myinfo_bigbox .edit2_form_list1 li dl, .edit2_form_list2 li dl, .edit2_form_list3 li dl, .edit2_form_list4 li dl { display: table; table-layout: fixed; width: 100%; padding-bottom: 16px;}
 /* 하위요소 > display: table-cell 시작 */
@@ -729,10 +732,10 @@ mantoman_button:hover{ background-color: #11b082;}
 .slide_clicked > .slider::before { background:#00B081; transform: translate(14px, -50%); transition: all 0.4s; box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%); z-index: 100;}
 .edit2_form_list3 p { display: block; margin-top: -5px; font-size: 12px; font-weight: 400; line-height: 1.58; letter-spacing: -.5px; color: #888;}
 .edit2_form_ad { border-radius: 8px; background-color: #e8f6f3; margin: 20px 0; padding: 20px;}
-.edit2_form_ad > p:first-child { font-size: 14px; font-weight: 700; line-height: 1.57; letter-spacing: -.6px; color: #555; margin-bottom: 5px;}
+.edit2_form_ad > p:first-child { font-size: 14px; font-weight: 700; line-height: 1.57; letter-spacing: -.6px; color: #555; }
 .edit2_form_ad > p:last-child { color: #1d988e; font-size: 12px; font-weight: 400; line-height: 1.58; letter-spacing: -.5px;}
 .eidt2_form_list4 li dl dt { font-size: 15px; font-weight: 400; color: #333; letter-spacing: -.6px; line-height: 1.73;}
-.withdrawal_button {text-align: center; min-width: auto; height: 36px; padding: 0 14px; border-radius: 8px; background-color: red; color: white; font-size: 14px; font-weight: 500; line-height: 36px; padding: 10px;}
+.withdrawal_button { color: white; text-align: center; min-width: auto; height: 25px; padding: 0 14px; border-radius: 8px; background-color: #eeeeee; color: white; font-size: 14px; font-weight: 500; line-height: 25px; padding: 10px; margin-top: 20px; margin-left: 280px; width: 30%;}
 /* ---------------------------------------------------------------- mypage_edit2 끝 ---------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- mypage_enroll_product_inq 시작 ---------------------------------------------------------------- */
@@ -762,7 +765,7 @@ mantoman_button:hover{ background-color: #11b082;}
 .inq_button_box li { position: relative; vertical-align: top; display: inline-block;}
 .inq_button_box li a { display: block; font-size: 14px; font-weight: 400; line-height: 1.57; color: #555;}
 .inq_button_box li + li { padding-left: 17px; margin-left: 16px;}
-.inq_button_box li + li::before { content: ''; position: absolute; top: 50%; left: 0; display: block; width: 1px; height: 15px; background-color: #ccc; transform: translate(0, -50%);}
+/*.inq_button_box li + li::before { content: ''; position: absolute; top: 50%; left: 0; display: block; width: 1px; height: 15px; background-color: #ccc; transform: translate(0, -50%);}*/
 .product_inq_listbox { display: block; border: 1px solid #ccc; padding: 20px; border-radius: 10px;}
 /* ---------------------------------------------------------------- mypage_product_inq 끝 ---------------------------------------------------------------- */
 

@@ -47,6 +47,9 @@
                 let ansContent = response.data.data.ansContent;
                 let ansDate = response.data.data.ansDate;
                 let files = response.data.data.files;
+                if(files === null ) {
+                    $("#rev_detail_img").hide();
+                }
                 if(ansDate !== null) {
                     ansDate = ansDate.toString().substring(0, 10);
                 }

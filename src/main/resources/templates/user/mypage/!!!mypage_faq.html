@@ -32,15 +32,16 @@
 
             }).then(function (response){
                 for(let i in response.data.data){
+                    let $subject = response.data.data[i].subject;
                     let $title = response.data.data[i].title;
                     let $content = response.data.data[i].content;
 
                     let row = $('<div class="center_faq_move" id="center_faq_move'+ i +'">').append(
                         '<div class="center_faq_txt">' +
-                        '<span>' + $title + '</span>' +
+                        '<span>' + $subject + '</span>' +
                         '<div class="overview"></div></div></div>' +
                         '<div class="center_faq_box"><div class="center_faq_list"><div class="faq_list_title"><p>Q</p>'+
-                        '<p class="faq_title">'+$content+'</p></div>' +
+                        '<p class="faq_title">'+$title+'</p></div>' +
                         '<div class="faq_list_linebox"><div class="faq_list_line"></div></div>' +
                         '<div class="faq_list_content"><p class="faq_list_answer">A</p>' +
                         '<p class="faq_content">'+$content+'</p></div></div></div>'
