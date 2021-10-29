@@ -346,6 +346,7 @@ public class MypageController {
     // 회원 로그인
     @RequestMapping(value = "/mypage_userLogin", method = {RequestMethod.GET, RequestMethod.POST})
     public String mypageUserLoginGet(){
+        System.out.println("22222222222");
         return "user/mypage/UserLogin.html";
     }
 
