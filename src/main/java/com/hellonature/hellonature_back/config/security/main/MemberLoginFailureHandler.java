@@ -28,6 +28,6 @@ public class MemberLoginFailureHandler implements AuthenticationFailureHandler {
         else{
             request.setAttribute("loginFailMsg", "로그인 실패");
         }
-        request.getRequestDispatcher("/mypage_userLogin_re").forward(request, response);
+        request.getRequestDispatcher("/user/mypage_userLogin").forward(request, response);
     }
 }
