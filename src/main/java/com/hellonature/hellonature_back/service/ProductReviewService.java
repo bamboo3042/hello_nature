@@ -49,7 +49,7 @@ public class ProductReviewService  {
                 .product(productRepository.findById(request.getProIdx()).get())
                 .like(request.getLike())
                 .content(request.getContent())
-                .files(pathList.isEmpty() ? null : pathList.get(0))
+                .files((pathList == null || pathList.isEmpty()) ? null : pathList.get(0))
                 .build();
         productReviewRepository.save(productReview);
         return Header.OK();
