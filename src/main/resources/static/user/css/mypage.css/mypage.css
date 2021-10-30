@@ -34,7 +34,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .list a { height: 50px; display: flex; align-items: center; box-sizing: border-box;}
 /* 헬로캐시/쿠폰/헬로페이/헬로패스 */
 .list_callcenter {height: 60px; overflow: hidden; display: block; margin-top: 20px; padding: 9px 0 0 21px;; border-radius: 0 100px 100px 0; background: #fafafa url("/user/images/mypage.img/right.png") no-repeat 174px 52%; background-size: 6px 11px; font-size: 14px; line-height: 20px; letter-spacing: -.3px; border: 1px solid #cccccc;}
-.list_callcenter > span:first-child { display: flex; padding-top: 5px; font-size: 14px; font-weight: 600}
+.list_callcenter > span:first-child { display: flex; font-size: 14px; font-weight: 600}
 .list_callcenter > span:last-child { font-size: 12px;}
 /* ---------------------------------------------------------------- list 끝 ---------------------------------------------------------------- */
 
