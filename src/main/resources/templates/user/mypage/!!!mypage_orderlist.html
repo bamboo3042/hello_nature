@@ -342,7 +342,7 @@
 
                             let row = $('<div class="contents_box6">').append(
                                 `<div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover"></div>` +
-                                '<div class="product_info"><p>' + proName + ' ' + proWeightSize  + '</p></div>' +
+                                '<div class="product_info"><p>' + proName +  '</p></div>' +
                                 '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
                             )
                             $("#main_contents").append(row)
@@ -605,7 +605,7 @@
 
                             let row = $('<div class="contents_box6">').append(
                                 `<div class="product_image" style="background: url('${proImg}') no-repeat; background-size: cover""></div>` +
-                                '<div class="product_info"><p>' + proName + ' ' + proWeightSize + '개' + '</p></div>' +
+                                '<div class="product_info"><p>' + proName + '개' + '</p></div>' +
                                 '<div class="favorite_box"><p class="favorite_count">구매횟수 ' + count + '</p></div></div>'
                             )
                             $("#main_contents").append(row)
@@ -636,7 +636,7 @@
 
                             let row = $('<div class="contents_box6">').append(
                                 `<div class="product_image" style="background: url('${$proImg}') no-repeat; background-size: cover"></div>` +
-                                '<div class="product_info"><p>' + $proName + " " + $proWeightSize + "(g)" + '</p>' +
+                                '<div class="product_info"><p>' + $proName + " " + '</p>' +
                                 '</div><div class="like_box"><div class="like_image" style="cursor: pointer" onclick="likedel()">' +
                                 '<input type="hidden" value="' + $proIdx + '"></div><p class="like_count">' + $proLikeCount + '</p>' +
                                 '</div></div></div>'
