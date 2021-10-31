@@ -108,7 +108,7 @@
 
                 document.getElementById("net_price").innerText = String(sum_1);
                 document.getElementById("sale_price").innerText = String(sum_2);
-                document.getElementById("final_price").innerText = String(sum_2 + 2000);
+                document.getElementById("final_price").innerText = String(sum_1 - sum_2 + 2000);
 
                 $(".emph").text("구매 시" + parseInt($("#final_price").text()) * 0.01 + "원 적립")
 

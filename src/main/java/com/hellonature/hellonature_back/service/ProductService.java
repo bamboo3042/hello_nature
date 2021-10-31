@@ -86,46 +86,46 @@ public class ProductService{
     public Header<ProductApiResponse> update(ProductApiRequest productApiRequest, List<MultipartFile> multipartFiles) {
         Optional<Product> optional = productRepository.findById(productApiRequest.getIdx());
         return optional.map(product -> {
-            product.setName(productApiRequest.getName());
-            product.setDes(productApiRequest.getDes());
-            product.setBrand(brandRepository.findById(productApiRequest.getBrIdx()).get());
-            product.setNetPrice(productApiRequest.getNetPrice());
-            product.setSalePrice(productApiRequest.getSalePrice());
-            product.setPrice(productApiRequest.getSalePrice() == null ? productApiRequest.getNetPrice() : productApiRequest.getNetPrice() * (100 - productApiRequest.getSalePrice()) / 100);
-            product.setState(productApiRequest.getState());
-            product.setDateStart(productApiRequest.getDateStart());
-            product.setDateEnd(productApiRequest.getDateEnd());
-            product.setOrigin(productApiRequest.getOrigin());
-            product.setSizeWeight(productApiRequest.getSizeWeight());
-            product.setTemp(productApiRequest.getTemp());
-            product.setCount(productApiRequest.getCount());
-            product.setDelivery(productApiRequest.getDelivery());
-            product.setPacking(productApiRequest.getPacking());
-            product.setBestFlag(productApiRequest.getBestFlag());
+                    product.setName(productApiRequest.getName());
+                    product.setDes(productApiRequest.getDes());
+                    product.setBrand(brandRepository.findById(productApiRequest.getBrIdx()).get());
+                    product.setNetPrice(productApiRequest.getNetPrice());
+                    product.setSalePrice(productApiRequest.getSalePrice());
+                    product.setPrice(productApiRequest.getSalePrice() == null ? productApiRequest.getNetPrice() : productApiRequest.getNetPrice() * (100 - productApiRequest.getSalePrice()) / 100);
+                    product.setState(productApiRequest.getState());
+                    product.setDateStart(productApiRequest.getDateStart());
+                    product.setDateEnd(productApiRequest.getDateEnd());
+                    product.setOrigin(productApiRequest.getOrigin());
+                    product.setSizeWeight(productApiRequest.getSizeWeight());
+                    product.setTemp(productApiRequest.getTemp());
+                    product.setCount(productApiRequest.getCount());
+                    product.setDelivery(productApiRequest.getDelivery());
+                    product.setPacking(productApiRequest.getPacking());
+                    product.setBestFlag(productApiRequest.getBestFlag());
 
-            if(multipartFiles != null && !multipartFiles.isEmpty()){
-                List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
-                if(productApiRequest.getImg1() != null && productApiRequest.getImg1().equals("") && pathList.get(0) != null) product.setImg1(pathList.get(0));
-                if(productApiRequest.getImg2() != null && productApiRequest.getImg2().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(1));
-                if(productApiRequest.getImg3() != null && productApiRequest.getImg3().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(2));
-                if(productApiRequest.getImg4() != null && productApiRequest.getImg4().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(3));
-            }
+                    if(multipartFiles != null && !multipartFiles.isEmpty()){
+                        List<String> pathList = fileService.imagesUploads(multipartFiles, "product");
+                        if(productApiRequest.getImg1() != null && productApiRequest.getImg1().equals("") && pathList.get(0) != null) product.setImg1(pathList.get(0));
+                        if(productApiRequest.getImg2() != null && productApiRequest.getImg2().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(1));
+                        if(productApiRequest.getImg3() != null && productApiRequest.getImg3().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(2));
+                        if(productApiRequest.getImg4() != null && productApiRequest.getImg4().equals("") && pathList.get(0) != null) product.setImg2(pathList.get(3));
+                    }
 
-            product.setProDes(productApiRequest.getProDes());
-            product.setCategory(categoryRepository.findById(productApiRequest.getCateIdx()).get());
+                    product.setProDes(productApiRequest.getProDes());
+                    product.setCategory(categoryRepository.findById(productApiRequest.getCateIdx()).get());
 
-            if((productApiRequest.getEveCateIdx() != null)) product.setEveCategory(categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
+                    if((productApiRequest.getEveCateIdx() != null)) product.setEveCategory(categoryRepository.findById(productApiRequest.getEveCateIdx()).get());
 
-            product.setProType(productApiRequest.getProType());
-            product.setProName(productApiRequest.getProName());
-            product.setFoodType(productApiRequest.getFoodType());
-            product.setProducer(productApiRequest.getProducer());
-            product.setLocation(productApiRequest.getLocation());
-            product.setDateBuilt(productApiRequest.getDateBuilt());
-            product.setDateValid(productApiRequest.getDateValid());
+                    product.setProType(productApiRequest.getProType());
+                    product.setProName(productApiRequest.getProName());
+                    product.setFoodType(productApiRequest.getFoodType());
+                    product.setProducer(productApiRequest.getProducer());
+                    product.setLocation(productApiRequest.getLocation());
+                    product.setDateBuilt(productApiRequest.getDateBuilt());
+                    product.setDateValid(productApiRequest.getDateValid());
 
-            return product;
-        }).map(productRepository::save)
+                    return product;
+                }).map(productRepository::save)
                 .map(this::response)
                 .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("수정 실패"));

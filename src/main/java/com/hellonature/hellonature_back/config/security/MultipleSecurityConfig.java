@@ -52,7 +52,7 @@ public class MultipleSecurityConfig {
                     .httpBasic().disable()
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/user/mypage*").hasRole("MEMBER")
+//                    .antMatchers("/user/mypage*").hasRole("MEMBER")
                     .anyRequest().permitAll()
                     .and().formLogin()
                     .loginPage("/user/mypage_userLogin")

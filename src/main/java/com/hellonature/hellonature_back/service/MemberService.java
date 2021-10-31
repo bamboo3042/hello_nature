@@ -272,7 +272,7 @@ public class MemberService extends BaseService<MemberApiRequest, MemberApiRespon
 
     private Boolean isSeoul(String addr){
         String[] temp = addr.split(" ");
-        return temp[0].equals("서울시");
+        return temp[0].equals("서울시") || temp[0].equals("서울");
     }
 
     @Transactional

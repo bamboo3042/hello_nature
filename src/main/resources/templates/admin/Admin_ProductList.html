@@ -48,15 +48,13 @@
         })
     }
 
-    $(function(){
+    $(function () {
 
         let page = $('.page').val();
-        axios.get('/api/product/list?page=' + page, {
-
-        }).then(function(response){
+        axios.get('/api/product/list?page=' + page, {}).then(function (response) {
 
             let tb = $('<tbody class="tbody">');
-            for(let i in response.data.data){
+            for (let i in response.data.data) {
                 let id = response.data.data[i].idx;
                 let $cate = response.data.data[i].cateName;
                 let $name = response.data.data[i].name;
@@ -67,27 +65,27 @@
                 console.log($cate);
                 console.log($state);
                 console.log($count);
-                if($state == 0){
+                if ($state == 0) {
                     $state = '판매대기'
-                }else if($state == 1){
+                } else if ($state == 1) {
                     $state = '판매중'
-                }else if($state == 2){
+                } else if ($state == 2) {
                     $state = '판매중지'
-                }else if($state == 3){
+                } else if ($state == 3) {
                     $state = '판매종료'
-                }else if($state == 4){
+                } else if ($state == 4) {
                     $state = '품절'
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="PL_check_'+ i +'" name="product"' +
-                    'onclick="PL_checkSelectAll()" value="'+id+'"><label for="PL_check_'+ i +'"></label></td>' +
-                    '<td>'+ $cate +'</td>' +
-                    '<td>'+ $name +'</td>' +
-                    '<td>'+ $state +'</td>' +
-                    '<td>'+ $count +' 개</td>' +
-                    '<td>'+ $price +' 원</td>' +
-                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                    '<td><input type="checkbox" id="PL_check_' + i + '" name="product"' +
+                    'onclick="PL_checkSelectAll()" value="' + id + '"><label for="PL_check_' + i + '"></label></td>' +
+                    '<td>' + $cate + '</td>' +
+                    '<td>' + $name + '</td>' +
+                    '<td>' + $state + '</td>' +
+                    '<td>' + $count + ' 개</td>' +
+                    '<td>' + $price + ' 원</td>' +
+                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="' + id + '" ></td></tr>'
                 )
                 tb.append(row);
             }
@@ -113,23 +111,21 @@
 
             let pagination = response.data.pagination.totalPages;
             console.log(pagination);
-            if(pagination )
-            for(let i = response.data.pagination.totalPages; i > 0; i--){
-                let pages = $('<li class="page_num" style="cursor: pointer" value="'+ (i - 1) +' ">').append(
-                    i + '</li>'
-                )
-                $('#prev').after(pages);
-            }
+            if (pagination)
+                for (let i = response.data.pagination.totalPages; i > 0; i--) {
+                    let pages = $('<li class="page_num" style="cursor: pointer" value="' + (i - 1) + ' ">').append(
+                        i + '</li>'
+                    )
+                    $('#prev').after(pages);
+                }
 
-            $('.page_num').click(function(e){
+            $('.page_num').click(function (e) {
                 $('.tbody').empty();
 
                 $('.page').val($(this).val());
                 let page = $('.page').val()
 
-                axios.get('/api/product/list?page=' + page, {
-
-                }).then(function(response) {
+                axios.get('/api/product/list?page=' + page, {}).then(function (response) {
                     let tb = $('<tbody class="tbody">');
                     for (let i in response.data.data) {
                         let id = response.data.data[i].idx;
@@ -138,27 +134,27 @@
                         let $state = response.data.data[i].state;
                         let $price = response.data.data[i].price;
                         let $count = response.data.data[i].count;
-                        if($state == 0){
+                        if ($state == 0) {
                             $state = '판매대기'
-                        }else if($state == 1){
+                        } else if ($state == 1) {
                             $state = '판매중'
-                        }else if($state == 2){
+                        } else if ($state == 2) {
                             $state = '판매중지'
-                        }else if($state == 3){
+                        } else if ($state == 3) {
                             $state = '판매종료'
-                        }else if($state == 4){
+                        } else if ($state == 4) {
                             $state = '품절'
                         }
 
                         let row = $('<tr>').append(
                             '<td><input type="checkbox" id="PL_check_' + i + '" name="product"' +
-                            'onclick="PL_checkSelectAll()" value="'+id+'"><label for="PL_check_' + i + '"></label></td>' +
+                            'onclick="PL_checkSelectAll()" value="' + id + '"><label for="PL_check_' + i + '"></label></td>' +
                             '<td>' + $cate + '</td>' +
                             '<td>' + $name + '</td>' +
                             '<td>' + $state + '</td>' +
                             '<td>' + $count + ' 개</td>' +
                             '<td>' + $price + ' 원</td>' +
-                            '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                            '<td><input type="button" class="edit" value="수정"><input type="hidden" value="' + id + '" ></td></tr>'
                         )
                         tb.append(row);
                     }
@@ -180,70 +176,69 @@
                     })
                 })
             })
-        }).catch(function(err){
+        }).catch(function (err) {
             console.log(err)
         })
     })
 
-    function search(){
+    function search() {
 
         let cateIdx = $('#PL_sel_2').val();
         let page = $('.page').val();
         let state = $('input:checkbox[name="d_status"]:checked').val();
         let name = $('#text').val();
+
+
         let url = '/api/product/list?page=' + page + '&state=' + state;
 
-        if(state == undefined){
+        if (state == undefined) {
             url = '/api/product/list?page=' + page;
-        } else if(state != undefined){
+        } else if (state != undefined) {
             url = url;
         }
 
-        if(cateIdx == "중분류"){
+        if (cateIdx == "중분류") {
             url = url;
-        }else if(cateIdx != "중분류"){
+        } else if (cateIdx != "중분류") {
             url = url + '&cateIdx=' + cateIdx;
         }
 
-        if(name == ""){
+        if (name == "") {
             url = url;
-        }else if(name != ""){
+        } else if (name != "") {
             url = url + '&name=' + name;
         }
-        console.log(url)
-        axios.get(url, {
-
-        }).then(function(response){
+        axios.get(url, {}).then(function (response) {
             $('.tbody').empty();
             let tb = $('<tbody class="tbody">');
-            for(let i in response.data.data){
+            for (let i in response.data.data) {
                 let id = response.data.data[i].idx;
                 let $cate = response.data.data[i].cateName;
                 let $name = response.data.data[i].name;
                 let $state = response.data.data[i].state;
                 let $price = response.data.data[i].price;
                 let $count = response.data.data[i].count;
-                if($state == 0){
+                if ($state == 0) {
                     $state = '판매대기'
-                }else if($state == 1){
+                } else if ($state == 1) {
                     $state = '판매중'
-                }else if($state == 2){
+                } else if ($state == 2) {
                     $state = '판매중지'
-                }else if($state == 3){
+                } else if ($state == 3) {
                     $state = '판매종료'
-                }else if($state == 4){
+                } else if ($state == 4) {
                     $state = '품절'
                 }
 
                 let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="PL_check_'+ i +'" name="product"' +
-                    'onclick="PL_checkSelectAll()" value="'+id+'"><label for="PL_check_'+ i +'"></label></td>' +
-                    '<td>'+ $cate +'</td>' +
-                    '<td>'+ $name +'</td>' +
-                    '<td>'+ $state +'</td>' +
-                    '<td>'+ $count +' 개</td>' +
-                    '<td>'+ $price +' 원</td>' +
-                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                    '<td><input type="checkbox" id="PL_check_' + i + '" name="product"' +
+                    'onclick="PL_checkSelectAll()" value="' + id + '"><label for="PL_check_' + i + '"></label></td>' +
+                    '<td>' + $cate + '</td>' +
+                    '<td>' + $name + '</td>' +
+                    '<td>' + $state + '</td>' +
+                    '<td>' + $count + ' 개</td>' +
+                    '<td>' + $price + ' 원</td>' +
+                    '<td><input type="button" class="edit" value="수정"><input type="hidden" value="' + id + '" ></td></tr>'
                 )
                 tb.append(row)
             }
@@ -267,13 +262,13 @@
                 })
             })
             $("#Maxprev").siblings(".page_num").remove();
-            for(let i = response.data.pagination.totalPages; i > 0; i--){
-                let pages = $('<li value="'+ (i - 1) +'" class="page_num">').append(
+            for (let i = response.data.pagination.totalPages; i > 0; i--) {
+                let pages = $('<li value="' + (i - 1) + '" class="page_num">').append(
                     i + '</li>'
                 )
                 $('#prev').after(pages);
 
-                $('.page_num').click(function(e) {
+                $('.page_num').click(function (e) {
 
                     $('.tbody').empty();
 
@@ -283,21 +278,21 @@
                     let name = $('#text').val();
                     let url = '/api/product/list?page=' + page + '&state=' + state;
 
-                    if(state == undefined){
+                    if (state == undefined) {
                         url = '/api/product/list?page=' + page;
-                    } else if(state != undefined){
+                    } else if (state != undefined) {
                         url = url;
                     }
 
-                    if(cateIdx == "중분류"){
+                    if (cateIdx == "중분류") {
                         url = url;
-                    }else if(cateIdx != "중분류"){
+                    } else if (cateIdx != "중분류") {
                         url = url + '&cateIdx=' + cateIdx;
                     }
 
-                    if(name == ""){
+                    if (name == "") {
                         url = url;
-                    }else if(name != ""){
+                    } else if (name != "") {
                         url = url + '&name=' + name;
                     }
 
@@ -310,28 +305,28 @@
                             let $state = response.data.data[i].state;
                             let $price = response.data.data[i].price;
                             let $count = response.data.data[i].count;
-                            if($state == 0){
+                            if ($state == 0) {
                                 $state = '판매대기'
-                            }else if($state == 1){
+                            } else if ($state == 1) {
                                 $state = '판매중'
-                            }else if($state == 2){
+                            } else if ($state == 2) {
                                 $state = '판매중지'
-                            }else if($state == 3){
+                            } else if ($state == 3) {
                                 $state = '판매종료'
-                            }else if($state == 4){
+                            } else if ($state == 4) {
                                 $state = '품절'
                             }
 
                             let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="PL_check_'+ i +'" name="product"' +
-                                'onclick="PL_checkSelectAll()" value="'+id+'"><label for="PL_check_'+ i +'"></label></td>' +
-                                '<td>'+ $cate +'</td>' +
-                                '<td>'+ $name +'</td>' +
-                                '<td>'+ $state +'</td>' +
-                                '<td>'+ $count +' 개</td>' +
-                                '<td>'+ $price +' 원</td>' +
-                                '<td>'+  +' 원</td>' +
-                                '<td><input type="button" class="edit" value="수정"><input type="hidden" value="'+ id +'" ></td></tr>'
+                                '<td><input type="checkbox" id="PL_check_' + i + '" name="product"' +
+                                'onclick="PL_checkSelectAll()" value="' + id + '"><label for="PL_check_' + i + '"></label></td>' +
+                                '<td>' + $cate + '</td>' +
+                                '<td>' + $name + '</td>' +
+                                '<td>' + $state + '</td>' +
+                                '<td>' + $count + ' 개</td>' +
+                                '<td>' + $price + ' 원</td>' +
+                                '<td>' + +' 원</td>' +
+                                '<td><input type="button" class="edit" value="수정"><input type="hidden" value="' + id + '" ></td></tr>'
                             )
                             tb.append(row)
                         }
@@ -356,15 +351,15 @@
                     })
                 })
             }
-        }).catch(function(err){
+        }).catch(function (err) {
             console.log(err)
             alert('리스트 불러오기 실패')
         })
     }
 
-    $('input[name="d_status"]').click(function(e){
+    $('input[name="d_status"]').click(function (e) {
         let count = $('input:checked[name="d_status"]').length;
-        if(count > 1){
+        if (count > 1) {
             $(this).prop('checked', false);
             alert('한개만 선택해주세요')
         }
@@ -372,23 +367,22 @@
 
     $(function () {
         //선택삭제
-        $('#delbtn').click(function (){
+        $('#delbtn').click(function () {
             confirm("정말 삭제하시겠습니까?")
             let id = [];
-            ($("input:checkbox[name='product']:checked").each(function (e){
+            ($("input:checkbox[name='product']:checked").each(function (e) {
                 id.push($(this).val())
             }));
             id = String(id)
             console.log(id)
 
-            if(confirm){
-                axios.delete("/api/product/deleteList/" + id,  {
-                }).then(function (){
+            if (confirm) {
+                axios.delete("/api/product/deleteList/" + id, {}).then(function () {
                     alert("상품 삭제 성공")
                     location.reload();
                 })
             }
-        }).catch(function (err){
+        }).catch(function (err) {
             console.log(err)
         })
     })
@@ -402,7 +396,7 @@
 <div class="content_title_click">
     <a onclick="PL_location()">상품 등록</a>
     <a onclick="PL_location_1()" id="product_click_2">상품 목록</a>
-<!--    <a onclick="PL_location_2()">공통문구 </a>-->
+    <!--    <a onclick="PL_location_2()">공통문구 </a>-->
 </div>
 <!--Prod_list 시작-->
 <div class="Prod_list">

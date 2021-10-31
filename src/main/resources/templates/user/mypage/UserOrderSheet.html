@@ -33,8 +33,6 @@
 
         #content {
             padding: 20px;
-            border: 3px solid #5dab99;
-            border-radius: 8px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -77,7 +75,7 @@
         $(function () {
             let netPrice = parseInt(sessionStorage.getItem("netPrice"));
             let salePrice = parseInt(sessionStorage.getItem("salePrice"));
-            $("#realPrice").val(netPrice-salePrice)
+            $("#realPrice").val(netPrice - salePrice)
 
 
             $("input[name='detail_addr']").on('click', function () {
@@ -90,21 +88,21 @@
         });
 
 
-        function coponuse(e){
+        function coponuse(e) {
             let coponDiscount = $("#select_coupon option:selected").attr("name")
 
-            if(coponDiscount>100){
+            if (coponDiscount > 100) {
                 $("#order_coupon").text(coponDiscount)
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
                 $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
-            }else if(coponDiscount<=100){
+            } else if (coponDiscount <= 100) {
                 let row = parseInt($("#realPrice").val());
-                $("#order_coupon").text(row * coponDiscount/100);
+                $("#order_coupon").text(row * coponDiscount / 100);
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
                 $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
-            }else{
+            } else {
                 $("#order_coupon").text(0)
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
@@ -200,542 +198,553 @@
             let num = sessionStorage.getItem("num");
 
             for (let i = 0; i < prodIdx.length; i++) {
-                let row = $('<div id="order_item_list">').append(
-                    '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '" style="width: 60px; height: 60px;"></div>' +
-                    '<div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
-                    '<div class="item_count_k">' + proEA[i] + '개' + '</div>' +
-                    '<div class="item_price_k"><del>' + totalPrice[i] + '</del><p>' + realPriceList[i] + '</p></div></div>'
-                )
-                $("#order_item_box").append(row)
+                let style = "";
+                if (totalPrice[i] == null || totalPrice[i] == "") {
+                    style = "none";
+                } else {
+                    style = "block"
+                }
             }
 
-            $("#order_netPrice").text(netPrice);
-            $("#order_salePrice").text(salePrice);
 
-            axios.get("/api/memberOrder/load/" + memIdx, {}).then(function (response) {
-                let name = response.data.data.address.name;
-                let hp = response.data.data.address.hp;
-                let addrName = response.data.data.address.addrName;
-                let zipcode = response.data.data.address.zipcode;
-                let addr1 = response.data.data.address.addr1;
-                let addr2 = response.data.data.address.addr2;
-                let baseFlag = response.data.data.address.baseFlag;
-                let dawnFlag = response.data.data.address.dawnFlag;
-                let greenFlag = response.data.data.address.greenFlag;
-                let hellocash = response.data.data.hellocash;
-                let requestType = response.data.data.address.requestType;
-                let requestMemo1 = response.data.data.address.requestMemo1;
-                let requestMemo2 = response.data.data.address.requestMemo2;
-
-                $("#greenFlag").val(greenFlag)
-                $("#dawnFlag").val(dawnFlag)
-                $("#requestType").val(requestType)
-                $("#requestMemo1").val(requestMemo1)
-                $("#requestMemo2").val(requestMemo2)
-                $("#zipcode").val(zipcode)
-                $("#hidden_addr2").val(addr2)
-                $("#hidden_addr1").val(addr1)
-
-
-                if (dawnFlag === "FALSE") {
-                    $("#ship_type01_first").attr("disabled", true)
-                    $("#ship_type01_second").prop("checked", true)
+                for (let i = 0; i < prodIdx.length; i++) {
+                    let row = $('<div id="order_item_list">').append(
+                        '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '" style="width: 60px; height: 60px;"></div>' +
+                        '<div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
+                        '<div class="item_count_k">' + proEA[i] + '개' + '</div>' +
+                        '<div class="item_price_k"><del>' + totalPrice[i] + '</del><p>' + realPriceList[i] + '</p></div></div>'
+                    )
+                    $("#order_item_box").append(row)
                 }
 
-                $("#addr").text(addrName + "/" + addr1)
-                $("#name").val(name)
-                $("#hp").val(hp)
-                $("#addr2").text("[" + zipcode + "] " + addr2)
+                $("#order_netPrice").text(netPrice);
+                $("#order_salePrice").text(salePrice);
 
-                $("#showHelloCash").text(hellocash + "원")
+                axios.get("/api/memberOrder/load/" + memIdx, {}).then(function (response) {
+                    let name = response.data.data.address.name;
+                    let hp = response.data.data.address.hp;
+                    let addrName = response.data.data.address.addrName;
+                    let zipcode = response.data.data.address.zipcode;
+                    let addr1 = response.data.data.address.addr1;
+                    let addr2 = response.data.data.address.addr2;
+                    let baseFlag = response.data.data.address.baseFlag;
+                    let dawnFlag = response.data.data.address.dawnFlag;
+                    let greenFlag = response.data.data.address.greenFlag;
+                    let hellocash = response.data.data.hellocash;
+                    let requestType = response.data.data.address.requestType;
+                    let requestMemo1 = response.data.data.address.requestMemo1;
+                    let requestMemo2 = response.data.data.address.requestMemo2;
+
+                    $("#greenFlag").val(greenFlag)
+                    $("#dawnFlag").val(dawnFlag)
+                    $("#requestType").val(requestType)
+                    $("#requestMemo1").val(requestMemo1)
+                    $("#requestMemo2").val(requestMemo2)
+                    $("#zipcode").val(zipcode)
+                    $("#hidden_addr2").val(addr2)
+                    $("#hidden_addr1").val(addr1)
+
+
+                    if (dawnFlag === "FALSE") {
+                        $("#ship_type01_first").attr("disabled", true)
+                        $("#ship_type01_second").prop("checked", true)
+                    }
+
+                    $("#addr").text(addrName + "/" + addr1)
+                    $("#name").val(name)
+                    $("#hp").val(hp)
+                    $("#addr2").text("[" + zipcode + "] " + addr2)
+
+                    $("#showHelloCash").text(hellocash + "원")
+                    $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
+                        - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
+                    $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+
+
+                    for (let i in response.data.data.couponList) {
+                        let couponTtile = response.data.data.couponList[i].title;
+                        let couponDiscount = response.data.data.couponList[i].discount;
+                        let couponEnd = response.data.data.couponList[i].dateEnd;
+                        let ctIdx = response.data.data.couponList[i].idx;
+
+                        let discount_val;
+                        if (couponDiscount > 100) {
+                            discount_val = couponDiscount + "원 할인"
+                        } else {
+                            discount_val = couponDiscount + "% 할인"
+                        }
+
+                        let row = $('<option value="' + ctIdx + '" name="' + couponDiscount + '">').append(
+                            couponTtile + ' ' + discount_val + '(쿠폰종료 날짜' + couponEnd + ')</option>'
+                        )
+
+                        $("#choice_coupon").after(row)
+                    }
+                }).catch(function (err) {
+                    console.log(err)
+                })
+            })
+
+            function hello_all() {
+                $(".input_hcash").val(parseInt($("#showHelloCash").text()));
+                $("#order_hello").text($(".input_hcash").val());
                 $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
                     - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
                 $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
+            }
 
+            $(function () {
+                /* 더그린배송 결제수단 클릭시 결제수단 오버뷰 */
+                $(".hellopass_link_payment").on("click", () => {
+                    $(".popup_payment_box").toggle();
+                })
+                $(".popup_close").on("click", () => {
+                    $(".popup_payment_box").css("display", "none");
+                })
+                /* 더그린배송 결제 개인 정보 수집 및 이용 동의 오버뷰 */
+                $(".enrollpay_allow").on("click", () => {
+                    $(".enrollpay_allow_list2").toggle();
+                })
+                $(".enrollpay_allow2").on("click", () => {
+                    $(".enrollpay_allow_list3").toggle();
+                })
+                /* 결제수단 클릭상태 css */
+                $(".choose_payment_box > div").click(function (event) {
+                    $(this).add(".choose_payment_box > div").addClass("payment_box_clicked")
+                    $(".choose_payment_box > div").not($(this)).removeClass("payment_box_clicked")
+                    event.stopPropagation();
+                })
+            })
 
-                for (let i in response.data.data.couponList) {
-                    let couponTtile = response.data.data.couponList[i].title;
-                    let couponDiscount = response.data.data.couponList[i].discount;
-                    let couponEnd = response.data.data.couponList[i].dateEnd;
-                    let ctIdx = response.data.data.couponList[i].idx;
+            function order_check() {
 
-                    let discount_val;
-                    if(couponDiscount > 100){
-                        discount_val = couponDiscount + "원 할인"
-                    }else{
-                        discount_val = couponDiscount + "% 할인"
-                    }
+                let memIdx = $("#hidden_user").val();
+                let zipcode = $("#zipcode").val();
+                let address1 = $("#hidden_addr1").val();
+                let address2 = $("#hidden_addr2").val();
+                let green;
+                let dwan;
+                let alarm;
 
-                    let row = $('<option value="' + ctIdx + '" name="'+couponDiscount+'">').append(
-                        couponTtile + ' ' + discount_val + '(쿠폰종료 날짜' + couponEnd + ')</option>'
-                    )
-
-                    $("#choice_coupon").after(row)
+                if ($("#greenFlag").val() === "TRUE") {
+                    green = 1;
+                } else {
+                    green = 0;
                 }
-            }).catch(function (err) {
-                console.log(err)
-            })
-        })
 
-        function hello_all() {
-            $(".input_hcash").val(parseInt($("#showHelloCash").text()));
-            $("#order_hello").text($(".input_hcash").val());
-            $("#total_price").text(parseInt($("#order_netPrice").text()) - parseInt($("#order_coupon").text()) - parseInt($("#order_salePrice").text())
-                - parseInt($("#order_hello").text()) + parseInt($("#order_delivery").text()))
-            $("#hncash").text(parseInt($("#total_price").text()) * 0.01)
-        }
+                if ($("#dawnFlag").val() === "TRUE") {
+                    dwan = 1;
+                } else {
+                    dwan = 0;
+                }
+                let recName = $("#name").val();
+                let recHp = $("#hp").val();
 
-        $(function () {
-            /* 더그린배송 결제수단 클릭시 결제수단 오버뷰 */
-            $(".hellopass_link_payment").on("click", () => {
-                $(".popup_payment_box").toggle();
-            })
-            $(".popup_close").on("click", () => {
-                $(".popup_payment_box").css("display", "none");
-            })
-            /* 더그린배송 결제 개인 정보 수집 및 이용 동의 오버뷰 */
-            $(".enrollpay_allow").on("click", () => {
-                $(".enrollpay_allow_list2").toggle();
-            })
-            $(".enrollpay_allow2").on("click", () => {
-                $(".enrollpay_allow_list3").toggle();
-            })
-            /* 결제수단 클릭상태 css */
-            $(".choose_payment_box > div").click(function (event) {
-                $(this).add(".choose_payment_box > div").addClass("payment_box_clicked")
-                $(".choose_payment_box > div").not($(this)).removeClass("payment_box_clicked")
-                event.stopPropagation();
-            })
-        })
+                if ($("input[name='ship_type01']:checked").val() === "새벽배송") {
+                    alarm = $("input[name='ship_type02']:checked").val()
+                } else {
+                    alarm = 3
+                }
 
-        function order_check() {
+                let requestType = $("#requestType").val()
+                let requestMemo1 = $("#requestMemo1").val()
+                let requestMemo2 = $("#requestMemo2").val()
 
-            let memIdx = $("#hidden_user").val();
-            let zipcode = $("#zipcode").val();
-            let address1 = $("#hidden_addr1").val();
-            let address2 = $("#hidden_addr2").val();
-            let green;
-            let dwan;
-            let alarm;
+                let proIdx = sessionStorage.getItem("prodIdx").split(",");
+                let proCount = sessionStorage.getItem("proEA").split(",");
 
-            if ($("#greenFlag").val() === "TRUE") {
-                green = 1;
-            } else {
-                green = 0;
+                let proIdxList = [];
+                let proCountList = [];
+
+                for (let i = 0; i < proIdx.length; i++) {
+                    proIdxList.push(proIdx[i])
+                }
+
+                for (let i = 0; i < proCount.length; i++) {
+                    proCountList.push(proCount[i])
+                }
+
+
+                let price = $("#total_price").text()
+                let paymentType = $("input[name='method']:checked").val()
+                let hellocash = $("#order_hello").text()
+                let cardNum = $("#hidden_real_cardNum").val()
+                let cpIdx = $("#select_coupon").val()
+                console.log(cpIdx)
+                if (cpIdx === "쿠폰을 선택하세요") {
+                    cpIdx = null;
+                } else {
+
+                }
+
+                if (paymentType === "1" && paymentType === "8") {
+
+                    axios.post("/api/memberOrder/create", {
+                        data: {
+                            memIdx: memIdx,
+                            zipcode: zipcode,
+                            address1: address1,
+                            address2: address2,
+                            greenFlag: green,
+                            dawnFlag: dwan,
+                            recName: recName,
+                            recHp: recHp,
+                            alarm: alarm,
+                            requestType: requestType,
+                            requestMemo1: requestMemo1,
+                            requestMemo2: requestMemo2,
+                            cpIdx: cpIdx,
+                            proIdxList: proIdxList,
+                            proCountList: proCountList,
+                            price: price,
+                            paymentType: paymentType,
+                            cardNum: cardNum,
+                            hellocash: hellocash
+                        }
+                    }).then(function () {
+                        alert("주문에 성공하셨습니다.")
+                        location.href = "/user/index/";
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                } else {
+
+                    axios.post("/api/memberOrder/create", {
+                        data: {
+                            memIdx: memIdx,
+                            zipcode: zipcode,
+                            address1: address1,
+                            address2: address2,
+                            greenFlag: green,
+                            dawnFlag: dwan,
+                            recName: recName,
+                            recHp: recHp,
+                            alarm: alarm,
+                            requestType: requestType,
+                            requestMemo1: requestMemo1,
+                            requestMemo2: requestMemo2,
+                            cpIdx: cpIdx,
+                            proIdxList: proIdxList,
+                            proCountList: proCountList,
+                            price: price,
+                            paymentType: paymentType,
+                            hellocash: hellocash
+                        }
+                    }).then(function () {
+                        alert("주문에 성공하셨습니다.")
+                        location.href = "/user/index";
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                }
             }
 
-            if ($("#dawnFlag").val() === "TRUE") {
-                dwan = 1;
-            } else {
-                dwan = 0;
-            }
-            let recName = $("#name").val();
-            let recHp = $("#hp").val();
+            $(function () {
+                $(".shipping_form_list > li").children("input").css("width", "600px");
 
-            if ($("input[name='ship_type01']:checked").val() === "새벽배송") {
-                alarm = $("input[name='ship_type02']:checked").val()
-            } else {
-                alarm = 3
-            }
+                let memIdx = $("#hidden_user").val()
 
-            let requestType = $("#requestType").val()
-            let requestMemo1 = $("#requestMemo1").val()
-            let requestMemo2 = $("#requestMemo2").val()
+                axios.get('/api/membersAddresses/user/list/' + memIdx, {}).then(function (response) {
 
-            let proIdx = sessionStorage.getItem("prodIdx").split(",");
-            let proCount = sessionStorage.getItem("proEA").split(",");
+                    for (let i in response.data.data) {
+                        let addrName = response.data.data[i].addrName;
+                        let id = response.data.data[i].idx;
+                        let name = response.data.data[i].name;                           // 받는 사람
+                        let hp = response.data.data[i].hp;                               // 전화번호
+                        let zipcode = response.data.data[i].zipcode;                     // 우편번호
+                        let addr1 = response.data.data[i].addr1;                         // 도로명주소 + 상세주소
+                        let addr2 = response.data.data[i].addr2;                         // 나머지주소
+                        let requestType = response.data.data[i].requestType;             // 배송타입
+                        let baseFlag = response.data.data[i].baseFlag;                   // 기본배송지
+                        let greenFlag = response.data.data[i].greenFlag;
+                        let dawnFlag = response.data.data[i].dawnFlag;
+                        let requestMemo1 = response.data.data[i].requestMemo1;
+                        let requestMemo2 = response.data.data[i].requestMemo2;
 
-            let proIdxList = [];
-            let proCountList = [];
-
-            for (let i = 0; i < proIdx.length; i++) {
-                proIdxList.push(proIdx[i])
-            }
-
-            for (let i = 0; i < proCount.length; i++) {
-                proCountList.push(proCount[i])
-            }
-
-
-            let price = $("#total_price").text()
-            let paymentType = $("input[name='method']:checked").val()
-            let hellocash = $("#order_hello").text()
-            let cardNum = $("#hidden_real_cardNum").val()
-            let cpIdx = $("#select_coupon").val()
-            console.log(cpIdx)
-            if(cpIdx === "쿠폰을 선택하세요"){
-                cpIdx = null;
-            }else{
-
-            }
-
-            if (paymentType === "1" && paymentType === "8") {
-
-                axios.post("/api/memberOrder/create", {
-                    data: {
-                        memIdx: memIdx,
-                        zipcode: zipcode,
-                        address1: address1,
-                        address2: address2,
-                        greenFlag: green,
-                        dawnFlag: dwan,
-                        recName: recName,
-                        recHp: recHp,
-                        alarm: alarm,
-                        requestType: requestType,
-                        requestMemo1: requestMemo1,
-                        requestMemo2: requestMemo2,
-                        cpIdx : cpIdx,
-                        proIdxList: proIdxList,
-                        proCountList: proCountList,
-                        price: price,
-                        paymentType: paymentType,
-                        cardNum: cardNum,
-                        hellocash: hellocash
+                        let row = $("<table class='addr_list_table'>").append(
+                            '<tbody><tr><th>배송지</th><td id="eidt_addrName">' + addrName + '/' + addr1 + '</td></tr>' +
+                            '<tr><th>정보</th><td id="edit_info"><span id="edit_name">' + name + '</span>/<span id="edit_hp">' + hp + '</span></td></tr>' +
+                            '<tr><th>상세정보</th><td id="edit_addr2"><span id="edit_zipcode">' + zipcode + '</span>/<span>' + addr2 + '</span></td></tr></tbody>' +
+                            '<input type="hidden" value="' + zipcode + '" id="hidden_zip"><input type="hidden" value="' + dawnFlag + '" id="hidden_dawn"><input type="hidden" value="' + requestType + '" id="hidden_type">' +
+                            '<input type="hidden" value="' + greenFlag + '" id="hidden_green"><input type="hidden" value="' + requestMemo1 + '" id="hidden_memo1"><input type="hidden" value="' + requestMemo2 + '" id="hidden_memo2">' +
+                            '<input type="hidden" value="' + addr1 + '" id="hidden_addr1"><input type="hidden" value="' + addr2 + '" id="hidden_addr2"></table>'
+                        )
+                        $("#address_edit_box").append(row)
                     }
-                }).then(function () {
-                    alert("주문에 성공하셨습니다.")
-                    location.href = "/user/index/";
+
+                    $(".addr_list_table").click(function (e) {
+
+                        $("#addr").text($(this).children("tbody").children("tr").children("#eidt_addrName").text())
+                        $("#addr2").text($(this).children("tbody").children("tr").children("#edit_addr2").text())
+                        $("#name").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_name").text())
+                        $("#hp").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_hp").text())
+
+                        $("#greenFlag").val(($(this).children("#hidden_green").val()));
+                        $("#dawnFlag").val(($(this).children("#hidden_dawn").val()))
+                        $("#requestType").val(($(this).children("#hidden_type").val()))
+                        $("#requestMemo1").val(($(this).children("#hidden_memo1").val()))
+                        $("#requestMemo2").val(($(this).children("#hidden_memo2").val()))
+                        $("#zipcode").val(($(this).children("#hidden_zip").val()))
+                        $("#hidden_addr2").val(($(this).children("#hidden_addr2").val()))
+                        $("#hidden_addr1").val(($(this).children("#hidden_addr1").val()))
+
+                        if ($("#dawnFlag").val() === "TRUE") {
+                            $("#ship_type01_first").removeAttr("disabled");
+                        } else {
+                            $("#ship_type01_first").attr("disabled", true)
+                        }
+
+
+                        alert("배송지가 수정되었습니다")
+                        document.getElementById("mw_temp_p").style.display = 'none';
+                    })
+
                 }).catch(function (err) {
                     console.log(err)
                 })
-            }else{
 
-                axios.post("/api/memberOrder/create", {
+                $("#add_address_btn").click(function () {
+
+                    if ($(this).val() === "배송지 추가") {
+                        $(this).val("뒤로가기");
+                        $("#address_edit_box").css("display", "none")
+                        $("#address_add_box").css('display', "block")
+
+                    } else if ($(this).val() === "뒤로가기") {
+                        $("#address_edit_box").css("display", "block")
+                        $("#address_add_box").css('display', "none")
+                        $(this).val("배송지 추가");
+                    }
+                })
+            })
+
+
+            function sendit() {
+
+                let baseFlag;
+                let addressName = $('#addressName').val();                  // 배송지명
+                let userName = $("#userName").val();                        // 받는사람
+                let userHp = $("#userHp").val();                            // 연락처
+                let address = $("#sample6_address").val();                  // 도로명 주소
+                let detailAddress = $("#sample6_detailAddress").val();      // 상세 주소
+                let postcode = $("#sample6_postcode").val();                // 우편번호
+                let requestType = $("input:radio[name='detail_addr']:checked").val()      // 배송타입
+                let requestMemo1 = $(".insert_door_pwd").val()              // 배송 요청사항
+                let requestMemo2 = $("#remark_sir").val();                  // 배송기사님께
+                let dawnFlag;
+                let urlidx = $("#hidden_user").val()
+                let greenFlag = $("input:radio[name='Thegreen']:checked").val()
+                console.log(parseInt(postcode.substring(1, 2)));
+                console.log(parseInt(postcode.substring(0, 1)));
+                ;
+
+
+                if (parseInt(postcode.substring(1, 2)) <= 9 && parseInt(postcode.substring(1, 2)) >= 1 && parseInt(postcode.substring(0, 1)) === 0) {
+                    dawnFlag = 1;
+                } else {
+                    dawnFlag = 0;
+                }
+
+                if ($("input:checkbox[name='baseFlag']").is(':checked')) {
+                    baseFlag = 1;
+                } else {
+                    baseFlag = 0;
+                }
+
+                if (requestType === "문앞") {
+                    requestType = $("input:radio[name='chk_door']:checked").val();
+                }
+
+
+                const expHpCheck = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
+                if (!expHpCheck.test($('#userHp').val())) {
+                    alert('휴대폰 번호를 형식에 맞게 입력하세요 ( -포함 )');
+                    $('#userHp').val('');
+                    $('#userHp').focus();
+                    return false;
+                }
+
+                console.log(urlidx)
+                console.log(userName)
+                console.log(userHp)
+                console.log(postcode)
+                console.log(address)
+                console.log(detailAddress)
+                console.log(requestType)
+                console.log(requestMemo1)
+                console.log(requestMemo2)
+                console.log(baseFlag)
+                console.log(dawnFlag)
+                console.log(greenFlag)
+
+                axios.post('/api/membersAddresses/create', {
+                    headers: {'Content-type': 'application/json'},
                     data: {
-                        memIdx: memIdx,
-                        zipcode: zipcode,
-                        address1: address1,
-                        address2: address2,
-                        greenFlag: green,
-                        dawnFlag: dwan,
-                        recName: recName,
-                        recHp: recHp,
-                        alarm: alarm,
+                        memIdx: urlidx,
+                        addrName: addressName,
+                        name: userName,
+                        hp: userHp,
+                        zipcode: postcode,
+                        addr1: address,
+                        addr2: detailAddress,
                         requestType: requestType,
                         requestMemo1: requestMemo1,
                         requestMemo2: requestMemo2,
-                        cpIdx : cpIdx,
-                        proIdxList: proIdxList,
-                        proCountList: proCountList,
-                        price: price,
-                        paymentType: paymentType,
-                        hellocash: hellocash
+                        baseFlag: baseFlag,
+                        dawnFlag: dawnFlag,
+                        greenFlag: greenFlag
                     }
                 }).then(function () {
-                    alert("주문에 성공하셨습니다.")
-                    location.href = "/user/index";
                 }).catch(function (err) {
                     console.log(err)
-                })
-            }
-        }
+                    return false;
+                });
+                alert('배송지 정보가 등록되었습니다.');
+                location.reload();
+            };
 
-        $(function () {
-            $(".shipping_form_list > li").children("input").css("width", "600px");
 
-            let memIdx = $("#hidden_user").val()
+            $(function () {
+                let memIdx = $("#hidden_user").val();
+                axios.get('/api/card/list/' + memIdx, {}).then(function (response) {
+                    console.log(response.data.data)
+                    for (let i in response.data.data) {
+                        let numList = response.data.data[i].num;
+                        let bankType = response.data.data[i].bank;
+                        let cardIdx = response.data.data[i].idx;
+                        let name = response.data.data[i].name;
+                        let baseFlag = response.data.data[i].baseFlag;
+                        let busiFlag = response.data.data[i].busiFlag;
 
-            axios.get('/api/membersAddresses/user/list/' + memIdx, {}).then(function (response) {
+                        if (baseFlag === "TRUE") {
+                            $("input[name='radio_id']").prop("checked", true)
+                        }
 
-                for (let i in response.data.data) {
-                    let addrName = response.data.data[i].addrName;
-                    let id = response.data.data[i].idx;
-                    let name = response.data.data[i].name;                           // 받는 사람
-                    let hp = response.data.data[i].hp;                               // 전화번호
-                    let zipcode = response.data.data[i].zipcode;                     // 우편번호
-                    let addr1 = response.data.data[i].addr1;                         // 도로명주소 + 상세주소
-                    let addr2 = response.data.data[i].addr2;                         // 나머지주소
-                    let requestType = response.data.data[i].requestType;             // 배송타입
-                    let baseFlag = response.data.data[i].baseFlag;                   // 기본배송지
-                    let greenFlag = response.data.data[i].greenFlag;
-                    let dawnFlag = response.data.data[i].dawnFlag;
-                    let requestMemo1 = response.data.data[i].requestMemo1;
-                    let requestMemo2 = response.data.data[i].requestMemo2;
+                        let show_busiFlag;
+                        if (busiFlag === "TRUE") {
+                            busiFlag = "법인"
+                            show_busiFlag = "block"
+                        } else {
+                            show_busiFlag = "none"
+                        }
 
-                    let row = $("<table class='addr_list_table'>").append(
-                        '<tbody><tr><th>배송지</th><td id="eidt_addrName">' + addrName + '/' + addr1 + '</td></tr>' +
-                        '<tr><th>정보</th><td id="edit_info"><span id="edit_name">' + name + '</span>/<span id="edit_hp">' + hp + '</span></td></tr>' +
-                        '<tr><th>상세정보</th><td id="edit_addr2"><span id="edit_zipcode">' + zipcode + '</span>/<span>' + addr2 + '</span></td></tr></tbody>' +
-                        '<input type="hidden" value="' + zipcode + '" id="hidden_zip"><input type="hidden" value="' + dawnFlag + '" id="hidden_dawn"><input type="hidden" value="' + requestType + '" id="hidden_type">' +
-                        '<input type="hidden" value="' + greenFlag + '" id="hidden_green"><input type="hidden" value="' + requestMemo1 + '" id="hidden_memo1"><input type="hidden" value="' + requestMemo2 + '" id="hidden_memo2">' +
-                        '<input type="hidden" value="' + addr1 + '" id="hidden_addr1"><input type="hidden" value="' + addr2 + '" id="hidden_addr2"></table>'
-                    )
-                    $("#address_edit_box").append(row)
-                }
+                        let num = numList.split("-");
+                        let splitNum = num[3];
+                        let lastNum = splitNum;
 
-                $(".addr_list_table").click(function (e) {
+                        let bank;
+                        switch (bankType) {
+                            case "KB":
+                                bank = "국민은헹";
+                                break;
+                            case "SINHAN":
+                                bank = "신한은행";
+                                break;
+                            case "CITY":
+                                bank = "한국씨티은행";
+                                break;
+                            case "IBK":
+                                bank = "IBK기업은행";
+                                break;
+                            case "KEB":
+                                bank = "KEB하나은행";
+                                break;
+                            case "BNK":
+                                bank = "부산은행";
+                                break;
+                            case "SC":
+                                bank = "SC제일은행";
+                                break;
+                            case "GWANGJU":
+                                bank = "광주은행";
+                                break;
+                            case "WOORI":
+                                bank = "우리은행";
+                                break;
+                        }
 
-                    $("#addr").text($(this).children("tbody").children("tr").children("#eidt_addrName").text())
-                    $("#addr2").text($(this).children("tbody").children("tr").children("#edit_addr2").text())
-                    $("#name").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_name").text())
-                    $("#hp").val($(this).children("tbody").children("tr").children("#edit_info").children("#edit_hp").text())
-
-                    $("#greenFlag").val(($(this).children("#hidden_green").val()));
-                    $("#dawnFlag").val(($(this).children("#hidden_dawn").val()))
-                    $("#requestType").val(($(this).children("#hidden_type").val()))
-                    $("#requestMemo1").val(($(this).children("#hidden_memo1").val()))
-                    $("#requestMemo2").val(($(this).children("#hidden_memo2").val()))
-                    $("#zipcode").val(($(this).children("#hidden_zip").val()))
-                    $("#hidden_addr2").val(($(this).children("#hidden_addr2").val()))
-                    $("#hidden_addr1").val(($(this).children("#hidden_addr1").val()))
-
-                    if ($("#dawnFlag").val() === "TRUE") {
-                        $("#ship_type01_first").removeAttr("disabled");
-                    } else {
-                        $("#ship_type01_first").attr("disabled", true)
+                        let row = $('<div class="contents_hellopay_inputcard_h">').append(
+                            '<input type="hidden" class="hidden_card_num" value="' + numList + '">' +
+                            '<div class="hellopay_radio_box_h"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="' + cardIdx + '" onclick="return(false);"/>' +
+                            '<label for="hellopay_radio"></label></div></div>' +
+                            '<div class="hellopay_card_info"><span class="hellopay_cardname">' + name + '</span><span style="display:' + show_busiFlag + '">' + busiFlag + '</span></div>' +
+                            '<div class="hellopay_card_info"><span class="hellopay_bankname">' + bank + '</span>' +
+                            '<span class="hellopay_star"><i>**** **** ****</i><span> ' + lastNum + '</span></span></div></div>'
+                        )
+                        $("#hello_list_box").append(row);
                     }
 
+                    $(".contents_hellopay_inputcard_h").click(function (e) {
+                        $("#hidden_real_cardNum").val($(this).children(".hidden_card_num").val())
+                        $("#hidden_cardNum").val($(this).children(".hellopay_card_info").children(".hellopay_star").text())
+                        $("#hidden_bank").val($(this).children(".hellopay_card_info").children(".hellopay_bankname").text())
+                        hello_modal_close();
+                    })
 
-                    alert("배송지가 수정되었습니다")
-                    document.getElementById("mw_temp_p").style.display = 'none';
-                })
+                }).catch(function (err) {
+                    console.log(err)
+                });
 
-            }).catch(function (err) {
-                console.log(err)
-            })
+                $("#card_enroll_btn").click(function () {
+                    let num1 = $("#card_num1").val();                   // 카드번호 4자리-1
+                    let num2 = $("#card_num2").val();                   // 카드번호 4자리-2
+                    let num3 = $("#card_num3").val();                   // 카드번호 4자리-3
+                    let num4 = $("#card_num4").val();                   // 카드번호 4자리-4
+                    const num = num1 + "-" + num2 + "-" + num3 + "-" + num4         // 1234-1234-1234-1234
+                    let cvc = $('#card_cvc').val();                     // 카드 cvc 3자리
 
-            $("#add_address_btn").click(function () {
-
-                if ($(this).val() === "배송지 추가") {
-                    $(this).val("뒤로가기");
-                    $("#address_edit_box").css("display", "none")
-                    $("#address_add_box").css('display', "block")
-
-                } else if ($(this).val() === "뒤로가기") {
-                    $("#address_edit_box").css("display", "block")
-                    $("#address_add_box").css('display', "none")
-                    $(this).val("배송지 추가");
-                }
-            })
-        })
-
-
-        function sendit() {
-
-            let baseFlag;
-            let addressName = $('#addressName').val();                  // 배송지명
-            let userName = $("#userName").val();                        // 받는사람
-            let userHp = $("#userHp").val();                            // 연락처
-            let address = $("#sample6_address").val();                  // 도로명 주소
-            let detailAddress = $("#sample6_detailAddress").val();      // 상세 주소
-            let postcode = $("#sample6_postcode").val();                // 우편번호
-            let requestType = $("input:radio[name='detail_addr']:checked").val()      // 배송타입
-            let requestMemo1 = $(".insert_door_pwd").val()              // 배송 요청사항
-            let requestMemo2 = $("#remark_sir").val();                  // 배송기사님께
-            let dawnFlag;
-            let urlidx = $("#hidden_user").val()
-            let greenFlag = $("input:radio[name='Thegreen']:checked").val()
-            console.log(parseInt(postcode.substring(1, 2)));
-            console.log(parseInt(postcode.substring(0, 1)));
-            ;
-
-
-            if (parseInt(postcode.substring(1, 2)) <= 9 && parseInt(postcode.substring(1, 2)) >= 1 && parseInt(postcode.substring(0, 1)) === 0) {
-                dawnFlag = 1;
-            } else {
-                dawnFlag = 0;
-            }
-
-            if ($("input:checkbox[name='baseFlag']").is(':checked')) {
-                baseFlag = 1;
-            } else {
-                baseFlag = 0;
-            }
-
-            if (requestType === "문앞") {
-                requestType = $("input:radio[name='chk_door']:checked").val();
-            }
-
-
-            const expHpCheck = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
-            if (!expHpCheck.test($('#userHp').val())) {
-                alert('휴대폰 번호를 형식에 맞게 입력하세요 ( -포함 )');
-                $('#userHp').val('');
-                $('#userHp').focus();
-                return false;
-            }
-
-            console.log(urlidx)
-            console.log(userName)
-            console.log(userHp)
-            console.log(postcode)
-            console.log(address)
-            console.log(detailAddress)
-            console.log(requestType)
-            console.log(requestMemo1)
-            console.log(requestMemo2)
-            console.log(baseFlag)
-            console.log(dawnFlag)
-            console.log(greenFlag)
-
-            axios.post('/api/membersAddresses/create', {
-                headers: {'Content-type': 'application/json'},
-                data: {
-                    memIdx: urlidx,
-                    addrName: addressName,
-                    name: userName,
-                    hp: userHp,
-                    zipcode: postcode,
-                    addr1: address,
-                    addr2: detailAddress,
-                    requestType: requestType,
-                    requestMemo1: requestMemo1,
-                    requestMemo2: requestMemo2,
-                    baseFlag: baseFlag,
-                    dawnFlag: dawnFlag,
-                    greenFlag: greenFlag
-                }
-            }).then(function () {
-            }).catch(function (err) {
-                console.log(err)
-                return false;
-            });
-            alert('배송지 정보가 등록되었습니다.');
-            location.reload();
-        };
-
-
-        $(function () {
-            let memIdx = $("#hidden_user").val();
-            axios.get('/api/card/list/' + memIdx, {}).then(function (response) {
-                console.log(response.data.data)
-                for (let i in response.data.data) {
-                    let numList = response.data.data[i].num;
-                    let bankType = response.data.data[i].bank;
-                    let cardIdx = response.data.data[i].idx;
-                    let name = response.data.data[i].name;
-                    let baseFlag = response.data.data[i].baseFlag;
-                    let busiFlag = response.data.data[i].busiFlag;
-
-                    if (baseFlag === "TRUE") {
-                        $("input[name='radio_id']").prop("checked", true)
-                    }
-
-                    let show_busiFlag;
-                    if (busiFlag === "TRUE") {
-                        busiFlag = "법인"
-                        show_busiFlag = "block"
-                    } else {
-                        show_busiFlag = "none"
-                    }
-
-                    let num = numList.split("-");
-                    let splitNum = num[3];
-                    let lastNum = splitNum;
-
+                    let distinctCvc = cvc.split("");
                     let bank;
-                    switch (bankType) {
-                        case "KB":
-                            bank = "국민은헹";
+                    let cvcFirst = distinctCvc[0]
+                    // cvc 첫번째 숫자로 은행 분류
+                    switch (cvcFirst) {
+                        case "1":
+                            bank = "국민은행";     // 국민은행
                             break;
-                        case "SINHAN":
-                            bank = "신한은행";
+                        case "2":
+                            bank = "신한은행";     // 신한은행
                             break;
-                        case "CITY":
-                            bank = "한국씨티은행";
+                        case "3":
+                            bank = "한국씨티은행";     // 한국씨티은행
                             break;
-                        case "IBK":
-                            bank = "IBK기업은행";
+                        case "4":
+                            bank = "기업은행";     // 기업은행
                             break;
-                        case "KEB":
-                            bank = "KEB하나은행";
+                        case "5":
+                            bank = "하나은행";     // 하나은행
                             break;
-                        case "BNK":
-                            bank = "부산은행";
+                        case "6":
+                            bank = "부산은행";     // 부산은행
                             break;
-                        case "SC":
-                            bank = "SC제일은행";
+                        case "7":
+                            bank = "제일은행";     // 제일은행
                             break;
-                        case "GWANGJU":
-                            bank = "광주은행";
+                        case "8":
+                            bank = "광주은행";     // 광주은행
                             break;
-                        case "WOORI":
-                            bank = "우리은행";
+                        case "9":
+                            bank = "우리은행";     // 우리은행
                             break;
                     }
 
-                    let row = $('<div class="contents_hellopay_inputcard_h">').append(
-                        '<input type="hidden" class="hidden_card_num" value="' + numList + '">' +
-                        '<div class="hellopay_radio_box_h"><div class="hellopay_radio_box_inner"><input type="radio" name="radio_id" id="hellopay_radio" value="' + cardIdx + '" onclick="return(false);"/>' +
-                        '<label for="hellopay_radio"></label></div></div>' +
-                        '<div class="hellopay_card_info"><span class="hellopay_cardname">' + name + '</span><span style="display:' + show_busiFlag + '">' + busiFlag + '</span></div>' +
-                        '<div class="hellopay_card_info"><span class="hellopay_bankname">' + bank + '</span>' +
-                        '<span class="hellopay_star"><i>**** **** ****</i><span> ' + lastNum + '</span></span></div></div>'
-                    )
-                    $("#hello_list_box").append(row);
-                }
+                    $("#hidden_real_cardNum").val(num)
+                    $("#hidden_cardNum").val("**** **** **** " + num4)
+                    $("#hidden_bank").val(bank)
+                    alert('등록이 완료되었습니다');
+                    card_modal_close();
 
-                $(".contents_hellopay_inputcard_h").click(function (e) {
-                    $("#hidden_real_cardNum").val($(this).children(".hidden_card_num").val())
-                    $("#hidden_cardNum").val($(this).children(".hellopay_card_info").children(".hellopay_star").text())
-                    $("#hidden_bank").val($(this).children(".hellopay_card_info").children(".hellopay_bankname").text())
-                    hello_modal_close();
                 })
-
-            }).catch(function (err) {
-                console.log(err)
-            });
-
-            $("#card_enroll_btn").click(function () {
-                let num1 = $("#card_num1").val();                   // 카드번호 4자리-1
-                let num2 = $("#card_num2").val();                   // 카드번호 4자리-2
-                let num3 = $("#card_num3").val();                   // 카드번호 4자리-3
-                let num4 = $("#card_num4").val();                   // 카드번호 4자리-4
-                const num = num1 + "-" + num2 + "-" + num3 + "-" + num4         // 1234-1234-1234-1234
-                let cvc = $('#card_cvc').val();                     // 카드 cvc 3자리
-
-                let distinctCvc = cvc.split("");
-                let bank;
-                let cvcFirst = distinctCvc[0]
-                // cvc 첫번째 숫자로 은행 분류
-                switch (cvcFirst) {
-                    case "1":
-                        bank = "국민은행";     // 국민은행
-                        break;
-                    case "2":
-                        bank = "신한은행";     // 신한은행
-                        break;
-                    case "3":
-                        bank = "한국씨티은행";     // 한국씨티은행
-                        break;
-                    case "4":
-                        bank = "기업은행";     // 기업은행
-                        break;
-                    case "5":
-                        bank = "하나은행";     // 하나은행
-                        break;
-                    case "6":
-                        bank = "부산은행";     // 부산은행
-                        break;
-                    case "7":
-                        bank = "제일은행";     // 제일은행
-                        break;
-                    case "8":
-                        bank = "광주은행";     // 광주은행
-                        break;
-                    case "9":
-                        bank = "우리은행";     // 우리은행
-                        break;
-                }
-
-                $("#hidden_real_cardNum").val(num)
-                $("#hidden_cardNum").val("**** **** **** " + num4)
-                $("#hidden_bank").val(bank)
-                card_modal_close();
-
             })
-        })
 
-        function choice() {
-            if ($("input[name='method']:checked").val() === "1" || $("input[name='method']:checked").val() === "7") {
-                $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()) + $("#hidden_cardNum").val() + $("#hidden_bank").val());
-                alert("선택이 완료되었습니다")
-            } else {
-                $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()));
-                alert("선택이 완료되었습니다")
+            function choice() {
+                if ($("input[name='method']:checked").val() === "1" || $("input[name='method']:checked").val() === "7") {
+                    $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()) + $("#hidden_cardNum").val() + $("#hidden_bank").val());
+                    alert("선택이 완료되었습니다")
+                } else {
+                    $(".hellopass_link_payment").text(($("input[name='method']:checked").siblings("label").children("div").children("span").text()));
+                    alert("선택이 완료되었습니다")
+                }
             }
-        }
     </script>
 </head>
 <body>
@@ -790,7 +799,8 @@
                                         </tr>
                                         <tr>
                                             <th>정보</th>
-                                            <td>받는 분 : <input type="text" id="name" placeholder="받는 분 이름을 입력하세요">  연락처 : <input type="text" id="hp" placeholder="휴대폰번호를 입력하세요">
+                                            <td>받는 분 : <input type="text" id="name" placeholder="받는 분 이름을 입력하세요"> 연락처 :
+                                                <input type="text" id="hp" placeholder="휴대폰번호를 입력하세요">
                                             </td>
                                         </tr>
                                         <tr>
