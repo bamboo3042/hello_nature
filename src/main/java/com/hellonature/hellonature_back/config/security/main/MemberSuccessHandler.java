@@ -38,6 +38,10 @@ public class MemberSuccessHandler implements AuthenticationSuccessHandler {
         session.setAttribute("email", securityMemberLoginDTO.getMember().getEmail());
         session.setAttribute("hp", securityMemberLoginDTO.getMember().getHp());
         session.setAttribute("regdate", securityMemberLoginDTO.getMember().getRegdate());
+        if (session.getAttribute("errorMessage") != null) {
+            session.removeAttribute("userid");
+            session.removeAttribute("errorMessage");
+        }
 
         response.sendRedirect(url);
     }

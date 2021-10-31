@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +40,7 @@
                         <div class="member_form">
                             <div id="login_cont_area">
                                 <!------------------------------------------------------------------------------------>
-                                <form th:action="@{/user/login_proc}" method="POST" class="loginForm">
+                                <form th:action="@{/user/mypage_userLogin}" method="POST" class="loginForm">
                                     <input type="text" class="login_email_check" name="userid" placeholder="이메일을 입력해주세요">
                                     <input type="password" class="login_password_check" name="userpw" placeholder="비밀번호를 입력해주세요">
                                     <div id=login_option_line>

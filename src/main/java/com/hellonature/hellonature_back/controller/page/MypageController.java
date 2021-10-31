@@ -345,16 +345,15 @@ public class MypageController {
     }
     // 회원 로그인
     @RequestMapping(value = "/mypage_userLogin", method = {RequestMethod.GET, RequestMethod.POST})
-    public String mypageUserLoginGet(){
-        System.out.println("22222222222");
+    public String mypageUserLoginGetGet(){
         return "user/mypage/UserLogin.html";
     }
 
     // 로그인 실패 시 띄울 페이지
-//    @RequestMapping(value = "/mypage_userLogin_re", method = {RequestMethod.GET, RequestMethod.POST})
-//    public String mypageUserLoginFail(){
-//        return "user/mypage/UserLogin_fail.html";
-//    }
+    @RequestMapping(value = "/mypage_userLogin_re", method = {RequestMethod.GET, RequestMethod.POST})
+    public String mypageUserLoginFail(){
+        return "user/mypage/UserLogin_fail.html";
+    }
 
     // 배송팝업
     @GetMapping("/shipping_popup")

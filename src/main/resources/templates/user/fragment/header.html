@@ -117,7 +117,7 @@
                         <!-- 더그린배송 버튼 끝 -->
                         <!-- 회원가입, 로그인, 고객센터 시작 -->
                         <div class="login_wrap">
-                            <a href="/user/mypage_userRegist" class="regist" sec:authorize="!isAuthenticated()"><span>회원가입</span></a>
+                            <a href="/user/mypage_userRegist" class="regist" sec:authorize="isAnonymous()"><span>회원가입</span></a>
                             <a th:href="@{/user/mypage_orderlist}" class="regist"
                                sec:authorize="isAuthenticated()"><span th:text="${session['name']} + '님'"></span></a>
                             <a href="/user/logout" class="login" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
