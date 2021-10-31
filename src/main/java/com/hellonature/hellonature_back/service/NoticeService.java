@@ -80,6 +80,7 @@ public class NoticeService extends BaseService<NoticeApiRequest, NoticeApiRespon
                 .type(notice.getType())
                 .title(notice.getTitle())
                 .content(notice.getContent())
+                .regdate(notice.getRegdate())
                 .build();
         return noticeApiResponse;
     }
