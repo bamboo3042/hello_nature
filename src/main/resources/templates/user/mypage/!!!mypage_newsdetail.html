@@ -24,18 +24,22 @@
 </head>
 <script>
     $(function (){
-        let idx = sessionStorage.getItem("notice_idx")
-        axios.get('/api/notice/read/' +idx``,{
+        let idx = sessionStorage.getItem("notice_idx");
+
+        axios.get('/api/notice/read/' + idx,{
         }).then(function (response){
-            console.log(response)
                 let $title =response.data.data.title;
                 let $date = response.data.data.regdate;
                 let $content = response.data.data.content;
+                $date = $date.toString().substring(0,10);
 
-                // $date = $date.toISOString().substring(0,10)
+                console.log($title);
+                console.log($date);
+                console.log($content);
+
                 $('.news_highlight').text($title);
-                $('.news_contents_box').text($content);
-                $(".news_upload_date > p").text($date);
+                $('.news_contents_box').html($content);
+                $("#news_date").text($date);
 
         }).catch(function (err){
             console.log(err)
@@ -67,7 +71,7 @@
                     <div class="center_link_move_box" id="center_news1">                        
                         <div class="center_link_txt">                            
                             <div class="news_upload_date">
-                                <p>2021.06.28</p>
+                                <p id="news_date"></p>
                             </div>
                             <a href="#" class="news_highlight"></a>
                         </div>
