@@ -110,7 +110,7 @@ a:focus { color: #444;}
 
 /*  ----------------------------------- inner_find_email.html  -------------------------------  */
 #find_email_cont_box{ width: 450px; margin: 150px auto; }
-#find_email_cont_box > div { width: 100%; border: 3px solid #5dab99; border-radius: 10px; background-color: #f1f6f9; box-sizing: border-box; padding: 50px;}
+#find_email_cont_box > div { width: 100%; box-sizing: border-box; padding: 50px;}
 #find_email_area{ width:340px; margin: 0 auto; }
 #hp_chk_box{ width: 100%; margin-bottom: 50px; }
 #find_email_area .hp_chk_msg { font-size: 18px; text-align: center; padding: 20px 0; letter-spacing: -0.5px; color: #444; font-weight: 500;}
@@ -124,7 +124,7 @@ a:focus { color: #444;}
 .find_pwd_btn{background-color: #f4f4f4; border: 1px solid #cccccc; color: #4b4b4b;}
 
 /* ------------------------ inner_find_password.html  ------------------------------ */
-#find_pwd_cont_box { width:340px; margin: 150px auto; padding: 50px; border: 3px solid #5dab99;  border-radius: 8px; background-color: #f1f6f9;}
+#find_pwd_cont_box { width:340px; margin: 150px auto; padding: 50px;}
 .findInfo h1{ text-align: center; font-size: 20px; font-weight: 700;}
 #emailandhp_chk p{font-size: 18px; text-align: center; padding: 20px 0; letter-spacing: -0.5px; color: #444; font-weight: 500;}
 #emailandhp_chk input { margin-bottom: 10px;}

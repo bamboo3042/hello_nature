@@ -85,7 +85,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 
 /* contents_box6 */
 .contents_box6 div { box-sizing: border-box;}
-.contents_box6 { width: 780px; height: 90px; border: 1px solid #cccccc; margin: 0 auto; border-radius: 8px; padding: 12px 12px 14px; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 5px; }
+.contents_box6 { width: 780px; height: 90px; border: 1px solid #cccccc; margin: 0 auto; border-radius: 8px; padding: 12px 12px 14px; display: flex; align-items: center; justify-content: start; margin-bottom: 5px; position: relative; }
 .review_contents_box { width: 100%; margin: 0 auto; display: block; align-items: center;}
 .contents_box6_inner { display: flex; align-items: center;}
 .product_info_line { border-right: 1px solid #000; height: 13px; margin: 10px;}
@@ -95,7 +95,7 @@ input { text-rendering: auto; word-spacing: normal; text-transform: none; text-i
 .contents_box6_inner > p, .product_post_lastline p { font-size: 12px; color: #888; font-weight: 400; letter-spacing: -.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 /* ---------------------------------------------------------------- mypage_orderlist1 ~ 4 시작 ----------------------------------------------------------------*/
 /* mypage_orderlist1.html > 1:1문의 버튼 */
-.mantoman_button_box { position: relative; left: 440px; }
+.mantoman_button_box { position: absolute; left: 690px; }
 .mantoman_button { width: 98px; height: 32px; background-color: #ccc; padding: 1px; border: none; border-radius: 10px; color: #fff; display: block; box-sizing: border-box; font-weight: 600; text-align: center; letter-spacing: -.5px; outline: none; cursor: pointer;}
 /* mypage_orderlist2.html >주문취소 버튼 */
 
