@@ -33,6 +33,8 @@
 
         #content {
             padding: 20px;
+            border: 3px solid #5dab99;
+            border-radius: 8px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -198,17 +200,11 @@
             let num = sessionStorage.getItem("num");
 
             for (let i = 0; i < prodIdx.length; i++) {
-                let style = "";
-                if (totalPrice[i] == null || totalPrice[i] == "") { style = "none"; }
-                else { style = "block" }
-
-
-            for (let i = 0; i < prodIdx.length; i++) {
                 let row = $('<div id="order_item_list">').append(
                     '<div id="order_item_list"><div class="item_image"><img src="' + proImg[i] + '" style="width: 60px; height: 60px;"></div>' +
                     '<div class="item_name"><a href="#">' + proName[i] + '</a></div>' +
                     '<div class="item_count_k">' + proEA[i] + '개' + '</div>' +
-                    '<div class="item_price_k"><del style="display:"'+style+'">' + totalPrice[i] + '</del><p>' + realPriceList[i] + '</p></div></div>'
+                    '<div class="item_price_k"><del>' + totalPrice[i] + '</del><p>' + realPriceList[i] + '</p></div></div>'
                 )
                 $("#order_item_box").append(row)
             }
@@ -726,7 +722,6 @@
                 $("#hidden_real_cardNum").val(num)
                 $("#hidden_cardNum").val("**** **** **** " + num4)
                 $("#hidden_bank").val(bank)
-                alert('등록이 완료되었습니다');
                 card_modal_close();
 
             })

@@ -22,15 +22,30 @@
             let now = new Date(Date.now())
             regdate = new Date(regdate);
 
+
             console.log(regdate.toString())
             console.log(now.toString())
 
+            function getFormatDate(regdate){
+                var year = date.getFullYear();              //yyyy
+                var month = (1 + date.getMonth());          //M
+                month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+                var day = date.getDate();                   //d
+                day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+                return  year + '년 ' + month + '월 ' + day + '일';       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+            }
 
-            if(hellopayFlag != null){
-                $("#hellopay_value").val("이용중")
+            var date = new Date(regdate)
+            date = getFormatDate(regdate);
+
+
+           /* if(hellopayFlag != null){
+                $("#hellopay_value").text(regdate)
             }else{
                 $("#hellopay_value").val("미가입")
             }
+*/
+            $("#hellopay_value").text(date)
 
             if(theGreenFlag === "FALSE"){
                 $("#mem_helloPass").val("미가입")
@@ -75,10 +90,10 @@
                 </div>
                 <div class="section_mypage_hellopay">
                     <div class="hellopay">
-                        <a href="/user/mypage_hellopay"><p class="section_name" id="hellopay_val">헬로페이</p></a>
+                        <a href="/user/mypage_hellopay"><p class="section_name" id="hellopay_val">헬로페이 가입</p></a>
                     </div>
-                    <div class="hellopay_button">
-                        <input type="button" name="hellopay" class="section_bar" id="hellopay_value">
+                    <div class="hellopay_total">
+                        <p id="hellopay_value"></p>
                     </div>
                 </div>
                 <div class="section_mypage_hellopass">
