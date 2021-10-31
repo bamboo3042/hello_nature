@@ -43,7 +43,7 @@
                 }else if(state == 4){
                     state = '배송중'
                 }else if(state == 5){
-                    state = '배송완료'
+                    state = '배송완료';
                 }else if(state == 6){
                     state = '취소'
                 }else if(state == 7){
@@ -56,15 +56,32 @@
                     state = '환불'
                 }
 
-                let row = $('<tr>').append(
-                    '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
-                    '<td>'+ name +'</td>' +
-                    '<td>'+ proList +'</td>' +
-                    '<td>'+ price +' 원</td>' +
-                    '<td>'+ regdate +'</td>' +
-                    '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
-                )
-                tb.append(row);
+                // if(state == "배송완료"){
+                //     btn.style.backgroundColor = 'red';
+                // }
+
+
+                if(state == "배송완료") {
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                        '<td>' + name + '</td>' +
+                        '<td>' + proList + '</td>' +
+                        '<td>' + price + ' 원</td>' +
+                        '<td>' + regdate + '</td>' +
+                        '<td class="state"><input type="button" class="detail" value="' + state + '" style="background-color: #266266; color: white;"><input type="hidden" value="' + id + '" ></td></tr>'
+                    )
+                    tb.append(row);
+                }else{
+                    let row = $('<tr>').append(
+                        '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                        '<td>' + name + '</td>' +
+                        '<td>' + proList + '</td>' +
+                        '<td>' + price + ' 원</td>' +
+                        '<td>' + regdate + '</td>' +
+                        '<td class="state"><input type="button" class="detail" value="' + state + '"><input type="hidden" value="' + id + '" ></td></tr>'
+                    )
+                    tb.append(row);
+                }
             }
             $('.thead').after(tb);
 
@@ -138,15 +155,27 @@
                                 state = '환불'
                             }
 
-                            let row = $('<tr>').append(
-                                '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
-                                '<td>' + name + '</td>' +
-                                '<td>' + proList + '</td>' +
-                                '<td>' + price + ' 원</td>' +
-                                '<td>'+ regdate +'</td>' +
-                                '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
-                            )
-                            tb.append(row);
+                            if(state == "배송완료") {
+                                let row = $('<tr>').append(
+                                    '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                                    '<td>' + name + '</td>' +
+                                    '<td>' + proList + '</td>' +
+                                    '<td>' + price + ' 원</td>' +
+                                    '<td>' + regdate + '</td>' +
+                                    '<td class="state"><input type="button" class="detail" value="' + state + '" style="background-color: #266266; color: white;"><input type="hidden" value="' + id + '" ></td></tr>'
+                                )
+                                tb.append(row);
+                            }else{
+                                let row = $('<tr>').append(
+                                    '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                                    '<td>' + name + '</td>' +
+                                    '<td>' + proList + '</td>' +
+                                    '<td>' + price + ' 원</td>' +
+                                    '<td>' + regdate + '</td>' +
+                                    '<td class="state"><input type="button" class="detail" value="' + state + '"><input type="hidden" value="' + id + '" ></td></tr>'
+                                )
+                                tb.append(row);
+                            }
                         }
                         $('.thead').after(tb);
                     })
@@ -271,16 +300,27 @@
                         state = '환불'
                     }
 
-
-                    let row = $('<tr>').append(
-                        '<td><input type="checkbox" id="OL_check_'+ k +'" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_'+ k +'"></td>' +
-                        '<td>'+ name +'</td>' +
-                        '<td>'+ proList +'</td>' +
-                        '<td>'+ price +' 원</td>' +
-                        '<td>'+ regdate +'</td>' +
-                        '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="'+ id +'" ></td></tr>'
-                    )
-                    tb.append(row);
+                    if(state == "배송완료") {
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                            '<td>' + name + '</td>' +
+                            '<td>' + proList + '</td>' +
+                            '<td>' + price + ' 원</td>' +
+                            '<td>' + regdate + '</td>' +
+                            '<td class="state"><input type="button" class="detail" value="' + state + '" style="background-color: #266266; color: white;"><input type="hidden" value="' + id + '" ></td></tr>'
+                        )
+                        tb.append(row);
+                    }else{
+                        let row = $('<tr>').append(
+                            '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                            '<td>' + name + '</td>' +
+                            '<td>' + proList + '</td>' +
+                            '<td>' + price + ' 원</td>' +
+                            '<td>' + regdate + '</td>' +
+                            '<td class="state"><input type="button" class="detail" value="' + state + '"><input type="hidden" value="' + id + '" ></td></tr>'
+                        )
+                        tb.append(row);
+                    }
                 }
                 $('.thead').after(tb);
 
@@ -351,15 +391,27 @@
                                 state = '환불'
                             }
 
-                            let row = $('<tr>').append(
-                                '<td><input type="checkbox"  id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="'+id+'"><label for="OL_check_' + k + '"></td>' +
-                                '<td>' + name + '</td>' +
-                                '<td>' + proList + '</td>' +
-                                '<td>' + price + ' 원</td>' +
-                                '<td>' + regdate + '</td>' +
-                                '<td class="state"><input type="button" class="detail" value=' + state + '><input type="hidden" value="' + id + '" ></td></tr>'
-                            )
-                            tb.append(row);
+                            if(state == "배송완료") {
+                                let row = $('<tr>').append(
+                                    '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                                    '<td>' + name + '</td>' +
+                                    '<td>' + proList + '</td>' +
+                                    '<td>' + price + ' 원</td>' +
+                                    '<td>' + regdate + '</td>' +
+                                    '<td class="state"><input type="button" class="detail" value="' + state + '" style="background-color: #266266; color: white;"><input type="hidden" value="' + id + '" ></td></tr>'
+                                )
+                                tb.append(row);
+                            }else{
+                                let row = $('<tr>').append(
+                                    '<td><input type="checkbox" id="OL_check_' + k + '" name="order" onclick="OL_checkSelectAll()" value="' + id + '"><label for="OL_check_' + k + '"></td>' +
+                                    '<td>' + name + '</td>' +
+                                    '<td>' + proList + '</td>' +
+                                    '<td>' + price + ' 원</td>' +
+                                    '<td>' + regdate + '</td>' +
+                                    '<td class="state"><input type="button" class="detail" value="' + state + '"><input type="hidden" value="' + id + '" ></td></tr>'
+                                )
+                                tb.append(row);
+                            }
                         }
                         $('.thead').after(tb);
                     })

@@ -29,27 +29,27 @@
                 let state = response.data.data[i].state;
                 let price = response.data.data[i].price;
 
-                if(state == 1) {
-                    state = '입금완료'
-                }else if(state == 2){
-                    state = '상품준비중'
-                }else if(state == 3){
-                    state = '배송준비중'
-                }else if(state == 4){
-                    state = '배송중'
-                }else if(state == 5){
-                    state = '배송완료'
-                }else if(state == 6){
-                    state = '취소'
-                }else if(state == 7){
-                    state = '반품요청'
-                }else if(state == 8){
-                    state = '반품완료'
-                }else if(state == 9){
-                    state = '환불요청'
-                }else if(state == 0){
-                    state = '환불완료'
-                }
+                // if(state == 1) {
+                //     state = '입금완료'
+                // }else if(state == 2){
+                //     state = '상품준비중'
+                // }else if(state == 3){
+                //     state = '배송준비중'
+                // }else if(state == 4){
+                //     state = '배송중'
+                // }else if(state == 5){
+                //     state = '배송완료'
+                // }else if(state == 6){
+                //     state = '취소'
+                // }else if(state == 7){
+                //     state = '반품요청'
+                // }else if(state == 8){
+                //     state = '반품완료'
+                // }else if(state == 9){
+                //     state = '환불요청'
+                // }else if(state == 0){
+                //     state = '환불완료'
+                // }
 
                 console.log(price)
                 console.log(name)
@@ -61,8 +61,9 @@
                 $('#regdate').text(regdate);
                 $('#proList').text(proName)
                 $('#proIdx').text(proIdx);
-                $('#state').text(state);
+                // $('#state').text(state);
                 $('#price').text(price + '원');
+                $('input:checkbox[name="order_state"][value="' + state + '"]').prop("checked", true);
             }
         }).catch(function(err){
             console.log(err)
@@ -152,10 +153,10 @@
                     <th>주문날짜</th>
                     <td id="regdate"></td>
                 </tr>
-                <tr>
-                    <th>주문상태</th>
-                    <td id="state"></td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>주문상태</th>-->
+<!--                    <td id="state"></td>-->
+<!--                </tr>-->
             </table>
             <!--table 끝-->
         </form>
@@ -166,7 +167,7 @@
                 <tr>
                     <th>주문 상태</th>
                     <td>
-                        <span><input type="checkbox" name="order_state" value="1" id="OL_check_1" checked><label for="OL_check_1">입금완료</label></span>
+                        <span><input type="checkbox" name="order_state" value="1" id="OL_check_1"><label for="OL_check_1">입금완료</label></span>
                         <span><input type="checkbox" name="order_state" value="2"  id="OL_check_2"><label for="OL_check_2">상품준비중</label></span>
                         <span><input type="checkbox" name="order_state" value="3"  id="OL_check_3"><label for="OL_check_3">배송준비중</label></span>
                         <span><input type="checkbox" name="order_state" value="4"  id="OL_check_4"><label for="OL_check_4">배송중</label></span>
@@ -187,7 +188,7 @@
             <!--table 끝-->
             <!--QL_c1_btnBox 시작-->
             <div id="QL_c1_btnBox" class="bottom_btn">
-                <input type="button" name="submit" value="수정" onclick="sendit()">
+                <input type="button" name="submit" value="상태 변경하기" onclick="sendit()">
             </div>
             <!--QL_c1_btnBox 끝-->
         </form>
