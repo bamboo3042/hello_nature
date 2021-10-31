@@ -95,7 +95,6 @@
             console.log(prodlist)
             console.log(ingreList)
 
-            alert("소민이바보")
             let data = {
                 type: $('#MC_type_hidden').val(),
                 title: $('#title').val(),
@@ -124,7 +123,7 @@
                 alert("매거진 등록에 성공했습니다")
                 $.ajax({
                     type: "GET",
-                    url: "admin/Admin_MagazineCreate.html",
+                    url: "admin/Admin_MagazineList.html",
                     datatype: "html/text",
                     success: function (result) {
                         $("#content").html(result).trigger("create");

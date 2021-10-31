@@ -35,7 +35,7 @@
                     alert("faq가 등록되었습니다")
                     $.ajax({
                         type:"GET",
-                        url : "/admin/FAQ/",
+                        url : "/admin/FAQ",
                         datatype : "html/text",
                         success: function(result){
                             $("#content").html(result).trigger("create");

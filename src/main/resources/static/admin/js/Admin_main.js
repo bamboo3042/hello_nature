@@ -89,7 +89,7 @@ window.onload = function () {
                     fill: true,
                     fillColor: '#04363a',
                     borderDashOffset: 1.0,
-                    data: ["11", "22", "33"],
+                    data: [$("#label_1").text(), $("#label_2").text(), $("#label_3").text()],
                     backgroundColor: gradient2,
                     borderColor: [
                         '#e9fae9',
@@ -342,7 +342,7 @@ window.onload = function () {
                                 fill: true,
                                 fillColor: '#04363a',
                                 borderDashOffset: 1.0,
-                                data: [$("#label_6").text(), $("#label_7").text(), $("#label_8").text()],
+                                data: [$("#label_6").text(), $("#label_7").text()],
                                 backgroundColor: gradient2,
                                 borderColor: [
                                     '#e9fae9',
@@ -426,7 +426,7 @@ window.onload = function () {
                                     fill: true,
                                     fillColor: '#04363a',
                                     borderDashOffset: 1.0,
-                                    data: [$("#label_9").text()],
+                                    data: [$("#label_8").text()],
                                     backgroundColor: gradient2,
                                     borderColor: [
                                         '#e9fae9',
