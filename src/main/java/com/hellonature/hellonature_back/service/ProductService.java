@@ -185,6 +185,7 @@ public class ProductService{
                 .location(product.getLocation())
                 .dateBuilt(product.getDateBuilt())
                 .dateValid(product.getDateValid())
+                .regdate(product.getRegdate())
                 .build();
     }
 

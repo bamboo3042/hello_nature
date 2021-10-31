@@ -90,6 +90,7 @@
                 let des = response.data.data[i].des;
                 let regdate = response.data.data[i].regdate;
                 let state = response.data.data[i].state;
+                regdate = regdate.toString().substring(0,10);
                 let k = parseInt(i) + 8;
                 if(state == 0){
                     state = '판매대기'
@@ -136,6 +137,7 @@
                         let name = response.data.data[i].name;
                         let des = response.data.data[i].des;
                         let regdate = response.data.data[i].regdate;
+                        regdate = regdate.toString().substring(0,10);
                         let state = response.data.data[i].state;
                         let k = parseInt(i) + 8;
                         if (state == 0) {
@@ -195,6 +197,7 @@
                 let name = response.data.data[i].name;
                 let des = response.data.data[i].des;
                 let regdate = response.data.data[i].regdate;
+                regdate = regdate.toString().substring(0,10);
                 let state = response.data.data[i].state;
                 let k = parseInt(i) + 8;
                 if (state == 0) {
@@ -256,6 +259,7 @@
                         let name = response.data.data[i].name;
                         let des = response.data.data[i].des;
                         let regdate = response.data.data[i].regdate;
+                        regdate = regdate.toString().substring(0,10);
                         let state = response.data.data[i].state;
                         let k = parseInt(i) + 8;
                         if (state == 0) {
