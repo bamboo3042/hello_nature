@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/inner.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/mypage.css/common2.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/user/css/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
         #mypage-box { overflow: hidden; height: 100%; overflow-y: auto;}
         .container { min-width: 1050px; margin: 0 auto; height: 100%;}
@@ -26,12 +27,6 @@
                         <h1>로그인</h1>
                         <!-- 로그인선택 -->
                         <div class="member_choice">
-<!--                            <div class="member_line mem_login member_line_checked">-->
-<!--                                <span id="member_click">회원</span>-->
-<!--                            </div>-->
-<!--                            <div class="member_line nomem_login">-->
-<!--                                <span id="notmember_click">비회원</span>-->
-<!--                            </div>-->
                         </div>
                     </div>
                     <!-- 로그인 폼 작성 -->
@@ -39,17 +34,19 @@
                         <!-- 회원 로그인 폼 -->
                         <div class="member_form">
                             <div id="login_cont_area">
+                                <input type="hidden" id="error" th:value="${session['errorMessage']}">
                                 <!------------------------------------------------------------------------------------>
                                 <form th:action="@{/user/mypage_userLogin}" method="POST" class="loginForm">
-                                    <input type="text" class="login_email_check" name="userid" placeholder="이메일을 입력해주세요">
+                                    <input type="text" class="login_email_check" name="userid" placeholder="이메일을 입력해주세요" th:value="${session['userid']}">
                                     <input type="password" class="login_password_check" name="userpw" placeholder="비밀번호를 입력해주세요">
+                                    <p id="login_message" th:text="${session['errorMessage']}" style="color: red; margin-bottom: 10px;"></p>
                                     <div id=login_option_line>
                                         <div id="login_opt_chk_box">
                                             <input type="checkbox" class="login_option_check" id="save_email"><label for="save_email">이메일 저장</label>
                                             <input type="checkbox" class="login_option_check" id="auto_login" name="remember-me"><label for="auto_login">자동 로그인</label>
                                         </div>
                                         <div id="login_search">
-                                            <a href="/user/mypage_findEmail">이메일</a>
+                                            <a href="/user/mypage_findEmail" th>이메일</a>
                                             <span class="bar"></span>
                                             <a href="/user/mypage_findPassword">비밀번호 찾기</a>
                                         </div>
