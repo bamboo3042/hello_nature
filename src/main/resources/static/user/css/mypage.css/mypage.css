@@ -812,7 +812,7 @@ mantoman_button:hover{ background-color: #11b082;}
 #mg_period > input[type="date"] { border: 1px solid #ddd; padding: 5px 10px; color: #666; cursor: pointer; }
 #mg_period > input[type="button"] { margin-left: 10px; padding: 5px 10px; border: 1px solid #ddd; color: #333; background: #ddd; cursor: pointer; }
 .review_contents_box { padding-top: 20px; }
-.shipping_txt { width: 160px; padding: 0 0 0 20px; }
+/*.shipping_txt { width: 160px; padding: 0 0 0 20px; }*/
 .shipping_box1_line2 { width: 420px; }
 .hellopass_link_payment { font-size: 13px; }
 .mantoman_q > p:last-child { padding-top: 5px; }
