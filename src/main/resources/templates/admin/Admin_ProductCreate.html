@@ -99,7 +99,7 @@
             alert("상품이 등록되었습니다");
             $.ajax({
                 type:"GET",
-                url : "/admin/productlist/",
+                url : "/admin/productlist",
                 datatype : "html/text",
                 success: function(result){
                     $("#content").html(result).trigger("create");
