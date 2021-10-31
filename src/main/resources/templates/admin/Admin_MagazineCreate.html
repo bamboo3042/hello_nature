@@ -87,8 +87,6 @@
             })
         }
 
-
-
         function sendit() {
             prodlist = prodlist.join("-");
             ingreList = ingreList.join("-");
@@ -123,7 +121,7 @@
                 alert("매거진 등록에 성공했습니다")
                 $.ajax({
                     type: "GET",
-                    url: "admin/Admin_MagazineList.html",
+                    url: "/admin/MagazineList",
                     datatype: "html/text",
                     success: function (result) {
                         $("#content").html(result).trigger("create");
