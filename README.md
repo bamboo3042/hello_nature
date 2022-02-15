@@ -44,17 +44,16 @@
 `database`
 	<img src="https://img.shields.io/badge/Oracle-F80000.svg?style=for-the-badge&logo=Oracle&logoColor=white"/>
 
-
-  ## 프로젝트 데이터 관계도
+## 프로젝트 데이터 관계도
   
 사진
   
-  ## 프로젝트 담당 및 역할
+## 프로젝트 담당 및 역할
   
 `frontend` 마이페이지, 어드민 사이트 제작 및 유저 사이트 총괄
 `backend` 파일업로드, ck에디터업로드, 레시피 CRUD API, 핸드폰인증, 이메일인증, sprig securiry를 활용한 로그인 구현
     
-  ## 프로젝트 구현기능
+## 프로젝트 구현기능
   
 `ADMIN`
 * 전체 상품 관리
@@ -133,7 +132,7 @@
     * 이메일 찾기
     * 비밀번호 찾기
              
-  ## 프로젝트 진행상세
+## 프로젝트 진행상세
   
 * 스토리보드 제작
     * (사진)
