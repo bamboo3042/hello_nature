@@ -1,4 +1,4 @@
-# 🍀 Hello Nature 🍀
+# Hello Nature
   
 ## 프로젝트 개요
   * 온라인 푸드테크 기업 헬로네이처의 웹사이트 제작
