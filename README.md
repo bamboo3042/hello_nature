@@ -50,8 +50,7 @@
   
 ## 프로젝트 담당 및 역할
   
-`frontend` 마이페이지, 어드민 사이트 제작 및 유저 사이트 총괄
-`backend` 파일업로드, ck에디터업로드, 레시피 CRUD API, 핸드폰인증, 이메일인증, sprig securiry를 활용한 로그인 구현
+`frontend` 마이페이지, 어드민 사이트 제작 및 유저 사이트 총괄   `backend` 파일업로드, ck에디터업로드, 레시피 CRUD API, 핸드폰인증, 이메일인증, sprig securiry를 활용한 로그인 구현
     
 ## 프로젝트 구현기능
   
