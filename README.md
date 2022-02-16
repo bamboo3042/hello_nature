@@ -194,7 +194,7 @@
 
 
 #### 발표 <br/>
-![PPT](https://user-images.githubusercontent.com/86812058/154224663-fb447cab-1ab3-4cd3-b2dd-e393491c882f.gif)
+![PPT](https://user-images.githubusercontent.com/86812058/154224663-fb447cab-1ab3-4cd3-b2dd-e393491c882f.gif width=720px)
 
 ## 프로젝트 시연영상
 
