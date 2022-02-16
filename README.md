@@ -195,11 +195,11 @@
 
 #### 발표 <br/>
 * 결과물을 토대로 오프라인 발표를 진행<br/><br/>	
-<img src = https://user-images.githubusercontent.com/86812058/154227687-7d096157-1c6a-413f-a44d-60c17f291123.gif width="1920" height="520">
+<img src = https://user-images.githubusercontent.com/86812058/154227687-7d096157-1c6a-413f-a44d-60c17f291123.gif width="1920" height="720">
 
 ## 프로젝트 시연영상
 
-시연연상
+####상품 
 ![admin-story-board-main-Chrome-2022-02-16-18-06-35](https://user-images.githubusercontent.com/86812172/154232337-9c749be0-0994-459d-8502-d15622db2f23.gif)
 
 ## 프로젝트를 마치며...
