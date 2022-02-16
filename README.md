@@ -155,6 +155,7 @@
         ![api문서2](https://user-images.githubusercontent.com/86812058/154220258-8af8e5dc-4304-43f5-bbd8-8eeb061adaa4.png)
 
 * 디자인 및 퍼블리싱 <br/>
+ 	* 스토리 보드에서 제작된 디자인을 토대로 퍼블리싱 진행 <br/> 
         ![uIux](https://user-images.githubusercontent.com/86812058/154220245-e83de3a4-4cd6-4f0d-b90e-177034bfc718.png)
     
 * 더미데이터를 활용한 프론트 서버 및 백엔드 서버 구현 <br/>
