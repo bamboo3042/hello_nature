@@ -159,10 +159,10 @@
         ![uIux](https://user-images.githubusercontent.com/86812058/154220245-e83de3a4-4cd6-4f0d-b90e-177034bfc718.png)
     
 * 더미데이터를 활용한 프론트 서버 및 백엔드 서버 구현 <br/>
-        * 깃을 활용한 협업	
-        ![git](https://user-images.githubusercontent.com/86812058/154220254-49844a6c-0f7d-4f90-8eaa-d874fd934b7b.png)   
-        * 포스트맨을 활용한 API 요청과 응답 확인    
-        ![postman](https://user-images.githubusercontent.com/86812058/154220266-128c2948-e908-40d9-9474-8ffaa462de8b.png)
+	* 깃을 활용한 협업	
+	![git](https://user-images.githubusercontent.com/86812058/154220254-49844a6c-0f7d-4f90-8eaa-d874fd934b7b.png)   
+	* 포스트맨을 활용한 API 요청과 응답 확인    
+	![postman](https://user-images.githubusercontent.com/86812058/154220266-128c2948-e908-40d9-9474-8ffaa462de8b.png)
 
 	
     * 구현 중 문제점
