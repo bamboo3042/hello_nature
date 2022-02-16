@@ -195,7 +195,7 @@
 
 #### 발표 <br/>
 * 결과물을 토대로 오프라인 발표를 진행<br/><br/>	
-<img src = https://user-images.githubusercontent.com/86812058/154224663-fb447cab-1ab3-4cd3-b2dd-e393491c882f.gif width="720" height="370">
+![발표333](https://user-images.githubusercontent.com/86812058/154227687-7d096157-1c6a-413f-a44d-60c17f291123.gif)
 
 ## 프로젝트 시연영상
 
