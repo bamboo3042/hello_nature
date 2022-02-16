@@ -59,7 +59,7 @@
 `frontend` 
 	마이페이지, 어드민 사이트 제작 및 유저 사이트 총괄   
 `backend` 
-	파일업로드, ck에디터업로드, 레시피 CRUD, SMS/E-mail 인증, sprig securiry
+	파일업로드, ck에디터업로드, 레시피 CRUD, SMS/E-mail 인증, sprig security
     
 ## 프로젝트 구현기능
   
