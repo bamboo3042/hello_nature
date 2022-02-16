@@ -155,7 +155,7 @@
 <br/><br/>
 
 #### API문서
-* 필요한 API 정리 및 요청 URL 및 응답 예상 메시지 <br/> <br/>
+* 필요한 API 정리 및 요청 URL 및 응답 예상 메시지 <br/><br/>
 ![api문서](https://user-images.githubusercontent.com/86812058/154220253-036bcc76-0adf-42a6-a613-016c55697984.png)
 ![api문서2](https://user-images.githubusercontent.com/86812058/154220258-8af8e5dc-4304-43f5-bbd8-8eeb061adaa4.png)
 
