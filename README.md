@@ -142,23 +142,24 @@
              
 ## 프로젝트 진행상세
   
-* 스토리보드 제작 <br/>
+#### 스토리보드 제작 <br/><br/>
 	* UI/UX 디자인부터 시작하여 요구사항에 맞는 스토리보드 제작 <br/><br/>
         ![stroyboard](https://user-images.githubusercontent.com/86812058/154220261-05cecfdc-c068-44d7-89f2-116347111f15.png)
-* 테이블정의서
+	
+#### 테이블정의서 <br/><br/>
  	* 짜여진 스토리 보드를 토대로 데이터베이스에 필요한 테이블과 컬럼을 정의 <br/><br/>
         ![테이블정의서](https://user-images.githubusercontent.com/86812058/154220264-c14b2535-413b-4ac9-beaa-197523f046f8.png)
 
-* API문서 <br/>
+#### API문서 <br/><br/>
  	* 필요한 API 정리 및 요청 URL 및 응답 예상 메시지 <br/> <br/>
         ![api문서](https://user-images.githubusercontent.com/86812058/154220253-036bcc76-0adf-42a6-a613-016c55697984.png)
         ![api문서2](https://user-images.githubusercontent.com/86812058/154220258-8af8e5dc-4304-43f5-bbd8-8eeb061adaa4.png)
 
-* 디자인 및 퍼블리싱 <br/>
+#### 디자인 및 퍼블리싱 <br/><br/>
  	* 스토리 보드에서 제작된 디자인을 토대로 퍼블리싱 진행 <br/><br/>
         ![uIux](https://user-images.githubusercontent.com/86812058/154220245-e83de3a4-4cd6-4f0d-b90e-177034bfc718.png)
     
-* 더미데이터를 활용한 프론트 서버 및 백엔드 서버 구현 <br/><br/>
+#### 더미데이터를 활용한 프론트 서버 및 백엔드 서버 구현 <br/><br/>
 	* 깃을 활용한 협업	
 	![git](https://user-images.githubusercontent.com/86812058/154220254-49844a6c-0f7d-4f90-8eaa-d874fd934b7b.png)   
 	* 포스트맨을 활용한 API 요청과 응답 확인    
