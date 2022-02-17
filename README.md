@@ -199,11 +199,22 @@
 
 ## 프로젝트 시연영상
 
+#### 회원가입/ 로그인
+![회원가입-Chrome-2022-02-17-14-15-09](https://user-images.githubusercontent.com/86812172/154411918-db3136ce-6e7b-4b3e-9ed6-4801e7e07e1b.gif)
+
+#### 휴대폰 인증번호 확인
+![회원가입-Chrome-2022-02-17-14-21-56](https://user-images.githubusercontent.com/86812172/154411981-dbb6ebff-5b50-45ee-b5c4-19fb30e5ed7d.gif)
+![헬로네이처 인증](https://user-images.githubusercontent.com/86812172/154412083-33e1d92b-9f1c-46fd-8d41-f5e1b758e864.jpg)
+
 #### 상품 등록
 ![admin-story-board-main-Chrome-2022-02-16-18-06-35](https://user-images.githubusercontent.com/86812172/154232337-9c749be0-0994-459d-8502-d15622db2f23.gif)
 
 #### 카테고리 등록
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/86812090/154260722-88e17a82-c79f-4d1c-b8a1-a98b4b0e56a8.gif)
+
+#### 마이페이지 - 더그린배송 신청
+![더그린배송-Chrome-2022-02-17-19-08-07](https://user-images.githubusercontent.com/86812172/154454217-c34971ab-08c0-4c9b-af78-27a4762b6f36.gif)
+
 
 ## 프로젝트를 마치며...
 
